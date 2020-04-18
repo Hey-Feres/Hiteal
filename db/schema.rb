@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_18_043652) do
+ActiveRecord::Schema.define(version: 2020_04_18_051616) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -31,6 +31,20 @@ ActiveRecord::Schema.define(version: 2020_04_18_043652) do
     t.string "checksum", null: false
     t.datetime "created_at", null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
+
+  create_table "alunos", force: :cascade do |t|
+    t.integer "gym_id", null: false
+    t.integer "plano_id", null: false
+    t.string "nome"
+    t.string "email"
+    t.string "senha"
+    t.datetime "nascimento"
+    t.string "access_token"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["gym_id"], name: "index_alunos_on_gym_id"
+    t.index ["plano_id"], name: "index_alunos_on_plano_id"
   end
 
   create_table "aulas", force: :cascade do |t|
@@ -98,6 +112,8 @@ ActiveRecord::Schema.define(version: 2020_04_18_043652) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "alunos", "gyms"
+  add_foreign_key "alunos", "planos"
   add_foreign_key "aulas", "gyms"
   add_foreign_key "avisos", "gyms"
   add_foreign_key "planos", "gyms"

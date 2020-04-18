@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  gym: one
+  plano: one
+  nome: MyString
+  email: MyString
+  nascimento: 2020-04-18 02:16:16
+  access_token: MyString
+
+two:
+  gym: two
+  plano: two
+  nome: MyString
+  email: MyString
+  nascimento: 2020-04-18 02:16:16
+  access_token: MyString

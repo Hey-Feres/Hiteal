@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     	resources :aulas, except: [:edit,:new]
     	resources :avisos, except: [:edit,:new]
       resources :planos, except: [:edit,:new]
+      resources :alunos, except: [:edit,:new]
     end
   end
 

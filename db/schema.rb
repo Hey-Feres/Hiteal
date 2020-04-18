@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_15_000538) do
+ActiveRecord::Schema.define(version: 2020_04_18_014054) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -31,6 +31,30 @@ ActiveRecord::Schema.define(version: 2020_04_15_000538) do
     t.string "checksum", null: false
     t.datetime "created_at", null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
+
+  create_table "aulas", force: :cascade do |t|
+    t.integer "gym_id", null: false
+    t.string "nome"
+    t.text "descricao"
+    t.boolean "repete", default: false
+    t.integer "intervalo_repeticao"
+    t.datetime "data_inicio"
+    t.integer "duracao"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["gym_id"], name: "index_aulas_on_gym_id"
+  end
+
+  create_table "avisos", force: :cascade do |t|
+    t.integer "gym_id", null: false
+    t.string "nome"
+    t.text "conteudo"
+    t.boolean "fixado", default: false
+    t.datetime "intervalo_exibicao"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["gym_id"], name: "index_avisos_on_gym_id"
   end
 
   create_table "gyms", force: :cascade do |t|
@@ -64,5 +88,7 @@ ActiveRecord::Schema.define(version: 2020_04_15_000538) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "aulas", "gyms"
+  add_foreign_key "avisos", "gyms"
   add_foreign_key "users", "gyms"
 end

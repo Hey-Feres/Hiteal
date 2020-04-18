@@ -2,6 +2,7 @@ class Gym < ApplicationRecord
 	has_many :users, dependent: :destroy
 	has_many :aulas, dependent: :destroy
 	has_many :avisos, dependent: :destroy
+	has_many :planos, dependent: :destroy
 
 	validates_presence_of :nome
 	validates_presence_of :razao_social

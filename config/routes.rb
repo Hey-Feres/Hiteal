@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     	resources :users, except: [:edit,:new]
     	resources :aulas, except: [:edit,:new]
     	resources :avisos, except: [:edit,:new]
+      resources :planos, except: [:edit,:new]
     end
   end
 

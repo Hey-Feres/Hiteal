@@ -1,0 +1,27 @@
+doctype html
+html
+  head
+    meta content=("text/html; charset=UTF-8") http-equiv="Content-Type" /
+    title Hiteal
+    = csrf_meta_tags
+    = csp_meta_tag
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'https://maps.googleapis.com/maps/api/js?key=AIzaSyCnMq0r2T0vr8RTn8hak_ShGFhEWmgCkIA'
+  body
+    = render 'layouts/header'
+    .main-wrapper
+        = yield
+    p.notice= notice
+    p.alert= alert
+
+css:
+    .main-wrapper{
+        padding-top: 70px; /* 70 px é a altura do header */
+        border: 5px solid #ccc;
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        bottom: 0;
+        left: 0;
+    }

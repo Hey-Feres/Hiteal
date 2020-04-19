@@ -1,0 +1,102 @@
+= render './ui/components/sidebar', dados: @sidebar_items
+
+.content
+	.divider#wrapper-edit-dados
+		.divider-header
+			h3 Editando Dados
+		.divider-content
+			form
+				input type="text" placeholder="Nome da Gym" id="gym-nome"
+				br
+				input type="text" placeholder="Razão Social" id="razao-social"
+				br
+				input type="text" placeholder="CNPJ" id="cnpj"
+				br
+				input.btn-primary type="submit" value="Salvar" id="btn-salvar"
+	br
+	.divider.dados-gym#wrapper-dados
+		.divider-header.d-flex.justify-content-between
+			h3 Dados da Gym
+		.divider-content
+			h5= "Nome: #{@gym.nome}"
+			h5= "Razão Social: #{@gym.razao_social}"
+			h5= "CNPJ: #{@gym.cnpj}"
+			h5= "Cidade: #{@gym.cidade}"
+			h5= "Estado: #{@gym.estado}"
+			h5= "Numero: #{@gym.numero}"
+	
+	.divider#wrapper-endereco
+		.divider-header
+			h3 Endereço
+		.divider-content
+			form
+				input type="text" placeholder="Cidade" id="cidade"
+				br
+				input type="text" placeholder="Estado" id="estado"
+				br
+				input type="text" placeholder="CEP" id="cep"
+				br
+				input type="text" placeholder="Numero" id="numero"
+				br			
+				input type="text" placeholder="Latitude" id="lat"
+				br
+				input type="text" placeholder="Longitude" id="lng"
+
+css:
+	.divider{
+		background: #fff;
+		width: 40%;
+		padding: 1 2%;
+		border-radius: 20px;
+	}
+	.divider-header{
+		padding: 3%;
+	}
+	.divider-content{
+		padding: 0 3%;	
+	}
+	.divider-content h5{
+		margin-bottom: 5%;
+	}
+	.divider input[type="text"]{
+		background: #f2f2f2;
+		padding: 2% 4%;
+		border: none;
+		border-radius: 10px;
+		margin-bottom: 3%;
+		width: 100%;
+	}
+	.divider input[type="submit"]{
+		color: white;
+		padding: 2% 4%;
+		border: none;
+		border-radius: 10px;
+		margin-bottom: 3%;
+		width: 100%;
+	}
+	.content{
+		width: 76%;
+		position: absolute;
+		height: 100%;
+		left: 22%;
+		right: 2%;
+		z-index: 9;
+		/*background: #555;*/
+		margin-top: 10px;
+		padding: 0;
+	}
+	.dados-gym{
+		height: 500px;
+	}
+
+javascript:
+    $(document).ready(function(){
+		$("#wrapper-edit-dados").hide();
+		$("#wrapper-endereco").hide();
+		
+		$("#wrapper-dados").dblclick(function(){
+			$("#wrapper-edit-dados").show(500);
+			$("#wrapper-dados").hide(500);
+		});
+
+    })

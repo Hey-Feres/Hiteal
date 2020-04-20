@@ -1,29 +1,19 @@
 = render './ui/components/sidebar', dados: @sidebar_items
 
 .content
-	.divider#wrapper-edit-dados
-		.divider-header
-			h3 Editando Dados
-		.divider-content
-			form
-				input type="text" placeholder="Nome da Gym" id="gym-nome"
-				br
-				input type="text" placeholder="Razão Social" id="razao-social"
-				br
-				input type="text" placeholder="CNPJ" id="cnpj"
-				br
-				input.btn-primary type="submit" value="Salvar" id="btn-salvar"
-	br
 	.divider.dados-gym#wrapper-dados
 		.divider-header.d-flex.justify-content-between
 			h3 Dados da Gym
 		.divider-content
-			h5= "Nome: #{@gym.nome}"
-			h5= "Razão Social: #{@gym.razao_social}"
-			h5= "CNPJ: #{@gym.cnpj}"
-			h5= "Cidade: #{@gym.cidade}"
-			h5= "Estado: #{@gym.estado}"
-			h5= "Numero: #{@gym.numero}"
+			form
+				input type="text" placeholder="Nome da Gym" id="gym-nome" value="#{@gym.nome}"
+				br
+				/h5= "Nome: #{@gym.nome}"
+				input type="text" placeholder="Razão Social" id="razao-social" value="#{@gym.razao_social}"
+				/h5= "Razão Social: #{@gym.razao_social}"
+				br
+				input type="text" placeholder="CNPJ" id="cnpj" value="#{@gym.cnpj}"
+				/h5= "CNPJ: #{@gym.cnpj}"
 	
 	.divider#wrapper-endereco
 		.divider-header
@@ -41,7 +31,8 @@
 				input type="text" placeholder="Latitude" id="lat"
 				br
 				input type="text" placeholder="Longitude" id="lng"
-
+	.divider#wrapper-imagens
+		H Teste
 css:
 	.divider{
 		background: #fff;
@@ -88,15 +79,56 @@ css:
 	.dados-gym{
 		height: 500px;
 	}
-
+	.dados-gym input{
+		border: none;
+		background: transparent !important;
+	}
+	.dados-gym-input-selected{
+		border-bottom: 1px solid #ccc !important;
+	}
 javascript:
     $(document).ready(function(){
-		$("#wrapper-edit-dados").hide();
 		$("#wrapper-endereco").hide();
+		$("#wrapper-imagens").hide();
 		
-		$("#wrapper-dados").dblclick(function(){
-			$("#wrapper-edit-dados").show(500);
+		$("#dados-toggler").click(function() {
+			$("#wrapper-dados").show(500);
+			$("#wrapper-endereco").hide(500);
+			$("#wrapper-imagens").hide(500);
+		})
+		$("#endereco-toggler").click(function() {
+			$("#wrapper-endereco").show(500);
 			$("#wrapper-dados").hide(500);
-		});
+			$("#wrapper-imagens").hide(500);
+		})
+		$("#imagens-toggler").click(function() {
+			$("#wrapper-imagens").show(500);
+			$("#wrapper-endereco").hide(500);
+			$("#wrapper-dados").hide(500);
+		})
+		$(".dados-gym input").click(function(){
+			$(".dados-gym input").addClass("dados-gym-input-selected")
+		})
 
+		$("#gym-nome").change(function() {
+			data = { gym: {"nome": $("#gym-nome").val()} }
+			url = "http://localhost:3000/api/v1/gyms/#{current_user.gym.id}"
+			successCallback = function(data){ alert(data) }
+			errorCallback = function(jqXHR, textStatus, msg){alert(msg)}
+			putRequest(data, url, successCallback , errorCallback)
+		})
+		$("#razao-social").change(function() {
+			data = { gym: {"razao-social": $("#razao-social").val()} }
+			url = "http://localhost:3000/api/v1/gyms/#{current_user.gym.id}"
+			successCallback = function(data){ alert(data) }
+			errorCallback = function(jqXHR, textStatus, msg){alert(msg)}
+			putRequest(data, url, successCallback , errorCallback)
+		})
+		$("#cnpj").change(function() {
+			data = { gym: {"razao-social": $("#cnpj").val()} }
+			url = "http://localhost:3000/api/v1/gyms/#{current_user.gym.id}"
+			successCallback = function(data){ alert(data) }
+			errorCallback = function(jqXHR, textStatus, msg){alert(msg)}
+			putRequest(data, url, successCallback , errorCallback)
+		})
     })

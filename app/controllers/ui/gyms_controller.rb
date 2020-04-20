@@ -5,9 +5,9 @@ class Ui::GymsController < ApplicationController
 			img:"http://t0.gstatic.com/images?q=tbn:ANd9GcTVtaf929Lh1GpXfg_j11fhYkgNezEpzCou_EQsxMn4vYboHCtNQuTAWO2-A7oi_RlB7P4qVZvZn77mJFGePD4",
 			title: "Gym",
 			list_items: [
-				{ title: "Dados da Gym", url: "#", first_item: true, last_item: false },
-				{ title: "Endereço", url: "#", first_item: false, last_item: false },
-				{ title: "Imagens", url: "#", first_item: false, last_item: true }
+				{ title: "Dados da Gym", id: "dados-toggler", url: "#", first_item: true, last_item: false },
+				{ title: "Endereço", id: "endereco-toggler", url: "#", first_item: false, last_item: false },
+				{ title: "Imagens", id: "imagens-toggler", url: "#", first_item: false, last_item: true }
 			]
 		}
 	end

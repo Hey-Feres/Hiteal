@@ -7,13 +7,13 @@
 		.sidebar-list-wrapper
 			- dados[:list_items].each do |item|
 				- if item[:first_item]
-					.sidebar-item.first-item
+					.sidebar-item.first-item id="#{item[:id]}"
 						h5= link_to item[:title], item[:url]
 				- elsif item[:last_item]
-					.sidebar-item.last-item
+					.sidebar-item.last-item id="#{item[:id]}"
 						h5= link_to item[:title], item[:url]
 				- else
-					.sidebar-item
+					.sidebar-item id="#{item[:id]}"
 						h5= link_to item[:title], item[:url]
 
 css:

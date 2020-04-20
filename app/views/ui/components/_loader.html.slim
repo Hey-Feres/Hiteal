@@ -1,0 +1,145 @@
+/.loading
+.loader
+  - if size == 'large'
+    .bar.bar1
+    .bar.bar2
+    .bar.bar3
+    .bar.bar4
+    .bar.bar5
+    .bar.bar6
+    .bar.bar7
+    .bar.bar8
+    .bar.bar9
+    .bar.bar10
+    .bar.bar11
+    .bar.bar12
+  - elsif size == 'medium'
+    .bar-medium.bar1
+    .bar-medium.bar2
+    .bar-medium.bar3
+    .bar-medium.bar4
+    .bar-medium.bar5
+    .bar-medium.bar6
+    .bar-medium.bar7
+    .bar-medium.bar8
+    .bar-medium.bar9
+    .bar-medium.bar10
+    .bar-medium.bar11
+    .bar-medium.bar12    
+  - else size == 'small'
+    .bar-small.bar1
+    .bar-small.bar2
+    .bar-small.bar3
+    .bar-small.bar4
+    .bar-small.bar5
+    .bar-small.bar6
+    .bar-small.bar7
+    .bar-small.bar8
+    .bar-small.bar9
+    .bar-small.bar10
+    .bar-small.bar11
+    .bar-small.bar12
+css:
+  .loading{
+    position: fixed;
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    width: 100%;
+    height: 100%;
+    z-index: 9999999;
+    top: 0;
+    left: 0;
+  }
+  .loader {
+      position: relative;
+      width: 54px;
+      height: 54px;
+      /*top: 45%;
+      left: 50%;
+      margin-left: -25px;*/
+  }
+  .loader .bar {
+      width: 3px;
+      height: 10px;
+      background: #fff;
+      position: absolute;
+      left: 44.5%;
+      top: 37%;
+      border-radius: 12px;
+      background-color: #fff;
+      animation: fade 1s linear infinite;
+  }
+  .loader .bar-medium {
+      width: 2px;
+      height: 8px;
+      background: #fff;
+      position: absolute;
+      left: 44.5%;
+      top: 37%;
+      border-radius: 12px;
+      background-color: #fff;
+      animation: fade 1s linear infinite;
+  }
+  .loader .bar-small {
+      width: 1.5px;
+      height: 5px;
+      background: #fff;
+      position: absolute;
+      left: 44.5%;
+      top: 37%;
+      border-radius: 12px;
+      background-color: #fff;
+      animation: fade 1s linear infinite;
+  }  
+
+  @-webkit-keyframes fade { from {background: #000} to {background: #fff;} }
+  @keyframes         fade { from {background: #000} to {background: #fff;} }
+
+  .loader .bar1 {
+      transform: rotate(-330deg) translate(0px, -142%);
+      animation-delay: -0.916s;
+  }
+  .loader .bar2 {
+      transform: rotate(-300deg) translate(0px, -142%);
+      animation-delay: -0.833s;
+  }
+  .loader .bar3 {
+      transform: rotate(-270deg) translate(0px, -142%);
+      animation-delay: -0.75s;
+  }
+  .loader .bar4 {
+      transform: rotate(-240deg) translate(0px, -142%);
+      animation-delay: -0.666s;
+  }
+  .loader .bar5 {
+      transform: rotate(-210deg) translate(0px, -142%);
+      animation-delay: -0.583s;
+  }
+  .loader .bar6 {
+      transform: rotate(-180deg) translate(0px, -142%);
+      animation-delay: -0.5s;
+  }
+  .loader .bar7 {
+      transform: rotate(-150deg) translate(0px, -142%);
+      animation-delay: -0.416s;
+  }
+  .loader .bar8 {
+      transform: rotate(-120deg) translate(0px, -142%);
+      animation-delay: -0.333s;
+  }
+  .loader .bar9 {
+      transform: rotate(-90deg) translate(0px, -142%);
+      animation-delay: -0.25s;
+  }
+  .loader .bar10 {
+      transform: rotate(-60deg) translate(0px, -142%);
+      animation-delay: -0.166s;
+  }
+  .loader .bar11 {
+      transform: rotate(-30deg) translate(0px, -142%);
+      animation-delay: -0.083s;
+  }
+  .loader .bar12 {
+      transform: rotate(-0deg) translate(0px, -142%);
+      animation-delay: 0s;
+  }

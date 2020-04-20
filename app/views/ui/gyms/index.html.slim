@@ -1,21 +1,24 @@
 = render './ui/components/sidebar', dados: @sidebar_items
 
 .content
-	.divider.dados-gym#wrapper-dados
+	.divider.dados-gym#wrapperDados
 		.divider-header.d-flex.justify-content-between
 			h3 Dados da Gym
 		.divider-content
 			form
-				input type="text" placeholder="Nome da Gym" id="gym-nome" value="#{@gym.nome}"
+				.d-flex.justify-content-between
+					input type="text" placeholder="Nome da Gym" id="gym-nome" value="#{@gym.nome}"
+					/= render './ui/components/loader', size: 'small'
 				br
-				/h5= "Nome: #{@gym.nome}"
-				input type="text" placeholder="Razão Social" id="razao-social" value="#{@gym.razao_social}"
-				/h5= "Razão Social: #{@gym.razao_social}"
+				.d-flex.justify-content-between
+					input type="text" placeholder="Razão Social" id="razao-social" value="#{@gym.razao_social}"
+					/= render './ui/components/loader', size: 'small'
 				br
-				input type="text" placeholder="CNPJ" id="cnpj" value="#{@gym.cnpj}"
-				/h5= "CNPJ: #{@gym.cnpj}"
+				.d-flex.justify-content-between
+					input type="text" placeholder="CNPJ" id="cnpj" value="#{@gym.cnpj}"
+					/= render './ui/components/loader', size: 'small'
 	
-	.divider#wrapper-endereco
+	.divider#wrapperEndereco
 		.divider-header
 			h3 Endereço
 		.divider-content
@@ -31,7 +34,7 @@
 				input type="text" placeholder="Latitude" id="lat"
 				br
 				input type="text" placeholder="Longitude" id="lng"
-	.divider#wrapper-imagens
+	.divider#wrapperImagens
 		H Teste
 css:
 	.divider{
@@ -86,49 +89,40 @@ css:
 	.dados-gym-input-selected{
 		border-bottom: 1px solid #ccc !important;
 	}
+
 javascript:
     $(document).ready(function(){
-		$("#wrapper-endereco").hide();
-		$("#wrapper-imagens").hide();
-		
-		$("#dados-toggler").click(function() {
-			$("#wrapper-dados").show(500);
-			$("#wrapper-endereco").hide(500);
-			$("#wrapper-imagens").hide(500);
+		// Inicializa a classe gym
+		let gym = new Gym("#{@gym.nome}", "#{@gym.cnpj}", "#{@gym.razao_social}", "#{@gym.id}");
+		console.log(gym)
+		// Inicializa os estados das divs
+		gym.componentLoaded()
+		// Swicth dos estados das divs
+		$("#dados-toggler").click(function(event) {
+			event.preventDefault();
+			gym.exibirWrapperDados();
 		})
-		$("#endereco-toggler").click(function() {
-			$("#wrapper-endereco").show(500);
-			$("#wrapper-dados").hide(500);
-			$("#wrapper-imagens").hide(500);
+		$("#endereco-toggler").click(function(event) {
+			event.preventDefault();
+			gym.exibirWrapperEndereco();
 		})
-		$("#imagens-toggler").click(function() {
-			$("#wrapper-imagens").show(500);
-			$("#wrapper-endereco").hide(500);
-			$("#wrapper-dados").hide(500);
-		})
-		$(".dados-gym input").click(function(){
-			$(".dados-gym input").addClass("dados-gym-input-selected")
-		})
-
+		$("#imagens-toggler").click(function(event) {
+			event.preventDefault();
+			gym.exibirWrapperImagens();
+		})		
+		// Input com nome
 		$("#gym-nome").change(function() {
-			data = { gym: {"nome": $("#gym-nome").val()} }
-			url = "http://localhost:3000/api/v1/gyms/#{current_user.gym.id}"
-			successCallback = function(data){ alert(data) }
-			errorCallback = function(jqXHR, textStatus, msg){alert(msg)}
-			putRequest(data, url, successCallback , errorCallback)
+			response = gym.mudarNome($("#gym-nome").val())
+			console.log(response)
 		})
-		$("#razao-social").change(function() {
-			data = { gym: {"razao-social": $("#razao-social").val()} }
-			url = "http://localhost:3000/api/v1/gyms/#{current_user.gym.id}"
-			successCallback = function(data){ alert(data) }
-			errorCallback = function(jqXHR, textStatus, msg){alert(msg)}
-			putRequest(data, url, successCallback , errorCallback)
-		})
+		// Input com CNPJ
 		$("#cnpj").change(function() {
-			data = { gym: {"razao-social": $("#cnpj").val()} }
-			url = "http://localhost:3000/api/v1/gyms/#{current_user.gym.id}"
-			successCallback = function(data){ alert(data) }
-			errorCallback = function(jqXHR, textStatus, msg){alert(msg)}
-			putRequest(data, url, successCallback , errorCallback)
+			response = gym.mudarCnpj($("#cnpj").val())
+			console.log(response)
+		})
+		// Input com Razao Social
+		$("#razao-social").change(function() {
+			response = gym.mudarRazaoSocial($("#razao-social").val())
+			console.log(response)
 		})
     })

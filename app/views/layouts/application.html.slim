@@ -6,7 +6,7 @@ html
     = csrf_meta_tags
     = csp_meta_tag
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
-    = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'https://maps.googleapis.com/maps/api/js?key=AIzaSyCnMq0r2T0vr8RTn8hak_ShGFhEWmgCkIA'
   body
     = render 'layouts/header'
@@ -14,7 +14,7 @@ html
         = yield
     p.notice= notice
     p.alert= alert
-
+    //= render './ui/components/loader', size: 'large'
 css:
     .main-wrapper{
         padding-top: 70px; /* 70 px é a altura do header */
@@ -25,3 +25,7 @@ css:
         bottom: 0;
         left: 0;
     }
+javascript:
+    $(document).ready(function(){
+        //$(".loading").css("display", "none")
+    })

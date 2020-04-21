@@ -21,6 +21,30 @@ class Gym {
         $("#gym-cnpj-loader").hide();
         $("#gym-cnpj-check").hide();
         $("#gym-cnpj-error").hide();
+        // .  .  .  .  .  .  .  .  .  .  .  .
+        $("#gym-cidade-loader").hide();
+        $("#gym-cidade-check").hide();
+        $("#gym-cidade-error").hide();
+        // .  .  .  .  .  .  .  .  .  .  .  .
+        $("#gym-estado-loader").hide();
+        $("#gym-estado-check").hide();
+        $("#gym-estado-error").hide();
+        // .  .  .  .  .  .  .  .  .  .  .  .
+        $("#gym-cep-loader").hide();
+        $("#gym-cep-check").hide();
+        $("#gym-cep-error").hide();
+        // .  .  .  .  .  .  .  .  .  .  .  .
+        $("#gym-numero-loader").hide();
+        $("#gym-numero-check").hide();
+        $("#gym-numero-error").hide();
+        // .  .  .  .  .  .  .  .  .  .  .  .
+        $("#gym-latitude-loader").hide();
+        $("#gym-latitude-check").hide();
+        $("#gym-latitude-error").hide();
+        // .  .  .  .  .  .  .  .  .  .  .  .
+        $("#gym-longitude-loader").hide();
+        $("#gym-longitude-check").hide();
+        $("#gym-longitude-error").hide();
     }
     // Item 2 ______________________________________________________
     mudarNome(novo_nome){
@@ -82,6 +106,126 @@ class Gym {
         }
 		const response = request.put(data, url, successCallback , errorCallback)
 		return response
+    }
+    // Item 5 ______________________________________________________
+    mudarCep(novo_cep){
+        let request = new Request();
+        let data = { "gym": {"cep": novo_cep} }
+        let url = apiBaseUrl + "/gyms/" + this.gym_id
+        let successCallback = function(data){ 
+            console.log(data);
+            $("#gym-cep-check").show(200);
+            $("#gym-cep-loader").hide();
+            setTimeout(function(){ $("#gym-cep-check").hide(200); }, 2000);
+        }
+        let errorCallback = function(jqXHR, textStatus, msg){ 
+            console.log(msg);
+            $("#gym-cep-error").show(200);
+            $("#gym-cep-loader").hide();
+            setTimeout(function(){ $("#gym-cep-error").hide(200); }, 2000);
+        }
+        const response = request.put(data, url, successCallback , errorCallback)
+        return response
+    }
+    // Item 5 ______________________________________________________
+    mudarCidade(nova_cidade){
+        let request = new Request();
+        let data = { "gym": {"cidade": nova_cidade} }
+        let url = apiBaseUrl + "/gyms/" + this.gym_id
+        let successCallback = function(data){ 
+            console.log(data);
+            $("#gym-cidade-check").show(200);
+            $("#gym-cidade-loader").hide();
+            setTimeout(function(){ $("#gym-cidade-check").hide(200); }, 2000);
+        }
+        let errorCallback = function(jqXHR, textStatus, msg){ 
+            console.log(msg);
+            $("#gym-cidade-error").show(200);
+            $("#gym-cidade-loader").hide();
+            setTimeout(function(){ $("#gym-cidade-error").hide(200); }, 2000);
+        }
+        const response = request.put(data, url, successCallback , errorCallback)
+        return response
+    }
+    // Item 5 ______________________________________________________
+    mudarEstado(novo_estado){
+        let request = new Request();
+        let data = { "gym": {"estado": novo_estado} }
+        let url = apiBaseUrl + "/gyms/" + this.gym_id
+        let successCallback = function(data){ 
+            console.log(data);
+            $("#gym-estado-check").show(200);
+            $("#gym-estado-loader").hide();
+            setTimeout(function(){ $("#gym-estado-check").hide(200); }, 2000);
+        }
+        let errorCallback = function(jqXHR, textStatus, msg){ 
+            console.log(msg);
+            $("#gym-estado-error").show(200);
+            $("#gym-estado-loader").hide();
+            setTimeout(function(){ $("#gym-estado-error").hide(200); }, 2000);
+        }
+        const response = request.put(data, url, successCallback , errorCallback)
+        return response
+    }
+    // Item 5 ______________________________________________________
+    mudarNumero(novo_numero){
+        let request = new Request();
+        let data = { "gym": {"numero": novo_numero} }
+        let url = apiBaseUrl + "/gyms/" + this.gym_id
+        let successCallback = function(data){ 
+            console.log(data);
+            $("#gym-numero-check").show(200);
+            $("#gym-numero-loader").hide();
+            setTimeout(function(){ $("#gym-numero-check").hide(200); }, 2000);
+        }
+        let errorCallback = function(jqXHR, textStatus, msg){ 
+            console.log(msg);
+            $("#gym-numero-error").show(200);
+            $("#gym-numero-loader").hide();
+            setTimeout(function(){ $("#gym-numero-error").hide(200); }, 2000);
+        }
+        const response = request.put(data, url, successCallback , errorCallback)
+        return response
+    }
+    // Item 5 ______________________________________________________
+    mudarLatitude(nova_lat){
+        let request = new Request();
+        let data = { "gym": {"lat": nova_lat} }
+        let url = apiBaseUrl + "/gyms/" + this.gym_id
+        let successCallback = function(data){ 
+            console.log(data);
+            $("#gym-latitude-check").show(200);
+            $("#gym-latitude-loader").hide();
+            setTimeout(function(){ $("#gym-latitude-check").hide(200); }, 2000);
+        }
+        let errorCallback = function(jqXHR, textStatus, msg){ 
+            console.log(msg);
+            $("#gym-latitude-error").show(200);
+            $("#gym-latitude-loader").hide();
+            setTimeout(function(){ $("#gym-latitude-error").hide(200); }, 2000);
+        }
+        const response = request.put(data, url, successCallback , errorCallback)
+        return response
+    }
+    // Item 5 ______________________________________________________
+    mudarLongitude(nova_lng){
+        let request = new Request();
+        let data = { "gym": {"lng": nova_lng} }
+        let url = apiBaseUrl + "/gyms/" + this.gym_id
+        let successCallback = function(data){ 
+            console.log(data);
+            $("#gym-longitude-check").show(200);
+            $("#gym-longitude-loader").hide();
+            setTimeout(function(){ $("#gym-longitude-check").hide(200); }, 2000);
+        }
+        let errorCallback = function(jqXHR, textStatus, msg){ 
+            console.log(msg);
+            $("#gym-longitude-error").show(200);
+            $("#gym-longitude-loader").hide();
+            setTimeout(function(){ $("#gym-longitude-error").hide(200); }, 2000);
+        }
+        const response = request.put(data, url, successCallback , errorCallback)
+        return response
     }
     // Item 5 ______________________________________________________
     exibirWrapperDados(){

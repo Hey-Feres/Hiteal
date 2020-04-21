@@ -1,6 +1,7 @@
 = render './ui/components/sidebar', dados: @sidebar_items
 
 .content
+	// ________________________________________________________________________________
 	.divider.dados-gym#wrapperDados
 		.divider-header.d-flex.justify-content-between
 			h3 Dados Gym
@@ -14,23 +15,30 @@
 				br
 				.d-flex.justify-content-start
 					= render './ui/components/text-field', @inputs_attributes[:gym_cnpj]
-	
-	.divider#wrapperEndereco
+	// ________________________________________________________________________________
+	.divider.endereco-gym#wrapperEndereco
 		.divider-header
 			h3 Endereço
 		.divider-content
 			form
-				input type="text" placeholder="Cidade" id="cidade"
+				.d-flex.justify-content-start
+					= render './ui/components/text-field', @inputs_attributes[:gym_cep]
 				br
-				input type="text" placeholder="Estado" id="estado"
+				.d-flex.justify-content-start
+					= render './ui/components/text-field', @inputs_attributes[:gym_cidade]
 				br
-				input type="text" placeholder="CEP" id="cep"
+				.d-flex.justify-content-start
+					= render './ui/components/text-field', @inputs_attributes[:gym_estado]
 				br
-				input type="text" placeholder="Numero" id="numero"
+				.d-flex.justify-content-start
+					= render './ui/components/text-field', @inputs_attributes[:gym_numero]
 				br			
-				input type="text" placeholder="Latitude" id="lat"
+				.d-flex.justify-content-start
+					= render './ui/components/text-field', @inputs_attributes[:gym_lat]
 				br
-				input type="text" placeholder="Longitude" id="lng"
+				.d-flex.justify-content-start
+					= render './ui/components/text-field', @inputs_attributes[:gym_lng]
+	// ________________________________________________________________________________
 	.divider#wrapperImagens
 		H Teste
 css:
@@ -60,7 +68,7 @@ css:
 		margin-top: 10px;
 		padding: 0;
 	}
-	.dados-gym{
+	.dados-gym, .endereco-gym{
 		position: absolute;
 		height: 90%;
 		width: 100%;
@@ -99,6 +107,36 @@ javascript:
 		// Input com Razao Social
 		$("#razao-social").change(function() {
 			response = gym.mudarRazaoSocial($("#razao-social").val())
+			console.log(response)
+		})
+		// Input com CEP
+		$("#cep").change(function() {
+			response = gym.mudarCep($("#cep").val())
+			console.log(response)
+		})
+		// Input com Cidade
+		$("#cidade").change(function() {
+			response = gym.mudarCidade($("#cidade").val())
+			console.log(response)
+		})
+		// Input com Estado
+		$("#estado").change(function() {
+			response = gym.mudarEstado($("#estado").val())
+			console.log(response)
+		})
+		// Input com Numero
+		$("#numero").change(function() {
+			response = gym.mudarNumero($("#numero").val())
+			console.log(response)
+		})
+		// Input com Latitude
+		$("#latitude").change(function() {
+			response = gym.mudarLatitude($("#latitude").val())
+			console.log(response)
+		})
+		// Input com Longitude
+		$("#longitude").change(function() {
+			response = gym.mudarLongitude($("#longitude").val())
 			console.log(response)
 		})
     })

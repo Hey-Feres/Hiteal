@@ -39,7 +39,61 @@ class Ui::GymsController < ApplicationController
 				placeholder: "CNPJ", 
 				input_id: "cnpj", 
 				value: @gym.cnpj
-			}
+			},
+			gym_cep:{
+				label: "CEP", 
+				loader_id: "gym-cep-loader", 
+				done_id: "gym-cep-check", 
+				error_id: "gym-cep-error", 
+				placeholder: "CEP",
+				input_id: "cep",
+				value: @gym.cep				
+			},			
+			gym_cidade:{
+				label: "Cidade", 
+				loader_id: "gym-cidade-loader",
+				done_id: "gym-cidade-check", 
+				error_id: "gym-cidade-error", 
+				placeholder: "Cidade",
+				input_id: "cidade",
+				value: @gym.cidade				
+			},
+			gym_estado:{
+				label: "Estado", 
+				loader_id: "gym-estado-loader", 
+				done_id: "gym-estado-check", 
+				error_id: "gym-estado-error", 
+				placeholder: "Estado",
+				input_id: "estado",
+				value: @gym.estado
+			},
+			gym_numero:{
+				label: "Numero", 
+				loader_id: "gym-numero-loader", 
+				done_id: "gym-numero-check", 
+				error_id: "gym-numero-error", 
+				placeholder: "Numero",
+				input_id: "numero",
+				value: @gym.numero				
+			},
+			gym_lat:{
+				label: "Latitude", 
+				loader_id: "gym-latitude-loader", 
+				done_id: "gym-latitude-check", 
+				error_id: "gym-latitude-error", 
+				placeholder: "Latitude",
+				input_id: "latitude",
+				value: @gym.lat				
+			},
+			gym_lng:{
+				label: "Longitude", 
+				loader_id: "gym-longitude-loader", 
+				done_id: "gym-longitude-check", 
+				error_id: "gym-longitude-error", 
+				placeholder: "Longitude",
+				input_id: "longitude",
+				value: @gym.lng				
+			},
 		}
 	end
 end

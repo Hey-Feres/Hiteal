@@ -3,20 +3,17 @@
 .content
 	.divider.dados-gym#wrapperDados
 		.divider-header.d-flex.justify-content-between
-			h3 Dados da Gym
+			h3 Dados Gym
 		.divider-content
 			form
-				.d-flex.justify-content-between
-					input type="text" placeholder="Nome da Gym" id="gym-nome" value="#{@gym.nome}"
-					/= render './ui/components/loader', size: 'small'
+				.d-flex.justify-content-start
+					= render './ui/components/text-field', @inputs_attributes[:gym_nome]
 				br
-				.d-flex.justify-content-between
-					input type="text" placeholder="Razão Social" id="razao-social" value="#{@gym.razao_social}"
-					/= render './ui/components/loader', size: 'small'
+				.d-flex.justify-content-start
+					= render './ui/components/text-field', @inputs_attributes[:gym_razao_social]
 				br
-				.d-flex.justify-content-between
-					input type="text" placeholder="CNPJ" id="cnpj" value="#{@gym.cnpj}"
-					/= render './ui/components/loader', size: 'small'
+				.d-flex.justify-content-start
+					= render './ui/components/text-field', @inputs_attributes[:gym_cnpj]
 	
 	.divider#wrapperEndereco
 		.divider-header
@@ -37,9 +34,9 @@
 	.divider#wrapperImagens
 		H Teste
 css:
+	.border{border: 3px solid #000 !important}
 	.divider{
 		background: #fff;
-		width: 40%;
 		padding: 1 2%;
 		border-radius: 20px;
 	}
@@ -51,22 +48,6 @@ css:
 	}
 	.divider-content h5{
 		margin-bottom: 5%;
-	}
-	.divider input[type="text"]{
-		background: #f2f2f2;
-		padding: 2% 4%;
-		border: none;
-		border-radius: 10px;
-		margin-bottom: 3%;
-		width: 100%;
-	}
-	.divider input[type="submit"]{
-		color: white;
-		padding: 2% 4%;
-		border: none;
-		border-radius: 10px;
-		margin-bottom: 3%;
-		width: 100%;
 	}
 	.content{
 		width: 76%;
@@ -80,14 +61,9 @@ css:
 		padding: 0;
 	}
 	.dados-gym{
-		height: 500px;
-	}
-	.dados-gym input{
-		border: none;
-		background: transparent !important;
-	}
-	.dados-gym-input-selected{
-		border-bottom: 1px solid #ccc !important;
+		position: absolute;
+		height: 90%;
+		width: 100%;
 	}
 
 javascript:

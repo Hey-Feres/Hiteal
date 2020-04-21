@@ -1,0 +1,21 @@
+label= label
+= render './ui/components/loader', size: 'small', id: loader_id
+= render './ui/components/done-icon', size: 'small', id: done_id
+= render './ui/components/error-icon', size: 'small', id: error_id
+input type="text" placeholder="#{placeholder}" id="#{input_id}" value="#{value}"
+
+
+css:
+	input{
+		border: none;
+		background: transparent !important;
+		width: 80%;
+		padding: 0 2%;
+		border-bottom: 1px solid #f2f2f2 !important;
+		border-radius: 10px;
+	}
+	label{
+		width: 20%;
+		padding: 0 2%;
+		font-size: 1em;
+	}	

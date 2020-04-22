@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_18_051616) do
+ActiveRecord::Schema.define(version: 2020_04_21_113232) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -79,8 +79,8 @@ ActiveRecord::Schema.define(version: 2020_04_18_051616) do
     t.string "estado"
     t.string "cep"
     t.string "numero"
-    t.string "lat"
-    t.string "lng"
+    t.decimal "lat"
+    t.decimal "lng"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

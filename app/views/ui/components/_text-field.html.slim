@@ -1,8 +1,8 @@
-label= label
-= render './ui/components/loader', size: 'small', id: loader_id
-= render './ui/components/done-icon', size: 'small', id: done_id
-= render './ui/components/error-icon', size: 'small', id: error_id
-input type="text" placeholder="#{placeholder}" id="#{input_id}" value="#{value}"
+label= input[:label]
+= render './ui/components/loader', size: 'small', id: input[:loader_id]
+= render './ui/components/done-icon', size: 'small', id: input[:done_id]
+= render './ui/components/error-icon', size: 'small', id: input[:error_id]
+input type="text" placeholder="#{input[:placeholder]}" id="#{input[:input_id]}" value="#{input[:value]}"
 
 
 css:

@@ -7,7 +7,8 @@ html
     = csp_meta_tag
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
-    = javascript_include_tag 'https://maps.googleapis.com/maps/api/js?key=AIzaSyCnMq0r2T0vr8RTn8hak_ShGFhEWmgCkIA'
+    = javascript_include_tag 'https://maps.googleapis.com/maps/api/js?key='+Rails.application.credentials.google_maps_api_key 
+    = yield(:head_tags)
   body
     = render 'layouts/header'
     .main-wrapper

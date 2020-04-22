@@ -3,18 +3,18 @@
 .content
 	// ________________________________________________________________________________
 	.divider.dados-gym#wrapperDados
-		.divider-header.d-flex.justify-content-between
+		.divider-header
 			h3 Dados Gym
 		.divider-content
 			form
 				.d-flex.justify-content-start
-					= render './ui/components/text-field', @inputs_attributes[:gym_nome]
+					= render './ui/components/text-field', input: @inputs_attributes[:gym_nome]
 				br
 				.d-flex.justify-content-start
-					= render './ui/components/text-field', @inputs_attributes[:gym_razao_social]
+					= render './ui/components/text-field', input: @inputs_attributes[:gym_razao_social]
 				br
 				.d-flex.justify-content-start
-					= render './ui/components/text-field', @inputs_attributes[:gym_cnpj]
+					= render './ui/components/text-field', input: @inputs_attributes[:gym_cnpj]
 	// ________________________________________________________________________________
 	.divider.endereco-gym#wrapperEndereco
 		.divider-header
@@ -22,27 +22,39 @@
 		.divider-content
 			form
 				.d-flex.justify-content-start
-					= render './ui/components/text-field', @inputs_attributes[:gym_cep]
+					= render './ui/components/text-field', input: @inputs_attributes[:gym_cep]
 				br
 				.d-flex.justify-content-start
-					= render './ui/components/text-field', @inputs_attributes[:gym_cidade]
+					= render './ui/components/text-field', input: @inputs_attributes[:gym_cidade]
 				br
 				.d-flex.justify-content-start
-					= render './ui/components/text-field', @inputs_attributes[:gym_estado]
+					= render './ui/components/text-field', input: @inputs_attributes[:gym_estado]
 				br
 				.d-flex.justify-content-start
-					= render './ui/components/text-field', @inputs_attributes[:gym_numero]
+					= render './ui/components/text-field', input: @inputs_attributes[:gym_numero]
 				br			
 				.d-flex.justify-content-start
-					= render './ui/components/text-field', @inputs_attributes[:gym_lat]
+					= render './ui/components/text-field', input: @inputs_attributes[:gym_lat]
 				br
 				.d-flex.justify-content-start
-					= render './ui/components/text-field', @inputs_attributes[:gym_lng]
+					= render './ui/components/text-field', input: @inputs_attributes[:gym_lng]
+			br
+			#map
 	// ________________________________________________________________________________
-	.divider#wrapperImagens
-		H Teste
+	.divider.imagens-gym#wrapperImagens
+		.divider-header.d-flex.justify-content-between
+			h3 Imagens
+			= render './ui/components/plus-icon', size: "small", id: "add-image-icon"
+		.divider-content
+			form
+
 css:
-	.border{border: 3px solid #000 !important}
+	#map {
+	    width: 100%;
+	    height: 600px;
+	    border-top-left-radius: 20px;
+	    border-top-right-radius: 20px;
+	}
 	.divider{
 		background: #fff;
 		padding: 1 2%;
@@ -68,10 +80,11 @@ css:
 		margin-top: 10px;
 		padding: 0;
 	}
-	.dados-gym, .endereco-gym{
+	.dados-gym, .endereco-gym, .imagens-gym{
 		position: absolute;
 		height: 90%;
 		width: 100%;
+		overflow: scroll;
 	}
 
 javascript:
@@ -81,19 +94,12 @@ javascript:
 		console.log(gym)
 		// Inicializa os estados das divs
 		gym.componentLoaded()
+		// Inicializa o mapa
+		gym.initMap(-19.984441834617307,-43.8485310499241);
 		// Swicth dos estados das divs
-		$("#dados-toggler").click(function(event) {
-			event.preventDefault();
-			gym.exibirWrapperDados();
-		})
-		$("#endereco-toggler").click(function(event) {
-			event.preventDefault();
-			gym.exibirWrapperEndereco();
-		})
-		$("#imagens-toggler").click(function(event) {
-			event.preventDefault();
-			gym.exibirWrapperImagens();
-		})		
+		$("#dados-toggler").click(function(event) 	 { 	gym.toggleWrappers(event, "#wrapperDados")	  })
+		$("#endereco-toggler").click(function(event) { 	gym.toggleWrappers(event, "#wrapperEndereco") })
+		$("#imagens-toggler").click(function(event)  { 	gym.toggleWrappers(event, "#wrapperImagens")  })
 		// Input com nome
 		$("#gym-nome").change(function() {
 			response = gym.mudarNome($("#gym-nome").val())
@@ -139,4 +145,6 @@ javascript:
 			response = gym.mudarLongitude($("#longitude").val())
 			console.log(response)
 		})
+
+
     })

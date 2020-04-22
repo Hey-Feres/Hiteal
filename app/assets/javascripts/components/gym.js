@@ -109,6 +109,7 @@ class Gym {
     }
     // Item 5 ______________________________________________________
     mudarCep(novo_cep){
+        this.getEnderecoCepApi(novo_cep);
         let request = new Request();
         let data = { "gym": {"cep": novo_cep} }
         let url = apiBaseUrl + "/gyms/" + this.gym_id
@@ -228,20 +229,37 @@ class Gym {
         return response
     }
     // Item 5 ______________________________________________________
-    exibirWrapperDados(){
-    	$("#wrapperDados").show(500);
-    	$(".divider").not("#wrapperDados").hide(500);
+    getEnderecoCepApi(cep){
+        let request = new Request();
+        const app_key = "aQPxloC8wKrDtJLjLEs6jumpJxKtZ2AM"
+        const app_secret = "ljTk4TkscI2Y94ai8tUGgTtc0CoAZlAhIKBbtsn0oL0engen"
+        let url = "https://webmaniabr.com/api/1/cep/"+cep+"/?app_key="+app_key+"&app_secret="+app_secret
+        let successCallback = function(data){ 
+            console.log(data);
+            $("#cidade").val(data.cidade);
+            $("#estado").val(data.uf);
+            //$("#rua").val(data.rua);
+        }
+        let errorCallback = function(jqXHR, textStatus, msg){ 
+            console.log(msg);
+        }
+        const response = request.get(url, successCallback , errorCallback)
+        return response
     }
-    // Item 6 ______________________________________________________
-	exibirWrapperEndereco(){
-    	$("#wrapperEndereco").show(500);
-    	$(".divider").not("#wrapperEndereco").hide(500);
-	}
-    // Item 7 ______________________________________________________
-	exibirWrapperImagens(){
-    	$("#wrapperImagens").show(500);
-    	$(".divider").not("#wrapperImagens").hide(500);
-	}
+    initMap(lat, lng){
+        var myCoords = new google.maps.LatLng(lat, lng);
+        var mapOptions = {
+        center: myCoords,
+        zoom: 14
+        };
+        var map = new google.maps.Map(document.getElementById('map'), mapOptions);
+    }
+    // Item 5 ______________________________________________________
+    toggleWrappers(event, whatToShow){
+        event.preventDefault();
+        $(whatToShow).show(500);
+        $(".divider").not(whatToShow).hide(500);
+    }
 }
 
 // Documentacao

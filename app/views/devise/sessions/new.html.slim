@@ -1,0 +1,33 @@
+h2 Log in
+= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+  /form  
+  .field
+    = f.label :email
+    /label Email
+    br/
+    /input type="email" autofocus="true" autocomplete="email"
+    = f.email_field :email, autofocus: true, autocomplete: "email"
+  .field
+    = f.label :password
+    /label Password
+    br/
+    = f.password_field :password, autocomplete: "current-password", class: "", id: "password-field"
+    /input.animated.shake type="password" autocomplete="current-password" id="password-field"
+  - if devise_mapping.rememberable?
+    .field
+      = f.check_box :remember_me
+      = f.label :remember_me
+  .actions
+    = f.submit "Log in", id: "login-submit"
+    /input type="submit" value="Log in" id="login-submit"
+    /button#login-submit Log in
+= render "devise/shared/links"
+
+/h2.animated.infinite.bounce.delay-1s
+
+javascript:
+  $("#login-submit").click(function(){
+    if ($("#password-field").val() == "") {
+      $("#password-field").addClass("animated", "shake")
+    }
+  })

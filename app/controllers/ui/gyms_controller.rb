@@ -76,6 +76,15 @@ class Ui::GymsController < ApplicationController
 				input_id: "numero",
 				value: @gym.numero				
 			},
+			gym_rua:{
+				label: "Rua", 
+				loader_id: "gym-rua-loader", 
+				done_id: "gym-rua-check", 
+				error_id: "gym-rua-error", 
+				placeholder: "Rua",
+				input_id: "rua",
+				value: @gym.rua				
+			},			
 			gym_lat:{
 				label: "Latitude", 
 				loader_id: "gym-latitude-loader", 

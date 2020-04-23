@@ -25,6 +25,9 @@
 					= render './ui/components/text-field', input: @inputs_attributes[:gym_cep]
 				br
 				.d-flex.justify-content-start
+					= render './ui/components/text-field', input: @inputs_attributes[:gym_rua]
+				br					
+				.d-flex.justify-content-start
 					= render './ui/components/text-field', input: @inputs_attributes[:gym_cidade]
 				br
 				.d-flex.justify-content-start
@@ -90,8 +93,7 @@ css:
 javascript:
     $(document).ready(function(){
 		// Inicializa a classe gym
-		let gym = new Gym("#{@gym.nome}", "#{@gym.cnpj}", "#{@gym.razao_social}", "#{@gym.id}");
-		console.log(gym)
+		let gym = new Gym("#{@gym.nome}", "#{@gym.cnpj}", "#{@gym.razao_social}", "#{@gym.id}", "#{Rails.application.credentials.cep_api_key}", "#{Rails.application.credentials.cep_api_secret}");
 		// Inicializa os estados das divs
 		gym.componentLoaded()
 		// Inicializa o mapa
@@ -120,6 +122,11 @@ javascript:
 			response = gym.mudarCep($("#cep").val())
 			console.log(response)
 		})
+		// Input com Rua
+		$("#rua").change(function() {
+			response = gym.mudarRua($("#rua").val())
+			console.log(response)
+		})		
 		// Input com Cidade
 		$("#cidade").change(function() {
 			response = gym.mudarCidade($("#cidade").val())
@@ -145,6 +152,5 @@ javascript:
 			response = gym.mudarLongitude($("#longitude").val())
 			console.log(response)
 		})
-
 
     })

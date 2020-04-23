@@ -33,6 +33,6 @@ class Api::V1::GymsController < ApplicationController
 	    end
 
 	    def gym_params
-	      params.require(:gym).permit(:nome,:razao_social,:cnpj,:cidade,:estado,:cep,:numero,:lat,:lng)
+	      params.require(:gym).permit(:nome,:razao_social,:cnpj,:rua,:cidade,:estado,:cep,:numero,:lat,:lng)
 	    end
 end

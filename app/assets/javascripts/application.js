@@ -5,8 +5,9 @@
 //= require bootstrap/dist/js/bootstrap
 //= require request
 //= require inputmask
-//= require custom-helpers
-//= require components/gym
+//= require helpers
+//= require components/Gym
+//= require components/User
 //= require_tree .
 
 const apiBaseUrl = "http://localhost:3000/api/v1"

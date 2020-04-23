@@ -1,3 +1,6 @@
+- provide :head_tags do
+	meta name='turbolinks-visit-control' content='reload'
+
 = render './ui/components/sidebar', dados: @sidebar_items
 
 .content
@@ -92,6 +95,9 @@ css:
 
 javascript:
     $(document).ready(function(){
+    	let user = new User("#{current_user.nome}","#{current_user.gym_id}")
+    	user.getLocation();
+    	
 		// Inicializa a classe gym
 		let gym = new Gym("#{@gym.nome}", "#{@gym.cnpj}", "#{@gym.razao_social}", "#{@gym.id}", "#{Rails.application.credentials.cep_api_key}", "#{Rails.application.credentials.cep_api_secret}");
 		// Inicializa os estados das divs

@@ -65,7 +65,8 @@ class Gym {
         let request = new Request();
 		let data = { "gym": {"nome": novo_nome} }
 		let url = apiBaseUrl + "/gyms/" + this.gym_id
-		// .  .  .  .  .  .  .  .  .  .  .  .
+		let headers = {}
+        // .  .  .  .  .  .  .  .  .  .  .  .
         let successCallback = function(data){
             console.log(data);
             $("#gym-nome-check").show(200);
@@ -80,7 +81,7 @@ class Gym {
             setTimeout(function(){ $("#gym-nome-error").hide(200); }, 2000);
         }
         // .  .  .  .  .  .  .  .  .  .  .  .
-        const response = request.put(data, url, successCallback , errorCallback)
+        const response = request.put(data, url, successCallback , errorCallback, headers)
 		return response
     }
     // Item 3 ______________________________________________________
@@ -90,6 +91,7 @@ class Gym {
         let request = new Request();
 		let data = { "gym": {"razao_social": nova_razao_social} }
 		let url = apiBaseUrl + "/gyms/" + this.gym_id
+        let headers = {}
 		// .  .  .  .  .  .  .  .  .  .  .  .
         let successCallback = function(data){
             console.log(data);
@@ -105,35 +107,45 @@ class Gym {
             setTimeout(function(){ $("#gym-razao-social-error").hide(200); }, 2000);
         }
         // .  .  .  .  .  .  .  .  .  .  .  .
-		const response = request.put(data, url, successCallback , errorCallback)
+		const response = request.put(data, url, successCallback , errorCallback, headers)
 		return response
     }
     // Item 4 ______________________________________________________
     mudarCnpj(novo_cnpj){
-        $("#gym-cnpj-loader").show();
-		// .  .  .  .  .  .  .  .  .  .  .  .
-        let request = new Request();
-		let data = { "gym": {"cnpj": novo_cnpj} }
-		let url = apiBaseUrl + "/gyms/" + this.gym_id
-		// .  .  .  .  .  .  .  .  .  .  .  .
-        let successCallback = function(data){
-            console.log(data);
-            $("#gym-cnpj-check").show(200);
-            $("#gym-cnpj-loader").hide();
-            setTimeout(function(){ $("#gym-cnpj-check").hide(200); }, 2000);
+        let helper = new Helper()
+        if (helper.validarCNPJ(novo_cnpj)) {
+            $("#cnpj").addClass("animated shake")
+            setTimeout(function(){ $("#cnpj").removeClass() }, 2000);
+            return false;
+        }else{
+            $("#gym-cnpj-loader").show();
+            // .  .  .  .  .  .  .  .  .  .  .  .
+            let request = new Request();
+            let data = { "gym": {"cnpj": novo_cnpj} }
+            let url = apiBaseUrl + "/gyms/" + this.gym_id
+            let headers = {}
+            //let url = "https://api.cnpja.com.br/companies/27865757000102"
+            //let headers = {"Authorization": "#{Rails.application.credentials.cnpj_api_key}"}
+            // .  .  .  .  .  .  .  .  .  .  .  .
+            let successCallback = function(data){
+                console.log(data);
+                $("#gym-cnpj-check").show(200);
+                $("#gym-cnpj-loader").hide();
+                setTimeout(function(){ $("#gym-cnpj-check").hide(200); }, 2000);
+            }
+            // .  .  .  .  .  .  .  .  .  .  .  .
+            let errorCallback = function(jqXHR, textStatus, msg){ 
+                console.log(jqXHR);
+                console.log(textStatus);
+                console.log(msg);
+                $("#gym-cnpj-error").show(200);
+                $("#gym-cnpj-loader").hide();
+                setTimeout(function(){ $("#gym-cnpj-error").hide(200); }, 2000);
+            }            
+            // .  .  .  .  .  .  .  .  .  .  .  .
+            const response = request.put(data, url, successCallback , errorCallback, headers)
+            return response        
         }
-        // .  .  .  .  .  .  .  .  .  .  .  .
-		let errorCallback = function(jqXHR, textStatus, msg){ 
-            console.log(jqXHR);
-            console.log(textStatus);
-            console.log(msg);
-            $("#gym-cnpj-error").show(200);
-            $("#gym-cnpj-loader").hide();
-            setTimeout(function(){ $("#gym-cnpj-error").hide(200); }, 2000);
-        }
-        // .  .  .  .  .  .  .  .  .  .  .  .
-		const response = request.put(data, url, successCallback , errorCallback)
-		return response
     }
     // Item 5 ______________________________________________________
     mudarCep(novo_cep){
@@ -145,6 +157,7 @@ class Gym {
         let request = new Request();
         let data = { "gym": {"cep": novo_cep} }
         let url = apiBaseUrl + "/gyms/" + this.gym_id
+        let headers = {}
         // .  .  .  .  .  .  .  .  .  .  .  .
         let successCallback = function(data){ 
             console.log(data);
@@ -160,7 +173,7 @@ class Gym {
             setTimeout(function(){ $("#gym-cep-error").hide(200); }, 2000);
         }
         // .  .  .  .  .  .  .  .  .  .  .  .
-        const response = request.put(data, url, successCallback , errorCallback)
+        const response = request.put(data, url, successCallback , errorCallback, headers)
         return response
     }
     // Item 5 ______________________________________________________
@@ -170,6 +183,7 @@ class Gym {
         let request = new Request();
         let data = { "gym": {"cidade": nova_cidade} }
         let url = apiBaseUrl + "/gyms/" + this.gym_id
+        let headers = {}
         // .  .  .  .  .  .  .  .  .  .  .  .
         let successCallback = function(data){ 
             console.log(data);
@@ -185,7 +199,7 @@ class Gym {
             setTimeout(function(){ $("#gym-cidade-error").hide(200); }, 2000);
         }
         // .  .  .  .  .  .  .  .  .  .  .  .
-        const response = request.put(data, url, successCallback , errorCallback)
+        const response = request.put(data, url, successCallback , errorCallback, headers)
         return response
     }
     // Item 5 ______________________________________________________
@@ -203,6 +217,7 @@ class Gym {
             let request = new Request();
             let data = { "gym": {"estado": novo_estado} }
             let url = apiBaseUrl + "/gyms/" + this.gym_id
+            let headers = {}
             // .  .  .  .  .  .  .  .  .  .  .  .
             let successCallback = function(data){ 
                 console.log(data);
@@ -218,7 +233,7 @@ class Gym {
                 setTimeout(function(){ $("#gym-estado-error").hide(200); }, 2000);
             }
             // .  .  .  .  .  .  .  .  .  .  .  .
-            const response = request.put(data, url, successCallback , errorCallback)
+            const response = request.put(data, url, successCallback , errorCallback, headers)
             return response
         }
     }
@@ -229,6 +244,7 @@ class Gym {
         let request = new Request();
         let data = { "gym": {"numero": novo_numero} }
         let url = apiBaseUrl + "/gyms/" + this.gym_id
+        let headers = {}
         // .  .  .  .  .  .  .  .  .  .  .  .
         let successCallback = function(data){ 
             console.log(data);
@@ -244,7 +260,7 @@ class Gym {
             setTimeout(function(){ $("#gym-numero-error").hide(200); }, 2000);
         }
         // .  .  .  .  .  .  .  .  .  .  .  .
-        const response = request.put(data, url, successCallback , errorCallback)
+        const response = request.put(data, url, successCallback , errorCallback, headers)
         return response
     }
     // Item 5 ______________________________________________________
@@ -254,6 +270,7 @@ class Gym {
         let request = new Request();
         let data = { "gym": {"rua": nova_rua} }
         let url = apiBaseUrl + "/gyms/" + this.gym_id
+        let headers = {}
         // .  .  .  .  .  .  .  .  .  .  .  .
         let successCallback = function(data){ 
             console.log(data);
@@ -269,7 +286,7 @@ class Gym {
             setTimeout(function(){ $("#gym-rua-error").hide(200); }, 2000);
         }
         // .  .  .  .  .  .  .  .  .  .  .  .
-        const response = request.put(data, url, successCallback , errorCallback)
+        const response = request.put(data, url, successCallback , errorCallback, headers)
         return response
     }    
     // Item 5 ______________________________________________________
@@ -279,6 +296,7 @@ class Gym {
         let request = new Request();
         let data = { "gym": {"lat": nova_lat} }
         let url = apiBaseUrl + "/gyms/" + this.gym_id
+        let headers = {}
         // .  .  .  .  .  .  .  .  .  .  .  .
         let successCallback = function(data){ 
             console.log(data);
@@ -294,7 +312,7 @@ class Gym {
             setTimeout(function(){ $("#gym-latitude-error").hide(200); }, 2000);
         }
         // .  .  .  .  .  .  .  .  .  .  .  .
-        const response = request.put(data, url, successCallback , errorCallback)
+        const response = request.put(data, url, successCallback , errorCallback, headers)
         return response
     }
     // Item 5 ______________________________________________________
@@ -304,6 +322,7 @@ class Gym {
         let request = new Request();
         let data = { "gym": {"lng": nova_lng} }
         let url = apiBaseUrl + "/gyms/" + this.gym_id
+        let headers = {}
         // .  .  .  .  .  .  .  .  .  .  .  .
         let successCallback = function(data){ 
             console.log(data);
@@ -319,7 +338,7 @@ class Gym {
             setTimeout(function(){ $("#gym-longitude-error").hide(200); }, 2000);
         }
         // .  .  .  .  .  .  .  .  .  .  .  .
-        const response = request.put(data, url, successCallback , errorCallback)
+        const response = request.put(data, url, successCallback , errorCallback, headers)
         return response
     }
     // Item 5 ______________________________________________________
@@ -330,6 +349,7 @@ class Gym {
         // .  .  .  .  .  .  .  .  .  .  .  .
         let request = new Request();
         let url = "https://webmaniabr.com/api/1/cep/"+cep+"/?app_key="+this.cep_api_key+"&app_secret="+this.cep_api_secret
+        let headers = {}
         // .  .  .  .  .  .  .  .  .  .  .  .
         let updateCidade = obj => {
             this.mudarCidade(obj.cidade);
@@ -359,7 +379,7 @@ class Gym {
         let errorCallback = (jqXHR, textStatus, msg) => {
             console.log(msg);
         }
-        const response = request.get(url, successCallback , errorCallback)
+        const response = request.get(url, successCallback , errorCallback, headers)
         return response
     }
     validaEstado(estado){
@@ -397,12 +417,43 @@ class Gym {
         return erro
     }
     initMap(lat, lng){
+        var lat = $('#latitude').val();
+        var lng = $('#longitude').val();
+        if (!lat || !lng){
+            lat=51.5;
+            lng=-0.125;
+            document.getElementById('place_latitude').value = lat;
+            document.getElementById('place_longitude').value = lng;
+        }        
         var myCoords = new google.maps.LatLng(lat, lng);
         var mapOptions = {
         center: myCoords,
         zoom: 14
         };
         var map = new google.maps.Map(document.getElementById('map'), mapOptions);
+        var marker = new google.maps.Marker({
+            position: myCoords,
+            animation: google.maps.Animation.DROP,
+            map: map,
+            draggable: true
+        });
+        marker.addListener('drag', function() {
+            var latlng = marker.getPosition();
+            var newlat=(Math.round(latlng.lat()*1000000))/1000000;
+            var newlng=(Math.round(latlng.lng()*1000000))/1000000;
+            //document.getElementById('place_latitude').value = newlat;
+            //document.getElementById('place_longitude').value = newlng;
+            var lat = $('#latitude').val(newlat);
+            var lng = $('#longitude').val(newlng);
+        });
+        let updateLatitude = () => { this.mudarLatitude($('#latitude').val()); }
+        let updateLongitude = () => { this.mudarLongitude($('#longitude').val()); }
+        marker.addListener('dragend', function() {
+            map.panTo(marker.getPosition());
+            console.log("DRAGEND");
+            updateLatitude()
+            updateLongitude()
+        });        
     }
     // Item 5 ______________________________________________________
     toggleWrappers(event, whatToShow){

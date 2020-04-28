@@ -1,7 +1,7 @@
 label= input[:label]
 = render './ui/components/loader', size: 'small', id: input[:loader_id]
-= render './ui/components/done-icon', size: 'small', id: input[:done_id]
-= render './ui/components/error-icon', size: 'small', id: input[:error_id]
+= render './ui/icons/done', size: 30, color: "3498DB",id: input[:done_id]
+= render './ui/icons/erro', size: 30, color: "E74C3C", id: input[:error_id]
 input type="text" placeholder="#{input[:placeholder]}" id="#{input[:input_id]}" value="#{input[:value]}"
 
 

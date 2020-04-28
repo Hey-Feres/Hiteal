@@ -6,6 +6,7 @@ class Gym {
         this.gym_id = gym_id;
         this.cep_api_key = cep_api_key;
         this.cep_api_secret = cep_api_secret;
+        this.geocoder_api_key = "a366e5d89f374268be77171463df3776";
     }
     // Item 1 ______________________________________________________
     componentLoaded(){
@@ -176,7 +177,7 @@ class Gym {
         const response = request.put(data, url, successCallback , errorCallback, headers)
         return response
     }
-    // Item 5 ______________________________________________________
+    // Item x ______________________________________________________
     mudarCidade(nova_cidade){
         $("#gym-cidade-loader").show();
         // .  .  .  .  .  .  .  .  .  .  .  .
@@ -202,7 +203,7 @@ class Gym {
         const response = request.put(data, url, successCallback , errorCallback, headers)
         return response
     }
-    // Item 5 ______________________________________________________
+    // Item x ______________________________________________________
     mudarEstado(novo_estado){
         let erro = this.validaEstado(novo_estado.toUpperCase());
         if (erro) {
@@ -237,7 +238,7 @@ class Gym {
             return response
         }
     }
-    // Item 5 ______________________________________________________
+    // Item x ______________________________________________________
     mudarNumero(novo_numero){
         $("#gym-numero-loader").show();
         // .  .  .  .  .  .  .  .  .  .  .  .
@@ -263,7 +264,7 @@ class Gym {
         const response = request.put(data, url, successCallback , errorCallback, headers)
         return response
     }
-    // Item 5 ______________________________________________________
+    // Item x ______________________________________________________
     mudarRua(nova_rua){
         $("#gym-rua-loader").show();
         // .  .  .  .  .  .  .  .  .  .  .  .
@@ -289,7 +290,7 @@ class Gym {
         const response = request.put(data, url, successCallback , errorCallback, headers)
         return response
     }    
-    // Item 5 ______________________________________________________
+    // Item x ______________________________________________________
     mudarLatitude(nova_lat){
         $("#gym-latitude-loader").show();
         // .  .  .  .  .  .  .  .  .  .  .  .
@@ -315,7 +316,7 @@ class Gym {
         const response = request.put(data, url, successCallback , errorCallback, headers)
         return response
     }
-    // Item 5 ______________________________________________________
+    // Item x ______________________________________________________
     mudarLongitude(nova_lng){
         $("#gym-longitude-loader").show();
         // .  .  .  .  .  .  .  .  .  .  .  .
@@ -341,7 +342,7 @@ class Gym {
         const response = request.put(data, url, successCallback , errorCallback, headers)
         return response
     }
-    // Item 5 ______________________________________________________
+    // Item x ______________________________________________________
     getEnderecoCepApi(cep){
         $("#gym-cidade-loader").show(200);
         $("#gym-estado-loader").show(200);
@@ -427,8 +428,9 @@ class Gym {
         }        
         var myCoords = new google.maps.LatLng(lat, lng);
         var mapOptions = {
-        center: myCoords,
-        zoom: 14
+            center: myCoords,
+            zoom: 14,
+            scrollwheel: false
         };
         var map = new google.maps.Map(document.getElementById('map'), mapOptions);
         var marker = new google.maps.Marker({
@@ -437,30 +439,53 @@ class Gym {
             map: map,
             draggable: true
         });
+        // .  .  .  .  .  .  .  .  .  .  .  .
         marker.addListener('drag', function() {
             var latlng = marker.getPosition();
             var newlat=(Math.round(latlng.lat()*1000000))/1000000;
             var newlng=(Math.round(latlng.lng()*1000000))/1000000;
-            //document.getElementById('place_latitude').value = newlat;
-            //document.getElementById('place_longitude').value = newlng;
             var lat = $('#latitude').val(newlat);
             var lng = $('#longitude').val(newlng);
         });
+        // .  .  .  .  .  .  .  .  .  .  .  .
         let updateLatitude = () => { this.mudarLatitude($('#latitude').val()); }
         let updateLongitude = () => { this.mudarLongitude($('#longitude').val()); }
+        let updateEnderecoComCoordenadas = () => { this.updateEnderecoComCoordenadas($('#latitude').val(), $('#longitude').val()); }
         marker.addListener('dragend', function() {
             map.panTo(marker.getPosition());
             console.log("DRAGEND");
             updateLatitude()
             updateLongitude()
+            updateEnderecoComCoordenadas()
         });        
     }
-    // Item 5 ______________________________________________________
+    updateEnderecoComCoordenadas(lat,lng){
+        let request = new Request();
+        let url = "https://api.opencagedata.com/geocode/v1/json?q="+lat+"+"+lng+"&key="+this.geocoder_api_key
+        let headers = {}
+        // .  .  .  .  .  .  .  .  .  .  .  .
+        let mudarCep = cep => {this.mudarCep(cep)}
+        // .  .  .  .  .  .  .  .  .  .  .  .
+        let successCallback = data => { 
+            console.log(data.results[0].components)
+            mudarCep(data.results[0].components.postcode)
+        }
+        // .  .  .  .  .  .  .  .  .  .  .  .
+        let errorCallback = (jqXHR, textStatus, msg) => {
+            console.log(msg);
+        }
+        const response = request.get(url, successCallback , errorCallback, headers)
+        return response
+    }
+    
+    // Item x ______________________________________________________
     toggleWrappers(event, whatToShow){
         event.preventDefault();
         $(whatToShow).show(500);
         $(".divider").not(whatToShow).hide(500);
     }
+
+        
 }
 
 // Documentacao
@@ -490,16 +515,5 @@ class Gym {
 //    - Exibe o icone de load enquanto carrega a requisicao
 //    - Exibe o icone de sucesso(check) quando a requisicao é bem sucedida
 //    - Exibe o icone de erro quando a requisicao retorna erros
-// Item 5 ________________________________________________________________________________
-//    - Metodo exibirWrapperDados() é chamado quando o botao de dados (da sidebar) é 
-//    selecionado.
-//    - Exibe o wrapper de dados e esconde todos os outros
-// Item 6 ________________________________________________________________________________
-//    - Metodo exibirWrapperEndereco() é chamado quando o botao de endereco (da sidebar) é 
-//    selecionado.
-//    - Exibe o wrapper de endereco e esconde todos os outros
-// Item 7 ________________________________________________________________________________
-//    - Metodo exibirWrapperImagens() é chamado quando o botao de imagens (da sidebar) é 
-//    selecionado.
-//    - Exibe o wrapper de imagens e esconde todos os outros 
+
 

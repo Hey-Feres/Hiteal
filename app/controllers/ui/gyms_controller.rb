@@ -104,6 +104,34 @@ class Ui::GymsController < ApplicationController
 				value: @gym.lng				
 			},
 		}
+		# Item 3
+		@introduction_box_dados = {
+			title: "Minha Gym",
+			icons: [
+				{
+					name: 'barbell',
+					size: 50,
+					color: 'B632AD',
+					description: 'Crie um perfil para sua academia',
+					first_icon: true
+				},
+				{
+					name: 'map',
+					size: 50,
+					color: 'F1C40F',
+					description: 'Adicione sua localização ou a selecione no mapa',
+					first_icon: false
+				},
+				{
+					name: 'albums',
+					size: 50,
+					color: '1890DB',
+					description: 'Compartilhe fotos com seus alunos e com seu time',
+					first_icon: false
+				},
+			],
+			button_text: "Vamos lá"
+		}
 	end
 end
 

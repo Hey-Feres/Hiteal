@@ -49,52 +49,7 @@
 			br
 			#map
 	// ________________________________________________________________________________
-	.divider.imagens-gym#wrapperImagens
-		.divider-header.d-flex.justify-content-between
-			h3 Imagens
-			= render './ui/icons/plus', size: 40, color: "3498DB"
-		.divider-content
-			///form
-				/input#upload type='file' multiple="true" direct_upload="true"
-			= form_with(url: "/api/v1/gyms/1", method: "PUT") do |f|
-				= f.file_field :imagens, multiple: true, direct_upload: true, id: "imagens-field"
-			br
-			br
-			img id="myImg" src="#" alt="your image" height="200" width="100"
-
-javascript:
-	/*window.addEventListener('load', function() {
-		document.querySelector('input[type="file"]').addEventListener('change', function() {
-			if (this.files && this.files[0]) {
-				//var img = $("myImg"[0]);  // $('img')[0]
-				var imgField = $("#imagens-field").val();
-	          	
-	          	//img.src = URL.createObjectURL(this.files[0]); // set src to blob url
-	          	console.log("**************")
-	          	console.log(imgField)
-	          	//img.onload = imageIsLoaded;
-
-		        let request = new Request();
-		        let data = { "gym": {"imagens": imgField} }
-		        let url = apiBaseUrl + "/gyms/#{@gym.id}"
-		        let headers = {}
-		        let successCallback = function(data){ 
-		            console.log(data);
-		        }
-		        // .  .  .  .  .  .  .  .  .  .  .  .
-		        let errorCallback = function(jqXHR, textStatus, msg){ 
-		            console.log(msg);
-		        }
-		        // .  .  .  .  .  .  .  .  .  .  .  .
-		        const response = request.put(data, url, successCallback , errorCallback, headers)
-	      	}
-	  	});
-	});
-
-	function imageIsLoaded() { 
-	  alert(this.src);  // blob url
-	  // update width and height ...
-	}*/
+	= render 'images-uploader'
 css:
 	#map {
 	    width: 100%;
@@ -133,7 +88,6 @@ css:
 		width: 100%;
 		overflow: scroll;
 	}
-
 javascript:
     $(document).ready(function(){
     	let user = new User("#{current_user.nome}","#{current_user.gym_id}")

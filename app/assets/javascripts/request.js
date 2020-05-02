@@ -42,5 +42,17 @@ class Request {
 		})
 		.done(successCallback)
 	    .fail(errorCallback);
-    }    
+    }
+	// Upload Request
+	fileUpload(form){
+		var formData = new FormData(form);
+		formData.append('file', file);
+		var xhr = new XMLHttpRequest();
+		// Add any event handlers here...
+		xhr.open('POST', form.getAttribute('action'), true);
+		xhr.send(formData);
+		// To avoid actual submission of the form
+		return false;		
+	}	
 }
+

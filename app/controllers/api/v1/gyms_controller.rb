@@ -1,5 +1,5 @@
 class Api::V1::GymsController < ApplicationController
-	before_action :set_gym, except: :create
+	before_action :set_gym, except: [:create, :upload]
 	
 	def show
 		render json: @gym
@@ -16,19 +16,16 @@ class Api::V1::GymsController < ApplicationController
 	    end	
 	end
 
+	def upload
+		@gym = current_user.gym
+		@gym.imagens.attach(params[:file])
+	end
+
 	def update
-		if params[:gym][:imagens]
-			puts "((((((((((((((((((((((((((("
-			puts params
-			@gym.imagens.attach(params[:gym][:imagens])
+		if @gym.update(gym_params)
 			render json: @gym, status: :created
 		else
-			puts "***************************"
-			if @gym.update(gym_params)
-			  render json: @gym, status: :created
-			else
-			  render json: @gym.errors, status: :unprocessable_entity
-			end
+			render json: @gym.errors, status: :unprocessable_entity
 		end
 	end
 

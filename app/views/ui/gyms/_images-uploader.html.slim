@@ -1,0 +1,111 @@
+.divider.imagens-gym#wrapperImagens
+	.divider-header.d-flex.justify-content-between
+		h3 Imagens
+		= render './ui/icons/plus', size: 40, color: "3498DB", id:"show-image-upload-form", pointer:"true"
+	.divider-content
+  		.mt-3
+	  		- @gym_imagens.each do |month_created, img|
+				h4.month-image-added.mb-3= "#{month_created}"
+	  			.row
+	  				- img.each do |img|
+	  					.col-3
+	  						= image_tag(img, class: "img", id: "img_#{img.id}")
+
+.form-upload-imagens
+	.form-wrapper
+		form id="the-form" action="#{root_url}/api/v1/upload" method="POST" enctype="multipart/form-data"
+			label#hardReset for="upload-field"
+				div style="background: #fff; height: 340px;"
+					h4 Selecione as Fotos
+					= render './ui/icons/albums', color: "CCCCCC", size: 100
+					input id="upload-field" name="file" type="file" multiple="false" style="display:none" onchange="loadFile(event)"
+			div onclick="$('#the-form').submit()" style="background: #0374ff; height: 60px;"
+				h5 Salvar
+css:
+	.form-wrapper h4, h5{
+		color: #ccc;
+	}
+javascript:
+	$(document).ready(function(){
+		// Form inicia escondido
+		$(".form-upload-imagens").hide();
+		// Request upload
+		var form = document.getElementById('the-form');
+		let request = new Request()
+		form.onsubmit = function() {
+			request.fileUpload(form)
+		}
+		// Toggle Show and Hide
+		$("#show-image-upload-form").click(function(){
+			$(".form-upload-imagens").show();
+			$(".form-wrapper").addClass("animate, bounceIn")
+		})
+	})
+
+css:
+	.img{
+		max-width: 300px;
+		max-height: 500px;
+		width: 70%;
+		height: auto;
+		border-radius: 20px;
+		box-shadow: 1px 2px 10px 1px #ccc;
+		margin-bottom: 8%;
+	}
+	.month-image-added{
+		color: #555;
+	}
+
+	.form-upload-imagens{
+		position: fixed;
+		top: 0;
+		right: 0;
+		width: 80%;
+		height: 100%;
+		z-index: 999999;
+		background: rgba(0,0,0,0.3);
+		backdrop-filter: blur(8px);
+		-webkit-backdrop-filter: blur(8px);
+		-o-backdrop-filter: blur(8px);
+		-moz-backdrop-filter: blur(8px);
+		-ms-backdrop-filter: blur(8px);
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
+	.form-wrapper{
+		width: 30%;
+		border-radius: 20px;
+		height: 400px;
+		background: white;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		overflow: hidden;
+	}
+
+	.form-wrapper div{
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
+	#uploader{
+		
+	}
+	#upload-submit{
+		border-radius: 10px;
+		width: 100% !important;
+	}
+
+
+/.form-upload-imagens
+	.form-wrapper
+		/div.w-100
+			form id="the-form" action="#{root_url}/api/v1/upload" method="POST" enctype="multipart/form-data"
+				label for='uploader' Upload
+				input#uploader name="file" type="file" multiple="true" style="display:none"
+				.button-wrapper.mt-5
+					button.btn.btn-primary#upload-submit type="submit" Enviar
+					/input#upload-submit type="submit" value="Enviar"	

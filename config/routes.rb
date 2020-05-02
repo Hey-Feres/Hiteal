@@ -12,6 +12,8 @@ Rails.application.routes.draw do
     	resources :avisos, except: [:edit,:new]
       resources :planos, except: [:edit,:new]
       resources :alunos, except: [:edit,:new]
+
+      post '/upload', to: "gyms#upload"
     end
   end
 

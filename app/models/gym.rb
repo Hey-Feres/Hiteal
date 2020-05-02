@@ -19,8 +19,6 @@ class Gym < ApplicationRecord
 
 	after_create :setGymToUser
 
-	attr_accessor :add_image,:delete_image
-
 	def setGymToUser
 		current_user.update(gym_id: self.id)
 	end

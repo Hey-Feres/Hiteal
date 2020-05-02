@@ -47,5 +47,6 @@ class Helper {
 	        return false;
 	    return true;
 	}
-}
 
+
+}

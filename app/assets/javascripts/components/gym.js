@@ -484,7 +484,6 @@ class Gym {
         $(whatToShow).show(500);
         $(".divider").not(whatToShow).hide(500);
     }
-
         
 }
 

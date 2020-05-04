@@ -17,3 +17,44 @@
  */
 body{background: #ccc;}
 #hardReset {all: initial;* {all: unset;}}
+.blurredBg{
+	backdrop-filter: blur(8px);
+	-webkit-backdrop-filter: blur(8px);
+	-o-backdrop-filter: blur(8px);
+	-moz-backdrop-filter: blur(8px);
+	-ms-backdrop-filter: blur(8px);	
+}
+.blackBg1{ background: rgba(0,0,0,0.1) }
+.blackBg2{ background: rgba(0,0,0,0.2) }
+.blackBg3{ background: rgba(0,0,0,0.3) }
+.blackBg4{ background: rgba(0,0,0,0.4) }
+.blackBg5{ background: rgba(0,0,0,0.5) }
+.blackBg6{ background: rgba(0,0,0,0.6) }
+.blackBg7{ background: rgba(0,0,0,0.7) }
+.blackBg8{ background: rgba(0,0,0,0.8) }
+.blackBg9{ background: rgba(0,0,0,0.9) }
+.blackBg { background: rgba(0,0,0,1.0) }
+
+.whiteBg1{ background: rgba(255,255,255,0.1) }
+.whiteBg2{ background: rgba(255,255,255,0.2) }
+.whiteBg3{ background: rgba(255,255,255,0.3) }
+.whiteBg4{ background: rgba(255,255,255,0.4) }
+.whiteBg5{ background: rgba(255,255,255,0.5) }
+.whiteBg6{ background: rgba(255,255,255,0.6) }
+.whiteBg7{ background: rgba(255,255,255,0.7) }
+.whiteBg8{ background: rgba(255,255,255,0.8) }
+.whiteBg9{ background: rgba(255,255,255,0.9) }
+.whiteBg { background: rgba(255,255,255,1.0) }
+
+.blueBg1 { background: rgba(13,88,250,0.1) }
+.blueBg2 { background: rgba(13,88,250,0.2) }
+.blueBg3 { background: rgba(13,88,250,0.3) }
+.blueBg4 { background: rgba(13,88,250,0.4) }
+.blueBg5 { background: rgba(13,88,250,0.5) }
+.blueBg6 { background: rgba(13,88,250,0.6) }
+.blueBg7 { background: rgba(13,88,250,0.7) }
+.blueBg8 { background: rgba(13,88,250,0.8) }
+.blueBg9 { background: rgba(13,88,250,0.9) }
+.blueBg  { background: rgba(13,88,250,1.0) }
+
+.h-pointer:hover{ cursor: pointer }

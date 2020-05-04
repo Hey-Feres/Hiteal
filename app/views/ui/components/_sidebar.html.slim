@@ -1,8 +1,8 @@
-.sidebar
+.sidebar.blurredBg
 	.sidebar-header
 		.d-flex.justify-content-start
 			img src="#{dados[:img]}"
-			h4.text-white.sidebar-title= dados[:title]
+			h4.sidebar-title= dados[:title]
 	.sidebar-content
 		.sidebar-list-wrapper
 			- dados[:list_items].each do |item|
@@ -24,12 +24,12 @@ css:
 		bottom: 0;
 		left: 0;
 		z-index: 99;
-		background: #888;
+		background: rgba(0,0,0,0.3);
 		padding-top: 70px; /* 70 px é a altura do header */
 	}
 	.sidebar-header{
 		width: 100%;
-		background: #999;
+		background: white;
 		height: 70px;
 		margin: 10% 0;
 		display: flex;

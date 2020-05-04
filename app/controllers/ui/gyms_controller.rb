@@ -1,7 +1,7 @@
 class Ui::GymsController < ApplicationController
 	def index
 		@gym = current_user.gym
-		@gym_imagens = current_user.gym.imagens.group_by { |m| m.created_at.beginning_of_month.strftime("%B") }
+		@gym_imagens = current_user.gym.imagens.order(created_at: "desc").group_by { |m| m.created_at.beginning_of_month.strftime("%B") }
 		# Item 1
 		@sidebar_items = {
 			img:"http://t0.gstatic.com/images?q=tbn:ANd9GcTVtaf929Lh1GpXfg_j11fhYkgNezEpzCou_EQsxMn4vYboHCtNQuTAWO2-A7oi_RlB7P4qVZvZn77mJFGePD4",

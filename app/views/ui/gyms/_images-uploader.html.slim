@@ -1,3 +1,6 @@
+/Organic UI element - Lip Sound - Quick, quiet flick.
+// .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .
+// Grid com imagens
 .divider.imagens-gym#wrapperImagens
 	.divider-header.d-flex.justify-content-between
 		h3 Imagens
@@ -10,35 +13,58 @@
 	  				- img.each do |img|
 	  					.col-3
 	  						= image_tag(img, class: "img", id: "img_#{img.id}")
-
+// .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .
+// Box para Upload
 .form-upload-imagens
-	.form-wrapper
+	.form-wrapper.blurredBg.whiteBg8
 		form id="the-form" action="#{root_url}/api/v1/upload" method="POST" enctype="multipart/form-data"
 			label#hardReset for="upload-field"
-				div style="background: #fff; height: 340px;"
-					h4 Selecione as Fotos
-					= render './ui/icons/albums', color: "CCCCCC", size: 100
-					input id="upload-field" name="file" type="file" multiple="false" style="display:none" onchange="loadFile(event)"
-			div onclick="$('#the-form').submit()" style="background: #0374ff; height: 60px;"
-				h5 Salvar
+				div style="height: 300px;"
+					h4.filename Selecione as Fotos
+					= render './ui/components/icon', color: "AAAAAA", size: 100, style: "ios-filled", name: "albums", id:"fotos-icon"
+					= render './ui/components/icon', color: "2ECC71", size: 100, style: "ios", name: "checked", id:"foto-uploaded"
+					input id="upload-field" name="file" type="file" multiple="false" style="display:none"
+			= render './ui/components/button', id:"submit", style: "default", value: "Salvar", type: "submit"
+			= render './ui/components/button', id:"close", style: "red", value: "Cancelar", type: "button"
 css:
-	.form-wrapper h4, h5{
-		color: #ccc;
-	}
+	.form-wrapper h4{ color: #AAAAAA; }
 javascript:
 	$(document).ready(function(){
 		// Form inicia escondido
 		$(".form-upload-imagens").hide();
-		// Request upload
-		var form = document.getElementById('the-form');
-		let request = new Request()
-		form.onsubmit = function() {
-			request.fileUpload(form)
-		}
+		$("#foto-uploaded").hide();
+		$(function() {
+		   	$("input:file").change(function (){
+		    	var fileName = $(this).val();
+		    	$("#fotos-icon").hide();
+		     	$(".filename").html(fileName.split("/").slice(-1)[0]);
+		     	$("#foto-uploaded").show();
+		   	});
+		});
 		// Toggle Show and Hide
 		$("#show-image-upload-form").click(function(){
 			$(".form-upload-imagens").show();
 			$(".form-wrapper").addClass("animate, bounceIn")
+			setTimeout(function(){
+				$(".form-wrapper").removeClass("animate, bounceIn");
+			}, 750)
+		})
+		// .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .
+		$("#close").click(function(){
+			$(".form-wrapper").addClass("animate, bounceOut")
+			setTimeout(function(){
+				$(".form-upload-imagens").hide();
+				$(".form-wrapper").removeClass("animate, bounceOut");
+			}, 750)
+		})
+		// .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .
+		$("#submit").click(function() {
+			// Request upload
+			var form = document.getElementById('the-form');
+			let request = new Request()
+			form.onsubmit = function() {
+				request.fileUpload(form)
+			}
 		})
 	})
 
@@ -64,11 +90,11 @@ css:
 		height: 100%;
 		z-index: 999999;
 		background: rgba(0,0,0,0.3);
-		backdrop-filter: blur(8px);
-		-webkit-backdrop-filter: blur(8px);
-		-o-backdrop-filter: blur(8px);
-		-moz-backdrop-filter: blur(8px);
-		-ms-backdrop-filter: blur(8px);
+		backdrop-filter: blur(5px);
+		-webkit-backdrop-filter: blur(5px);
+		-o-backdrop-filter: blur(5px);
+		-moz-backdrop-filter: blur(5px);
+		-ms-backdrop-filter: blur(5px);
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
@@ -78,7 +104,7 @@ css:
 		width: 30%;
 		border-radius: 20px;
 		height: 400px;
-		background: white;
+		/*background: white;*/
 		display: flex;
 		flex-direction: column;
 		justify-content: space-between;
@@ -97,6 +123,9 @@ css:
 	#upload-submit{
 		border-radius: 10px;
 		width: 100% !important;
+	}
+	#close-file-uploader{
+
 	}
 
 

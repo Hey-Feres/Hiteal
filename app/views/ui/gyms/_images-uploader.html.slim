@@ -17,7 +17,7 @@
 // Box para Upload
 .form-upload-imagens
 	.form-wrapper.blurredBg.whiteBg8
-		form id="the-form" action="#{root_url}/api/v1/upload" method="POST" enctype="multipart/form-data"
+		form id="the-form" action="#{root_url}/api/v1/gyms/upload" method="POST" enctype="multipart/form-data"
 			label#hardReset for="upload-field"
 				div style="height: 300px;"
 					h4.filename Selecione as Fotos
@@ -26,8 +26,7 @@
 					input id="upload-field" name="file" type="file" multiple="false" style="display:none"
 			= render './ui/components/button', id:"submit", style: "default", value: "Salvar", type: "submit"
 			= render './ui/components/button', id:"close", style: "red", value: "Cancelar", type: "button"
-css:
-	.form-wrapper h4{ color: #AAAAAA; }
+
 javascript:
 	$(document).ready(function(){
 		// Form inicia escondido
@@ -61,10 +60,20 @@ javascript:
 		$("#submit").click(function() {
 			// Request upload
 			var form = document.getElementById('the-form');
+			var formData = new FormData(form);
+			formData.append('file', this.file);
 			let request = new Request()
-			form.onsubmit = function() {
-				request.fileUpload(form)
+			let successCallback = data => {
+				console.log(data)
 			}
+			let errorCallback = (x,y,z) => {
+				console.log(x)
+				console.log("2- " + y)
+				console.log("3- " + z)
+			}
+			let url = form.getAttribute('action')
+			let data = formData;
+			request.post(data, url, successCallback , errorCallback, '')
 		})
 	})
 
@@ -81,7 +90,6 @@ css:
 	.month-image-added{
 		color: #555;
 	}
-
 	.form-upload-imagens{
 		position: fixed;
 		top: 0;
@@ -110,7 +118,6 @@ css:
 		justify-content: space-between;
 		overflow: hidden;
 	}
-
 	.form-wrapper div{
 		display: flex;
 		flex-direction: column;
@@ -127,7 +134,7 @@ css:
 	#close-file-uploader{
 
 	}
-
+	.form-wrapper h4{ color: #AAAAAA; }
 
 /.form-upload-imagens
 	.form-wrapper

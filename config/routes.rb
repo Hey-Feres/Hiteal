@@ -13,7 +13,8 @@ Rails.application.routes.draw do
       resources :planos, except: [:edit,:new]
       resources :alunos, except: [:edit,:new]
 
-      post '/upload', to: "gyms#upload"
+      post 'gyms/upload', to: "gyms#upload"
+      get 'gyms/:id/imagens', to: "gyms#imagens"
     end
   end
 

@@ -5,10 +5,14 @@ class Api::V1::GymsController < ApplicationController
 		render json: @gym
 	end
 
+	def imagens
+		@imagens = []
+		@gym.imagens.map{|i| @imagens << i}
+		render json: @imagens
+	end
+
 	def create
 	    @gym = Gym.new(gym_params)
-	    @gym.imagens.attach(params[:gym][:imagens])
-
 	    if @gym.save
 	      render json: @gym, status: :created
 	    else

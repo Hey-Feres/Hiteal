@@ -12,12 +12,13 @@ class Request {
 	    .fail(errorCallback);
     }
     // Post Request
-    post(data, url, successCallback , errorCallback, headers) {
+    post(data, url, successCallback , errorCallback, headers, processData) {
 		return $.ajax({
 			method: "POST",
 			url: url,
 			data: data,
-			headers: headers
+			processData: processData ? processData : false,
+			headers: headers ? headers : ""
 		})
 		.done(successCallback)
 	    .fail(errorCallback);
@@ -46,11 +47,19 @@ class Request {
 	// Upload Request
 	fileUpload(form){
 		var formData = new FormData(form);
-		formData.append('file', file);
+		formData.append('file', this.file);
+		var handleRequestStateChange = function(){
+		  if(xhr.readyState == 4 && xhr.status==200){
+		    console.log("Cheguei Aqui")
+		  }
+		}
 		var xhr = new XMLHttpRequest();
 		// Add any event handlers here...
 		xhr.open('POST', form.getAttribute('action'), true);
-		xhr.send(formData);
+		console.log(xhr.status)
+		console.log(xhr.statusText)
+		xhr.onreadystatechange = handleRequestStateChange;
+		console.log(xhr.readyState)
 		// To avoid actual submission of the form
 		return false;		
 	}	

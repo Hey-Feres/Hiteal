@@ -1,5 +1,5 @@
 class Api::V1::GymsController < ApplicationController
-	before_action :set_gym, except: [:create, :upload]
+	before_action :set_gym, except: [:create, :upload, :delete_upload]
 	
 	def show
 		render json: @gym
@@ -23,7 +23,14 @@ class Api::V1::GymsController < ApplicationController
 	def upload
 		@gym = current_user.gym
 		@gym.imagens.attach(params[:file])
+		redirect_to ui_gyms_path, notice: "Sua foto foi adicionada!"
 	end
+	
+	def delete_upload
+		@gym = current_user.gym
+		@gym.imagens.find(params[:blob_id]).purge
+		redirect_to ui_gyms_path, notice: "A foto foi apagada!"
+	end	
 
 	def update
 		if @gym.update(gym_params)

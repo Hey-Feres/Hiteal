@@ -12,7 +12,15 @@
 	  			.row
 	  				- img.each do |img|
 	  					.col-3
-	  						= image_tag(img, class: "img", id: "img_#{img.id}")
+	  						.show-photo onclick='loadPhoto("img_#{img.id}")'
+	  							= image_tag(img, class: "img", id: "img_#{img.id}")
+// .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .
+// Show Foto
+.photo-view-box
+	img#photo-view style="border-radius: 10px !important"
+	.actions.d-flex.justify-content-center style="background: rgba(255,255,255,0.6); width: 20%; border-radius: 15px; margin-top: 1%; height: 40px"
+		p.text-danger#delete-photo style="line-height: 40px; margin-right: 5%;" Apagar
+		p.text-primary#close-photo-view style="line-height: 40px; margin-left: 5%;" Fechar
 // .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .
 // Box para Upload
 .form-upload-imagens
@@ -35,7 +43,8 @@ javascript:
 		$(".form-upload-imagens").hide();
 		$("#foto-uploaded").hide();
 		$("#loader-upload").hide();
-		
+		$(".photo-view-box").hide()
+
 		$(function() {
 		   	$("input:file").change(function (){
 		    	var fileName = $(this).val();
@@ -60,31 +69,16 @@ javascript:
 				$(".form-wrapper").removeClass("animate, bounceOut");
 			}, 750)
 		})
-		// .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .
-		$("#submit").click(function() {
-			// Request upload
-			$("#submit").hide();
-			$("#loader-upload").show(500);
-			var form = document.getElementById('the-form');
-			var formData = new FormData(form);
-			formData.append('file', this.file);
-			let request = new Request()
-			let successCallback = data => {
-				console.log(data)
-			}
-			let errorCallback = (x,y,z) => {
-				$("#submit").show();
-				$("#loader-upload").hide();
-				$(".form-wrapper").addClass("animate, bounceOut")
-				setTimeout(function(){
-					$(".form-upload-imagens").hide();
-					$(".form-wrapper").removeClass("animate, bounceOut");
-				}, 750)				
-			}
-			let url = form.getAttribute('action')
-			let data = formData;
-			request.post(data, url, successCallback , errorCallback, '')
-		})
+	})
+	function loadPhoto(img){
+		$(".photo-view-box").show()
+		$("#photo-view").attr("src", $("#"+img).attr("src"))
+	}
+	$("#photo-view").click(function(){
+		$(".photo-view-box").hide()
+	})
+	$("#close-photo-view").click(function(){
+		$(".photo-view-box").hide()	
 	})
 
 css:
@@ -100,7 +94,7 @@ css:
 	.month-image-added{
 		color: #555;
 	}
-	.form-upload-imagens{
+	.form-upload-imagens, .photo-view-box{
 		position: fixed;
 		top: 0;
 		right: 0;
@@ -117,6 +111,10 @@ css:
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
+	}
+	#photo-view{
+		max-width: 1000px;
+		max-height: 700px;
 	}
 	.form-wrapper{
 		width: 30%;
@@ -145,13 +143,3 @@ css:
 
 	}
 	.form-wrapper h4{ color: #AAAAAA; }
-
-/.form-upload-imagens
-	.form-wrapper
-		/div.w-100
-			form id="the-form" action="#{root_url}/api/v1/upload" method="POST" enctype="multipart/form-data"
-				label for='uploader' Upload
-				input#uploader name="file" type="file" multiple="true" style="display:none"
-				.button-wrapper.mt-5
-					button.btn.btn-primary#upload-submit type="submit" Enviar
-					/input#upload-submit type="submit" value="Enviar"	

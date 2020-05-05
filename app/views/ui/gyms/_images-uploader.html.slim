@@ -25,6 +25,8 @@
 					= render './ui/components/icon', color: "2ECC71", size: 100, style: "ios", name: "checked", id:"foto-uploaded"
 					input id="upload-field" name="file" type="file" multiple="false" style="display:none"
 			= render './ui/components/button', id:"submit", style: "default", value: "Salvar", type: "submit"
+			center
+				= render './ui/components/loader', id:"loader-upload", size: "small"
 			= render './ui/components/button', id:"close", style: "red", value: "Cancelar", type: "button"
 
 javascript:
@@ -32,6 +34,8 @@ javascript:
 		// Form inicia escondido
 		$(".form-upload-imagens").hide();
 		$("#foto-uploaded").hide();
+		$("#loader-upload").hide();
+		
 		$(function() {
 		   	$("input:file").change(function (){
 		    	var fileName = $(this).val();
@@ -59,6 +63,8 @@ javascript:
 		// .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .
 		$("#submit").click(function() {
 			// Request upload
+			$("#submit").hide();
+			$("#loader-upload").show(500);
 			var form = document.getElementById('the-form');
 			var formData = new FormData(form);
 			formData.append('file', this.file);
@@ -67,9 +73,13 @@ javascript:
 				console.log(data)
 			}
 			let errorCallback = (x,y,z) => {
-				console.log(x)
-				console.log("2- " + y)
-				console.log("3- " + z)
+				$("#submit").show();
+				$("#loader-upload").hide();
+				$(".form-wrapper").addClass("animate, bounceOut")
+				setTimeout(function(){
+					$(".form-upload-imagens").hide();
+					$(".form-wrapper").removeClass("animate, bounceOut");
+				}, 750)				
 			}
 			let url = form.getAttribute('action')
 			let data = formData;

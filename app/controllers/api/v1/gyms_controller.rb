@@ -28,8 +28,11 @@ class Api::V1::GymsController < ApplicationController
 	
 	def delete_upload
 		@gym = current_user.gym
-		@gym.imagens.find(params[:blob_id]).purge
-		redirect_to ui_gyms_path, notice: "A foto foi apagada!"
+		if @gym.imagens.find(params[:blob_id]).purge
+			render json: "Deleted", head: :no_content
+		else
+			render json: "Erro", head: :no_content
+		end
 	end	
 
 	def update

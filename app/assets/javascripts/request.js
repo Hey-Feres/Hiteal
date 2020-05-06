@@ -35,11 +35,10 @@ class Request {
 	    .fail(errorCallback);
     }
     // Delet Request
-    delete(url, successCallback , errorCallback, headers) {
+    delete(url, successCallback , errorCallback) {
 		return $.ajax({
 			method: "DELETE",
 			url: url,
-			headers: headers
 		})
 		.done(successCallback)
 	    .fail(errorCallback);

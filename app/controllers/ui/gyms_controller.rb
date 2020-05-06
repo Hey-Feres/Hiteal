@@ -4,12 +4,12 @@ class Ui::GymsController < ApplicationController
 		@gym_imagens = current_user.gym.imagens.order(created_at: "desc").group_by { |m| m.created_at.beginning_of_month.strftime("%B") }
 		# Item 1
 		@sidebar_items = {
-			img:"http://t0.gstatic.com/images?q=tbn:ANd9GcTVtaf929Lh1GpXfg_j11fhYkgNezEpzCou_EQsxMn4vYboHCtNQuTAWO2-A7oi_RlB7P4qVZvZn77mJFGePD4",
+			img:"https://media.karousell.com/media/photos/products/2018/07/04/we_bare_bears_grizzly_brown_bear_face_iphone_oppo_case_1530710325_07b1c6201_progressive",
 			title: "Gym",
 			list_items: [
 				{ title: "Dados da Gym", id: "dados-toggler", url: "#", first_item: true, last_item: false },
-				{ title: "Endereço", id: "endereco-toggler", url: "#", first_item: false, last_item: false },
-				{ title: "Imagens", id: "imagens-toggler", url: "#", first_item: false, last_item: true }
+				{ title: "Endereço", id: "endereco-toggler", url: "#", first_item: false, last_item: true },
+				#{ title: "Imagens", id: "imagens-toggler", url: "#", first_item: false, last_item: true }
 			]
 		}
 		# Item 2

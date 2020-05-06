@@ -1,10 +1,8 @@
-/Organic UI element - Lip Sound - Quick, quiet flick.
-// .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .
 // Grid com imagens
 .divider.imagens-gym#wrapperImagens
 	.divider-header.d-flex.justify-content-between
 		h3 Imagens
-		= render './ui/icons/plus', size: 40, color: "3498DB", id:"show-image-upload-form", pointer:"true"
+		= render './ui/components/icon', color: "3498DB", size: 40, style: "ios", name: "plus-math", id:"show-image-upload-form"
 	.divider-content
   		.mt-3
 	  		- @gym_imagens.each do |month_created, img|
@@ -14,15 +12,15 @@
 	  					.col-3
 	  						.show-photo onclick='loadPhoto("img_#{img.id}")'
 	  							= image_tag(img, class: "img", id: "img_#{img.id}")
-// .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .
-// Show Foto
+
+// Show Foto .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ..
 .photo-view-box
 	img#photo-view style="border-radius: 10px !important"
 	.actions.d-flex.justify-content-center style="background: rgba(255,255,255,0.6); width: 20%; border-radius: 15px; margin-top: 1%; height: 40px"
+		p#photo-id.hidden
 		p.text-danger#delete-photo style="line-height: 40px; margin-right: 5%;" Apagar
 		p.text-primary#close-photo-view style="line-height: 40px; margin-left: 5%;" Fechar
-// .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .
-// Box para Upload
+// Box para Upload .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 
 .form-upload-imagens
 	.form-wrapper.blurredBg.whiteBg8
 		form id="the-form" action="#{root_url}/api/v1/gyms/upload" method="POST" enctype="multipart/form-data"
@@ -69,10 +67,24 @@ javascript:
 				$(".form-wrapper").removeClass("animate, bounceOut");
 			}, 750)
 		})
+		$("#delete-photo").click(function(){
+			let request = new Request();
+			let url = apiBaseUrl+"/gyms/delete_upload/"+$("#photo-id").text()
+			let successCalback = data => {
+				console.log(data)
+			}
+			let errorCalback = (xml, textStatus, message) => {
+				console.log(textStatus)
+			}		
+			request.delete(url,successCalback,errorCalback)
+		})
+
 	})
+
 	function loadPhoto(img){
 		$(".photo-view-box").show()
 		$("#photo-view").attr("src", $("#"+img).attr("src"))
+		$("#photo-id").text(img.split("_")[1])
 	}
 	$("#photo-view").click(function(){
 		$(".photo-view-box").hide()
@@ -81,65 +93,4 @@ javascript:
 		$(".photo-view-box").hide()	
 	})
 
-css:
-	.img{
-		max-width: 300px;
-		max-height: 500px;
-		width: 70%;
-		height: auto;
-		border-radius: 20px;
-		box-shadow: 1px 2px 10px 1px #ccc;
-		margin-bottom: 8%;
-	}
-	.month-image-added{
-		color: #555;
-	}
-	.form-upload-imagens, .photo-view-box{
-		position: fixed;
-		top: 0;
-		right: 0;
-		width: 80%;
-		height: 100%;
-		z-index: 999999;
-		background: rgba(0,0,0,0.3);
-		backdrop-filter: blur(5px);
-		-webkit-backdrop-filter: blur(5px);
-		-o-backdrop-filter: blur(5px);
-		-moz-backdrop-filter: blur(5px);
-		-ms-backdrop-filter: blur(5px);
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-	}
-	#photo-view{
-		max-width: 1000px;
-		max-height: 700px;
-	}
-	.form-wrapper{
-		width: 30%;
-		border-radius: 20px;
-		height: 400px;
-		/*background: white;*/
-		display: flex;
-		flex-direction: column;
-		justify-content: space-between;
-		overflow: hidden;
-	}
-	.form-wrapper div{
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-	}
-	#uploader{
-		
-	}
-	#upload-submit{
-		border-radius: 10px;
-		width: 100% !important;
-	}
-	#close-file-uploader{
 
-	}
-	.form-wrapper h4{ color: #AAAAAA; }

@@ -481,9 +481,9 @@ class Gym {
     // Item x ______________________________________________________
     toggleWrappers(event, whatToShow){
         event.preventDefault();
-        $(whatToShow).show(300);
+        $(whatToShow).show(500);
         //$(whatToShow).addClass('animated jackInTheBox')
-        $(".divider").not(whatToShow).hide(300);
+        $(".divider").not(whatToShow).hide(500);
         
         //setTimeout(function(){  
             //$(whatToShow).removeClass('animated jackInTheBox')

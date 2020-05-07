@@ -4,7 +4,7 @@ class Ui::GymsController < ApplicationController
 		@gym_imagens = current_user.gym.imagens.order(created_at: "desc").group_by { |m| m.created_at.beginning_of_month.strftime("%B") }
 		# Item 1
 		@sidebar_items = {
-			img:"https://media.karousell.com/media/photos/products/2018/07/04/we_bare_bears_grizzly_brown_bear_face_iphone_oppo_case_1530710325_07b1c6201_progressive",
+			img:"https://img.icons8.com/ios/50/FFFFFF/barbell.png",
 			title: "Gym",
 			list_items: [
 				{ title: "Dados da Gym", id: "dados-toggler", url: "#", first_item: true, last_item: false },

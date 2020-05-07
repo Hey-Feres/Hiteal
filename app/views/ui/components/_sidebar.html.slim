@@ -3,24 +3,10 @@
 		.d-flex.justify-content-start
 			/img src="#{dados[:img]}"
 			.img-wrapper
-				/- if !current_user.gym.logo.present?
-					img src="https://img.icons8.com/ios-filled/30/FFFFFF/compact-camera.png"
-				/- else
-				/img#logo src="#{dados[:img]}"
-				= image_tag("Bubbles_2.png", id: "logo")
+				img#logo src="#{dados[:img]}"
+				/= image_tag("Bubbles_2.png", id: "logo")
 			h4.sidebar-title= dados[:title]
 	.sidebar-content
-		// Alterar Imagem de Perfil Only For Gym
-		- if current_page?(ui_gyms_path)
-			.logo-select-box
-				h5 Imagem para Perfil
-				.row
-					.col-4
-						= image_tag("Bubbles.png", class: "logo-img")
-					.col-4
-						= image_tag("Bubbles_2.png", class: "logo-img")
-					.col-4
-						= image_tag("Minimalista.png", class: "logo-img")
 		.sidebar-list-wrapper
 			- dados[:list_items].each do |item|
 				- if item[:first_item]
@@ -33,16 +19,6 @@
 					.sidebar-item id="#{item[:id]}"
 						h5= link_to item[:title], item[:url]
 
-javascript:
-	$(document).ready(function(){
-		$(".logo-select-box").hide()
-		
-		$("#logo").click(function(){
-			$(".logo-select-box").addClass('animated zoomIn')
-			$(".logo-select-box").show()
-		})
-	})
-	
 css:
 	.sidebar{
 		width: 20%;

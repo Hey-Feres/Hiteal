@@ -1,7 +1,7 @@
 class Ui::GymsController < ApplicationController
 	def index
-		@gym = current_user.gym
-		@gym_imagens = current_user.gym.imagens.order(created_at: "desc").group_by { |m| m.created_at.beginning_of_month.strftime("%B") }
+		@gym =  current_user.gym.present? ? current_user.gym : Gym.new
+		#@gym_imagens = @gym.gym.imagens.order(created_at: "desc").group_by { |m| m.created_at.beginning_of_month.strftime("%B") }
 		# Item 1
 		@sidebar_items = {
 			img:"https://img.icons8.com/ios/50/FFFFFF/barbell.png",
@@ -21,7 +21,7 @@ class Ui::GymsController < ApplicationController
 				error_id: "gym-nome-error", 
 				placeholder: "Nome da Gym", 
 				input_id: "gym-nome", 
-				value: @gym.nome
+				value: @gym.present? ? @gym.nome : ""
 			},
 			gym_razao_social: {
 				label: "Razão Social", 
@@ -30,7 +30,7 @@ class Ui::GymsController < ApplicationController
 				error_id: "gym-razao-social-error", 
 				placeholder: "Razão Social", 
 				input_id: "razao-social", 
-				value: @gym.razao_social
+				value: @gym.present? ? @gym.razao_social : ""
 			},
 			gym_cnpj: {
 				label: "CNPJ", 
@@ -39,7 +39,7 @@ class Ui::GymsController < ApplicationController
 				error_id: "gym-cnpj-error", 
 				placeholder: "CNPJ", 
 				input_id: "cnpj", 
-				value: @gym.cnpj
+				value: @gym.present? ? @gym.cnpj : ""
 			},
 			gym_cep:{
 				label: "CEP", 
@@ -48,7 +48,7 @@ class Ui::GymsController < ApplicationController
 				error_id: "gym-cep-error", 
 				placeholder: "CEP",
 				input_id: "cep",
-				value: @gym.cep				
+				value: @gym.present? ? @gym.cep	: ""
 			},			
 			gym_cidade:{
 				label: "Cidade", 
@@ -57,7 +57,7 @@ class Ui::GymsController < ApplicationController
 				error_id: "gym-cidade-error", 
 				placeholder: "Cidade",
 				input_id: "cidade",
-				value: @gym.cidade				
+				value: @gym.present? ? @gym.cidade : ""
 			},
 			gym_estado:{
 				label: "Estado", 
@@ -66,7 +66,7 @@ class Ui::GymsController < ApplicationController
 				error_id: "gym-estado-error", 
 				placeholder: "Estado",
 				input_id: "estado",
-				value: @gym.estado
+				value: @gym.present? ? @gym.estado : ""
 			},
 			gym_numero:{
 				label: "Numero", 
@@ -75,7 +75,7 @@ class Ui::GymsController < ApplicationController
 				error_id: "gym-numero-error", 
 				placeholder: "Numero",
 				input_id: "numero",
-				value: @gym.numero				
+				value: @gym.present? ? @gym.numero : ""
 			},
 			gym_rua:{
 				label: "Rua", 
@@ -84,7 +84,7 @@ class Ui::GymsController < ApplicationController
 				error_id: "gym-rua-error", 
 				placeholder: "Rua",
 				input_id: "rua",
-				value: @gym.rua				
+				value: @gym.present? ? @gym.rua : ""
 			},			
 			gym_lat:{
 				label: "Latitude", 
@@ -93,7 +93,7 @@ class Ui::GymsController < ApplicationController
 				error_id: "gym-latitude-error", 
 				placeholder: "Latitude",
 				input_id: "latitude",
-				value: @gym.lat				
+				value: @gym.present? ? @gym.lat : ""
 			},
 			gym_lng:{
 				label: "Longitude", 
@@ -102,7 +102,7 @@ class Ui::GymsController < ApplicationController
 				error_id: "gym-longitude-error", 
 				placeholder: "Longitude",
 				input_id: "longitude",
-				value: @gym.lng				
+				value: @gym.present? ? @gym.lng : ""
 			},
 		}
 		# Item 3

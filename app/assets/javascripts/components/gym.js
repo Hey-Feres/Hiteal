@@ -423,8 +423,8 @@ class Gym {
         if (!lat || !lng){
             lat=51.5;
             lng=-0.125;
-            document.getElementById('place_latitude').value = lat;
-            document.getElementById('place_longitude').value = lng;
+            document.getElementById('latitude').value = lat;
+            document.getElementById('longitude').value = lng;
         }        
         var myCoords = new google.maps.LatLng(lat, lng);
         var mapOptions = {

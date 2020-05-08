@@ -3,7 +3,7 @@
 
 = render './ui/components/sidebar', dados: @sidebar_items
 
-- if @gym.nil?
+- if @gym.new_record?
 	= render './ui/components/introduction-box', dados: @introduction_box_dados
 .content
 	// ________________________________________________________________________________
@@ -55,7 +55,7 @@ javascript:
     	let user = new User("#{current_user.nome}","#{current_user.gym_id}")
     	user.getLocation();
 		// Inicializa a classe gym
-		let gym = new Gym("#{@gym.nome}", "#{@gym.cnpj}", "#{@gym.razao_social}", "#{@gym.id}", "#{Rails.application.credentials.cep_api_key}", "#{Rails.application.credentials.cep_api_secret}");
+		let gym = new Gym("#{@gym.nome}", "#{@gym.cnpj}", "#{@gym.razao_social}", "#{@gym.id}", "#{Rails.application.credentials.cep_api_key}", "#{Rails.application.credentials.cep_api_secret}", "#{@gym.new_record?}");
 		// Inicializa os estados das divs
 		gym.componentLoaded()
 		// Inicializa o mapa

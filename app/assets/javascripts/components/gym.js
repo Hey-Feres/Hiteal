@@ -1,5 +1,5 @@
 class Gym {
-    constructor(nome, cnpj, razao_social, gym_id, cep_api_key, cep_api_secret) {
+    constructor(nome, cnpj, razao_social, gym_id, cep_api_key, cep_api_secret, new_record) {
         this.nome = nome;
         this.cnpj = cnpj;
         this.razao_social = razao_social;
@@ -7,6 +7,7 @@ class Gym {
         this.cep_api_key = cep_api_key;
         this.cep_api_secret = cep_api_secret;
         this.geocoder_api_key = "a366e5d89f374268be77171463df3776";
+        this.new_record = new_record
     }
     // Item 1 ______________________________________________________
     componentLoaded(){
@@ -82,7 +83,8 @@ class Gym {
             setTimeout(function(){ $("#gym-nome-error").hide(200); }, 2000);
         }
         // .  .  .  .  .  .  .  .  .  .  .  .
-        const response = request.put(data, url, successCallback , errorCallback, headers)
+        response = request.put(data, url, successCallback , errorCallback, headers)
+        
 		return response
     }
     // Item 3 ______________________________________________________

@@ -1,4 +1,6 @@
 class Gym < ApplicationRecord
+	include Auditable
+
 	has_many :users, dependent: :destroy
 	has_many :aulas, dependent: :destroy
 	has_many :avisos, dependent: :destroy
@@ -16,10 +18,12 @@ class Gym < ApplicationRecord
 	
 	has_one_attached :logo
 	has_many_attached :imagens
-
+	
 	after_create :setGymToUser
-
+	
+	attr_accessor :created_by
+	
 	def setGymToUser
-		current_user.update(gym_id: self.id)
+		User.find(self.created_by.id).update(gym_id: self.id)
 	end
 end

@@ -4,4 +4,12 @@ class User < ApplicationRecord
 	belongs_to :gym, optional: true, dependent: :destroy
 
 	has_one_attached :foto
+
+  def self.current=(user)
+    Thread.current[:current_user] = user
+  end
+
+  def self.current
+    Thread.current[:current_user]
+  end
 end

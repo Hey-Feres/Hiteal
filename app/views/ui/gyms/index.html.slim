@@ -50,6 +50,7 @@
 			#map
 	// ________________________________________________________________________________
 	/= render 'images-uploader'
+
 javascript:
     $(document).ready(function(){
     	let user = new User("#{current_user.nome}","#{current_user.gym_id}")
@@ -115,6 +116,27 @@ javascript:
 			console.log(response)
 		})
 		//________________________
-		//#logo
-
+		//#tour
+		const tour = new Shepherd.Tour({
+		  defaultStepOptions: {
+		    classes: 'shadow-md bg-purple-dark',
+		    scrollTo: true
+		  }
+		});
+		tour.addStep({
+		  id: 'gym-nome',
+		  text: 'Que tal começar adicionando o nome da sua Gym',
+		  attachTo: {
+		    element: '.example-css-selector',
+		    on: 'bottom'
+		  },
+		  classes: 'example-step-extra-class',
+		  buttons: [
+		    {
+		      text: 'Next',
+		      action: tour.next
+		    }
+		  ]
+		});		
+		tour.start();
     })

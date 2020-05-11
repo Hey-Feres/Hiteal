@@ -13,6 +13,9 @@ class Api::V1::GymsController < ApplicationController
 
 	def create
 	    @gym = Gym.new(gym_params)
+		puts "**************"
+	    puts gym_params
+	    @gym.created_by = current_user
 	    if @gym.save
 	      render json: @gym, status: :created
 	    else
@@ -54,6 +57,6 @@ class Api::V1::GymsController < ApplicationController
 	    end
 
 	    def gym_params
-	      params.require(:gym).permit(:nome,:razao_social,:cnpj,:rua,:cidade,:estado,:cep,:numero,:lat,:lng,:imagens,:delete_image,:add_image)
+	      params.fetch(:gym, {}).permit(:nome,:razao_social,:cnpj,:rua,:cidade,:estado,:cep,:numero,:lat,:lng,:imagens,:delete_image,:add_image)
 	    end
 end

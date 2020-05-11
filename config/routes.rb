@@ -13,9 +13,9 @@ Rails.application.routes.draw do
       resources :planos, except: [:edit,:new]
       resources :alunos, except: [:edit,:new]
 
-      post 'gyms/upload', to: "gyms#upload"
-      get 'gyms/:id/imagens', to: "gyms#imagens"
-      delete 'gyms/delete_upload/:blob_id', to: "gyms#delete_upload"
+      post '/gyms/upload', to: "gyms#upload"
+      get '/gyms/:id/imagens', to: "gyms#imagens"
+      delete '/gyms/delete_upload/:blob_id', to: "gyms#delete_upload"
     end
   end
 

@@ -1,5 +1,5 @@
 class Api::V1::UsersController < ApplicationController
-	before_action :set_user, except: :create
+	before_action :set_user, except: [:create]
 
 	def show
 		if current_user.id == @user.id || current_user.admin

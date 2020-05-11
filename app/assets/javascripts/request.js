@@ -12,17 +12,16 @@ class Request {
 	    .fail(errorCallback);
     }
     // Post Request
-    post(data, url, successCallback , errorCallback, headers, processData) {
+    post(data, url, successCallback , errorCallback, headers) {
 		return $.ajax({
 			method: "POST",
 			url: url,
 			data: data,
-			processData: processData ? processData : false,
 			headers: headers ? headers : ""
 		})
 		.done(successCallback)
 	    .fail(errorCallback);
-    }    
+    }
     // Put Request
     put(data, url, successCallback , errorCallback, headers) {
 		return $.ajax({

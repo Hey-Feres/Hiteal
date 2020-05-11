@@ -7,7 +7,7 @@ class Gym {
         this.cep_api_key = cep_api_key;
         this.cep_api_secret = cep_api_secret;
         this.geocoder_api_key = "a366e5d89f374268be77171463df3776";
-        this.new_record = new_record
+        this.new_record = new_record;
     }
     // Item 1 ______________________________________________________
     componentLoaded(){
@@ -60,6 +60,15 @@ class Gym {
         Inputmask({"mask": "99-999-999"}).mask($("#cep"));
         Inputmask({"mask": "99.999.999/9999-99"}).mask($("#cnpj"));
     }
+    runRequest(object){
+        let response = null
+        if (this.new_record == true || this.new_record == "true") {
+            response = object.request.post(object.data, object.url, object.successCallback, object.errorCallback, object.headers)
+        }else{
+            response = object.request.put(object.data, object.url, object.successCallback, object.errorCallback, object.headers)
+        }
+        return response        
+    }
     // Item 2 ______________________________________________________
     mudarNome(novo_nome){
         $("#gym-nome-loader").show();
@@ -83,9 +92,9 @@ class Gym {
             setTimeout(function(){ $("#gym-nome-error").hide(200); }, 2000);
         }
         // .  .  .  .  .  .  .  .  .  .  .  .
-        response = request.put(data, url, successCallback , errorCallback, headers)
-        
-		return response
+        let object = {request: request, data: data, url: url, headers: headers, successCallback: successCallback, errorCallback: errorCallback}
+		let response = this.runRequest(object)
+        return response
     }
     // Item 3 ______________________________________________________
     mudarRazaoSocial(nova_razao_social){
@@ -110,8 +119,9 @@ class Gym {
             setTimeout(function(){ $("#gym-razao-social-error").hide(200); }, 2000);
         }
         // .  .  .  .  .  .  .  .  .  .  .  .
-		const response = request.put(data, url, successCallback , errorCallback, headers)
-		return response
+        let object = {request: request, data: data, url: url, headers: headers, successCallback: successCallback, errorCallback: errorCallback}
+        let response = this.runRequest(object)
+        return response
     }
     // Item 4 ______________________________________________________
     mudarCnpj(novo_cnpj){
@@ -146,8 +156,9 @@ class Gym {
                 setTimeout(function(){ $("#gym-cnpj-error").hide(200); }, 2000);
             }            
             // .  .  .  .  .  .  .  .  .  .  .  .
-            const response = request.put(data, url, successCallback , errorCallback, headers)
-            return response        
+            let object = {request: request, data: data, url: url, headers: headers, successCallback: successCallback, errorCallback: errorCallback}
+            let response = this.runRequest(object)
+            return response       
         }
     }
     // Item 5 ______________________________________________________
@@ -176,7 +187,8 @@ class Gym {
             setTimeout(function(){ $("#gym-cep-error").hide(200); }, 2000);
         }
         // .  .  .  .  .  .  .  .  .  .  .  .
-        const response = request.put(data, url, successCallback , errorCallback, headers)
+        let object = {request: request, data: data, url: url, headers: headers, successCallback: successCallback, errorCallback: errorCallback}
+        let response = this.runRequest(object)
         return response
     }
     // Item x ______________________________________________________
@@ -202,7 +214,8 @@ class Gym {
             setTimeout(function(){ $("#gym-cidade-error").hide(200); }, 2000);
         }
         // .  .  .  .  .  .  .  .  .  .  .  .
-        const response = request.put(data, url, successCallback , errorCallback, headers)
+        let object = {request: request, data: data, url: url, headers: headers, successCallback: successCallback, errorCallback: errorCallback}
+        let response = this.runRequest(object)
         return response
     }
     // Item x ______________________________________________________
@@ -236,7 +249,8 @@ class Gym {
                 setTimeout(function(){ $("#gym-estado-error").hide(200); }, 2000);
             }
             // .  .  .  .  .  .  .  .  .  .  .  .
-            const response = request.put(data, url, successCallback , errorCallback, headers)
+            let object = {request: request, data: data, url: url, headers: headers, successCallback: successCallback, errorCallback: errorCallback}
+            let response = this.runRequest(object)
             return response
         }
     }
@@ -263,7 +277,8 @@ class Gym {
             setTimeout(function(){ $("#gym-numero-error").hide(200); }, 2000);
         }
         // .  .  .  .  .  .  .  .  .  .  .  .
-        const response = request.put(data, url, successCallback , errorCallback, headers)
+        let object = {request: request, data: data, url: url, headers: headers, successCallback: successCallback, errorCallback: errorCallback}
+        let response = this.runRequest(object)
         return response
     }
     // Item x ______________________________________________________
@@ -289,7 +304,8 @@ class Gym {
             setTimeout(function(){ $("#gym-rua-error").hide(200); }, 2000);
         }
         // .  .  .  .  .  .  .  .  .  .  .  .
-        const response = request.put(data, url, successCallback , errorCallback, headers)
+        let object = {request: request, data: data, url: url, headers: headers, successCallback: successCallback, errorCallback: errorCallback}
+        let response = this.runRequest(object)
         return response
     }    
     // Item x ______________________________________________________
@@ -315,7 +331,8 @@ class Gym {
             setTimeout(function(){ $("#gym-latitude-error").hide(200); }, 2000);
         }
         // .  .  .  .  .  .  .  .  .  .  .  .
-        const response = request.put(data, url, successCallback , errorCallback, headers)
+        let object = {request: request, data: data, url: url, headers: headers, successCallback: successCallback, errorCallback: errorCallback}
+        let response = this.runRequest(object)
         return response
     }
     // Item x ______________________________________________________
@@ -341,7 +358,8 @@ class Gym {
             setTimeout(function(){ $("#gym-longitude-error").hide(200); }, 2000);
         }
         // .  .  .  .  .  .  .  .  .  .  .  .
-        const response = request.put(data, url, successCallback , errorCallback, headers)
+        let object = {request: request, data: data, url: url, headers: headers, successCallback: successCallback, errorCallback: errorCallback}
+        let response = this.runRequest(object)
         return response
     }
     // Item x ______________________________________________________
@@ -383,6 +401,8 @@ class Gym {
             console.log(msg);
         }
         const response = request.get(url, successCallback , errorCallback, headers)
+        console.log("******************************")
+        console.log(response)
         return response
     }
     validaEstado(estado){
@@ -484,12 +504,7 @@ class Gym {
     toggleWrappers(event, whatToShow){
         event.preventDefault();
         $(whatToShow).show(500);
-        //$(whatToShow).addClass('animated jackInTheBox')
         $(".divider").not(whatToShow).hide(500);
-        
-        //setTimeout(function(){  
-            //$(whatToShow).removeClass('animated jackInTheBox')
-        //}, 800);
     }
         
 }

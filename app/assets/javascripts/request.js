@@ -1,6 +1,5 @@
 class Request {
     constructor() {}
-
     // Get Request
     get(url, successCallback , errorCallback, headers) {
 		return $.ajax({
@@ -62,4 +61,3 @@ class Request {
 		return false;		
 	}	
 }
-

@@ -1,18 +1,21 @@
 class Ui::GymsController < ApplicationController
 	def index
-		@gym =  current_user.gym.present? ? current_user.gym : Gym.new
-		#@gym_imagens = @gym.gym.imagens.order(created_at: "desc").group_by { |m| m.created_at.beginning_of_month.strftime("%B") }
 		# Item 1
+		@gym =  current_user.gym.present? ? current_user.gym : Gym.new
+		# | SOON | #
+		# @gym_imagens = @gym.gym.imagens.order(created_at: "desc").group_by { |m| m.created_at.beginning_of_month.strftime("%B") }
+		# Item 2
 		@sidebar_items = {
 			img:"https://img.icons8.com/ios/50/FFFFFF/barbell.png",
 			title: "Gym",
 			list_items: [
 				{ title: "Dados da Gym", id: "dados-toggler", url: "#", first_item: true, last_item: false },
 				{ title: "Endereço", id: "endereco-toggler", url: "#", first_item: false, last_item: true },
-				#{ title: "Imagens", id: "imagens-toggler", url: "#", first_item: false, last_item: true }
+				# | SOON | #
+				# { title: "Imagens", id: "imagens-toggler", url: "#", first_item: false, last_item: true }
 			]
 		}
-		# Item 2
+		# Item 3
 		@inputs_attributes = {
 			gym_nome: {
 				label: "Nome da Gym", 
@@ -105,7 +108,7 @@ class Ui::GymsController < ApplicationController
 				value: @gym.present? ? @gym.lng : ""
 			},
 		}
-		# Item 3
+		# Item 4
 		@introduction_box_dados = {
 			title: "Minha Gym",
 			icons: [
@@ -138,11 +141,18 @@ end
 
 # Documentacao
 # Item 1 ________________________________________________________________________________
+# 	- Atribuimos a variavel @gym a Gym do usuario logado, caso ainda nao tenha 
+# 	instanciamos a classe 
+# Item 2 ________________________________________________________________________________
 # 	- Os itens com first_item = true ou last_item = true contam 
 # 	com esses atributos para ajustes do hover no css do list wraper no compoent sidebar
 # 	- Muitos items podem nao contar com uma url pois alguns botoes serao apenas para 
 # 	hide e show no script
-# Item 2 ________________________________________________________________________________
+# Item 3 ________________________________________________________________________________
 # 	- A variavel inputs_attributes é um hash de hashes com os valores dos inputs e 
 # 	respectivos icones da  view Gym
 #  	- Todo o processamento dos inputs é feito na classe gym.js
+#  	- Caso nao tenha um valor definido nos values, definimos como uma string vazia
+# Item 4 ________________________________________________________________________________
+# 	- Introduction Box é a variavel com os dados a serem exibidos no box de introducao 
+# 	que e exibido ao user na primeira vez que acessa a tela Gym

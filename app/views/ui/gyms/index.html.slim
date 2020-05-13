@@ -56,7 +56,7 @@ javascript:
     	let user = new User("#{current_user.nome}","#{current_user.gym_id}")
     	user.getLocation();
 		// Inicializa a classe gym
-		let parametros = [
+		let gym = new Gym(
 			"#{@gym.nome}", 
 			"#{@gym.cnpj}", 
 			"#{@gym.razao_social}", 
@@ -65,8 +65,7 @@ javascript:
 			"#{Rails.application.credentials.cep_api_secret}",
 			"#{Rails.application.credentials.geocoder_api_key}", 
 			"#{@gym.new_record?}"
-		]
-		let gym = new Gym(parametros);
+		);
 		// Inicializa os estados das divs
 		gym.componentLoaded()
 		// Inicializa o mapa

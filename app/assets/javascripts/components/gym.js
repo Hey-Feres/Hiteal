@@ -1,16 +1,17 @@
 class Gym {
-    constructor(nome, cnpj, razao_social, gym_id, cep_api_key, cep_api_secret, new_record) {
+    constructor(nome, cnpj, razao_social, gym_id, cep_api_key, cep_api_secret, geocoder_api_key, new_record) {
         this.nome = nome;
         this.cnpj = cnpj;
         this.razao_social = razao_social;
         this.gym_id = gym_id;
         this.cep_api_key = cep_api_key;
         this.cep_api_secret = cep_api_secret;
-        this.geocoder_api_key = "a366e5d89f374268be77171463df3776";
+        this.geocoder_api_key = geocoder_api_key;
         this.new_record = new_record;
     }
     // Item 1 ______________________________________________________
     componentLoaded(){
+        //alert("Aviso da Versão Beta \r\nEsta versão está rodando para test flight\r\nOs assets usados podem ter direitos autorais.")
         // .  .  .  .  .  .  .  .  .  .  .  .
         $(".divider").not("#wrapperDados").hide();
         // .  .  .  .  .  .  .  .  .  .  .  .

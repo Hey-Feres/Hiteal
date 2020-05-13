@@ -17,7 +17,7 @@
  */
 /*Commom Setup*/
 .divider{
-	background: #fff;
+	background: rgba(255, 255, 255,1);
 	padding: 1 2%;
 	border-radius: 20px;
 }
@@ -46,11 +46,11 @@ body{background: #ccc;}
 #hardReset {all: initial;* {all: unset;}}
 .hidden{display: none;}
 .blurredBg{
-	backdrop-filter: blur(8px);
-	-webkit-backdrop-filter: blur(8px);
-	-o-backdrop-filter: blur(8px);
-	-moz-backdrop-filter: blur(8px);
-	-ms-backdrop-filter: blur(8px);	
+	backdrop-filter: blur(40px);
+	-webkit-backdrop-filter: blur(40px);
+	-o-backdrop-filter: blur(40px);
+	-moz-backdrop-filter: blur(40px);
+	-ms-backdrop-filter: blur(40px);
 }
 .blackBg1{ background: rgba(0,0,0,0.1) }
 .blackBg2{ background: rgba(0,0,0,0.2) }

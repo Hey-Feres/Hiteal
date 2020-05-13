@@ -1,0 +1,68 @@
+- provide :head_tags do
+	meta name='turbolinks-visit-control' content='reload'
+
+= render './ui/components/sidebar', dados: @sidebar_items
+
+.content
+	// Div com Dados do Current User  .  .  .  .  .  .  .  .  .  .  .
+	.divider.dados-gym#wrapperDados
+		.divider-header.d-flex.justify-content-between
+			h3 Seus Dados
+			- if @user.admin?
+				= render './ui/components/icon', color: "D4AF37", size: 40, style: "ios", name: "crown", id: ""
+		.divider-content
+			form
+				.d-flex.justify-content-start
+					= render './ui/components/text-field', input: @inputs_attributes[:user_nome]
+				br
+				.d-flex.justify-content-start
+					= render './ui/components/text-field', input: @inputs_attributes[:user_email]
+				br
+				.d-flex.justify-content-start
+					= render './ui/components/text-field', input: @inputs_attributes[:user_since]
+				br
+				.d-flex.justify-content-start
+					= render './ui/components/text-field', input: @inputs_attributes[:user_gym_id]
+				br
+				.d-flex.justify-content-start
+					= render './ui/components/text-field', input: @inputs_attributes[:user_id]
+	// Div com Dados do Current User  .  .  .  .  .  .  .  .  .  .  .
+	.divider.dados-gym#wrapperGerenciar
+		- if !@user.admin?
+			.dados-gym.d-flex.flex-column.justify-content-center
+				div
+					center
+						= render './ui/components/icon', color: "000", size: 40, style: "ios", name: "lock", id: ""
+						p Acesso Restrito à Admin
+		- else
+			.divider-header.d-flex.justify-content-between
+				h3 Gerenciar
+			.divider-content
+				table.table.table-striped
+					tr
+						th.text-center Nome
+						th.text-center Último Acesso
+						th.text-center Status
+						th 
+					- @usuarios.each do |u|
+						tr
+							td.text-center= u.nome.present? ? u.nome : "Não Definido"
+							td.text-center= u.last_sign_in_at.present? ? today?(u.last_sign_in_at) ? "Hoje" : yesterday?(u.last_sign_in_at) ? "Ontem" : u.last_sign_in_at.strftime("%d/%m") : ""
+							td.text-center= render './ui/components/icon', color: "FF0000", size: 13, style: "windows", name: "filled-circle", id: ""
+							td.text-primary.text-center Editar						
+	// Div com Dados do Current User  .  .  .  .  .  .  .  .  .  .  .
+	.divider.dados-gym#wrapperAdicionar
+		.divider-header.d-flex.justify-content-between
+			h3 Seus Dados
+			- if @user.admin?
+				= render './ui/components/icon', color: "D4AF37", size: 40, style: "ios", name: "crown", id: ""
+		.divider-content
+
+javascript:
+	let user = new User("#{current_user.nome}","#{current_user.email}","#{current_user.gym_id}")
+	user.componentLoaded();
+	// Swicth dos estados das divs
+	$("#dados-toggler").click(function(event) 	  {		user.toggleWrappers(event, "#wrapperDados")	  	})
+	$("#gerenciar-toggler").click(function(event) { 	user.toggleWrappers(event, "#wrapperGerenciar") 	})
+	$("#adicionar-toggler").click(function(event) { 	user.toggleWrappers(event, "#wrapperAdicionar")  })
+

@@ -19,7 +19,7 @@ class Gym < ApplicationRecord
 	has_one_attached :logo
 	has_many_attached :imagens
 	
-	after_create :setGymToUser
+	#after_create :setGymToUser
 	
 	attr_accessor :created_by
 	

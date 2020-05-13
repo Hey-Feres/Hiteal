@@ -45,6 +45,11 @@
 body{background: #ccc;}
 #hardReset {all: initial;* {all: unset;}}
 .hidden{display: none;}
+@-moz-document url-prefix() {
+	.blurredBg{
+		background: rgba(255,255,255,.8);
+	}
+}
 .blurredBg{
 	backdrop-filter: blur(40px);
 	-webkit-backdrop-filter: blur(40px);

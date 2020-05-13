@@ -48,7 +48,7 @@
 						tr
 							td.text-center= u.nome.present? ? u.nome : "Não Definido"
 							td.text-center= u.last_sign_in_at.present? ? today?(u.last_sign_in_at) ? "Hoje" : yesterday?(u.last_sign_in_at) ? "Ontem" : u.last_sign_in_at.strftime("%d/%m") : ""
-							td.text-center= render './ui/components/icon', color: "FF0000", size: 13, style: "windows", name: "filled-circle", id: ""
+							td.text-center= render './ui/components/icon', color: "FF0000", size: 8, style: "windows", name: "filled-circle", id: ""
 							td.text-primary.text-center Editar						
 	// Div com Dados do Current User  .  .  .  .  .  .  .  .  .  .  .
 	.divider.dados-gym#wrapperAdicionar

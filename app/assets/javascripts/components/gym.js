@@ -66,6 +66,8 @@ class Gym {
         let response = null
         if (this.new_record == true || this.new_record == "true") {
             response = object.request.post(object.data, object.url, object.successCallback, object.errorCallback, object.headers)
+            // Atualiza o valor de new_record
+            this.new_record = false
         }else{
             response = object.request.put(object.data, object.url, object.successCallback, object.errorCallback, object.headers)
         }
@@ -77,14 +79,17 @@ class Gym {
         // .  .  .  .  .  .  .  .  .  .  .  .
         let request = new Request();
 		let data = { "gym": {"nome": novo_nome} }
-		let url = apiBaseUrl + "/gyms/" + this.gym_id
+		let url = this.new_record == true ? apiBaseUrl + "/gyms/" : apiBaseUrl + "/gyms/" + this.gym_id
 		let headers = {}
         // .  .  .  .  .  .  .  .  .  .  .  .
+        let updateGymId = data => {this.gym_id = data}
         let successCallback = function(data){
             console.log(data);
             $("#gym-nome-check").show(200);
             $("#gym-nome-loader").hide();
             setTimeout(function(){ $("#gym-nome-check").hide(200); }, 2000);
+            // Importante quando trata-se de um novo record
+            updateGymId(data.id)
         }
         // .  .  .  .  .  .  .  .  .  .  .  .
 		let errorCallback = function(jqXHR, textStatus, msg){ 
@@ -104,14 +109,18 @@ class Gym {
         // .  .  .  .  .  .  .  .  .  .  .  .
         let request = new Request();
 		let data = { "gym": {"razao_social": nova_razao_social} }
-		let url = apiBaseUrl + "/gyms/" + this.gym_id
+        console.log(this.gym_id)
+        let url = this.new_record == true ? apiBaseUrl + "/gyms" : apiBaseUrl + "/gyms/" + this.gym_id
         let headers = {}
 		// .  .  .  .  .  .  .  .  .  .  .  .
+        let updateGymId = data => {this.gym_id = data}
         let successCallback = function(data){
             console.log(data);
             $("#gym-razao-social-check").show(200);
             $("#gym-razao-social-loader").hide();
             setTimeout(function(){ $("#gym-razao-social-check").hide(200); }, 2000);
+            // Importante quando trata-se de um novo record
+            updateGymId(data.id)            
         }
         // .  .  .  .  .  .  .  .  .  .  .  .
 		let errorCallback = function(jqXHR, textStatus, msg){ 
@@ -137,16 +146,19 @@ class Gym {
             // .  .  .  .  .  .  .  .  .  .  .  .
             let request = new Request();
             let data = { "gym": {"cnpj": novo_cnpj} }
-            let url = apiBaseUrl + "/gyms/" + this.gym_id
+            let url = this.new_record == true ? apiBaseUrl + "/gyms/" : apiBaseUrl + "/gyms/" + this.gym_id
             let headers = {}
             //let url = "https://api.cnpja.com.br/companies/27865757000102"
-            //let headers = {"Authorization": "#{Rails.application.credentials.cnpj_api_key}"}
+            //let headers = {"Authorization": "#{Rails.application.credentials.cnpj_api_key}"}            
             // .  .  .  .  .  .  .  .  .  .  .  .
+            let updateGymId = data => {this.gym_id = data}
             let successCallback = function(data){
                 console.log(data);
                 $("#gym-cnpj-check").show(200);
                 $("#gym-cnpj-loader").hide();
                 setTimeout(function(){ $("#gym-cnpj-check").hide(200); }, 2000);
+                // Importante quando trata-se de um novo record
+                updateGymId(data.id)                
             }
             // .  .  .  .  .  .  .  .  .  .  .  .
             let errorCallback = function(jqXHR, textStatus, msg){ 
@@ -172,14 +184,17 @@ class Gym {
         // .  .  .  .  .  .  .  .  .  .  .  .
         let request = new Request();
         let data = { "gym": {"cep": novo_cep} }
-        let url = apiBaseUrl + "/gyms/" + this.gym_id
+        let url = this.new_record == true ? apiBaseUrl + "/gyms/" : apiBaseUrl + "/gyms/" + this.gym_id
         let headers = {}
         // .  .  .  .  .  .  .  .  .  .  .  .
+        let updateGymId = data => {this.gym_id = data}
         let successCallback = function(data){ 
             console.log(data);
             $("#gym-cep-check").show(200);
             $("#gym-cep-loader").hide();
             setTimeout(function(){ $("#gym-cep-check").hide(200); }, 2000);
+            // Importante quando trata-se de um novo record
+            updateGymId(data.id)            
         }
         // .  .  .  .  .  .  .  .  .  .  .  .
         let errorCallback = function(jqXHR, textStatus, msg){ 
@@ -199,14 +214,17 @@ class Gym {
         // .  .  .  .  .  .  .  .  .  .  .  .
         let request = new Request();
         let data = { "gym": {"cidade": nova_cidade} }
-        let url = apiBaseUrl + "/gyms/" + this.gym_id
+        let url = this.new_record == true ? apiBaseUrl + "/gyms/" : apiBaseUrl + "/gyms/" + this.gym_id
         let headers = {}
         // .  .  .  .  .  .  .  .  .  .  .  .
+        let updateGymId = data => {this.gym_id = data}
         let successCallback = function(data){ 
             console.log(data);
             $("#gym-cidade-check").show(200);
             $("#gym-cidade-loader").hide();
             setTimeout(function(){ $("#gym-cidade-check").hide(200); }, 2000);
+            // Importante quando trata-se de um novo record
+            updateGymId(data.id)            
         }
         // .  .  .  .  .  .  .  .  .  .  .  .
         let errorCallback = function(jqXHR, textStatus, msg){ 
@@ -234,14 +252,17 @@ class Gym {
             // .  .  .  .  .  .  .  .  .  .  .  .
             let request = new Request();
             let data = { "gym": {"estado": novo_estado} }
-            let url = apiBaseUrl + "/gyms/" + this.gym_id
+            let url = this.new_record == true ? apiBaseUrl + "/gyms/" : apiBaseUrl + "/gyms/" + this.gym_id
             let headers = {}
             // .  .  .  .  .  .  .  .  .  .  .  .
+            let updateGymId = data => {this.gym_id = data}
             let successCallback = function(data){ 
                 console.log(data);
                 $("#gym-estado-check").show(200);
                 $("#gym-estado-loader").hide();
                 setTimeout(function(){ $("#gym-estado-check").hide(200); }, 2000);
+                // Importante quando trata-se de um novo record
+                updateGymId(data.id)                
             }
             // .  .  .  .  .  .  .  .  .  .  .  .
             let errorCallback = function(jqXHR, textStatus, msg){ 
@@ -262,14 +283,17 @@ class Gym {
         // .  .  .  .  .  .  .  .  .  .  .  .
         let request = new Request();
         let data = { "gym": {"numero": novo_numero} }
-        let url = apiBaseUrl + "/gyms/" + this.gym_id
+        let url = this.new_record == true ? apiBaseUrl + "/gyms/" : apiBaseUrl + "/gyms/" + this.gym_id
         let headers = {}
         // .  .  .  .  .  .  .  .  .  .  .  .
+        let updateGymId = data => {this.gym_id = data}
         let successCallback = function(data){ 
             console.log(data);
             $("#gym-numero-check").show(200);
             $("#gym-numero-loader").hide();
             setTimeout(function(){ $("#gym-numero-check").hide(200); }, 2000);
+            // Importante quando trata-se de um novo record
+            updateGymId(data.id)            
         }
         // .  .  .  .  .  .  .  .  .  .  .  .
         let errorCallback = function(jqXHR, textStatus, msg){ 
@@ -289,14 +313,17 @@ class Gym {
         // .  .  .  .  .  .  .  .  .  .  .  .
         let request = new Request();
         let data = { "gym": {"rua": nova_rua} }
-        let url = apiBaseUrl + "/gyms/" + this.gym_id
+        let url = this.new_record == true ? apiBaseUrl + "/gyms/" : apiBaseUrl + "/gyms/" + this.gym_id
         let headers = {}
         // .  .  .  .  .  .  .  .  .  .  .  .
+        let updateGymId = data => {this.gym_id = data}
         let successCallback = function(data){ 
             console.log(data);
             $("#gym-rua-check").show(200);
             $("#gym-rua-loader").hide();
             setTimeout(function(){ $("#gym-rua-check").hide(200); }, 2000);
+            // Importante quando trata-se de um novo record
+            updateGymId(data.id)            
         }
         // .  .  .  .  .  .  .  .  .  .  .  .
         let errorCallback = function(jqXHR, textStatus, msg){ 
@@ -316,14 +343,17 @@ class Gym {
         // .  .  .  .  .  .  .  .  .  .  .  .
         let request = new Request();
         let data = { "gym": {"lat": nova_lat} }
-        let url = apiBaseUrl + "/gyms/" + this.gym_id
+        let url = this.new_record == true ? apiBaseUrl + "/gyms/" : apiBaseUrl + "/gyms/" + this.gym_id
         let headers = {}
         // .  .  .  .  .  .  .  .  .  .  .  .
+        let updateGymId = data => {this.gym_id = data}
         let successCallback = function(data){ 
             console.log(data);
             $("#gym-latitude-check").show(200);
             $("#gym-latitude-loader").hide();
             setTimeout(function(){ $("#gym-latitude-check").hide(200); }, 2000);
+            // Importante quando trata-se de um novo record
+            updateGymId(data.id)
         }
         // .  .  .  .  .  .  .  .  .  .  .  .
         let errorCallback = function(jqXHR, textStatus, msg){ 
@@ -343,14 +373,17 @@ class Gym {
         // .  .  .  .  .  .  .  .  .  .  .  .
         let request = new Request();
         let data = { "gym": {"lng": nova_lng} }
-        let url = apiBaseUrl + "/gyms/" + this.gym_id
+        let url = this.new_record == true ? apiBaseUrl + "/gyms/" : apiBaseUrl + "/gyms/" + this.gym_id
         let headers = {}
         // .  .  .  .  .  .  .  .  .  .  .  .
+        let updateGymId = data => {this.gym_id = data}
         let successCallback = function(data){ 
             console.log(data);
             $("#gym-longitude-check").show(200);
             $("#gym-longitude-loader").hide();
             setTimeout(function(){ $("#gym-longitude-check").hide(200); }, 2000);
+            // Importante quando trata-se de um novo record
+            updateGymId(data.id)
         }
         // .  .  .  .  .  .  .  .  .  .  .  .
         let errorCallback = function(jqXHR, textStatus, msg){ 

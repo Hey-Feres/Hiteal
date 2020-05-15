@@ -17,12 +17,15 @@ html
         .notice-box.blurredBg
             p.notice= notice
     p.alert= alert
-    //= render './ui/components/loader', size: 'large'
 css:
-    body{ background-image: url("https://wallpaperaccess.com/full/235784.jpg");}
+    /*body{ background-image: url("https://wallpaperaccess.com/full/235784.jpg");}*/
+    body{ 
+        background-image: url("https://wallpaperaccess.com/full/235784.jpg");
+        background-repeat: no-repeat;
+        background-size: 1500px 900px;
+    }
     .main-wrapper{
         padding-top: 70px; /* 70 px é a altura do header */
-        /*border: 5px solid #ccc;*/
         position: absolute;
         height: 100%;
         width: 100%;

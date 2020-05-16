@@ -1,22 +1,30 @@
-header.blurredBg
-	h3 Hiteal Web
-	
+header.d-flex.justify-content-between
+	p.title Hiteal Web
+	h3 . . .
 css:
+	:root {
+		--blur: 20px
+	}
 	header{
-		background: rgba(255,255,255,0.7);
+		background: rgba(255,255,255,0.8);
 		position: fixed;
 		width: 100%;
 		top: 0;
 		left: 0;
 		z-index: 9999;
-		/*box-shadow: 1px 2px 10px 1px #ccc;*/
+		backdrop-filter: blur(var(--blur));
+		-webkit-backdrop-filter: blur(var(--blur));
+		-o-backdrop-filter: blur(var(--blur));
+		-moz-backdrop-filter: blur(var(--blur));
+		-ms-backdrop-filter: blur(var(--blur));
 		padding: 0 2%;
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		height: 70px;
+		height: 50px;
 	}
 	header h3{
 		color: #555;
 		font-family: sans-serif
+	}
+	header .title{
+		font-weight: 200;
+		font-size: 2em;
 	}

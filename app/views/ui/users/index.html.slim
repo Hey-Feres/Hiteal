@@ -49,7 +49,12 @@
 							td.text-center= u.nome.present? ? u.nome : "Não Definido"
 							td.text-center= u.last_sign_in_at.present? ? today?(u.last_sign_in_at) ? "Hoje" : yesterday?(u.last_sign_in_at) ? "Ontem" : u.last_sign_in_at.strftime("%d/%m") : ""
 							td.text-center= render './ui/components/icon', color: "FF0000", size: 8, style: "windows", name: "filled-circle", id: ""
-							td.text-primary.text-center Editar						
+							- if u.id == current_user.id
+								td.text-muted.text-center Editar
+							- else
+								td.text-primary.text-center onclick="showUserEditor(#{u.id})" Editar
+	#wrapperEditarUser
+		h3#user-nome
 	// Div com Dados do Current User  .  .  .  .  .  .  .  .  .  .  .
 	.divider.dados-gym#wrapperAdicionar
 		.divider-header.d-flex.justify-content-between
@@ -57,12 +62,52 @@
 			- if @user.admin?
 				= render './ui/components/icon', color: "D4AF37", size: 40, style: "ios", name: "crown", id: ""
 		.divider-content
-
+css:
+	#wrapperEditarUser{
+		position: fixed;
+		background: rgba(255,255,255,0.7);
+		border: 1px solid var(--gray5);
+		border-radius: 20px;
+		width: 20%;
+		height: 84%;
+		top: 10%;
+		right: 4%;
+		backdrop-filter: blur(40px);
+		-webkit-backdrop-filter: blur(40px);
+		-o-backdrop-filter: blur(40px);
+		-moz-backdrop-filter: blur(40px);
+		-ms-backdrop-filter: blur(40px);
+		padding: 1%;
+	}
 javascript:
-	let user = new User("#{current_user.nome}","#{current_user.email}","#{current_user.gym_id}")
+	let user = new User("#{current_user.id}","#{current_user.nome}","#{current_user.email}","#{current_user.gym_id}")
 	user.componentLoaded();
 	// Swicth dos estados das divs
 	$("#dados-toggler").click(function(event) 	  {		user.toggleWrappers(event, "#wrapperDados")	  	})
 	$("#gerenciar-toggler").click(function(event) { 	user.toggleWrappers(event, "#wrapperGerenciar") 	})
 	$("#adicionar-toggler").click(function(event) { 	user.toggleWrappers(event, "#wrapperAdicionar")  })
+	// Input com nome
+	$("#user-nome").change(function() {
+		response = user.mudarNome($("#user-nome").val())
+		console.log(response)
+	})
+	// Input com email
+	$("#user-email").change(function() {
+		response = user.mudarEmail($("#user-email").val())
+		console.log(response)
+	})
 
+	function showUserEditor(id){
+		$("#wrapperEditarUser").show();
+		$("#user-nome").text("Teste")
+	}
+
+	/*
+		$("#show-image-upload-form").click(function(){
+			$(".form-upload-imagens").show();
+			$(".form-wrapper").addClass("animate, bounceIn")
+			setTimeout(function(){
+				$(".form-wrapper").removeClass("animate, bounceIn");
+			}, 750)
+		})
+		*/

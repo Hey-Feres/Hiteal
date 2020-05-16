@@ -14,7 +14,7 @@ Plano.create!(
 )
 
 8.times do |i|
-	User.create!(admin:true, email:"user_#{i}@teste.com",password: '123456',gym_id: 1)
+	User.create!(admin:false, nome: "User #{i}", email:"user_#{i}@teste.com",password: '123456',gym_id: 1)
 end
 
 1000.times do |i|

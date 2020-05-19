@@ -96,7 +96,8 @@ class Ui::GymsController < ApplicationController
 				error_id: "gym-latitude-error", 
 				placeholder: "Latitude",
 				input_id: "latitude",
-				value: @gym.present? ? @gym.lat : ""
+				value: @gym.present? ? @gym.lat : "",
+				disabled: true
 			},
 			gym_lng:{
 				label: "Longitude", 
@@ -105,7 +106,8 @@ class Ui::GymsController < ApplicationController
 				error_id: "gym-longitude-error", 
 				placeholder: "Longitude",
 				input_id: "longitude",
-				value: @gym.present? ? @gym.lng : ""
+				value: @gym.present? ? @gym.lng : "",
+				disabled: true
 			},
 		}
 		# Item 4

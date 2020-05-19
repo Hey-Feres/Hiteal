@@ -54,7 +54,10 @@
 							- else
 								td.text-primary.text-center onclick="showUserEditor(#{u.id})" Editar
 	#wrapperEditarUser
-		h3#user-nome
+		div
+			h5 Editar Usuário
+		#form-editar
+			/= render './ui/components/text-field', input: @inputs_attributes[:gym_nome]	
 	// Div com Dados do Current User  .  .  .  .  .  .  .  .  .  .  .
 	.divider.dados-gym#wrapperAdicionar
 		.divider-header.d-flex.justify-content-between
@@ -67,9 +70,9 @@ css:
 		position: fixed;
 		background: rgba(255,255,255,0.7);
 		border: 1px solid var(--gray5);
-		border-radius: 20px;
-		width: 20%;
-		height: 84%;
+		border-radius: 10px;
+		width: 30%;
+		height: 50%;
 		top: 10%;
 		right: 4%;
 		backdrop-filter: blur(40px);
@@ -98,8 +101,24 @@ javascript:
 	})
 
 	function showUserEditor(id){
+		let request = new Request()
+		let dados = null
+		let url = apiBaseUrl + "/users/" + id
+		let successCallback = data => {
+			dados = data
+			console.log(data)
+		}
+		let errorCallback = (x,y,z) => {
+			console.log(x)
+			console.log(y)
+			console.log(z)
+		}
+		request.get(url,successCallback,errorCallback)
 		$("#wrapperEditarUser").show();
-		$("#user-nome").text("Teste")
+		let html = ""
+		html = ""
+		
+		//$("#wrapperEditarUser").html(html);
 	}
 
 	/*

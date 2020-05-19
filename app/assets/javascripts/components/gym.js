@@ -177,6 +177,7 @@ class Gym {
     }
     // Item 3 ______________________________________________________
     mudarCep(novo_cep){
+        console.log("HERE")
         novo_cep = novo_cep.split("-").join("")
         this.getEnderecoCepApi(novo_cep);
         // .  .  .  .  .  .  .  .  .  .  .  .
@@ -399,6 +400,7 @@ class Gym {
     }
     // Item 4 ______________________________________________________
     getEnderecoCepApi(cep){
+        console.log("CHEGUEI AQUI")
         $("#gym-cidade-loader").show(200);
         $("#gym-estado-loader").show(200);
         $("#gym-rua-loader").show(200);
@@ -522,6 +524,7 @@ class Gym {
     }
     // Item 7 ______________________________________________________
     updateEnderecoComCoordenadas(lat,lng){
+        console.log("Coordenadas Alteradas")
         let request = new Request();
         let url = "https://api.opencagedata.com/geocode/v1/json?q="+lat+"+"+lng+"&key="+this.geocoder_api_key
         let headers = {}
@@ -529,11 +532,13 @@ class Gym {
         let mudarCep = cep => {this.mudarCep(cep)}
         // .  .  .  .  .  .  .  .  .  .  .  .
         let successCallback = data => { 
-            console.log(data.results[0].components)
+            console.log("SUCESSO")
+            console.log(data.results[0].components.postcode)
             mudarCep(data.results[0].components.postcode)
         }
         // .  .  .  .  .  .  .  .  .  .  .  .
         let errorCallback = (jqXHR, textStatus, msg) => {
+            console.log("ERRO")
             console.log(msg);
         }
         const response = request.get(url, successCallback , errorCallback, headers)

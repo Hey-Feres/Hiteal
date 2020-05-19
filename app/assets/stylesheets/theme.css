@@ -17,9 +17,7 @@
 }
 
 .divider{
-  background: rgba(255, 255, 255,1);
   padding: 1 2%;
-  border-radius: 20px;
 }
 .divider-header{
   padding: 3%;
@@ -31,14 +29,17 @@
   margin-bottom: 5%;
 }
 .content{
-  width: 76%;
-  position: absolute;
+  width: 80%;
+  border-left: 1px solid #ccc;
+  position: fixed;
+  background: rgba(255, 255, 255,1);
   height: 100%;
-  left: 22%;
-  right: 2%;
+  left: 20%;
+  right: 0;
+  bottom: 0 !important;
+  top: 50px;
   z-index: 9;
   /*background: #555;*/
-  margin-top: 10px;
   padding: 0;
 }
 /*Generico*/

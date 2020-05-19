@@ -3,7 +3,7 @@ class Api::V1::UsersController < ApplicationController
 
 	def show
 		if current_user.id == @user.id || current_user.admin
-			render json: @user
+			render json: User.find(params[:id])
 		else
 			render json: "Permission Denied", status: :unprocessable_entity
 		end

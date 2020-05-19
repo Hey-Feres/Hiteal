@@ -6,7 +6,7 @@ class User {
         this.gym_id = gym_id;
     }
     componentLoaded(){
-        $("#wrapperEditarUser").hide(); ///////
+        $("#wrapperEditarUser").hide(); ///////      
         // .  .  .  .  .  .  .  .  .  .  .  .
         $(".divider").not("#wrapperDados").hide();
         // .  .  .  .  .  .  .  .  .  .  .  .

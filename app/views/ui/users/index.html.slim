@@ -68,7 +68,7 @@
 			label ID
 			input type="text" placeholder="ID" id="edit-id-field" disabled=""
 			= render './ui/components/switch', label: "Admin", id: "switch-admin-status"
-			.mt-5
+			.mt-4
 			= render './ui/components/button', value: "Salvar", style: "default", id: "submit-editor-form", type:"button"
 			div onclick="hideUserEditor()"
 				= render './ui/components/button', value: "Cancelar", style: "red", id: "", type:"button"
@@ -89,7 +89,7 @@ css:
 		border-radius: 10px;
 		width: 25%;
 		height: 40%;
-		top: 10%;
+		top: 10% !important;
 		right: 4%;
 		backdrop-filter: blur(40px);
 		-webkit-backdrop-filter: blur(40px);
@@ -126,9 +126,16 @@ javascript:
 		let admin = $('#switch-admin-status').is(":checked")
 		user.editUser(id,nome,email,senha,admin)
 	})
-
+	$("#delete-user").click(function(){
+		let id = $("#edit-id-field").val()
+		user.removeUser(id)
+	})
 	function hideUserEditor(){
-		$("#wrapperEditarUser").hide(300)
+		$("#wrapperEditarUser").addClass("animated zoomOutRight")
+		setTimeout(function(){
+			$("#wrapperEditarUser").hide()
+			$("#wrapperEditarUser").removeClass("animated zoomOutRight")
+		},750)
 	}
 
 	function showUserEditor(id){
@@ -151,6 +158,10 @@ javascript:
 			console.log(z)
 		}
 		request.get(url,successCallback,errorCallback)
-		$("#wrapperEditarUser").show(300);
+		$("#wrapperEditarUser").addClass("animated zoomInRight")
+		$("#wrapperEditarUser").show()
+		setTimeout(function(){
+			$("#wrapperEditarUser").removeClass("animated zoomInRight")
+		},750)		
 	}
 

@@ -11,12 +11,13 @@ html
     = yield(:head_tags)
   body
     = render 'layouts/header'
-    .main-wrapper#App
+    .main-wrapper
         = yield
         = render "./ui/components/notificacao"
     - if notice
         .notice-box.blurredBg
             p.notice= notice
+    #notificacao-wrapper        
 css:
     .main-wrapper{
         padding-top: 50px; /* 70 px é a altura do header */

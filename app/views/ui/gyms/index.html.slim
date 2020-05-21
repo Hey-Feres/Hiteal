@@ -1,131 +1,131 @@
-/- provide :head_tags do
+- provide :head_tags do
 	meta name='turbolinks-visit-control' content='reload'
-#Gym
-	= render './ui/components/sidebar', dados: @sidebar_items
 
-	- if @gym.new_record?
-		= render './ui/components/introduction-box', dados: @introduction_box_dados
-	.content
-		// Div com Dados da Academia  .  .  .  .  .  .  .  .  .  .  .
-		.divider.dados-gym#wrapperDados
-			.divider-header
-				h3 Dados Gym
-			.divider-content
-				form
-					.d-flex.justify-content-start
-						= render './ui/components/text-field', input: @inputs_attributes[:gym_nome]
-					br
-					.d-flex.justify-content-start
-						= render './ui/components/text-field', input: @inputs_attributes[:gym_razao_social]
-					br
-					.d-flex.justify-content-start
-						= render './ui/components/text-field', input: @inputs_attributes[:gym_cnpj]
-		// Div com Endereco da Academia  .  .  .  .  .  .  .  .  .  .
-		.divider.endereco-gym#wrapperEndereco
-			.divider-header
-				h3 Endereço
-			.divider-content
-				form
-					.d-flex.justify-content-start
-						= render './ui/components/text-field', input: @inputs_attributes[:gym_cep]
-					br
-					.d-flex.justify-content-start
-						= render './ui/components/text-field', input: @inputs_attributes[:gym_rua]
-					br					
-					.d-flex.justify-content-start
-						= render './ui/components/text-field', input: @inputs_attributes[:gym_cidade]
-					br
-					.d-flex.justify-content-start
-						= render './ui/components/text-field', input: @inputs_attributes[:gym_estado]
-					br
-					.d-flex.justify-content-start
-						= render './ui/components/text-field', input: @inputs_attributes[:gym_numero]
-					br			
-					.d-flex.justify-content-start
-						= render './ui/components/text-field', input: @inputs_attributes[:gym_lat]
-					br
-					.d-flex.justify-content-start
-						= render './ui/components/text-field', input: @inputs_attributes[:gym_lng]
+= render './ui/components/sidebar', dados: @sidebar_items
+
+- if @gym.new_record?
+	= render './ui/components/introduction-box', dados: @introduction_box_dados
+.content
+	// Div com Dados da Academia  .  .  .  .  .  .  .  .  .  .  .
+	.divider.dados-gym#wrapperDados
+		.divider-header
+			h3 Dados Gym
+		.divider-content
+			form
+				.d-flex.justify-content-start
+					= render './ui/components/text-field', input: @inputs_attributes[:gym_nome]
 				br
-				#map
-		// Div com Imagens da Academia . .  .  .  .  .  .  .  .  .  .
-		/= render 'images-uploader'
+				.d-flex.justify-content-start
+					= render './ui/components/text-field', input: @inputs_attributes[:gym_razao_social]
+				br
+				.d-flex.justify-content-start
+					= render './ui/components/text-field', input: @inputs_attributes[:gym_cnpj]
+	// Div com Endereco da Academia  .  .  .  .  .  .  .  .  .  .
+	.divider.endereco-gym#wrapperEndereco
+		.divider-header
+			h3 Endereço
+		.divider-content
+			form
+				.d-flex.justify-content-start
+					= render './ui/components/text-field', input: @inputs_attributes[:gym_cep]
+				br
+				.d-flex.justify-content-start
+					= render './ui/components/text-field', input: @inputs_attributes[:gym_rua]
+				br					
+				.d-flex.justify-content-start
+					= render './ui/components/text-field', input: @inputs_attributes[:gym_cidade]
+				br
+				.d-flex.justify-content-start
+					= render './ui/components/text-field', input: @inputs_attributes[:gym_estado]
+				br
+				.d-flex.justify-content-start
+					= render './ui/components/text-field', input: @inputs_attributes[:gym_numero]
+				br			
+				.d-flex.justify-content-start
+					= render './ui/components/text-field', input: @inputs_attributes[:gym_lat]
+				br
+				.d-flex.justify-content-start
+					= render './ui/components/text-field', input: @inputs_attributes[:gym_lng]
+			br
+			#map
+	// Div com Imagens da Academia . .  .  .  .  .  .  .  .  .  .
+	/= render 'images-uploader'
 
-	javascript:
-	    $(document).ready(function(){
-	    	let user = new User("#{current_user.nome}","#{current_user.email}","#{current_user.gym_id}")
-	    	user.getLocation();
-			// Inicializa a classe gym
-			let gym = new Gym(
-				"#{@gym.nome}", 
-				"#{@gym.cnpj}", 
-				"#{@gym.razao_social}", 
-				"#{@gym.id}", 
-				"#{Rails.application.credentials.cep_api_key}", 
-				"#{Rails.application.credentials.cep_api_secret}",
-				"#{Rails.application.credentials.geocoder_api_key}", 
-				"#{@gym.new_record?}"
-			);
-			// Inicializa os estados das divs
-			gym.componentLoaded()
-			// Inicializa o mapa
-			if ("#{@gym.lat}" != null && "#{@gym.lng}" != null) {
-				gym.initMap("#{@gym.lat}","#{@gym.lng}");	
-			}else{
-				gym.initMap(-19.984441834617307,-43.8485310499241);				
-			}		
-			// Swicth dos estados das divs
-			$("#dados-toggler").click(function(event) 	 { 	gym.toggleWrappers(event, "#wrapperDados")	  })
-			$("#endereco-toggler").click(function(event) { 	gym.toggleWrappers(event, "#wrapperEndereco") })
-			$("#imagens-toggler").click(function(event)  { 	gym.toggleWrappers(event, "#wrapperImagens")  })
-			// Input com nome
-			$("#gym-nome").change(function() {
-				response = gym.mudarNome($("#gym-nome").val())
-				console.log(response)
-			})
-			// Input com CNPJ
-			$("#cnpj").change(function() {
-				response = gym.mudarCnpj($("#cnpj").val())
-				console.log(response)
-			})
-			// Input com Razao Social
-			$("#razao-social").change(function() {
-				response = gym.mudarRazaoSocial($("#razao-social").val())
-				console.log(response)
-			})
-			// Input com CEP
-			$("#cep").change(function() {
-				response = gym.mudarCep($("#cep").val())
-				console.log(response)
-			})
-			// Input com Rua
-			$("#rua").change(function() {
-				response = gym.mudarRua($("#rua").val())
-				console.log(response)
-			})		
-			// Input com Cidade
-			$("#cidade").change(function() {
-				response = gym.mudarCidade($("#cidade").val())
-				console.log(response)
-			})
-			// Input com Estado
-			$("#estado").change(function() {
-				response = gym.mudarEstado($("#estado").val())
-				console.log(response)
-			})
-			// Input com Numero
-			$("#numero").change(function() {
-				response = gym.mudarNumero($("#numero").val())
-				console.log(response)
-			})
-			// Input com Latitude
-			$("#latitude").change(function() {
-				response = gym.mudarLatitude($("#latitude").val())
-				console.log(response)
-			})
-			// Input com Longitude
-			$("#longitude").change(function() {
-				response = gym.mudarLongitude($("#longitude").val())
-				console.log(response)
-			})
-	    })
+javascript:
+    $(document).ready(function(){
+    	let user = new User("#{current_user.nome}","#{current_user.email}","#{current_user.gym_id}")
+    	user.getLocation();
+		// Inicializa a classe gym
+		let gym = new Gym(
+			"#{@gym.nome}", 
+			"#{@gym.cnpj}", 
+			"#{@gym.razao_social}", 
+			"#{@gym.id}", 
+			"#{Rails.application.credentials.cep_api_key}", 
+			"#{Rails.application.credentials.cep_api_secret}",
+			"#{Rails.application.credentials.geocoder_api_key}", 
+			"#{@gym.new_record?}"
+		);
+		// Inicializa os estados das divs
+		gym.componentLoaded()
+		// Inicializa o mapa
+		if ("#{@gym.lat}" != null && "#{@gym.lng}" != null) {
+			gym.initMap("#{@gym.lat}","#{@gym.lng}");	
+		}else{
+			gym.initMap(-19.984441834617307,-43.8485310499241);				
+		}		
+		// Swicth dos estados das divs
+		$("#dados-toggler").click(function(event) 	 { 	gym.toggleWrappers(event, "#wrapperDados")	  })
+		$("#endereco-toggler").click(function(event) { 	gym.toggleWrappers(event, "#wrapperEndereco") })
+		$("#imagens-toggler").click(function(event)  { 	gym.toggleWrappers(event, "#wrapperImagens")  })
+		// Input com nome
+		$("#gym-nome").change(function() {
+			response = gym.mudarNome($("#gym-nome").val())
+			console.log(response)
+		})
+		// Input com CNPJ
+		$("#cnpj").change(function() {
+			response = gym.mudarCnpj($("#cnpj").val())
+			console.log(response)
+		})
+		// Input com Razao Social
+		$("#razao-social").change(function() {
+			response = gym.mudarRazaoSocial($("#razao-social").val())
+			console.log(response)
+		})
+		// Input com CEP
+		$("#cep").change(function() {
+			response = gym.mudarCep($("#cep").val())
+			console.log(response)
+		})
+		// Input com Rua
+		$("#rua").change(function() {
+			response = gym.mudarRua($("#rua").val())
+			console.log(response)
+		})		
+		// Input com Cidade
+		$("#cidade").change(function() {
+			response = gym.mudarCidade($("#cidade").val())
+			console.log(response)
+		})
+		// Input com Estado
+		$("#estado").change(function() {
+			response = gym.mudarEstado($("#estado").val())
+			console.log(response)
+		})
+		// Input com Numero
+		$("#numero").change(function() {
+			response = gym.mudarNumero($("#numero").val())
+			console.log(response)
+		})
+		// Input com Latitude
+		$("#latitude").change(function() {
+			response = gym.mudarLatitude($("#latitude").val())
+			console.log(response)
+		})
+		// Input com Longitude
+		$("#longitude").change(function() {
+			response = gym.mudarLongitude($("#longitude").val())
+			console.log(response)
+		})
+    })

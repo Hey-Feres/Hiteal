@@ -28,7 +28,6 @@ class Api::V1::UsersController < ApplicationController
 			  render json: @user, status: :created
 			else
 			  render json: @user.errors, status: :unprocessable_entity
-			  @user.errors.inspect
 			end			
 		else
 			render json: "Permission Denied", status: :unprocessable_entity
@@ -37,7 +36,11 @@ class Api::V1::UsersController < ApplicationController
 
 	def destroy
 		if current_user.admin
+		    puts "*********************"
+			puts @user.inspect
 		    @user.destroy
+		    puts "*********************"
+		    puts @user.errors.full_messages
 		    render json: "Destroyed", head: :no_content
 		else
 			render json: "Permission Denied", status: :unprocessable_entity
@@ -46,10 +49,10 @@ class Api::V1::UsersController < ApplicationController
 
 	private
 	    def set_user
-	      @user = User.find(params[:id])
+	    	@user = User.find(params[:id])
 	    end
 
 	    def user_params
-	      params.require(:user).permit(:nome, :email, :password, :admin, :gym_id, :photos)
+	      	params.require(:user).permit(:nome, :email, :password, :admin, :gym_id, :photos)
 	    end
 end

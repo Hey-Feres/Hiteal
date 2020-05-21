@@ -5,6 +5,9 @@ class Helper {
 		return this.className && new RegExp("(^|\\s)" + className + "(\\s|$)").test(this.className);
     }
     // ________________________________________________________________________________________________
+	empty(string){
+	  return string.length == 0
+	}
 	validarCNPJ(cnpj) {
 	    cnpj = cnpj.replace(/[^\d]+/g, '');
 	    if (cnpj == '') return false;
@@ -48,16 +51,23 @@ class Helper {
 	    return true;
 	}
 	notificacao(title,content){
-		$("#notificacao-title").html(title)
-		$("#notificacao-content").html(content)
-		$("#notificacao").show()
+		let notificacao = "<div class='notificacao'> " + 
+						"<div class='notificacao-header'> " + 
+							"<p class='notificacao-title' /> " +
+						"</div>" + 
+						"<div class='notificacao-body'>" + 
+							"<p class='notificacao-content' />" + 
+						" </div> " +
+					"</div>"					
+		$("#notificacao-wrapper").html(notificacao)
+		$(".notificacao-title").html(title)
+		$(".notificacao-content").html(content)
         setTimeout(function(){ 
-            $("#notificacao").addClass("animated fadeOutRight")
+            $(".notificacao").addClass("animated fadeOutRight")
             setTimeout(function(){ 
-                $(".notice-box").removeClass()
-                $(".notice-box").hide()
+				$(".notificacao").remove();
             }, 750);
-        }, 3000);		
+        }, 3000);
 	}
 
 

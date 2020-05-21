@@ -83,23 +83,45 @@ class User {
                 "password": senha
             }
         }
-        data["user"]["password"] = senha != null ? senha : delete data["user"]["password"]
-        console.log(data["user"]["password"]) ///////////////////////////////////////////////////////
+        if (helper.empty(data["user"]["password"])) {delete data["user"]["password"]}
         let url = apiBaseUrl + "/users/" + id
         let successCallback = data => {
-            console.log(data)
+            $("#wrapperEditarUser").addClass("animated zoomOutRight")
+            // Espera terminar a animacao de saida do $("#wrapperEditarUser")
+            setTimeout(function(){
+                $("#wrapperEditarUser").removeClass("animated zoomOutRight")
+                $("#wrapperEditarUser").hide();
+                helper.notificacao("Alterações Salvas","Usuário editado com sucesso");
+            }, 750)
         }
         let errorCallback = (x,y,z) => {
-            console.log(x); console.log(y); console.log(z)
+            helper.notificacao("Erro ao Salvar","Não foi possível salvar as alterações")
         }
         let response = request.put(data,url,successCallback,errorCallback,{})
+        return response
+    }
+    removeUser(id){
+        let request = new Request()
+        let url = apiBaseUrl + "/users/" + id
+        let successCallback = data => {
+            $("#wrapperEditarUser").addClass("animated rollOut")
+            // Espera terminar a animacao de saida do $("#wrapperEditarUser")
+            setTimeout(function(){
+                $("#wrapperEditarUser").removeClass("animated rollOut")
+                helper.notificacao("Usuário Excluido","Usuário removido da base de dados");
+            }, 750)
+        }
+        let errorCallback = (x,y,z) => {
+            helper.notificacao("Erro ao Apagar","Tente excluir mais tarde")
+        }
+        let response = request.delete(url,successCallback,errorCallback)
         return response
     }
     toggleWrappers(event, whatToShow){
         event.preventDefault();
         $(whatToShow).show(500);
         $(".divider").not(whatToShow).hide(500);
-    }    
+    }
 	getLocation() {
 		let data = null
 		if (navigator.geolocation) {

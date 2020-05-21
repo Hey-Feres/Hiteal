@@ -12,6 +12,3 @@
 
 const apiBaseUrl = "http://localhost:3000/api/v1"
 let helper = new Helper()
-
-const App = $("#App")
-let Screen = {Gym: $("#Gym"), Home: $("#Home") }

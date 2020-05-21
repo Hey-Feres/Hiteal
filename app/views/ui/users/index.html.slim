@@ -65,12 +65,9 @@
 			input type="email" placeholder="Email" id="edit-email-field"
 			label Senha
 			input type="password" placeholder="Alterar Senha" id="edit-senha-field"
-			.d-flex.justify-content-between
-				label Admin
-				div
-					label class="form-switch"
-			  			input type="checkbox"
-			  			i
+			label ID
+			input type="text" placeholder="ID" id="edit-id-field" disabled=""
+			= render './ui/components/switch', label: "Admin", id: "switch-admin-status"
 			.mt-5
 			= render './ui/components/button', value: "Salvar", style: "default", id: "submit-editor-form", type:"button"
 			div onclick="hideUserEditor()"
@@ -82,6 +79,8 @@
 			- if @user.admin?
 				= render './ui/components/icon', color: "D4AF37", size: 40, style: "ios", name: "crown", id: ""
 		.divider-content
+
+
 css:
 	#wrapperEditarUser{
 		position: fixed;
@@ -116,6 +115,18 @@ javascript:
 		response = user.mudarEmail($("#user-email").val())
 		console.log(response)
 	})
+
+	$("#submit-editor-form").click(function(){
+		let nome = $("#edit-nome-field").val()
+		let email = $("#edit-email-field").val()
+		let senha = $("#edit-senha-field").val()
+		let id = $("#edit-id-field").val()
+		console.log("******")
+		console.log($("#edit-id-field").val())
+		let admin = $('#switch-admin-status').is(":checked")
+		user.editUser(id,nome,email,senha,admin)
+	})
+
 	function hideUserEditor(){
 		$("#wrapperEditarUser").hide(300)
 	}
@@ -128,6 +139,10 @@ javascript:
 			dados = data
 			$("#edit-nome-field").val(data.nome)
 			$("#edit-email-field").val(data.email)
+			$("#edit-id-field").val(data.id)
+			if (data.admin == true) {
+				$('#switch-admin-status').prop("checked", true)
+			}
 			console.log(data.nome)
 		}
 		let errorCallback = (x,y,z) => {
@@ -137,70 +152,5 @@ javascript:
 		}
 		request.get(url,successCallback,errorCallback)
 		$("#wrapperEditarUser").show(300);
-		let html = ""
-		html = ""
-		
-		//$("#wrapperEditarUser").html(html);
 	}
 
-
-
-
-css:
-	.form-switch {
-	  display: inline-block;
-	  cursor: pointer;
-	  -webkit-tap-highlight-color: transparent;
-	}
-
-	.form-switch i {
-	  position: relative;
-	  display: inline-block;
-	  margin-right: .5rem;
-	  width: 46px;
-	  height: 26px;
-	  background-color: #e6e6e6;
-	  border-radius: 23px;
-	  vertical-align: text-bottom;
-	  transition: all 0.3s linear;
-	}
-
-	.form-switch i::before {
-	  content: "";
-	  position: absolute;
-	  left: 0;
-	  width: 42px;
-	  height: 22px;
-	  background-color: #fff;
-	  border-radius: 11px;
-	  transform: translate3d(2px, 2px, 0) scale3d(1, 1, 1);
-	  transition: all 0.25s linear;
-	}
-
-	.form-switch i::after {
-	  content: "";
-	  position: absolute;
-	  left: 0;
-	  width: 22px;
-	  height: 22px;
-	  background-color: #fff;
-	  border-radius: 11px;
-	  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.24);
-	  transform: translate3d(2px, 2px, 0);
-	  transition: all 0.2s ease-in-out;
-	}
-
-	.form-switch:active i::after {
-	  width: 28px;
-	  transform: translate3d(2px, 2px, 0);
-	}
-
-	.form-switch:active input:checked + i::after { transform: translate3d(16px, 2px, 0); }
-
-	.form-switch input { display: none; }
-
-	.form-switch input:checked + i { background-color: #4BD763; }
-
-	.form-switch input:checked + i::before { transform: translate3d(18px, 2px, 0) scale3d(0, 0, 0); }
-
-	.form-switch input:checked + i::after { transform: translate3d(22px, 2px, 0); }		

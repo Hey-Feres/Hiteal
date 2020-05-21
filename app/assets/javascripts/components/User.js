@@ -6,6 +6,9 @@ class User {
         this.gym_id = gym_id;
     }
     componentLoaded(){
+        //if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+        //    alert("Light Mode")
+        //}
         $("#wrapperEditarUser").hide(); ///////      
         // .  .  .  .  .  .  .  .  .  .  .  .
         $(".divider").not("#wrapperDados").hide();
@@ -69,7 +72,29 @@ class User {
         // .  .  .  .  .  .  .  .  .  .  .  .
         let response = request.put(data,url,successCallback,errorCallback,headers)
         return response
-    }        
+    }
+    editUser(id,nome,email,senha,admin){
+        let request = new Request()
+        let data = {"user":
+            {
+                "nome": nome, 
+                "email": email, 
+                "admin": admin, 
+                "password": senha
+            }
+        }
+        data["user"]["password"] = senha != null ? senha : delete data["user"]["password"]
+        console.log(data["user"]["password"]) ///////////////////////////////////////////////////////
+        let url = apiBaseUrl + "/users/" + id
+        let successCallback = data => {
+            console.log(data)
+        }
+        let errorCallback = (x,y,z) => {
+            console.log(x); console.log(y); console.log(z)
+        }
+        let response = request.put(data,url,successCallback,errorCallback,{})
+        return response
+    }
     toggleWrappers(event, whatToShow){
         event.preventDefault();
         $(whatToShow).show(500);

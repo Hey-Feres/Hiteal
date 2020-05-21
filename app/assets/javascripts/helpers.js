@@ -47,6 +47,18 @@ class Helper {
 	        return false;
 	    return true;
 	}
+	notificacao(title,content){
+		$("#notificacao-title").html(title)
+		$("#notificacao-content").html(content)
+		$("#notificacao").show()
+        setTimeout(function(){ 
+            $("#notificacao").addClass("animated fadeOutRight")
+            setTimeout(function(){ 
+                $(".notice-box").removeClass()
+                $(".notice-box").hide()
+            }, 750);
+        }, 3000);		
+	}
 
 
 }

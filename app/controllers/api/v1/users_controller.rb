@@ -2,7 +2,7 @@ class Api::V1::UsersController < ApplicationController
 	before_action :set_user, except: [:create]
 
 	def show
-		if current_user.id == @user.id || current_user.admin
+		if current_user.admin
 			render json: User.find(params[:id])
 		else
 			render json: "Permission Denied", status: :unprocessable_entity
@@ -23,11 +23,12 @@ class Api::V1::UsersController < ApplicationController
 	end
 
 	def update
-		if current_user.id == @user.id || current_user.admin
+		if current_user.admin
 			if @user.update(user_params)
 			  render json: @user, status: :created
 			else
 			  render json: @user.errors, status: :unprocessable_entity
+			  @user.errors.inspect
 			end			
 		else
 			render json: "Permission Denied", status: :unprocessable_entity
@@ -35,7 +36,7 @@ class Api::V1::UsersController < ApplicationController
 	end
 
 	def destroy
-		if current_user.id == @user.id || current_user.admin
+		if current_user.admin
 		    @user.destroy
 		    render json: "Destroyed", head: :no_content
 		else
@@ -45,7 +46,7 @@ class Api::V1::UsersController < ApplicationController
 
 	private
 	    def set_user
-	      @user = current_user
+	      @user = User.find(params[:id])
 	    end
 
 	    def user_params

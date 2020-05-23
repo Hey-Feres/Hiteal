@@ -43,13 +43,12 @@
 						tr
 							th.text-center Nome
 							th.text-center Último Acesso
-							th.text-center Status
 							th 
-					- @usuarios.each do |u|
+					tbody#users-table
+					/- @usuarios.each do |u|
 						tr
 							td.text-center= u.nome.present? ? u.nome : "Não Definido"
 							td.text-center= u.last_sign_in_at.present? ? today?(u.last_sign_in_at) ? "Hoje" : yesterday?(u.last_sign_in_at) ? "Ontem" : u.last_sign_in_at.strftime("%d/%m") : ""
-							td.text-center= render './ui/components/icon', color: "FF0000", size: 8, style: "windows", name: "filled-circle", id: ""
 							- if u.id == current_user.id
 								td.text-muted.text-center Editar
 							- else
@@ -101,10 +100,27 @@ css:
 javascript:
 	let user = new User("#{current_user.id}","#{current_user.nome}","#{current_user.email}","#{current_user.gym_id}")
 	user.componentLoaded();
+	let page = 0
+	let nextPage = 1
 	// Swicth dos estados das divs
-	$("#dados-toggler").click(function(event) 	  {		user.toggleWrappers(event, "#wrapperDados")	  	})
-	$("#gerenciar-toggler").click(function(event) { 	user.toggleWrappers(event, "#wrapperGerenciar") 	})
-	$("#adicionar-toggler").click(function(event) { 	user.toggleWrappers(event, "#wrapperAdicionar")  })
+	$("#dados-toggler").click(function(event) {
+		user.toggleWrappers(event, "#wrapperDados")
+	})
+	$("#gerenciar-toggler").click(function(event) { 
+		user.toggleWrappers(event, "#wrapperGerenciar")
+		console.log("Next Page: " + nextPage)
+		console.log("Current Page: " + page)
+		// Só carrega os usuarios ao clicar se estiver na pag 0
+		if (nextPage == 1) {
+			user.loadUsers(page)
+			nextPage ++
+			page ++
+		}
+		
+	})
+	$("#adicionar-toggler").click(function(event) { 
+		user.toggleWrappers(event, "#wrapperAdicionar")
+	})
 	// Input com nome
 	$("#user-nome").change(function() {
 		response = user.mudarNome($("#user-nome").val())
@@ -115,14 +131,11 @@ javascript:
 		response = user.mudarEmail($("#user-email").val())
 		console.log(response)
 	})
-
 	$("#submit-editor-form").click(function(){
 		let nome = $("#edit-nome-field").val()
 		let email = $("#edit-email-field").val()
 		let senha = $("#edit-senha-field").val()
 		let id = $("#edit-id-field").val()
-		console.log("******")
-		console.log($("#edit-id-field").val())
 		let admin = $('#switch-admin-status').is(":checked")
 		user.editUser(id,nome,email,senha,admin)
 	})
@@ -130,38 +143,5 @@ javascript:
 		let id = $("#edit-id-field").val()
 		user.removeUser(id)
 	})
-	function hideUserEditor(){
-		$("#wrapperEditarUser").addClass("animated zoomOutRight")
-		setTimeout(function(){
-			$("#wrapperEditarUser").hide()
-			$("#wrapperEditarUser").removeClass("animated zoomOutRight")
-		},750)
-	}
-
-	function showUserEditor(id){
-		let request = new Request()
-		let dados = null
-		let url = apiBaseUrl + "/users/" + id
-		let successCallback = data => {
-			dados = data
-			$("#edit-nome-field").val(data.nome)
-			$("#edit-email-field").val(data.email)
-			$("#edit-id-field").val(data.id)
-			if (data.admin == true) {
-				$('#switch-admin-status').prop("checked", true)
-			}
-			console.log(data.nome)
-		}
-		let errorCallback = (x,y,z) => {
-			console.log(x)
-			console.log(y)
-			console.log(z)
-		}
-		request.get(url,successCallback,errorCallback)
-		$("#wrapperEditarUser").addClass("animated zoomInRight")
-		$("#wrapperEditarUser").show()
-		setTimeout(function(){
-			$("#wrapperEditarUser").removeClass("animated zoomInRight")
-		},750)		
-	}
-
+	function hideUserEditor(){ 	 user.hideEditorForm() }
+	function showUserEditor(id){ user.showEditorForm(id) }

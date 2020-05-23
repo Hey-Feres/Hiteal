@@ -18,6 +18,8 @@ Rails.application.routes.draw do
       post '/gyms/upload', to: "gyms#upload"
       get '/gyms/:id/imagens', to: "gyms#imagens"
       delete '/gyms/delete_upload/:blob_id', to: "gyms#delete_upload"
+
+      get '/users/:id/:page', to: "users#index"
     end
   end
 

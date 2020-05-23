@@ -6,9 +6,6 @@ class User {
         this.gym_id = gym_id;
     }
     componentLoaded(){
-        //if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
-        //    alert("Light Mode")
-        //}
         $("#wrapperEditarUser").hide(); ///////      
         // .  .  .  .  .  .  .  .  .  .  .  .
         $(".divider").not("#wrapperDados").hide();
@@ -86,10 +83,11 @@ class User {
         if (helper.empty(data["user"]["password"])) {delete data["user"]["password"]}
         let url = apiBaseUrl + "/users/" + id
         let successCallback = data => {
-            $("#wrapperEditarUser").addClass("animated zoomOutRight")
+            $("#wrapperEditarUser").addClass("animated zoomOutUp")
+            $("#wrapperEditarUser").css("animation-duration", "0.7s")
             // Espera terminar a animacao de saida do $("#wrapperEditarUser")
             setTimeout(function(){
-                $("#wrapperEditarUser").removeClass("animated zoomOutRight")
+                $("#wrapperEditarUser").removeClass("animated zoomOutUp")
                 $("#wrapperEditarUser").hide();
                 helper.notificacao("Alterações Salvas","Usuário editado com sucesso");
             }, 750)
@@ -99,6 +97,41 @@ class User {
         }
         let response = request.put(data,url,successCallback,errorCallback,{})
         return response
+    }
+    hideEditorForm(){
+        $("#wrapperEditarUser").addClass("animated zoomOutUp")
+        $("#wrapperEditarUser").css("animation-duration", "0.7s")
+        setTimeout(function(){
+            $("#wrapperEditarUser").hide()
+            $("#wrapperEditarUser").removeClass("animated zoomOutUp")
+        },750)        
+    }
+    showEditorForm(id){
+        let request = new Request()
+        let dados = null
+        let url = apiBaseUrl + "/users/" + id
+        let successCallback = data => {
+            dados = data
+            $("#edit-nome-field").val(data.nome)
+            $("#edit-email-field").val(data.email)
+            $("#edit-id-field").val(data.id)
+            if (data.admin == true) {
+                $('#switch-admin-status').prop("checked", true)
+            }
+            console.log(data.nome)
+        }
+        let errorCallback = (x,y,z) => {
+            console.log(x)
+            console.log(y)
+            console.log(z)
+        }
+        request.get(url,successCallback,errorCallback)
+        $("#wrapperEditarUser").addClass("animated zoomInDown")
+        $("#wrapperEditarUser").css("animation-duration", "0.7s")
+        $("#wrapperEditarUser").show()
+        setTimeout(function(){
+            $("#wrapperEditarUser").removeClass("animated zoomInDown")
+        },750)        
     }
     removeUser(id){
         let request = new Request()
@@ -117,10 +150,31 @@ class User {
         let response = request.delete(url,successCallback,errorCallback)
         return response
     }
+    loadUsers(page){
+        //$("#users-table").html()
+        let request = new Request()
+        let url = apiBaseUrl + "/users/" + this.id + "/" + page
+        let successCallback = data => {  
+            let time = 0
+            for (var i = data.length - 1; i >= 0; i--) {
+                let row = "<tr class='data-row'>" + 
+                            "<td class='text-center'> " + data[i].nome + " </td>" +
+                            "<td class='text-center'> " + data[i].last_sign_in_at + " </td>" +
+                            "<td class='text-center text-primary' onclick='showUserEditor(" + data[i].id + ")' > Editar </td>" +
+                          "</tr>"
+                $("#users-table").append(row)
+            }
+        }
+        let errorCallback = (x,y,z) => { 
+
+        }
+        let response = request.get(url,successCallback,errorCallback)
+        return response
+    }
     toggleWrappers(event, whatToShow){
         event.preventDefault();
-        $(whatToShow).show(500);
-        $(".divider").not(whatToShow).hide(500);
+        $(whatToShow).show(300);
+        $(".divider").not(whatToShow).hide(300);
     }
 	getLocation() {
 		let data = null

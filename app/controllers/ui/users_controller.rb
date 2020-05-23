@@ -2,7 +2,7 @@ class Ui::UsersController < ApplicationController
 	def index
 		# Item 1
 		@user = current_user
-		@user.admin? ? @usuarios = @user.gym.users : nil
+		#@user.admin? ? @usuarios = @user.gym.users : nil
 		@sidebar_items = {
 			img:"https://img.icons8.com/ios/50/FFFFFF/user.png",
 			title: "Usuário",

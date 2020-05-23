@@ -69,6 +69,16 @@ class Helper {
             }, 750);
         }, 3000);
 	}
-
+	today(date){
+    let d1 = new Date()
+    return d1.getFullYear() == date.getFullYear()
+        && d1.getMonth() == date.getMonth()
+        && d1.getDate() == date.getDate();
+	}
+	formatDate(date){
+		var mes = date.getUTCMonth() + 1
+		var dia = date.getUTCDate()
+		return dia + "/" + mes
+	}
 
 }

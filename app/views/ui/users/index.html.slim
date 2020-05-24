@@ -116,7 +116,6 @@ javascript:
 			nextPage ++
 			page ++
 		}
-		
 	})
 	$("#adicionar-toggler").click(function(event) { 
 		user.toggleWrappers(event, "#wrapperAdicionar")
@@ -145,3 +144,15 @@ javascript:
 	})
 	function hideUserEditor(){ 	 user.hideEditorForm() }
 	function showUserEditor(id){ user.showEditorForm(id) }
+
+
+
+
+	$(document).ready(function(){
+	    $('div#d').bind('click', function (event) {
+	    $('#popup').css('left',event.pageX);      // <<< use pageX and pageY
+	    $('#popup').css('top',event.pageY);
+	    $('#popup').css('display','inline');     
+	    $("#popup").css("position", "absolute");  // <<< also make it absolute!
+	    });
+	});

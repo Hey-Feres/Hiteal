@@ -7,7 +7,7 @@
 	= render './ui/components/introduction-box', dados: @introduction_box_dados
 .content
 	// Div com Dados da Academia  .  .  .  .  .  .  .  .  .  .  .
-	.divider.dados-gym#wrapperDados
+	.divider.box#wrapperDados
 		.divider-header
 			h3 Dados Gym
 		.divider-content
@@ -21,7 +21,7 @@
 				.d-flex.justify-content-start
 					= render './ui/components/text-field', input: @inputs_attributes[:gym_cnpj]
 	// Div com Endereco da Academia  .  .  .  .  .  .  .  .  .  .
-	.divider.endereco-gym#wrapperEndereco
+	.divider.box#wrapperEndereco
 		.divider-header
 			h3 Endereço
 		.divider-content

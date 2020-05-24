@@ -15,7 +15,6 @@
   --gray5: rgb(229,229,234);
   --gray6: rgb(242,242,247);
 }
-
 .divider{
   padding: 1 2%;
 }
@@ -41,6 +40,12 @@
   z-index: 9;
   /*background: #555;*/
   padding: 0;
+}
+.box{
+  position: absolute;
+  height: 90%;
+  width: 100%;
+  overflow: scroll;  
 }
 /*Generico*/
 body{background: var(--gray5)}

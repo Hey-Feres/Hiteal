@@ -8,8 +8,8 @@ admin.update(gym_id: gym.id)
 
 Plano.create!(
 	gym_id: 1,
-	nome: "Mensal",
-	valor: 100,
+	nome: "Anual",
+	valor: 80,
 	periodo: 1
 )
 
@@ -17,10 +17,10 @@ Plano.create!(
 	User.create!(admin:false, nome: "User #{i}", email:"user_#{i}@teste.com",password: '123456',gym_id: 1)
 end
 
-1000.times do |i|
+500.times do |i|
 	Aluno.create!(
 		gym_id: 1,
-		plano_id: 1,
+		plano_id: rand(1..3),
 		nome: "Aluno #{i}",
 		email: "aluno_#{i}@teste.com",
 		senha: "123456",

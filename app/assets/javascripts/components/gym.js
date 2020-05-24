@@ -11,7 +11,8 @@ class Gym {
     }
     // Item 1 ______________________________________________________
     componentLoaded(){
-        //alert("Aviso da Versão Beta \r\nEsta versão está rodando para test flight\r\nOs assets usados podem ter direitos autorais.")
+        $(".sidebar").addClass("animated fadeInDownBig")
+        $(".content").addClass("animated fadeInUpBig")
         // .  .  .  .  .  .  .  .  .  .  .  .
         $(".divider").not("#wrapperDados").hide();
         // .  .  .  .  .  .  .  .  .  .  .  .
@@ -547,8 +548,8 @@ class Gym {
     // Item 8 ______________________________________________________
     toggleWrappers(event, whatToShow){
         event.preventDefault();
-        $(whatToShow).show(500);
-        $(".divider").not(whatToShow).hide(500);
+        $(whatToShow).show(300);
+        $(".divider").not(whatToShow).hide(300);
     }
 
 }

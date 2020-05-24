@@ -26,5 +26,6 @@ Rails.application.routes.draw do
   namespace :ui do
     resources :gyms, only: :index
     resources :users, only: :index
+    resources :planos, only: :index
   end
 end

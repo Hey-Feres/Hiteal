@@ -5,7 +5,7 @@
 
 .content
 	// Div com Dados do Current User  .  .  .  .  .  .  .  .  .  .  .
-	.divider.dados-gym#wrapperDados
+	.divider.box#wrapperDados
 		.divider-header.d-flex.justify-content-between
 			h3 Seus Dados
 			- if @user.admin?
@@ -27,7 +27,7 @@
 				.d-flex.justify-content-start
 					= render './ui/components/text-field', input: @inputs_attributes[:user_id]
 	// Div com Tablea de Users  .  .  .  .  .  .  .  .  .  .  .
-	.divider.dados-gym#wrapperGerenciar
+	.divider.box#wrapperGerenciar
 		- if !@user.admin?
 			.dados-gym.d-flex.flex-column.justify-content-center
 				div
@@ -65,7 +65,7 @@
 			div.button-close-editor-box
 				= render './ui/components/button', value: "Cancelar", style: "red", id: "", type:"button"
 	// Div Adicionar User  .  .  .  .  .  .  .  .  .  .  .
-	.divider.dados-gym#wrapperAdicionar
+	.divider.box#wrapperAdicionar
 		- if !@user.admin?
 			.dados-gym.d-flex.flex-column.justify-content-center
 				div

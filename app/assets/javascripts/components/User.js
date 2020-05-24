@@ -7,9 +7,7 @@ class User {
     }
     componentLoaded(){
         $(".sidebar").addClass("animated fadeInDownBig")
-        //$(".sidebar").addClass("animated zoomInLeft")
         $(".content").addClass("animated fadeInUpBig")
-        //$(".content").addClass("animated zoomInRight")
         $("#wrapperEditarUser").hide();
         // .  .  .  .  .  .  .  .  .  .  .  .
         $(".divider").not("#wrapperDados").hide();

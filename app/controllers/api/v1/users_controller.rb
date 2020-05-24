@@ -45,12 +45,9 @@ class Api::V1::UsersController < ApplicationController
 
 	def destroy
 		if current_user.admin
-		    puts "*********************"
-			puts @user.inspect
 		    @user.destroy
-		    puts "*********************"
-		    puts @user.errors.full_messages
-		    render json: "Destroyed", head: :no_content
+		    msg = "Destroyed".to_json
+		    render json: msg, head: :no_content
 		else
 			render json: "Permission Denied", status: :unprocessable_entity
 		end

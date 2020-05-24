@@ -16,7 +16,7 @@ class User {
         // .  .  .  .  .  .  .  .  .  .  .  .
         $("#user-email-loader").hide();
         $("#user-email-check").hide();
-        $("#user-email-error").hide();        
+        $("#user-email-error").hide();
     }
     // Item 3 ______________________________________________________
     mudarNome(novo_nome){
@@ -83,6 +83,7 @@ class User {
         if (helper.empty(data["user"]["password"])) {delete data["user"]["password"]}
         let url = apiBaseUrl + "/users/" + id
         let successCallback = data => {
+            $("#user-nome-"+data.id).html(data.nome)
             $("#wrapperEditarUser").addClass("animated zoomOutUp")
             $("#wrapperEditarUser").css("animation-duration", "0.7s")
             // Espera terminar a animacao de saida do $("#wrapperEditarUser")
@@ -101,6 +102,8 @@ class User {
     hideEditorForm(){
         $("#wrapperEditarUser").addClass("animated zoomOutUp")
         $("#wrapperEditarUser").css("animation-duration", "0.7s")
+        // Importante pois ao abrir o form relativo ao usuario atual, todos os checkboxes ficam disabled
+        $('#switch-admin-status').attr("disabled", false)
         setTimeout(function(){
             $("#wrapperEditarUser").hide()
             $("#wrapperEditarUser").removeClass("animated zoomOutUp")
@@ -108,17 +111,14 @@ class User {
     }
     showEditorForm(id){
         let request = new Request()
-        let dados = null
         let url = apiBaseUrl + "/users/" + id
         let successCallback = data => {
-            dados = data
             $("#edit-nome-field").val(data.nome)
             $("#edit-email-field").val(data.email)
             $("#edit-id-field").val(data.id)
-            if (data.admin == true) {
-                $('#switch-admin-status').prop("checked", true)
-            }
-            console.log(data.nome)
+            if (data.admin == true) { $('#switch-admin-status').prop("checked", true) }
+            // O Current User nao pode abrir mao do status de admin 
+            if (data.id == this.id) { $('#switch-admin-status').attr("disabled", true); }
         }
         let errorCallback = (x,y,z) => {
             console.log(x)
@@ -131,7 +131,7 @@ class User {
         $("#wrapperEditarUser").show()
         setTimeout(function(){
             $("#wrapperEditarUser").removeClass("animated zoomInDown")
-        },750)        
+        },750)
     }
     removeUser(id){
         let request = new Request()
@@ -140,6 +140,7 @@ class User {
             $("#wrapperEditarUser").addClass("animated rollOut")
             // Espera terminar a animacao de saida do $("#wrapperEditarUser")
             setTimeout(function(){
+                $("#wrapperEditarUser").hide()
                 $("#wrapperEditarUser").removeClass("animated rollOut")
                 helper.notificacao("Usuário Excluido","Usuário removido da base de dados");
             }, 750)
@@ -158,9 +159,9 @@ class User {
             let time = 0
             for (var i = data.length - 1; i >= 0; i--) {
                 let row = "<tr class='data-row'>" + 
-                            "<td class='text-center'> " + data[i].nome + " </td>" +
+                            "<td class='text-center' id='user-nome-" + data[i].id + "'> " + data[i].nome + " </td>" +
                             "<td class='text-center'> " + data[i].last_sign_in_at + " </td>" +
-                            "<td class='text-center text-primary' onclick='showUserEditor(" + data[i].id + ")' > Editar </td>" +
+                            "<td class='text-center text-primary button-open-editor-box' id='" + data[i].id + "' > Editar </td>" +
                           "</tr>"
                 $("#users-table").append(row)
             }

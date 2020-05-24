@@ -69,7 +69,7 @@
 			= render './ui/components/switch', label: "Admin", id: "switch-admin-status"
 			.mt-4
 			= render './ui/components/button', value: "Salvar", style: "default", id: "submit-editor-form", type:"button"
-			div onclick="hideUserEditor()"
+			div.button-close-editor-box
 				= render './ui/components/button', value: "Cancelar", style: "red", id: "", type:"button"
 	// Div com Dados do Current User  .  .  .  .  .  .  .  .  .  .  .
 	.divider.dados-gym#wrapperAdicionar
@@ -98,6 +98,7 @@ css:
 		padding: 1%;
 	}
 javascript:
+	$(document).ready(function(){
 	let user = new User("#{current_user.id}","#{current_user.nome}","#{current_user.email}","#{current_user.gym_id}")
 	user.componentLoaded();
 	let page = 0
@@ -142,17 +143,14 @@ javascript:
 		let id = $("#edit-id-field").val()
 		user.removeUser(id)
 	})
-	function hideUserEditor(){ 	 user.hideEditorForm() }
-	function showUserEditor(id){ user.showEditorForm(id) }
+	$(document).on('click', '.button-open-editor-box', function (e) {
+	    let id = $(this).attr('id')
+	    user.showEditorForm(id)
+	    e.preventDefault();
+	});	
+	$(document).on('click', '.button-close-editor-box', function (e) {
+	    user.hideEditorForm()
+	    e.preventDefault();
+	});
 
-
-
-
-	$(document).ready(function(){
-	    $('div#d').bind('click', function (event) {
-	    $('#popup').css('left',event.pageX);      // <<< use pageX and pageY
-	    $('#popup').css('top',event.pageY);
-	    $('#popup').css('display','inline');     
-	    $("#popup").css("position", "absolute");  // <<< also make it absolute!
-	    });
 	});

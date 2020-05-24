@@ -3,7 +3,7 @@ class Api::V1::UsersController < ApplicationController
 	before_action :set_page, only: [:index]
 
 	def index
-		@users = User.where(gym_id: current_user.gym.id).order(created_at: :desc).limit(10).offset(@page * 15)
+		@users = User.where(gym_id: current_user.gym.id).order(created_at: :desc)#.limit(10).offset(@page * 15)
 		@users = JSON.parse(@users.to_json)
 		@users.map{ |x| x["last_sign_in_at"] = formatLastActive User.find(x["id"]).last_sign_in_at }
 		@users.map{ |x| x["nome"].present? ? x["nome"] : "" }
@@ -45,9 +45,8 @@ class Api::V1::UsersController < ApplicationController
 
 	def destroy
 		if current_user.admin
-		    @user.destroy
-		    msg = "Destroyed".to_json
-		    render json: msg, head: :no_content
+		    d = @user.destroy
+		    render json: d, head: :no_content
 		else
 			render json: "Permission Denied", status: :unprocessable_entity
 		end
@@ -56,9 +55,10 @@ class Api::V1::UsersController < ApplicationController
 	private
 		def formatLastActive date
 			if date.present?
-				if date.strftime("%d/%m/%Y") == DateTime.now.strftime("%d/%m/%Y")
+				case date.strftime("%d/%m/%Y")
+				when DateTime.now.strftime("%d/%m/%Y")
 					return "Hoje"
-				elsif date.strftime("%d/%m/%Y") == (DateTime.now - 1.day).strftime("%d/%m/%Y")
+				when (DateTime.now - 1.day).strftime("%d/%m/%Y")
 					return "Ontem"
 				else
 					return date.strftime("%d/%m")
@@ -66,15 +66,14 @@ class Api::V1::UsersController < ApplicationController
 			else
 				return ""
 			end
-		end	
+		end
+
 	    def set_user
 	    	@user = User.find(params[:id])
 	    end
 
   		def set_page
     		@page = params[:page]
-			puts "***************"
-    		puts @page
   		end
 
 	    def user_params

@@ -52,7 +52,34 @@ class Ui::UsersController < ApplicationController
 				disabled: true,
 				input_id: "user-gym-id", 
 				value: @user.gym_id
-			}
+			},
+			new_user_nome: {
+				label: "Nome",
+				loader_id: "new-user-nome-loader", 
+				done_id: "new-user-nome-check", 
+				error_id: "new-user-nome-error", 
+				placeholder: "Nome", 
+				input_id: "new-user-nome", 
+				value: ''
+			},
+			new_user_email: {
+				label: "Email", 
+				loader_id: "new-user-email-loader", 
+				done_id: "new-user-email-check", 
+				error_id: "new-user-email-error", 
+				placeholder: "Email", 
+				input_id: "new-user-email", 
+				value: ''				
+			},
+			new_user_senha: {
+				label: "Senha", 
+				loader_id: "new-user-senha-loader", 
+				done_id: "new-user-senha-check", 
+				error_id: "new-user-senha-error", 
+				placeholder: "Senha", 
+				input_id: "new-user-senha", 
+				value: ''		
+			},
 		}		
 	end
 end

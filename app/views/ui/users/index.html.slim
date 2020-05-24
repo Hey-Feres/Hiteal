@@ -26,7 +26,7 @@
 				br
 				.d-flex.justify-content-start
 					= render './ui/components/text-field', input: @inputs_attributes[:user_id]
-	// Div com Dados do Current User  .  .  .  .  .  .  .  .  .  .  .
+	// Div com Tablea de Users  .  .  .  .  .  .  .  .  .  .  .
 	.divider.dados-gym#wrapperGerenciar
 		- if !@user.admin?
 			.dados-gym.d-flex.flex-column.justify-content-center
@@ -45,14 +45,7 @@
 							th.text-center Último Acesso
 							th 
 					tbody#users-table
-					/- @usuarios.each do |u|
-						tr
-							td.text-center= u.nome.present? ? u.nome : "Não Definido"
-							td.text-center= u.last_sign_in_at.present? ? today?(u.last_sign_in_at) ? "Hoje" : yesterday?(u.last_sign_in_at) ? "Ontem" : u.last_sign_in_at.strftime("%d/%m") : ""
-							- if u.id == current_user.id
-								td.text-muted.text-center Editar
-							- else
-								td.text-primary.text-center onclick="showUserEditor(#{u.id})" Editar
+					// Tabela é povoada em User.js, funcao loadUsers, linha 158-177
 	#wrapperEditarUser
 		.d-flex.justify-content-between
 			h5 Editar Usuário
@@ -71,15 +64,35 @@
 			= render './ui/components/button', value: "Salvar", style: "default", id: "submit-editor-form", type:"button"
 			div.button-close-editor-box
 				= render './ui/components/button', value: "Cancelar", style: "red", id: "", type:"button"
-	// Div com Dados do Current User  .  .  .  .  .  .  .  .  .  .  .
+	// Div Adicionar User  .  .  .  .  .  .  .  .  .  .  .
 	.divider.dados-gym#wrapperAdicionar
-		.divider-header.d-flex.justify-content-between
-			h3 Seus Dados
-			- if @user.admin?
-				= render './ui/components/icon', color: "D4AF37", size: 40, style: "ios", name: "crown", id: ""
-		.divider-content
-
-
+		- if !@user.admin?
+			.dados-gym.d-flex.flex-column.justify-content-center
+				div
+					center
+						= render './ui/components/icon', color: "000", size: 40, style: "ios", name: "lock", id: ""
+						p Acesso Restrito à Admin
+		- else		
+			.divider-header.d-flex.justify-content-between
+				h3 Adicionar User
+			.divider-content
+				form
+					.d-flex.justify-content-start
+						= render './ui/components/text-field', input: @inputs_attributes[:new_user_nome]
+					br
+					.d-flex.justify-content-start
+						= render './ui/components/text-field', input: @inputs_attributes[:new_user_email]
+					br
+					.d-flex.justify-content-start
+						= render './ui/components/text-field', input: @inputs_attributes[:new_user_senha]
+					br
+					/.d-flex.justify-content-between.w-100
+					= render './ui/components/switch', label: "Admin", id: "new-user-switch-admin-status"
+					br
+					.d-flex.justify-content-center.mt-5
+						.w-50
+							= render './ui/components/button', value: "Salvar", style: "default", id: "submit-new-user-form", type:"button"	
+							= render './ui/components/button', value: "Limpar", style: "red", id: "", type:"button", id: "clear-new-user-fields"
 css:
 	#wrapperEditarUser{
 		position: fixed;
@@ -99,58 +112,73 @@ css:
 	}
 javascript:
 	$(document).ready(function(){
-	let user = new User("#{current_user.id}","#{current_user.nome}","#{current_user.email}","#{current_user.gym_id}")
-	user.componentLoaded();
-	let page = 0
-	let nextPage = 1
-	// Swicth dos estados das divs
-	$("#dados-toggler").click(function(event) {
-		user.toggleWrappers(event, "#wrapperDados")
-	})
-	$("#gerenciar-toggler").click(function(event) { 
-		user.toggleWrappers(event, "#wrapperGerenciar")
-		console.log("Next Page: " + nextPage)
-		console.log("Current Page: " + page)
-		// Só carrega os usuarios ao clicar se estiver na pag 0
-		if (nextPage == 1) {
-			user.loadUsers(page)
-			nextPage ++
-			page ++
-		}
-	})
-	$("#adicionar-toggler").click(function(event) { 
-		user.toggleWrappers(event, "#wrapperAdicionar")
-	})
-	// Input com nome
-	$("#user-nome").change(function() {
-		response = user.mudarNome($("#user-nome").val())
-		console.log(response)
-	})
-	// Input com email
-	$("#user-email").change(function() {
-		response = user.mudarEmail($("#user-email").val())
-		console.log(response)
-	})
-	$("#submit-editor-form").click(function(){
-		let nome = $("#edit-nome-field").val()
-		let email = $("#edit-email-field").val()
-		let senha = $("#edit-senha-field").val()
-		let id = $("#edit-id-field").val()
-		let admin = $('#switch-admin-status').is(":checked")
-		user.editUser(id,nome,email,senha,admin)
-	})
-	$("#delete-user").click(function(){
-		let id = $("#edit-id-field").val()
-		user.removeUser(id)
-	})
-	$(document).on('click', '.button-open-editor-box', function (e) {
-	    let id = $(this).attr('id')
-	    user.showEditorForm(id)
-	    e.preventDefault();
-	});	
-	$(document).on('click', '.button-close-editor-box', function (e) {
-	    user.hideEditorForm()
-	    e.preventDefault();
+		let user = new User("#{current_user.id}","#{current_user.nome}","#{current_user.email}","#{current_user.gym_id}")
+		user.componentLoaded();
+		let page = 0
+		let nextPage = 1
+		// Swicth dos estados das divs
+		$("#dados-toggler").click(function(event) {
+			user.toggleWrappers(event, "#wrapperDados")
+		})
+		$("#gerenciar-toggler").click(function(event) { 
+			user.toggleWrappers(event, "#wrapperGerenciar")
+			console.log("Next Page: " + nextPage)
+			console.log("Current Page: " + page)
+			// Só carrega os usuarios ao clicar se estiver na pag 0
+			if (nextPage == 1) {
+				user.loadUsers(page)
+				nextPage ++
+				page ++
+			}
+		})
+		$("#adicionar-toggler").click(function(event) { 
+			user.toggleWrappers(event, "#wrapperAdicionar")
+		})
+		// Input com nome
+		$("#user-nome").change(function() {
+			response = user.mudarNome($("#user-nome").val())
+			console.log(response)
+		})
+		// Input com email
+		$("#user-email").change(function() {
+			response = user.mudarEmail($("#user-email").val())
+			console.log(response)
+		})
+		$("#submit-editor-form").click(function(){
+			let nome = $("#edit-nome-field").val()
+			let email = $("#edit-email-field").val()
+			let senha = $("#edit-senha-field").val()
+			let id = $("#edit-id-field").val()
+			let admin = $('#switch-admin-status').is(":checked")
+			user.editUser(id,nome,email,senha,admin)
+		})
+		$("#delete-user").click(function(){
+			let id = $("#edit-id-field").val()
+			user.removeUser(id)
+		})
+		$(document).on('click', '.button-open-editor-box', function (e) {
+		    let id = $(this).attr('id')
+		    user.showEditorForm(id)
+			if (id == user.id) {$("#delete-user").hide()}
+		    e.preventDefault();
+		});	
+		$(document).on('click', '.button-close-editor-box', function (e) {
+		    user.hideEditorForm()
+		    $("#delete-user").show()
+		    e.preventDefault();
+		});
+		$("#submit-new-user-form").click(function(){
+			let nome = $("#new-user-nome").val()
+			let email = $("#new-user-email").val()
+			let senha = $("#new-user-senha").val()
+			let admin = $('#switch-admin-status').is(":checked")
+			user.createUser(nome,email,senha,admin)
+		})
+		$("#clear-new-user-fields").click(function(){
+			$("#new-user-nome").val("")
+			$("#new-user-email").val("")
+			$("#new-user-senha").val("")
+			$("#new-user-switch-admin-status").prop("checked", false);
+		})
 	});
 
-	});

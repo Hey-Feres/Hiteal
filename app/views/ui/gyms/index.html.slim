@@ -3,7 +3,7 @@
 
 = render './ui/components/sidebar', dados: @sidebar_items
 
-- if @gym.new_record?
+/- if !@gym.new_record?
 	= render './ui/components/introduction-box', dados: @introduction_box_dados
 .content
 	// Div com Dados da Academia  .  .  .  .  .  .  .  .  .  .  .

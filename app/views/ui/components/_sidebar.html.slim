@@ -11,13 +11,16 @@
 			- dados[:list_items].each do |item|
 				- if item[:first_item]
 					.sidebar-item.first-item id="#{item[:id]}"
-						h5= link_to item[:title], item[:url]
+						/h5= link_to item[:title], item[:url]
+						h5= item[:title]
 				- elsif item[:last_item]
 					.sidebar-item.last-item id="#{item[:id]}"
-						h5= link_to item[:title], item[:url]
+						/h5= link_to item[:title], item[:url]
+						h5= item[:title]
 				- else
 					.sidebar-item id="#{item[:id]}"
-						h5= link_to item[:title], item[:url]
+						/h5= link_to item[:title], item[:url]
+						h5= item[:title]
     .sidebar-footer
     	.d-flex.justify-content-start
     		= link_to root_path do
@@ -103,13 +106,14 @@ css:
 		border-top-left-radius: 20px;
 		border-top-right-radius: 20px;
 	}	
-	.sidebar-item a{
+	.sidebar-item h5{
 		color: #666;
 		line-height: 50px;
 		margin: 0 5%;
 	}
-	.sidebar-item a:hover{
+	.sidebar-item h5:hover{
 		text-decoration: none;
+		cursor: pointer;
 	}
 	.last-item{
 		border: none !important;

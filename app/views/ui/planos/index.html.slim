@@ -24,4 +24,71 @@
 							td.text-center= plano.valor
 							td.text-center= plano.periodo
 							td.text-center= plano.alunos.count
-							td.text-center.text-primary Editar
+							td.text-center.text-primary.show-editor-box id="#{plano.id}" Editar
+	#wrapperEditarPlano
+		.d-flex.justify-content-between
+			h5 Editar Plano
+		/#form-editar.mt-3
+			label Nome
+			input type="text" placeholder="Nome" id="edit-nome-field"
+			label Email
+			input type="email" placeholder="Email" id="edit-email-field"
+			label Senha
+			input type="password" placeholder="Alterar Senha" id="edit-senha-field"
+			label ID
+			input type="text" placeholder="ID" id="edit-id-field" disabled=""
+			= render './ui/components/switch', label: "Admin", id: "switch-admin-status"
+			.mt-4
+		= render './ui/components/button', value: "Salvar", style: "default", id: "submit-editor-form", type:"button"
+		div.hide-editor-box
+			= render './ui/components/button', value: "Cancelar", style: "red", id: "", type:"button"	
+	// Div com Tabela com todos os planos  .  .  .  .  .  .  .  .  .  .  .
+	.divider.box#wrapperAdesao
+		.divider-header.d-flex.justify-content-between
+			h3 Adesão
+		.divider-content
+	// Div com Tabela com todos os planos  .  .  .  .  .  .  .  .  .  .  .
+	.divider.box#wrapperAdicionar
+		.divider-header.d-flex.justify-content-between
+			h3 Adicionar
+		.divider-content
+css:
+	#wrapperEditarPlano{
+		position: fixed;
+		background: rgba(255,255,255,0.7);
+		border: 1px solid var(--gray5);
+		border-radius: 10px;
+		width: 25%;
+		height: 40%;
+		top: 10% !important;
+		right: 4%;
+		backdrop-filter: blur(40px);
+		-webkit-backdrop-filter: blur(40px);
+		-o-backdrop-filter: blur(40px);
+		-moz-backdrop-filter: blur(40px);
+		-ms-backdrop-filter: blur(40px);
+		padding: 1%;
+	}
+javascript:
+	$(document).ready(function(){
+		let plano = new Plano("#{current_user.id}","{current_user.gym.id}")
+		plano.componentLoaded();
+		$("#todos-toggler").click(function(event) {
+			plano.toggleWrappers(event, "#wrapperTodos")
+		})
+		$("#adesao-toggler").click(function(event) {
+			plano.toggleWrappers(event, "#wrapperAdesao")
+		})
+		$("#adicionar-toggler").click(function(event) {
+			plano.toggleWrappers(event, "#wrapperAdicionar")
+		})
+		$(document).on('click', '.show-editor-box', function (e) {
+		    let id = $(this).attr('id')
+		    plano.showEditorForm(id)
+		    e.preventDefault();
+		});
+		$(document).on('click', '.hide-editor-box', function (e) {
+		    plano.hideEditorForm()
+		    e.preventDefault();
+		});		
+	})

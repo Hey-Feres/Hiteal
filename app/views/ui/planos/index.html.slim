@@ -18,30 +18,30 @@
 						th.text-center Assinantes
 						th 
 				tbody#planos-table
-					- @planos.each do |plano| 
-						tr
-							td.text-center= plano.nome
-							td.text-center= plano.valor
-							td.text-center= plano.periodo
-							td.text-center= plano.alunos.count
+					- @planos.each do |plano|
+						tr id="row-plano-#{plano.id}"
+							td.text-center id="plano-#{plano.id}-nome"= plano.nome
+							td.text-center id="plano-#{plano.id}-valor"= "R$ #{number_with_precision(plano.valor, precision: 2)}"
+							td.text-center id="plano-#{plano.id}-periodo"= plano.periodo
+							td.text-center id="plano-#{plano.id}-assinantes"= plano.alunos.count
 							td.text-center.text-primary.show-editor-box id="#{plano.id}" Editar
 	#wrapperEditarPlano
 		.d-flex.justify-content-between
 			h5 Editar Plano
-		/#form-editar.mt-3
+			h5= render './ui/components/icon', color: "FF3B30", size: 20, style: "ios", name: "trash", id: "delete-plano"
+		#form-editar.mt-3
 			label Nome
 			input type="text" placeholder="Nome" id="edit-nome-field"
-			label Email
-			input type="email" placeholder="Email" id="edit-email-field"
-			label Senha
-			input type="password" placeholder="Alterar Senha" id="edit-senha-field"
+			label Valor
+			input type="text" placeholder="" id="edit-valor-field"
+			label Meses
+			input type="text" placeholder="Periodo" id="edit-periodo-field"
 			label ID
 			input type="text" placeholder="ID" id="edit-id-field" disabled=""
-			= render './ui/components/switch', label: "Admin", id: "switch-admin-status"
-			.mt-4
-		= render './ui/components/button', value: "Salvar", style: "default", id: "submit-editor-form", type:"button"
-		div.hide-editor-box
-			= render './ui/components/button', value: "Cancelar", style: "red", id: "", type:"button"	
+			.mt-5
+			= render './ui/components/button', value: "Salvar", style: "default", id: "submit-editor-form", type:"button"
+			div.hide-editor-box
+				= render './ui/components/button', value: "Cancelar", style: "red", id: "", type:"button"	
 	// Div com Tabela com todos os planos  .  .  .  .  .  .  .  .  .  .  .
 	.divider.box#wrapperAdesao
 		.divider-header.d-flex.justify-content-between
@@ -82,6 +82,17 @@ javascript:
 		$("#adicionar-toggler").click(function(event) {
 			plano.toggleWrappers(event, "#wrapperAdicionar")
 		})
+		$("#submit-editor-form").click(function(){
+			let nome = $("#edit-nome-field").val()
+			let valor = $("#edit-valor-field").val()
+			let periodo = $("#edit-periodo-field").val()
+			let id = $("#edit-id-field").val()
+			plano.editPlano(id,nome,valor,periodo)
+		})
+		$("#delete-plano").click(function(){
+			let id = $("#edit-id-field").val()
+			plano.removePlano(id)
+		})
 		$(document).on('click', '.show-editor-box', function (e) {
 		    let id = $(this).attr('id')
 		    plano.showEditorForm(id)
@@ -90,5 +101,6 @@ javascript:
 		$(document).on('click', '.hide-editor-box', function (e) {
 		    plano.hideEditorForm()
 		    e.preventDefault();
-		});		
+		});
+		//editPlano(id,nome,valor,periodo)
 	})

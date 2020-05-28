@@ -1,5 +1,5 @@
 class Plano < ApplicationRecord
-  belongs_to :gym, dependent: :destroy
+  belongs_to :gym
   has_many :alunos
   
   validates_presence_of :nome

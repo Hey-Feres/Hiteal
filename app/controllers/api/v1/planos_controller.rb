@@ -24,7 +24,7 @@ class Api::V1::PlanosController < ApplicationController
 
 	def destroy
 	    @plano.destroy
-	    render json: "Destroyed", head: :no_content
+	    render json: @plano, head: :no_content
 	end
 	
 	private

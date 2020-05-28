@@ -8,7 +8,7 @@ admin.update(gym_id: gym.id)
 
 Plano.create!(
 	gym_id: 1,
-	nome: "Anual",
+	nome: "Teste",
 	valor: 80,
 	periodo: 1
 )

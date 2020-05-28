@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_22_224936) do
+ActiveRecord::Schema.define(version: 2020_05_28_052232) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -33,19 +33,8 @@ ActiveRecord::Schema.define(version: 2020_04_22_224936) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
-  create_table "alunos", force: :cascade do |t|
-    t.integer "gym_id", null: false
-    t.integer "plano_id", null: false
-    t.string "nome"
-    t.string "email"
-    t.string "senha"
-    t.datetime "nascimento"
-    t.string "access_token"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["gym_id"], name: "index_alunos_on_gym_id"
-    t.index ["plano_id"], name: "index_alunos_on_plano_id"
-  end
+# Could not dump table "alunos" because of following StandardError
+#   Unknown type 'enum' for column 'sexo'
 
   create_table "aulas", force: :cascade do |t|
     t.integer "gym_id", null: false

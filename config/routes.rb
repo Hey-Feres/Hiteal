@@ -20,6 +20,8 @@ Rails.application.routes.draw do
       delete '/gyms/delete_upload/:blob_id', to: "gyms#delete_upload"
 
       get '/users/:id/:page', to: "users#index"
+
+      get '/planos_chart_data', to: "planos#chart_data"
     end
   end
 

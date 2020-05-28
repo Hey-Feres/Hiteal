@@ -47,6 +47,12 @@
 		.divider-header.d-flex.justify-content-between
 			h3 Adesão
 		.divider-content
+			.row#dataBoxes
+
+				/.col-lg-3.col-md-3.col-sm-12
+					canvas id="myChart" width="200" height="200"
+			/div style="width: 30%"
+				canvas id="myChart" width="200" height="200"
 	// Div com Tabela com todos os planos  .  .  .  .  .  .  .  .  .  .  .
 	.divider.box#wrapperAdicionar
 		.divider-header.d-flex.justify-content-between
@@ -78,6 +84,7 @@ javascript:
 		})
 		$("#adesao-toggler").click(function(event) {
 			plano.toggleWrappers(event, "#wrapperAdesao")
+			plano.loadAdesaoPage()
 		})
 		$("#adicionar-toggler").click(function(event) {
 			plano.toggleWrappers(event, "#wrapperAdicionar")
@@ -102,5 +109,4 @@ javascript:
 		    plano.hideEditorForm()
 		    e.preventDefault();
 		});
-		//editPlano(id,nome,valor,periodo)
 	})

@@ -12,6 +12,7 @@
  *
  *= require bootstrap/dist/css/bootstrap
  *= require ui-libraries/animate
+ *= require ui-libraries/Chart.min
  *= require_tree .
  *= require_self
  */

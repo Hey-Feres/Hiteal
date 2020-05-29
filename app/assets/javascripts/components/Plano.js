@@ -119,22 +119,38 @@ class Plano {
     setChart(dados) {
     	var arrLegendas = []
     	var arrDados = []
-    	$("#dataBoxes").html("<div class='col-lg-3 col-md-3 col-sm-12'> <canvas id='myChart' width='200' height='200' /> </div>")
     	var html = []
     	for (var i = dados.length - 1; i >= 0; i--) {
     		arrLegendas.push(dados[i].nome)
     		arrDados.push(dados[i].assinaturas)
-    		$("#dataBoxes").html("<div class='data-box col-lg-3 col-md-3 col-sm-12'>  <h1>" + dados[i].nome + "</h1> </div>")
-    	} 	
-    	var ctx = $('#myChart');
-    	var options = {
+    		html.push("<div class='data-box-title col-lg-12 col-md-12 col-sm-12'>  <p>" + dados[i].nome + "</p> </div>")
+    		html.push("<div class='data-box col-lg-3 col-md-3 col-sm-12'> <h3>" + dados[i].assinaturas_porcentagem + " %</h3> <p>" + dados[i].assinaturas + " alunos assinam</p> </div>")
+    		html.push("<div class='data-box col-lg-3 col-md-3 col-sm-12'> <img src='https://img.icons8.com/ios/50/007AFF/male.png'/> <p>" + dados[i].assinaturas_por_sexo.masculino + " assinantes são homens</p> </div>")
+    		html.push("<div class='data-box col-lg-3 col-md-3 col-sm-12'> <img src='https://img.icons8.com/ios/50/FF2D55/female.png'/> <p>" + dados[i].assinaturas_por_sexo.feminino + " assinantes são mulheres</p> </div>")
+    	}
+    	$("#dataBoxes").html(html)
+    	var donutChartCtx = $('#chartDonut');
+    	var barChartCtx = $('#chartBar');
+    	var donutChartOptions = {
+        	legend: {
+            	display: false
+        	}      	
+    	}
+    	var barChartOptions = {
         	legend: {
             	display: false,
             	position: 'bottom',
             	align: 'end'
-        	}
+        	},
+		    scales: {
+		        yAxes: [{
+		            ticks: {
+		                beginAtZero: true
+		            }
+		        }]
+		    }        	
     	}
-    	var myChart = new Chart(ctx, {
+    	var donutChart = new Chart(donutChartCtx, {
 		    type: 'doughnut',
 		    data: {
 		        labels: arrLegendas,
@@ -157,10 +173,39 @@ class Plano {
 		                'rgba(153, 102, 255, 1)',
 		                'rgba(255, 159, 64, 1)'
 		            ],
-		            borderWidth: 1
+		            borderWidth: 1,
+
 		        }]
 		    },
-		    options: options
+		    options: donutChartOptions
+		})
+    	var barChart = new Chart(barChartCtx, {
+		    type: 'bar',
+		    data: {
+		        labels: arrLegendas,
+		        datasets: [{
+		        	barPercentage: 0.6,
+					data: arrDados,
+		            backgroundColor: [
+		                'rgba(255, 99, 132, 0.8)',
+		                'rgba(54, 162, 235, 0.8)',
+		                'rgba(255, 206, 86, 0.8)',
+		                'rgba(75, 192, 192, 0.8)',
+		                'rgba(153, 102, 255, 0.8)',
+		                'rgba(255, 159, 64, 0.8)'
+		            ],
+		            borderColor: [
+		                'rgba(255, 99, 132, 1)',
+		                'rgba(54, 162, 235, 1)',
+		                'rgba(255, 206, 86, 1)',
+		                'rgba(75, 192, 192, 1)',
+		                'rgba(153, 102, 255, 1)',
+		                'rgba(255, 159, 64, 1)'
+		            ],
+		            borderWidth: 2
+		        }]
+		    },
+		    options: barChartOptions
 		})
 
     }

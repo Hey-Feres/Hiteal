@@ -47,6 +47,13 @@
 		.divider-header.d-flex.justify-content-between
 			h3 Adesão
 		.divider-content
+			.row#chartBoxes
+				.col-lg-6.col-md-6.col-sm-12
+					div style="width: 50%"
+						canvas id="chartDonut" width="600" height="800"
+				.col-lg-6.col-md-6.col-sm-12
+					div style="width: 100%"
+						canvas id="chartBar" width="600" height="400"
 			.row#dataBoxes
 
 				/.col-lg-3.col-md-3.col-sm-12
@@ -75,16 +82,52 @@ css:
 		-ms-backdrop-filter: blur(40px);
 		padding: 1%;
 	}
+	.data-box-title{
+		border-bottom: 1px solid var(--gray5);
+	}
+	.data-box-title p{
+		font-size: 1.3em;
+		font-weight: 200;
+		margin: 0 !important;
+	}
+	.data-box{
+		width: 100%;
+		margin: 2% 2%;
+		box-shadow: 1px 2px 10px 1px var(--gray5);
+		border-radius: 15px;
+		padding: 2% 3%;
+	}
+	.data-box:hover{
+		box-shadow: 1px 2px 10px 1px var(--gray3);
+	}
+	.data-box p{
+		color: rgba(0,0,0,0.8);
+		font-weight: 200;
+	}
+	.data-box h3{
+		color: rgba(0,0,0,0.8);
+		font-weight: 300;
+		height: 40px;
+	}
+	.data-box img{
+
+	}
 javascript:
 	$(document).ready(function(){
 		let plano = new Plano("#{current_user.id}","{current_user.gym.id}")
+		// when page load charts are not loaded
+		let chartsLoaded = false
 		plano.componentLoaded();
 		$("#todos-toggler").click(function(event) {
 			plano.toggleWrappers(event, "#wrapperTodos")
 		})
 		$("#adesao-toggler").click(function(event) {
 			plano.toggleWrappers(event, "#wrapperAdesao")
-			plano.loadAdesaoPage()
+			// Only load the charts if them not been loaded
+			if (!chartsLoaded) {
+				plano.loadAdesaoPage()
+				chartsLoaded = true
+			}
 		})
 		$("#adicionar-toggler").click(function(event) {
 			plano.toggleWrappers(event, "#wrapperAdicionar")
@@ -110,3 +153,4 @@ javascript:
 		    e.preventDefault();
 		});
 	})
+

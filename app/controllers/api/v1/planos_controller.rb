@@ -34,7 +34,9 @@ class Api::V1::PlanosController < ApplicationController
 				valor: plano.valor, 
 				assinaturas: plano.alunos.count,
 				assinaturas_por_sexo: format_sexo_data(plano.alunos),
-				assinaturas_por_idade: format_age_data(plano.alunos)
+				assinaturas_por_idade: format_age_data(plano.alunos),
+				assinaturas_porcentagem: (plano.alunos.count.to_f * 100) / (@planos.map{|i| i.alunos.count.to_f}.sum.to_f)
+
 			}
 		}
 		render json: @chartData

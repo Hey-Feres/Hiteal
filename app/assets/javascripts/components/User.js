@@ -5,6 +5,7 @@ class User {
         this.email = email;
         this.gym_id = gym_id;
     }
+    // Item 1 ______________________________________________________
     componentLoaded(){
         $(".sidebar").addClass("animated fadeInDownBig")
         $(".content").addClass("animated fadeInUpBig")
@@ -32,7 +33,7 @@ class User {
         $("#new-user-senha-check").hide();
         $("#new-user-senha-error").hide();
     }
-    // Item 3 ______________________________________________________
+    // Item 2 ______________________________________________________
     mudarNome(novo_nome){
         $("#user-nome-loader").show();
         // .  .  .  .  .  .  .  .  .  .  .  .
@@ -58,7 +59,7 @@ class User {
         let response = request.put(data,url,successCallback,errorCallback,headers)
         return response
     }    
-    // Item 3 ______________________________________________________
+    // Item 2 ______________________________________________________
     mudarEmail(novo_email){
         $("#user-email-loader").show();
         // .  .  .  .  .  .  .  .  .  .  .  .
@@ -84,6 +85,7 @@ class User {
         let response = request.put(data,url,successCallback,errorCallback,headers)
         return response
     }
+    // Item 3 ______________________________________________________
     editUser(id,nome,email,senha,admin){
         let request = new Request()
         let data = {"user":
@@ -94,6 +96,7 @@ class User {
                 "password": senha
             }
         }
+        // 3.1  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .
         if (helper.empty(data["user"]["password"])) {delete data["user"]["password"]}
         let url = apiBaseUrl + "/users/" + id
         let successCallback = data => {
@@ -113,6 +116,7 @@ class User {
         let response = request.put(data,url,successCallback,errorCallback,{})
         return response
     }
+    // Item 4 ______________________________________________________
     hideEditorForm(){
         $("#wrapperEditarUser").addClass("animated zoomOutUp")
         $("#wrapperEditarUser").css("animation-duration", "0.7s")
@@ -123,6 +127,7 @@ class User {
             $("#wrapperEditarUser").removeClass("animated zoomOutUp")
         },750)        
     }
+    // Item 5 ______________________________________________________
     showEditorForm(id){
         let request = new Request()
         let url = apiBaseUrl + "/users/" + id
@@ -147,6 +152,7 @@ class User {
             $("#wrapperEditarUser").removeClass("animated zoomInDown")
         },750)
     }
+    // Item 6 ______________________________________________________
     removeUser(id){
         let request = new Request()
         let url = apiBaseUrl + "/users/" + id
@@ -157,7 +163,6 @@ class User {
                 $("#wrapperEditarUser").hide()
                 $("#wrapperEditarUser").removeClass("animated rollOut")
                 helper.notificacao("Usuário Excluido","Usuário removido da base de dados");
-                
                 $("#row-user-"+data.id).addClass("animated slideOutRight")
                 // Espera terminar a animacao de saida da row com user deletado
                 setTimeout(function(){$("#row-user-"+data.id).remove();},750)
@@ -169,6 +174,7 @@ class User {
         let response = request.delete(url,successCallback,errorCallback)
         return response
     }
+    // Item 7 ______________________________________________________
     createUser(nome,email,senha,admin){
         let request = new Request()
         let data = {"user":
@@ -204,7 +210,8 @@ class User {
         }
         let response = request.post(data,url,successCallback,errorCallback,{})
         return response
-    }    
+    }
+    // Item 8 ______________________________________________________
     loadUsers(page){
         let request = new Request()
         let url = apiBaseUrl + "/users/" + this.id + "/" + page
@@ -225,17 +232,18 @@ class User {
         let response = request.get(url,successCallback,errorCallback)
         return response
     }
+    // Item 9 ______________________________________________________
     toggleWrappers(event, whatToShow){
         event.preventDefault();
         $(whatToShow).show(300);
         $(".divider").not(whatToShow).hide(300);
     }
+    // Item 10 ______________________________________________________
 	getLocation() {
 		let data = null
 		if (navigator.geolocation) {
 	    	navigator.geolocation.getCurrentPosition(function(position) {
 	    		data = {lat:position.coords.latitude,lng:position.coords.longitude}
-	    		//console.log(data)
 	    	});
 	  	} else { 
 	    	console.log("Geolocation is not supported by this browser.")
@@ -243,3 +251,42 @@ class User {
 	  	return data
 	}
 }
+
+// Documentacao
+// Item 1 ________________________________________________________________________________
+//     - Metodo componentLoaded() é chamado quando a pagina é carregada. 
+//     - Ele inicializa os componentes
+// Item 2 ________________________________________________________________________________
+//     - Metodo mudarNome() é chamado no onchange do input nome da view e recebe o valor
+//     digitado como parametro
+//     - Basicamente faz uma requisicao put com o novo nome
+//     - Metodo mudarEmail() funciona da mesma forma, no entanto, com o input de email
+// Item 3 ________________________________________________________________________________
+//     - Metodo editUser() recebe id,nome,email.senha e admin como parametro
+//     - Realiza uma requisicao put com os dados passados como parametro
+//     - Item 3.1 : se password for uma string vazia, ele e removido. Isso e fundamental 
+//     pq o campo password nao pode chegar vazio ao back end.
+// Item 4 ________________________________________________________________________________
+//     - Metodo hideEditorForm() fecha o formulario modal, executando a animacao de saida
+// Item 5 ________________________________________________________________________________
+//     - Metodo showEditorForm() exibe o formulario modal
+//     - Executa request get para preencher os inputs do formulario
+// Item 6 ________________________________________________________________________________
+//     - Metodo removeUser() executa request delete
+//     - Executa animacao de saida do form modal e remove a row com o usuario deletado
+// Item 7 ________________________________________________________________________________
+//     - Metodo createUser() executa request post com os dados inseridos pelo usuario
+//     - Adiciona a nova row a table de usuarios
+// Item 8 ________________________________________________________________________________
+//     - Metodo loadUsers() executa request get e popula a table
+//     - Os dados so sao carregados quando a aba de lista de usuarios e clicado
+//     - Dentro do callback de sucesso executamos um loop for, para popular a table
+// Item 9 ________________________________________________________________________________
+//    - Metodo toggleWrappers() recebe o click event e o id da div que deve ser exibido, de 
+//    acordo com o que foi clicado na sidebar
+//    - Todo os outros dividers sao ocultados
+//    - Metodo preventDefault evita bugs relacionados ao evento de click do usuario
+// Item 10 _______________________________________________________________________________
+//    - Metodo getLocation() usa o recurso navigator do browser para obter a localizacao
+//    do usuario
+//    - Retorna um hash com latitude e longitude

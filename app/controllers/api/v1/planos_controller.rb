@@ -11,6 +11,7 @@ class Api::V1::PlanosController < ApplicationController
 	      render json: @plano, status: :created
 	    else
 	      render json: @plano.errors, status: :unprocessable_entity
+	      puts @plano.errors.inspect
 	    end	
 	end
 

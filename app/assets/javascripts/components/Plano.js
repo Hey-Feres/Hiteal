@@ -1,17 +1,32 @@
 class Plano {
-    constructor(id, nome, email, gym_id) {
+    constructor(id, gym_id) {
         this.id = id;
         this.gym_id = gym_id;
     }
     componentLoaded(){
         $(".sidebar").addClass("animated fadeInDownBig")
-        $(".content").addClass("animated fadeInUpBig")		
+        $(".content").addClass("animated fadeInUpBig")
+        $("#plano-valor").numericOnly()
+        $("#plano-periodo").numericOnly()
+        $("#edit-valor-field").numericOnly()
+        $("#edit-periodo-field").numericOnly()
         // .  .  .  .  .  .  .  .  .  .  .  .
 		$("#wrapperAdesao").hide()
 		$("#wrapperAdicionar").hide()
 		// .  .  .  .  .  .  .  .  .  .  .  .
 		$("#wrapperEditarPlano").hide();
         // .  .  .  .  .  .  .  .  .  .  .  .
+        $("#plano-nome-loader").hide();
+        $("#plano-nome-check").hide();
+        $("#plano-nome-error").hide();
+        // .  .  .  .  .  .  .  .  .  .  .  .
+        $("#plano-valor-loader").hide();
+        $("#plano-valor-check").hide();
+        $("#plano-valor-error").hide();
+        // .  .  .  .  .  .  .  .  .  .  .  .
+        $("#plano-periodo-loader").hide();
+        $("#plano-periodo-check").hide();
+        $("#plano-periodo-error").hide();
     }
     showEditorForm(id){
         let request = new Request()
@@ -209,6 +224,43 @@ class Plano {
 		})
 
     }
+    createPlano(nome,valor,periodo){
+        let request = new Request()
+        console.log("*****")
+        console.log(this.gym_id)
+        let data = {"plano":
+            {
+                "nome": nome, 
+                "valor": valor,
+                "periodo": periodo,
+                "gym_id": this.gym_id
+            }
+        }
+        let url = apiBaseUrl + "/planos"
+        let successCallback = data => {
+            console.log(data)
+            // Adiciona a linha com novo usuario a tabela de usuarios
+            let row = "<tr class='data-row' id='row-plano-"+data.id+"'>" + 
+                        "<td class='text-center' id='plano-" + data.id + "-nome'> " + data.nome + " </td>" +
+                        "<td class='text-center' id='plano-" + data.id + "-valor'> " + data.valor + " </td>" +
+                        "<td class='text-center' id='plano-" + data.id + "-periodo'> " + data.periodo + " </td>" +
+                        "<td class='text-center' id='plano-" + data.id + "-assinantes'> 0 </td>" +
+                        "<td class='text-center text-primary show-editor-box' id='" + data.id + "' > Editar </td>" +
+                      "</tr>"
+            $("#planos-table").append(row)
+            // Limpa os campos
+            $("#plano-nome").val("")
+            $("#plano-valor").val("")
+            $("#plano-periodo").val("")
+            // Exibe a notificacao
+            helper.notificacao("Plano Adicionado","Plano adicionado à base de dados");
+        }
+        let errorCallback = (jqXHR, textStatus, msg) => {
+            console.log(msg)
+        }
+        let response = request.post(data,url,successCallback,errorCallback,{})
+        return response
+    }    
     toggleWrappers(event, whatToShow){
         event.preventDefault();
         $(whatToShow).show(300);

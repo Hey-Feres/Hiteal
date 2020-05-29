@@ -29,7 +29,7 @@
 	// Div com Tablea de Users  .  .  .  .  .  .  .  .  .  .  .
 	.divider.box#wrapperGerenciar
 		- if !@user.admin?
-			.dados-gym.d-flex.flex-column.justify-content-center
+			.box.d-flex.flex-column.justify-content-center
 				div
 					center
 						= render './ui/components/icon', color: "000", size: 40, style: "ios", name: "lock", id: ""
@@ -67,7 +67,7 @@
 	// Div Adicionar User  .  .  .  .  .  .  .  .  .  .  .
 	.divider.box#wrapperAdicionar
 		- if !@user.admin?
-			.dados-gym.d-flex.flex-column.justify-content-center
+			.box.d-flex.flex-column.justify-content-center
 				div
 					center
 						= render './ui/components/icon', color: "000", size: 40, style: "ios", name: "lock", id: ""

@@ -1,7 +1,9 @@
 class Ui::PlanosController < ApplicationController
 	def index
+		# Item 1
 		@gym = current_user.gym
 		@planos = @gym.planos
+		# Item 2
 		@sidebar_items = {
 			img:"",
 			title: "Planos",
@@ -11,41 +13,50 @@ class Ui::PlanosController < ApplicationController
 				{ title: "Adicionar Plano", id: "adicionar-toggler", url: "#", first_item: false, last_item: true },
 			]
 		}
-		@chartData = @planos.map{ |plano| { 
-			plano.nome => {
-					nome: plano.nome,
-					valor: plano.valor, 
-					assinaturas: plano.alunos.count,
-					assinaturas_por_sexo: format_sexo_data(plano.alunos),
-					assinaturas_por_idade: format_age_data(plano.alunos)
-				}
+		# Item 3
+		@inputs_attributes = {
+			new_plano_nome: {
+				label: "Nome", 
+				loader_id: "plano-nome-loader", 
+				done_id: "plano-nome-check", 
+				error_id: "plano-nome-error", 
+				placeholder: "Nome do plano", 
+				input_id: "plano-nome", 
+				value: ''
+			},
+			new_plano_valor: {
+				label: "Valor", 
+				loader_id: "plano-valor-loader", 
+				done_id: "plano-valor-check", 
+				error_id: "plano-valor-error", 
+				placeholder: "Valor do plano", 
+				input_id: "plano-valor", 
+				value: ''			
+			},
+			new_plano_periodo: {
+				label: "Periodo (Meses)",
+				loader_id: "plano-periodo-loader", 
+				done_id: "plano-periodo-check", 
+				error_id: "plano-periodo-error",				
+				placeholder: "Periodo",
+				input_id: "plano-periodo", 
+				value: ''
 			}
-		}
-	end
-	def format_sexo_data data
-		return data.map{ |p| p.sexo }.inject(Hash.new(0)) { |total, e| total[e] += 1 ;total}
-	end
-	def format_age_data data
-		now = Date.today
-		group = Hash.new(0)
-		data = data.map{ |p| now.year - p.nascimento.year - ((now.month > p.nascimento.month || (now.month == p.nascimento.month && now.day >= p.nascimento.day)) ? 0 : 1) }
-		.inject(Hash.new(0)) { |total, e| total[e] += 1 ; total}.sort
-		data.map{|age, count|
-			case
-		      when age <= 16 
-		      	group['under 16'] += count
-		      when age <= 25 
-		      	group['17-25'] += count
-		      when age <= 40 
-		      	group['26-40'] += count
-		      when age <= 50 
-		      	group['41-50'] += count
-		      when age <= 60 
-		      	group['51-60'] += count
-		      else 
-		      	group['61+'] += count 
-		    end
-		}
-		return group	
+		}		
 	end
 end
+
+# Documentacao
+# Item 1 ________________________________________________________________________________
+# 	- Atribuimos a variavel @gym a Gym do usuario logado
+# 	- Atribuimos a variavel @planos os planos da Gym do usuario logado
+# Item 2 ________________________________________________________________________________
+# 	- Os itens com first_item = true ou last_item = true contam 
+# 	com esses atributos para ajustes do hover no css do list wraper no compoent sidebar
+# 	- Muitos items podem nao contar com uma url pois alguns botoes serao apenas para 
+# 	hide e show no script
+# Item 3 ________________________________________________________________________________
+# 	- A variavel inputs_attributes é um hash de hashes com os valores dos inputs e 
+# 	respectivos icones da  view Gym
+#  	- Todo o processamento dos inputs é feito na classe gym.js
+#  	- Caso nao tenha um valor definido nos values, definimos como uma string vazia

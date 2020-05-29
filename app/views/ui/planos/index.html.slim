@@ -56,15 +56,32 @@
 						canvas id="chartBar" width="600" height="400"
 			.row#dataBoxes
 
-				/.col-lg-3.col-md-3.col-sm-12
-					canvas id="myChart" width="200" height="200"
-			/div style="width: 30%"
-				canvas id="myChart" width="200" height="200"
 	// Div com Tabela com todos os planos  .  .  .  .  .  .  .  .  .  .  .
 	.divider.box#wrapperAdicionar
-		.divider-header.d-flex.justify-content-between
-			h3 Adicionar
-		.divider-content
+		- if !current_user.admin?
+			.box.d-flex.flex-column.justify-content-center
+				div
+					center
+						= render './ui/components/icon', color: "000", size: 40, style: "ios", name: "lock", id: ""
+						p Acesso Restrito à Admin
+		- else		
+			.divider-header.d-flex.justify-content-between
+				h3 Adicionar Plano
+			.divider-content
+				form
+					.d-flex.justify-content-start
+						= render './ui/components/text-field', input: @inputs_attributes[:new_plano_nome]
+					br
+					.d-flex.justify-content-start
+						= render './ui/components/text-field', input: @inputs_attributes[:new_plano_valor]
+					br
+					.d-flex.justify-content-start
+						= render './ui/components/text-field', input: @inputs_attributes[:new_plano_periodo]
+					br
+					.d-flex.justify-content-center.mt-5
+						.w-50
+							= render './ui/components/button', value: "Salvar", style: "default", id: "submit-new-plano-form", type:"button"	
+							= render './ui/components/button', value: "Limpar", style: "red", id: "", type:"button", id: "clear-new-plano-fields"
 css:
 	#wrapperEditarPlano{
 		position: fixed;
@@ -109,12 +126,9 @@ css:
 		font-weight: 300;
 		height: 40px;
 	}
-	.data-box img{
-
-	}
 javascript:
 	$(document).ready(function(){
-		let plano = new Plano("#{current_user.id}","{current_user.gym.id}")
+		let plano = new Plano("#{current_user.id}","#{current_user.gym.id}")
 		// when page load charts are not loaded
 		let chartsLoaded = false
 		plano.componentLoaded();
@@ -152,5 +166,16 @@ javascript:
 		    plano.hideEditorForm()
 		    e.preventDefault();
 		});
+		$("#submit-new-plano-form").click(function(){
+			let nome = $("#plano-nome").val()
+			let valor = $("#plano-valor").val()
+			let periodo = $("#plano-periodo").val()
+			plano.createPlano(nome,valor,periodo)
+		})
+		$("#clear-new-plano-fields").click(function(){
+			$("#plano-nome").val("")
+			$("#plano-valor").val("")
+			$("#plano-periodo").val("")
+		})		
 	})
 

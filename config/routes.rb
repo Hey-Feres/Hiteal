@@ -29,5 +29,6 @@ Rails.application.routes.draw do
     resources :gyms, only: :index
     resources :users, only: :index
     resources :planos, only: :index
+    resources :alunos, only: :index
   end
 end

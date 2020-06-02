@@ -15,11 +15,18 @@ class Aluno < ApplicationRecord
   def self.paginate page, gym_id
     start = page.to_i * 10
     alunos = Aluno.joins(:plano).select("planos.nome as plano_nome, alunos.*").where('alunos.id > ?', start).where(gym_id: gym_id).limit(20)
-    alunos 
+    alunos
   end
 
-  def self.search search_terms, gym_id
-    alunos = Aluno.joins(:plano).select("planos.nome as plano_nome, alunos.*").where('alunos.nome LIKE ?', search_terms).where(gym_id: gym_id).limit(20)
+  def self.search param, page, gym_id
+    start = page.to_i * 10
+    alunos = Aluno.joins(:plano).select("planos.nome as plano_nome, alunos.*")
+      .where('alunos.id > ?', start)
+      .where('alunos.nome LIKE ?', "%#{param}%")
+      .where(gym_id: gym_id)
+      .limit(20)
+    #
+    alunos
   end
 private
   def gerarAcessToken

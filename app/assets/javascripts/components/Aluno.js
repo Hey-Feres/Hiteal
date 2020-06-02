@@ -30,13 +30,40 @@ class Aluno {
         	if ($('#alunos-table tr').length - 1 >= this.total_alunos) { 
         		$("#button-load-more-alunos").hide() 
         	} else{
-        		$("#button-load-more-alunos").show();	
+        		$("#button-load-more-alunos").show();
         	}
         }
         let errorCallback = (jqXHR, textStatus, msg) => { 
             console.log(msg)
         }
         let response = request.get(url,successCallback,errorCallback)
+        return response
+    }
+    searchAlunos(params,page){
+        let request = new Request()
+        let url = apiBaseUrl + "/search_alunos"
+        let data = {"aluno": {"search": params, "gym_id": this.gym_id, "page": page}}
+        let successCallback = data => {
+        	console.log(data)
+        	$("#alunos-table-body").html("");
+            for (var i = 0; i < data.length; i++) {
+                let row = "<tr class='data-row' id='row-aluno-"+data[i].id+"'>" + 
+                            "<td class='text-center' id='aluno-nome-" + data[i].id + "'> " + data[i].nome + " </td>" +
+                            "<td class='text-center'>"+data[i].plano_nome+"</td>" +
+                            "<td class='text-center text-primary button-open-editor-box' id='" + data[i].id + "' > Editar </td>" +
+                          "</tr>"
+                $("#alunos-table-body").append(row)
+            }
+        	if ($('#alunos-table tr').length - 1 < 20) { 
+        		$("#button-load-more-alunos").hide() 
+        	} else{
+        		$("#button-load-more-alunos").show();
+        	}            
+        }
+        let errorCallback = (jqXHR, textStatus, msg) => { 
+        	console.log(msg)
+        }
+        let response = request.post(data,url,successCallback,errorCallback)
         return response
     }
     toggleWrappers(event, whatToShow){

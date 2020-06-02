@@ -9,6 +9,7 @@
 		.divider-header.d-flex.justify-content-between
 			h3 Gerenciar
 			= render './ui/components/text-field', input: @inputs_attributes[:search]
+				
 		.divider-content
 			table.table.table-striped#alunos-table
 				thead
@@ -40,11 +41,15 @@ javascript:
 	$("#button-load-more-alunos").click(function(event){
 		event.preventDefault();
 		tablePage += 1
-		console.log(tablePage)
-		aluno.loadAlunos(tablePage)
+		if ($("#search").val()!='') {
+			aluno.searchAlunos($("#search").val(),tablePage)
+		}else{
+			aluno.loadAlunos(tablePage)	
+		}
+		
 	})
 	
-	let typingTimer //timer identifier
+	let typingTimer; //timer identifier
 	//on keyup, start the countdown
 	$("#search").on('keyup', function () {
 	  clearTimeout(typingTimer);
@@ -59,7 +64,9 @@ javascript:
 	//user is "finished typing," do something
 	function doneTyping () {
 	  if ($("#search").val()!='') {
-	  	alert($("#search").val())	
+	  	aluno.searchAlunos($("#search").val(),0)
+	  }else{
+	  	tablePage = 0
+	  	aluno.loadAlunos(tablePage)
 	  }
   	}
-

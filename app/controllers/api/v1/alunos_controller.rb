@@ -1,5 +1,5 @@
 class Api::V1::AlunosController < ApplicationController
-	before_action :set_aluno, except: [:create, :index]
+	before_action :set_aluno, except: [:create, :index, :search]
 
 	def index
 		@alunos = Aluno.paginate(params[:page],params[:gym_id])
@@ -34,7 +34,7 @@ class Api::V1::AlunosController < ApplicationController
 	end
 	
 	def search
-		@alunos = Aluno.search(params[:search])
+		@alunos = Aluno.search(params[:aluno][:search],params[:aluno][:page],params[:aluno][:gym_id])
 		render json: @alunos
 	end
 
@@ -44,6 +44,6 @@ class Api::V1::AlunosController < ApplicationController
 	    end
 
 	    def aluno_params
-	      params.require(:aluno).permit(:gym_id, :plano_id, :nome, :email, :senha, :nascimento, :search)
+	      params.require(:aluno).permit(:gym_id, :plano_id, :nome, :email, :senha, :nascimento, :search, :page)
 	    end
 end

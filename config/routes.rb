@@ -19,8 +19,9 @@ Rails.application.routes.draw do
       get '/gyms/:id/imagens', to: "gyms#imagens"
       delete '/gyms/delete_upload/:blob_id', to: "gyms#delete_upload"
 
-      get '/users/:id/:page', to: "users#index"
-
+      get '/todos_alunos/:gym_id/:page', to: "alunos#index"
+      post '/search/users', to: "users#search"
+      
       get '/planos_chart_data', to: "planos#chart_data"
     end
   end

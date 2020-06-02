@@ -80,5 +80,4 @@ class Helper {
 		var dia = date.getUTCDate()
 		return dia + "/" + mes
 	}
-
 }

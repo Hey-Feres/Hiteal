@@ -2,3 +2,64 @@
 	meta name='turbolinks-visit-control' content='reload'
 
 = render './ui/components/sidebar', dados: @sidebar_items
+
+.content
+	// Div com Dados do Current User  .  .  .  .  .  .  .  .  .  .  .
+	.divider.box#wrapperGerenciar
+		.divider-header.d-flex.justify-content-between
+			h3 Gerenciar
+			= render './ui/components/text-field', input: @inputs_attributes[:search]
+		.divider-content
+			table.table.table-striped#alunos-table
+				thead
+					tr
+						th.text-center Nome
+						th.text-center Plano
+						th 
+				tbody#alunos-table-body
+				// Tabela é povoada em Aluno.js, funcao loadAlunos
+			= render './ui/components/button', type: 'button', style: "blue", value: "Carregar Mais Alunos", id: 'button-load-more-alunos'
+			.d-flex.justify-content-center
+				= render './ui/components/loader', size: 'small', id: 'loader-more-alunos'
+	// Div com Dados do Current User  .  .  .  .  .  .  .  .  .  .  .
+	.divider.box#wrapperAdicionar
+		.divider-header.d-flex.justify-content-between
+			h3 Adicionar
+		.divider-content
+
+javascript:
+	let aluno = new Aluno("#{current_user.gym.id}","#{@total_alunos}")
+	let tablePage = 0
+	aluno.componentLoaded();
+	$("#gerenciar-toggler").click(function(event) {
+		aluno.toggleWrappers(event, "#wrapperGerenciar")
+	})
+	$("#adicionar-toggler").click(function(event) {
+		aluno.toggleWrappers(event, "#wrapperAdicionar")
+	})
+	$("#button-load-more-alunos").click(function(event){
+		event.preventDefault();
+		tablePage += 1
+		console.log(tablePage)
+		aluno.loadAlunos(tablePage)
+	})
+	
+	let typingTimer //timer identifier
+	//on keyup, start the countdown
+	$("#search").on('keyup', function () {
+	  clearTimeout(typingTimer);
+	  typingTimer = setTimeout(doneTyping, 1000);
+	});
+
+	//on keydown, clear the countdown 
+	$("#search").on('keydown', function () {
+	  clearTimeout(typingTimer);
+	});
+
+	//user is "finished typing," do something
+	function doneTyping () {
+	  if ($("#search").val()!='') {
+	  	alert($("#search").val())	
+	  }
+  	}
+

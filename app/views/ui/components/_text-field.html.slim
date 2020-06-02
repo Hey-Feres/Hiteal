@@ -1,4 +1,5 @@
-label= input[:label]
+- if input[:label]
+	label= input[:label]
 - if input[:loader_id]
 	= render './ui/components/loader', size: 'small', id: input[:loader_id]
 - if input[:done_id]
@@ -6,9 +7,15 @@ label= input[:label]
 - if input[:error_id]
 	= render './ui/icons/erro', size: 30, color: "E74C3C", id: input[:error_id]
 - if input[:disabled]
-	input type="text" placeholder="#{input[:placeholder]}" id="#{input[:input_id]}" value="#{input[:value]}" disabled=""
+	- if input[:width]
+		input style="width: #{input[:width]} !important" type="text" placeholder="#{input[:placeholder]}" id="#{input[:input_id]}" value="#{input[:value]}" disabled=""
+	- else
+		input type="text" placeholder="#{input[:placeholder]}" id="#{input[:input_id]}" value="#{input[:value]}" disabled=""
 - else
-	input type="text" placeholder="#{input[:placeholder]}" id="#{input[:input_id]}" value="#{input[:value]}"
+	- if input[:width]
+		input style="width: #{input[:width]} !important" type="text" placeholder="#{input[:placeholder]}" id="#{input[:input_id]}" value="#{input[:value]}"
+	- else
+		input type="text" placeholder="#{input[:placeholder]}" id="#{input[:input_id]}" value="#{input[:value]}"
 css:
 	input{
 		border: none;

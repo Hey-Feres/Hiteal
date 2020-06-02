@@ -5,7 +5,7 @@
 			.img-wrapper
 				/img#logo src="#{dados[:img]}"
 				/= image_tag("Bubbles_2.png", id: "logo")
-			h4.sidebar-title.text-white= dados[:title]
+			h4.sidebar-title= dados[:title]
 	.sidebar-content
 		.sidebar-list-wrapper
 			- dados[:list_items].each do |item|
@@ -53,6 +53,9 @@ css:
 	}
 	h5{
 		font-weight: 300;
+	}
+	h4{
+		font-weight: 200;	
 	}
 	.sidebar-header{
 		width: 100%;

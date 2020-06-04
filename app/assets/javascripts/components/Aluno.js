@@ -7,9 +7,9 @@ class Aluno {
 		$("#wrapperAdicionar").hide();
 		$("#loader-more-alunos").hide();
 		$("#search-loader").hide();
+		$("#wrapperEditAluno").hide();
 		// Se todos os alunos ja estiverem sendo exibidos, o button de carregar mais é escondido
 		if ($('#alunos-table tr').length - 1 >= this.total_alunos) { $("#button-load-more-alunos").hide() }
-		this.loadAlunos(tablePage)
 	}
     loadAlunos(page){
         $("#loader-more-alunos").show();

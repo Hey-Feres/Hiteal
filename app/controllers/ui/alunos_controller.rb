@@ -18,32 +18,35 @@ class Ui::AlunosController < ApplicationController
 				input_id: "search", 
 				value: ""
 			},
-			aluno_nome: {
+			aluno_editar_nome: {
 				label: "Nome",
 				placeholder: "Nome",
-				input_id: "aluno-nome", 
+				input_id: "aluno-editar-nome", 
 				value: ""
 			},
-			aluno_email: {
+			aluno_editar_email: {
 				label: "Email",
 				placeholder: "Email",
-				input_id: "aluno-email", 
+				input_id: "aluno-editar-email", 
 				value: ""
 			},
-			aluno_nascimento: {
+			aluno_editar_nascimento: {
 				label: "Nascimento",
 				placeholder: "Nascimento",
-				input_id: "aluno-nascimento", 
+				input_id: "aluno-editar-nascimento", 
 				value: ""
 			},
-			aluno_sexo: {
+			aluno_editar_sexo: {
 				label: "Sexo",
-				select_id: "aluno-sexo",
 				options: [
-					{ title: "Masculino", value: "0" },
-					{ title: "Feminino", value: "1" }
+					{ title: "Masculino", value: 0, id: "Masculino" },
+					{ title: "Feminino", value: 1, id: "Feminino" }
 				]
-			}
+			},
+			aluno_editar_plano: {
+				label: "Plano",
+				options: current_user.gym.planos.map{|plano| { title: plano.nome, value: plano.nome, id: plano.id }}
+			}			
 		}
 	end
 end

@@ -17,6 +17,6 @@ class Gym < ApplicationRecord
 	attr_accessor :created_by
 	
 	def setGymToUser
-		User.find(self.created_by.id).update(gym_id: self.id)
+		#User.find(self.created_by.id).update(gym_id: self.id)
 	end
 end

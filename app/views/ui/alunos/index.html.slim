@@ -5,7 +5,7 @@
 
 .content
 	// Div Gerenciar Alunos  .  .  .  .  .  .  .  .  .  .  .
-	.divider.box#wrapperGerenciar
+	.box#wrapperGerenciar
 		.divider-header.d-flex.justify-content-between
 			h3 Gerenciar
 			= render './ui/components/text-field', input: @inputs_attributes[:search]
@@ -22,12 +22,13 @@
 			= render './ui/components/button', type: 'button', style: "blue", value: "Carregar Mais Alunos", id: 'button-load-more-alunos'
 			.d-flex.justify-content-center
 				= render './ui/components/loader', size: 'small', id: 'loader-more-alunos'
-	.divider.box#wrapperEditAluno.blurredBg
-		/.animated.slideInRight
-		.divider-header
+	.box#wrapperEditAluno
+		.divider-header.d-flex.justify-content-between
 			h3 Editar Dados do Aluno
+			h3.button-close-editor-box
+				img src="https://img.icons8.com/ios-glyphs/25/007AFF/chevron-right.png"
 		.divider-content
-			form
+			form style="width: auto !important"
 				.d-flex.justify-content-start
 					= render './ui/components/text-field', input: @inputs_attributes[:aluno_editar_nome]
 				br
@@ -37,10 +38,14 @@
 				.d-flex.justify-content-start
 					= render './ui/components/text-field', input: @inputs_attributes[:aluno_editar_nascimento]
 				br
-				/.d-flex.justify-content-start
 				= render './ui/components/select-box', input: @inputs_attributes[:aluno_editar_sexo]
+				br
+				= render './ui/components/select-box', input: @inputs_attributes[:aluno_editar_plano]
+				br
+				.d-flex.justify-content-start
+					= render './ui/components/text-field', input: @inputs_attributes[:aluno_editar_id]
 	// Div Adicionar Alunos  .  .  .  .  .  .  .  .  .  .  .
-	.divider.box#wrapperAdicionar
+	.box#wrapperAdicionar
 		.divider-header.d-flex.justify-content-between
 			h3 Adicionar
 		.divider-content
@@ -66,20 +71,39 @@ javascript:
 				aluno.loadAlunos(tablePage)	
 			}
 		})
-		// Search Input Actions
-		let typingTimer; //timer identifier
-		//on keyup, start the countdown
+		// Input com nome
+		$("#aluno-editar-nome").change(function() {
+			response = aluno.mudarNome($("#aluno-editar-nome").val())
+			console.log(response)
+		})
+		// Input com email
+		$("#aluno-editar-email").change(function() {
+			response = aluno.mudarEmail($("#aluno-editar-email").val())
+			console.log(response)
+		})
+		// Input com nascimento
+		$("#aluno-editar-nascimento").change(function() {
+			response = aluno.mudarNascimento($("#aluno-editar-nascimento").val())
+			console.log(response)
+		})
+		// Input com sexo
+		$("#aluno-editar-sexo").change(function() {
+			response = aluno.mudarSexo($("#aluno-editar-sexo").val())
+		})		
+		$("#aluno-editar-plano").change(function(){
+			response = aluno.mudarPlano($("#aluno-editar-plano").val())
+		})
+		// Search Input
+		let typingTimer;
 		$("#search").on('keyup', function () {
-		  clearTimeout(typingTimer);
-		  typingTimer = setTimeout(doneTyping, 1000);
+			// Start the countdown
+		  	clearTimeout(typingTimer);
+		  	typingTimer = setTimeout(doneTyping, 1000);
 		});
-
-		//on keydown, clear the countdown 
 		$("#search").on('keydown', function () {
-		  clearTimeout(typingTimer);
+		  	// Clear the countdown 
+		  	clearTimeout(typingTimer);
 		});
-
-		//user is "finished typing," do something
 		function doneTyping () {
 		  if ($("#search").val()!='') {
 		  	aluno.searchAlunos($("#search").val(),0)
@@ -88,12 +112,19 @@ javascript:
 		  	aluno.loadAlunos(tablePage)
 		  }
 	  	}
+	  	$(document).on('click', '.button-open-editor-box', function (e) {
+	  		let id = $(this).attr('id');
+	  		aluno.showEditorBox(id);
+	  		e.preventDefault();
+	  	})
+	  	$(document).on('click', '.button-close-editor-box', function (e) {
+	  		aluno.hideEditorBox();
+	  		e.preventDefault();
+	  	})
 	})
 css:
 	#wrapperEditAluno{
-		width: 100%;
 		height: 100%;
-		position: fixed;
 		background: rgba(255, 255, 255,0.4);
 		backdrop-filter: blur(var(--blur));
 		-webkit-backdrop-filter: blur(var(--blur));

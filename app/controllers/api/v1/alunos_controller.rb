@@ -7,7 +7,7 @@ class Api::V1::AlunosController < ApplicationController
 	end
 
 	def show
-		render json: @aluno
+		render json: @aluno, include: { plano: {only: :nome} }
 	end
 
 	def create
@@ -17,13 +17,17 @@ class Api::V1::AlunosController < ApplicationController
 	      render json: @aluno, status: :created
 	    else
 	      render json: @aluno.errors, status: :unprocessable_entity
-	    end	
+	    end
 	end
 
 	def update
+		if params[:aluno][:nascimento].present?
+			params[:aluno][:nascimento] = params[:aluno][:nascimento].to_datetime
+		end
 		if @aluno.update(aluno_params)
-		  render json: @aluno, status: :created
+		  render json: @aluno, include: { plano: {only: :nome} }, status: :created
 		else
+		  puts @aluno.errors.inspect
 		  render json: @aluno.errors, status: :unprocessable_entity
 		end
 	end
@@ -44,6 +48,6 @@ class Api::V1::AlunosController < ApplicationController
 	    end
 
 	    def aluno_params
-	      params.require(:aluno).permit(:gym_id, :plano_id, :nome, :email, :senha, :nascimento, :search, :page)
+	      params.require(:aluno).permit(:gym_id, :plano_id, :nome, :email, :sexo, :senha, :nascimento, :search, :page)
 	    end
 end

@@ -80,4 +80,7 @@ class Helper {
 		var dia = date.getUTCDate()
 		return dia + "/" + mes
 	}
+	capitalize(string) {
+  		return string.charAt(0).toUpperCase() + string.slice(1);
+	}	
 }

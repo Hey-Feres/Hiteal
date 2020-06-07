@@ -18,35 +18,56 @@ class Ui::AlunosController < ApplicationController
 				input_id: "search", 
 				value: ""
 			},
+			aluno_editar_id: {
+				label: "ID",
+				input_id: "aluno-editar-id",
+				disabled: true
+			},			
 			aluno_editar_nome: {
 				label: "Nome",
 				placeholder: "Nome",
-				input_id: "aluno-editar-nome", 
+				loader_id: "aluno-editar-nome-loader",
+				done_id: "aluno-editar-nome-check",
+				error_id: "aluno-editar-nome-error",
+				input_id: "aluno-editar-nome",
 				value: ""
 			},
 			aluno_editar_email: {
 				label: "Email",
 				placeholder: "Email",
+				loader_id: "aluno-editar-email-loader",
+				done_id: "aluno-editar-email-check",
+				error_id: "aluno-editar-email-error",
 				input_id: "aluno-editar-email", 
 				value: ""
 			},
 			aluno_editar_nascimento: {
 				label: "Nascimento",
-				placeholder: "Nascimento",
-				input_id: "aluno-editar-nascimento", 
+				loader_id: "aluno-editar-nascimento-loader",
+				done_id: "aluno-editar-nascimento-check",
+				error_id: "aluno-editar-nascimento-error",
+				input_id: "aluno-editar-nascimento",
 				value: ""
 			},
 			aluno_editar_sexo: {
 				label: "Sexo",
+				loader_id: "aluno-editar-sexo-loader",
+				done_id: "aluno-editar-sexo-check",
+				error_id: "aluno-editar-sexo-error",
+				select_id: "aluno-editar-sexo",
 				options: [
-					{ title: "Masculino", value: 0, id: "Masculino" },
-					{ title: "Feminino", value: 1, id: "Feminino" }
+					{ title: "Masculino", value: "masculino" },
+					{ title: "Feminino", value: "feminino" }
 				]
 			},
 			aluno_editar_plano: {
 				label: "Plano",
-				options: current_user.gym.planos.map{|plano| { title: plano.nome, value: plano.nome, id: plano.id }}
-			}			
+				loader_id: "aluno-editar-plano-loader",
+				done_id: "aluno-editar-plano-check",
+				error_id: "aluno-editar-plano-error",
+				select_id: "aluno-editar-plano",
+				options: current_user.gym.planos.map{|plano| { title: plano.nome, value: plano.id }}
+			}
 		}
 	end
 end

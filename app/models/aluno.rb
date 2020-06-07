@@ -1,6 +1,5 @@
 class Aluno < ApplicationRecord
-  # masculino : 0 | feminino : 1
-  enum sexo: [ :masculino, :feminino ]
+  enum sexo: { feminino: 'feminino', masculino: 'masculino' }
 
   belongs_to :gym, dependent: :destroy
   belongs_to :plano, dependent: :destroy

@@ -67,7 +67,53 @@ class Ui::AlunosController < ApplicationController
 				error_id: "aluno-editar-plano-error",
 				select_id: "aluno-editar-plano",
 				options: current_user.gym.planos.map{|plano| { title: plano.nome, value: plano.id }}
-			}
+			},
+			novo_aluno_nome: {
+				label: "Nome",
+				placeholder: "Nome",
+				loader_id: "novo-aluno-nome-loader",
+				done_id: "novo-aluno-nome-check",
+				error_id: "novo-aluno-nome-error",
+				input_id: "novo-aluno-nome",
+				value: ""
+			},
+			novo_aluno_email: {
+				label: "Email",
+				placeholder: "Email",
+				loader_id: "novo-aluno-email-loader",
+				done_id: "novo-aluno-email-check",
+				error_id: "novo-aluno-email-error",
+				input_id: "novo-aluno-email", 
+				value: ""
+			},
+			novo_aluno_nascimento: {
+				label: "Nascimento",
+				placeholder: "Nascimento",
+				loader_id: "novo-aluno-nascimento-loader",
+				done_id: "novo-aluno-nascimento-check",
+				error_id: "novo-aluno-nascimento-error",
+				input_id: "novo-aluno-nascimento",
+				value: ""
+			},
+			novo_aluno_sexo: {
+				label: "Sexo",
+				loader_id: "novo-aluno-sexo-loader",
+				done_id: "novo-aluno-sexo-check",
+				error_id: "novo-aluno-sexo-error",
+				select_id: "novo-aluno-sexo",
+				options: [
+					{ title: "Masculino", value: "masculino" },
+					{ title: "Feminino", value: "feminino" }
+				]
+			},
+			novo_aluno_plano: {
+				label: "Plano",
+				loader_id: "novo-aluno-plano-loader",
+				done_id: "novo-aluno-plano-check",
+				error_id: "novo-aluno-plano-error",
+				select_id: "novo-aluno-plano",
+				options: current_user.gym.planos.map{|plano| { title: plano.nome, value: plano.id }}
+			}			
 		}
 	end
 end

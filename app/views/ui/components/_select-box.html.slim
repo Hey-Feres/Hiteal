@@ -8,6 +8,7 @@
 		= render './ui/icons/erro', size: 30, color: "E74C3C", id: input[:error_id]	
 	.select-style
   		select id="#{input[:select_id]}" name="#{input[:select_id]}"
+  			option value="" disabled="true" selected="true" Selecione
   			- input[:options].each do |option|
     			option value="#{option[:value]}"= option[:title]
 

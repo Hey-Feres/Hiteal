@@ -31,10 +31,32 @@ class Aluno {
         $("#aluno-editar-plano-loader").hide();
         $("#aluno-editar-plano-check").hide();
         $("#aluno-editar-plano-error").hide();
+        // .  .  .  .  .  .  .  .  .  .  .  .
+        $("#novo-aluno-nome-loader").hide();
+        $("#novo-aluno-nome-check").hide();
+        $("#novo-aluno-nome-error").hide();
+        // .  .  .  .  .  .  .  .  .  .  .  .
+        $("#novo-aluno-email-loader").hide();
+        $("#novo-aluno-email-check").hide();
+        $("#novo-aluno-email-error").hide();
+        // .  .  .  .  .  .  .  .  .  .  .  .
+        $("#novo-aluno-nascimento-loader").hide();
+        $("#novo-aluno-nascimento-check").hide();
+        $("#novo-aluno-nascimento-error").hide();
+        // .  .  .  .  .  .  .  .  .  .  .  .
+        $("#novo-aluno-sexo-loader").hide();
+        $("#novo-aluno-sexo-check").hide();
+        $("#novo-aluno-sexo-error").hide();        
+        // .  .  .  .  .  .  .  .  .  .  .  .
+        $("#novo-aluno-plano-loader").hide();
+        $("#novo-aluno-plano-check").hide();
+        $("#novo-aluno-plano-error").hide();
+
 		// Se todos os alunos ja estiverem sendo exibidos, o button de carregar mais é escondido
 		if ($('#alunos-table tr').length - 1 >= this.total_alunos) { $("#button-load-more-alunos").hide() }
         // .  .  .  .  .  .  .  .  .  .  .  .
         Inputmask({"mask": "99/99/9999"}).mask($("#aluno-editar-nascimento"));
+        Inputmask({"mask": "99/99/9999"}).mask($("#novo-aluno-nascimento"));
 	}
     loadAlunos(page){
         $("#loader-more-alunos").show();
@@ -285,6 +307,39 @@ class Aluno {
         // .  .  .  .  .  .  .  .  .  .  .  .
         let response = request.delete(url, successCallback, errorCallback, headers)
         return response
+    }
+    salvarNovoAluno(dados){
+        let request = new Request();
+        let url = apiBaseUrl + "/alunos"
+        let data = {"aluno": {
+            "nome": dados.nome,
+            "email": dados.email,
+            "nascimento": dados.nascimento,
+            "sexo": dados.sexo,
+            "plano_id": dados.plano_id,
+            "gym_id": dados.gym_id
+        }}
+        let headers = {}
+        let callClearFields = () => {this.clearFields()}
+        // .  .  .  .  .  .  .  .  .  .  .  .
+        let successCallback = function(data){
+            callClearFields()
+            helper.notificacao("Aluno Adicionado",data.nome+" foi adicionado a sua Gym");
+        }
+        // .  .  .  .  .  .  .  .  .  .  .  .
+        let errorCallback = function(jqXHR, textStatus, msg){ 
+            helper.notificacao("Erro ao Adicionar","Não foi possivel adicionar o aluno");
+        }
+        // .  .  .  .  .  .  .  .  .  .  .  .
+        let response = request.post(data, url, successCallback, errorCallback, headers)
+        return response
+    }
+    clearFields(){
+        $("#novo-aluno-nome").val("")
+        $("#novo-aluno-email").val("")
+        $("#novo-aluno-nascimento").val("")
+        $("#novo-aluno-sexo").val("")
+        $("#novo-aluno-plano").val("")
     }
     toggleWrappers(event, whatToShow){
         event.preventDefault();

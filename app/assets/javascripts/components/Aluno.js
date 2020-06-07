@@ -261,6 +261,31 @@ class Aluno {
         let response = request.put(data, url, successCallback, errorCallback, headers)
         return response
     }
+    deleteAluno(id){
+        let request = new Request();
+        let url = apiBaseUrl + "/alunos/" + id
+        let headers = {}
+        // .  .  .  .  .  .  .  .  .  .  .  .
+        let successCallback = function(data){
+            $("#wrapperEditAluno").addClass("animated rollOut")
+            $("#wrapperEditAluno").css("animation-duration", "0.8s")
+            setTimeout(function(){ 
+                $("#wrapperEditAluno").hide()
+                $("#wrapperEditAluno").removeClass("animated rollOut")
+                helper.notificacao("Aluno Removido","Aluno excluido com sucesso");
+                $("#row-aluno-"+data.id).addClass("animated slideOutRight")
+                // Espera terminar a animacao de saida da row com user deletado
+                setTimeout(function(){$("#row-aluno-"+data.id).remove()}, 750)
+            }, 800);
+        }
+        // .  .  .  .  .  .  .  .  .  .  .  .
+        let errorCallback = function(jqXHR, textStatus, msg){ 
+            helper.notificacao("Erro ao Excluir","Não foi possivel excluir o aluno");
+        }
+        // .  .  .  .  .  .  .  .  .  .  .  .
+        let response = request.delete(url, successCallback, errorCallback, headers)
+        return response
+    }
     toggleWrappers(event, whatToShow){
         event.preventDefault();
         $(whatToShow).show(300);

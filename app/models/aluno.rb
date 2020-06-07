@@ -1,8 +1,8 @@
 class Aluno < ApplicationRecord
   enum sexo: { feminino: 'feminino', masculino: 'masculino' }
 
-  belongs_to :gym, dependent: :destroy
-  belongs_to :plano, dependent: :destroy
+  belongs_to :gym
+  belongs_to :plano
 
   validates_presence_of :nome
   validates_presence_of :email

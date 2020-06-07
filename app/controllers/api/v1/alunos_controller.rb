@@ -34,7 +34,7 @@ class Api::V1::AlunosController < ApplicationController
 
 	def destroy
 	    @aluno.destroy
-	    render json: "Destroyed", head: :no_content
+	    render json: @aluno, head: :no_content
 	end
 	
 	def search

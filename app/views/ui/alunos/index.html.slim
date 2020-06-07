@@ -44,6 +44,8 @@
 				br
 				.d-flex.justify-content-start
 					= render './ui/components/text-field', input: @inputs_attributes[:aluno_editar_id]
+			center.mt-5
+				= render './ui/components/button', value: "Apagar Aluno", style: "outline-red", id: "delete-aluno-button", type:"button"
 	// Div Adicionar Alunos  .  .  .  .  .  .  .  .  .  .  .
 	.box#wrapperAdicionar
 		.divider-header.d-flex.justify-content-between
@@ -89,9 +91,14 @@ javascript:
 		// Input com sexo
 		$("#aluno-editar-sexo").change(function() {
 			response = aluno.mudarSexo($("#aluno-editar-sexo").val())
-		})		
+		})
+		// Input com plano
 		$("#aluno-editar-plano").change(function(){
 			response = aluno.mudarPlano($("#aluno-editar-plano").val())
+		})
+		// Botao com acao de delete
+		$("#delete-aluno-button").click(function(){
+			aluno.deleteAluno($("#aluno-editar-id").val());
 		})
 		// Search Input
 		let typingTimer;

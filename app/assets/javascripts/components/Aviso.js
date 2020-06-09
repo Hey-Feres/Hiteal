@@ -41,7 +41,7 @@ class Aviso {
 	                            "<td class='text-center' id='aviso-nome-" + data[i].id + "'> " + data[i].nome + " </td>" +
 	                            "<td class='text-center'>"+data[i].views+"</td>" +
 	                            "<td class='text-center'> </td>" +
-	                            "<td class='text-center'> <img src='https://img.icons8.com/ios/30/000000/pin-2.png'/> </td>" +
+	                            "<td class='text-center'> <img src='https://img.icons8.com/ios/30/34C759/pin-2.png'/> </td>" +
 	                            "<td class='text-center text-primary button-open-editor-box' id='" + data[i].id + "' > Editar </td>" +
 	                          "</tr>"            		
 	            }else{
@@ -49,7 +49,7 @@ class Aviso {
                             "<td class='text-center' id='aviso-nome-" + data[i].id + "'> " + data[i].nome + " </td>" +
                             "<td class='text-center'>"+data[i].views+"</td>" +
                             "<td class='text-center'>Até "+helper.formatDate(data[i].intervalo_exibicao)+"</td>" +
-                            "<td class='text-center'> </td>" +
+                            "<td class='text-center'> <img src='https://img.icons8.com/ios/30/CCCCCC/pin-2.png'/> </td>" +
                             "<td class='text-center text-primary button-open-editor-box' id='" + data[i].id + "' > Editar </td>" +
                           "</tr>"	            	
 	            }
@@ -77,7 +77,7 @@ class Aviso {
                                 "<td class='text-center' id='aviso-nome-" + data[i].id + "'> " + data[i].nome + " </td>" +
                                 "<td class='text-center'>"+data[i].views+"</td>" +
                                 "<td class='text-center'> </td>" +
-                                "<td class='text-center'> <img src='https://img.icons8.com/ios/30/000000/pin-2.png'/> </td>" +
+                                "<td class='text-center pin-icon'> <img src='https://img.icons8.com/ios/30/34C759/pin-2.png'/> </td>" +
                                 "<td class='text-center text-primary button-open-editor-box' id='" + data[i].id + "' > Editar </td>" +
                               "</tr>"                    
                 }else{
@@ -85,7 +85,7 @@ class Aviso {
                             "<td class='text-center' id='aviso-nome-" + data[i].id + "'> " + data[i].nome + " </td>" +
                             "<td class='text-center'>"+data[i].views+"</td>" +
                             "<td class='text-center'>Até "+helper.formatDate(data[i].intervalo_exibicao)+"</td>" +
-                            "<td class='text-center'> </td>" +
+                            "<td class='text-center'> <img src='https://img.icons8.com/ios/30/CCCCCC/pin-2.png'/> </td>" +
                             "<td class='text-center text-primary button-open-editor-box' id='" + data[i].id + "' > Editar </td>" +
                           "</tr>"                    
                 }
@@ -231,7 +231,7 @@ class Aviso {
     mudarIntervaloExibicao(novo_intervalo){
         $("#aviso-editar-exibicao-loader").show();
         // .  .  .  .  .  .  .  .  .  .  .  .
-        let aviso_id =$ ("#aviso-editar-id").val()
+        let aviso_id = $("#aviso-editar-id").val()
         let request = new Request();
         let data = { "aviso": {"intervalo_exibicao": novo_intervalo} }
         let url = apiBaseUrl + "/avisos/" + aviso_id
@@ -252,6 +252,31 @@ class Aviso {
         }
         // .  .  .  .  .  .  .  .  .  .  .  .
         let response = request.put(data, url, successCallback, errorCallback, headers)
+        return response
+    }
+    deleteAviso(id){
+        let request = new Request();
+        let url = apiBaseUrl + "/avisos/" + id
+        let headers = {}
+        // .  .  .  .  .  .  .  .  .  .  .  .
+        let successCallback = function(data){
+            $("#wrapperEditAviso").addClass("animated rollOut")
+            $("#wrapperEditAviso").css("animation-duration", "0.8s")
+            setTimeout(function(){ 
+                $("#wrapperEditAviso").hide()
+                $("#wrapperEditAviso").removeClass("animated rollOut")
+                helper.notificacao("Aviso Removido","Aviso excluido com sucesso");
+                $("#row-aviso-"+data.id).addClass("animated slideOutRight")
+                // Espera terminar a animacao de saida da row com user deletado
+                setTimeout(function(){$("#row-aviso-"+data.id).remove()}, 750)
+            }, 800);
+        }
+        // .  .  .  .  .  .  .  .  .  .  .  .
+        let errorCallback = function(jqXHR, textStatus, msg){ 
+            helper.notificacao("Erro ao Excluir","Não foi possivel excluir o aviso");
+        }
+        // .  .  .  .  .  .  .  .  .  .  .  .
+        let response = request.delete(url, successCallback, errorCallback, headers)
         return response
     }
     toggleWrappers(event, whatToShow){

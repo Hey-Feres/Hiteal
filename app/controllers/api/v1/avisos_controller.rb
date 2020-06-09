@@ -33,7 +33,7 @@ class Api::V1::AvisosController < ApplicationController
 
 	def destroy
 	    @aviso.destroy
-	    render json: "Destroyed", head: :no_content
+	    render json: @aviso, head: :no_content
 	end
 	
 	private

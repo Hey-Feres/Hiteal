@@ -46,7 +46,7 @@
 				.d-flex.justify-content-start
 					= render './ui/components/text-field', input: @inputs_attributes[:editar_dados][:id]
 			center.mt-5
-				= render './ui/components/button', value: "Apagar Aviso", style: "outline-red", id: "delete-aluno-button", type:"button"
+				= render './ui/components/button', value: "Apagar Aviso", style: "outline-red", id: "delete-aviso-button", type:"button"
 	// Div Adicionar Aviso  .  .  .  .  .  .  .  .  .  .  .
 	.box#wrapperAdicionar
 		.divider-header.d-flex.justify-content-between
@@ -59,8 +59,11 @@ javascript:
 	$(document).ready(function(){
 		let aviso = new Aviso("#{current_user.gym.id}")
 		let tablePage = 0
+		// A paginacao da API retorna 20 registros a cada pagina
+		let totalPages = parseFloat("#{@numero_paginas}")
 		aviso.componentLoaded()
 		aviso.loadAvisos(tablePage)
+		if (tablePage >= totalPages) { $("#button-load-more-avisos").hide() }
 		$("#todos-toggler").click(function(event) {
 			aviso.toggleWrappers(event, "#wrapperTodos")
 		})
@@ -69,6 +72,7 @@ javascript:
 		})
 		$("#button-load-more-avisos").click(function(event){
 			event.preventDefault();
+			if (tablePage >= totalPages) { $("#button-load-more-avisos").hide() }
 			tablePage += 1
 			if ($("#search").val()!='') {
 				aviso.searchAvisos($("#search").val(),tablePage)
@@ -110,7 +114,10 @@ javascript:
 		// Input com editar switch fixado
 		$("#aviso-editar-fixado").change(function() {
 			response = aviso.mudarFixado($("#aviso-editar-fixado").prop("checked"))
-		})	  	
+		})
+		$("#delete-aviso-button").click(function(){
+			response = aviso.deleteAviso($("#aviso-editar-id").val())
+		})
 	  	$(document).on('click', '.button-open-editor-box', function (e) {
 	  		let id = $(this).attr('id');
 	  		aviso.showEditorBox(id);

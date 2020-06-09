@@ -1,5 +1,7 @@
 class Ui::AvisosController < ApplicationController
 	def index
+		@numero_paginas = Aviso.all.count / 20
+		timing = Benchmark.measure { Aviso.all }
 		@sidebar_items = {
 			img:"https://img.icons8.com/ios/50/FFFFFF/barbell.png",
 			title: "Avisos",

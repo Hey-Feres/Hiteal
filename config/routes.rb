@@ -20,7 +20,10 @@ Rails.application.routes.draw do
       delete '/gyms/delete_upload/:blob_id', to: "gyms#delete_upload"
 
       get '/todos_alunos/:gym_id/:page', to: "alunos#index"
+      get '/todos_avisos/:gym_id/:page', to: "avisos#index"
+
       post '/search_alunos', to: "alunos#search"
+      post '/search_avisos', to: "avisos#search"
       
       get '/planos_chart_data', to: "planos#chart_data"
     end
@@ -31,5 +34,6 @@ Rails.application.routes.draw do
     resources :users, only: :index
     resources :planos, only: :index
     resources :alunos, only: :index
+    resources :avisos, only: :index
   end
 end

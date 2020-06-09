@@ -75,10 +75,17 @@ class Helper {
         && d1.getMonth() == date.getMonth()
         && d1.getDate() == date.getDate();
 	}
-	formatDate(date){
-		var mes = date.getUTCMonth() + 1
-		var dia = date.getUTCDate()
-		return dia + "/" + mes
+	formatDate(date, displayYear){
+		let MyDate = new Date(date.split("T")[0]);
+		MyDate.setDate(MyDate.getDate() + 20);
+		let formatedDate
+		if (displayYear) {
+			formatedDate = ('0' + MyDate.getDate()).slice(-2) + '/' + ('0' + (MyDate.getMonth()+1)).slice(-2) + '/' + MyDate.getFullYear();	
+		}else{
+			formatedDate = ('0' + MyDate.getDate()).slice(-2) + '/' + ('0' + (MyDate.getMonth()+1)).slice(-2)
+		}
+		
+		return formatedDate
 	}
 	capitalize(string) {
   		return string.charAt(0).toUpperCase() + string.slice(1);

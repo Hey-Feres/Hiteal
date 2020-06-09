@@ -10,7 +10,7 @@ class Aluno {
         $(".box").not("#wrapperGerenciar").hide();
         // .  .  .  .  .  .  .  .  .  .  .  .
         $("#loader-more-alunos").hide();
-        $("#search-loader").hide();        
+        $("#search-loader").hide();
         // .  .  .  .  .  .  .  .  .  .  .  .
         $("#aluno-editar-nome-loader").hide();
         $("#aluno-editar-nome-check").hide();

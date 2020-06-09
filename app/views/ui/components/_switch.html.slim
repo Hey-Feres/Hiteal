@@ -1,8 +1,14 @@
 .d-flex.justify-content-between
-	label= label
+	label= input[:label]
+	- if input[:loader_id]
+		= render './ui/components/loader', size: 'small', id: input[:loader_id]
+	- if input[:done_id]
+		= render './ui/icons/done', size: 30, color: "3498DB",id: input[:done_id]
+	- if input[:error_id]
+		= render './ui/icons/erro', size: 30, color: "E74C3C", id: input[:error_id]	
 	div
 		label class="form-switch"
-  			input type="checkbox" id="#{id}"
+  			input type="checkbox" id="#{input[:input_id]}"
   			i
 
 css:

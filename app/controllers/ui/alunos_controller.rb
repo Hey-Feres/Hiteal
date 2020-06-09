@@ -22,7 +22,7 @@ class Ui::AlunosController < ApplicationController
 				label: "ID",
 				input_id: "aluno-editar-id",
 				disabled: true
-			},			
+			},
 			aluno_editar_nome: {
 				label: "Nome",
 				placeholder: "Nome",

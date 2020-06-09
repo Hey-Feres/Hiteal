@@ -12,3 +12,12 @@ end
 500.times do |i|
 	Aluno.create!( gym_id: 1, plano_id: rand(1..4), nome: Faker::Name.unique.name, email: "aluno_#{i}@teste.com", senha: "123456", nascimento: DateTime.now - rand(6025..15000).day )
 end
+
+50.times do |i|
+	fixado = Faker::Boolean.boolean
+	if fixado
+		Aviso.create!( gym_id: 1, nome: Faker::Lorem.word, conteudo: Faker::Lorem.paragraphs(number: 1, supplemental: true), fixado: fixado, views: rand(10..100), intervalo_exibicao: nil )
+	else	
+		Aviso.create!( gym_id: 1, nome: Faker::Lorem.word, conteudo: Faker::Lorem.paragraphs(number: 1, supplemental: true), fixado: fixado, views: rand(10..100), intervalo_exibicao: DateTime.now + rand(10..60).day )
+	end
+end

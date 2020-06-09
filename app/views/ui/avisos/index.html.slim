@@ -1,0 +1,136 @@
+- provide :head_tags do
+	meta name='turbolinks-visit-control' content='reload'
+
+= render './ui/components/sidebar', dados: @sidebar_items
+
+.content
+	// Div Todos os Avisos  .  .  .  .  .  .  .  .  .  .  .
+	.box#wrapperTodos
+		.divider-header.d-flex.justify-content-between
+			h3 Avisos
+			= render './ui/components/text-field', input: @inputs_attributes[:search]
+
+		.divider-content
+			table.table.table-striped#avisos-table
+				thead
+					tr
+						th.text-center Nome
+						th.text-center Views
+						th.text-center Exibição
+						th.text-center Fixado
+						th
+				tbody#avisos-table-body
+				// Tabela é povoada em Aviso.js, funcao loadAvisos
+			
+			= render './ui/components/button', type: 'button', style: "blue", value: "Carregar Mais Avisos", id: 'button-load-more-avisos'
+			.d-flex.justify-content-center
+				= render './ui/components/loader', size: 'small', id: 'loader-more-avisos'
+	.box#wrapperEditAviso
+		.divider-header.d-flex.justify-content-between
+			h3 Editar Aviso
+			h3.button-close-editor-box
+				img src="https://img.icons8.com/ios-glyphs/25/007AFF/chevron-right.png"
+		.divider-content
+			form style="width: auto !important"
+				.d-flex.justify-content-start
+					= render './ui/components/text-field', input: @inputs_attributes[:editar_dados][:nome]
+				br
+				.d-flex.justify-content-start
+					= render './ui/components/text-field', input: @inputs_attributes[:editar_dados][:conteudo]
+				br
+				.d-flex.justify-content-start
+					= render './ui/components/text-field', input: @inputs_attributes[:editar_dados][:intervalo_exibicao]
+				br
+				= render './ui/components/switch', input: @inputs_attributes[:editar_dados][:fixado]
+				br
+				.d-flex.justify-content-start
+					= render './ui/components/text-field', input: @inputs_attributes[:editar_dados][:id]
+			center.mt-5
+				= render './ui/components/button', value: "Apagar Aviso", style: "outline-red", id: "delete-aluno-button", type:"button"
+	// Div Adicionar Aviso  .  .  .  .  .  .  .  .  .  .  .
+	.box#wrapperAdicionar
+		.divider-header.d-flex.justify-content-between
+			h3 Adicionar
+		.divider-content
+
+
+
+javascript:
+	$(document).ready(function(){
+		let aviso = new Aviso("#{current_user.gym.id}")
+		let tablePage = 0
+		aviso.componentLoaded()
+		aviso.loadAvisos(tablePage)
+		$("#todos-toggler").click(function(event) {
+			aviso.toggleWrappers(event, "#wrapperTodos")
+		})
+		$("#adicionar-toggler").click(function(event) {
+			aviso.toggleWrappers(event, "#wrapperAdicionar")
+		})
+		$("#button-load-more-avisos").click(function(event){
+			event.preventDefault();
+			tablePage += 1
+			if ($("#search").val()!='') {
+				aviso.searchAvisos($("#search").val(),tablePage)
+			}else{
+				aviso.loadAvisos(tablePage)	
+			}
+		})
+		// Search Input
+		let typingTimer;
+		$("#search").on('keyup', function () {
+			// Start the countdown
+		  	clearTimeout(typingTimer);
+		  	typingTimer = setTimeout(doneTyping, 1000);
+		});
+		$("#search").on('keydown', function () {
+		  	// Clear the countdown 
+		  	clearTimeout(typingTimer);
+		});
+		function doneTyping () {
+		  if ($("#search").val()!='') {
+		  	aviso.searchAvisos($("#search").val(),0)
+		  }else{
+		  	tablePage = 0
+		  	aviso.loadAvisos(tablePage)
+		  }
+	  	}
+		// Input com editar nome
+		$("#aviso-editar-nome").change(function() {
+			response = aviso.mudarNome($("#aviso-editar-nome").val())
+		})
+		// Input com editar conteudo
+		$("#aviso-editar-conteudo").change(function() {
+			response = aviso.mudarConteudo($("#aviso-editar-conteudo").val())
+		})
+		// Input com editar intervalo de exibicao
+		$("#aviso-editar-exibicao").change(function() {
+			response = aviso.mudarIntervaloExibicao($("#aviso-editar-exibicao").val())
+		})
+		// Input com editar switch fixado
+		$("#aviso-editar-fixado").change(function() {
+			response = aviso.mudarFixado($("#aviso-editar-fixado").prop("checked"))
+		})	  	
+	  	$(document).on('click', '.button-open-editor-box', function (e) {
+	  		let id = $(this).attr('id');
+	  		aviso.showEditorBox(id);
+	  		e.preventDefault();
+	  	})
+	  	$(document).on('click', '.button-close-editor-box', function (e) {
+	  		aviso.hideEditorBox();
+	  		e.preventDefault();
+	  	})
+	})
+
+css:
+	#wrapperEditAviso{
+		height: 100%;
+		background: rgba(255, 255, 255,0.4);
+		backdrop-filter: blur(var(--blur));
+		-webkit-backdrop-filter: blur(var(--blur));
+		-o-backdrop-filter: blur(var(--blur));
+		-moz-backdrop-filter: blur(var(--blur));
+		-ms-backdrop-filter: blur(var(--blur));
+		z-index: 99999;
+		border: 1px solid #ccc;
+	}

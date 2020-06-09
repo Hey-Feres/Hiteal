@@ -24,7 +24,6 @@ class Aluno < ApplicationRecord
       .where('alunos.nome LIKE ?', "%#{param}%")
       .where(gym_id: gym_id)
       .limit(20)
-    #
     alunos
   end
 private

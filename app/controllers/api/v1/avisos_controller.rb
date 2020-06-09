@@ -1,6 +1,15 @@
 class Api::V1::AvisosController < ApplicationController
-	before_action :set_aviso, except: :create
+	before_action :set_aviso, except: [:create,:index,:search]
+	def index
+		@avisos = Aviso.paginate(params[:page],params[:gym_id])
+		render json: @avisos
+	end
 	
+	def search
+		@avisos = Aviso.search(params[:aviso][:search],params[:aviso][:page],params[:aviso][:gym_id])
+		render json: @avisos
+	end
+
 	def show
 		render json: @aviso
 	end
@@ -33,6 +42,6 @@ class Api::V1::AvisosController < ApplicationController
 	    end
 
 	    def aviso_params
-	      params.require(:aviso).permit(:gym_id,:nome,:conteudo,:fixado,:intervalo_exibicao)
+	      params.require(:aviso).permit(:gym_id,:nome,:conteudo,:fixado,:intervalo_exibicao,:search,:page)
 	    end
 end

@@ -110,34 +110,6 @@ class Ui::GymsController < ApplicationController
 				disabled: true
 			},
 		}
-		# Item 4
-		@introduction_box_dados = {
-			title: "Minha Gym",
-			icons: [
-				{
-					name: 'barbell',
-					size: 50,
-					color: 'B632AD',
-					description: 'Crie um perfil para sua academia',
-					first_icon: true
-				},
-				{
-					name: 'map',
-					size: 50,
-					color: 'F1C40F',
-					description: 'Adicione sua localização ou a selecione no mapa',
-					first_icon: false
-				},
-				{
-					name: 'albums',
-					size: 50,
-					color: '1890DB',
-					description: 'Compartilhe fotos com seus alunos e com seu time',
-					first_icon: false
-				},
-			],
-			button_text: "Vamos lá"
-		}
 	end
 end
 
@@ -155,6 +127,3 @@ end
 # 	respectivos icones da  view Gym
 #  	- Todo o processamento dos inputs é feito na classe gym.js
 #  	- Caso nao tenha um valor definido nos values, definimos como uma string vazia
-# Item 4 ________________________________________________________________________________
-# 	- Introduction Box é a variavel com os dados a serem exibidos no box de introducao 
-# 	que e exibido ao user na primeira vez que acessa a tela Gym

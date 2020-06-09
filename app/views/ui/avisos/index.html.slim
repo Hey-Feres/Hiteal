@@ -33,18 +33,18 @@
 		.divider-content
 			form style="width: auto !important"
 				.d-flex.justify-content-start
-					= render './ui/components/text-field', input: @inputs_attributes[:editar_dados][:nome]
+					= render './ui/components/text-field', input: @inputs_attributes[:editar_dados][:id]
 				br
 				.d-flex.justify-content-start
-					= render './ui/components/text-field', input: @inputs_attributes[:editar_dados][:conteudo]
+					= render './ui/components/text-field', input: @inputs_attributes[:editar_dados][:nome]
 				br
 				.d-flex.justify-content-start
 					= render './ui/components/text-field', input: @inputs_attributes[:editar_dados][:intervalo_exibicao]
 				br
-				= render './ui/components/switch', input: @inputs_attributes[:editar_dados][:fixado]
-				br
 				.d-flex.justify-content-start
-					= render './ui/components/text-field', input: @inputs_attributes[:editar_dados][:id]
+					= render './ui/components/text-area', input: @inputs_attributes[:editar_dados][:conteudo]				
+				br
+				= render './ui/components/switch', input: @inputs_attributes[:editar_dados][:fixado]
 			center.mt-5
 				= render './ui/components/button', value: "Apagar Aviso", style: "outline-red", id: "delete-aviso-button", type:"button"
 	// Div Adicionar Aviso  .  .  .  .  .  .  .  .  .  .  .
@@ -52,7 +52,20 @@
 		.divider-header.d-flex.justify-content-between
 			h3 Adicionar
 		.divider-content
-
+			form style="width: auto !important"
+				.d-flex.justify-content-start
+					= render './ui/components/text-field', input: @inputs_attributes[:novo_aviso][:nome]
+				br
+				.d-flex.justify-content-start
+					= render './ui/components/text-field', input: @inputs_attributes[:novo_aviso][:intervalo_exibicao]
+				br
+				.d-flex.justify-content-start
+					= render './ui/components/text-area', input: @inputs_attributes[:novo_aviso][:conteudo]
+				br
+				= render './ui/components/switch', input: @inputs_attributes[:novo_aviso][:fixado]
+			center.mt-5
+				= render './ui/components/button', value: "Salvar Aviso", style: "default", id: "salvar-aviso-button", type:"button"
+				= render './ui/components/button', value: "Limpar Campos", style: "red", id: "clear-fields", type:"button"
 
 
 javascript:
@@ -117,6 +130,19 @@ javascript:
 		})
 		$("#delete-aviso-button").click(function(){
 			response = aviso.deleteAviso($("#aviso-editar-id").val())
+		})
+		// Input com acao submit novo aluno
+		$("#salvar-aviso-button").click(function(){
+			let dados = {
+				nome: $("#aviso-nome").val(),
+				conteudo: $("#aviso-conteudo").val(),
+				intervalo_exibicao: $("#aviso-exibicao").val(),
+				fixado: $("#aviso-fixado").prop("checked")
+			}
+			aviso.salvarNovoAviso(dados)
+		})
+		$("#clear-fields").click(function(){
+			aviso.clearFields();
 		})
 	  	$(document).on('click', '.button-open-editor-box', function (e) {
 	  		let id = $(this).attr('id');

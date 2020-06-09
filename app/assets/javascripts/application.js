@@ -4,10 +4,11 @@
 //= require jquery/dist/jquery
 //= require bootstrap/dist/js/bootstrap
 //= require request
-//= require inputmask
 //= require helpers
-//= require Chart.min
-//= require Chart.bundle.min
+//= require jquery-plugins
+//= require ui-libraries/inputmask
+//= require ui-libraries/Chart.min
+//= require ui-libraries/Chart.bundle.min
 //= require components/Gym
 //= require components/User
 //= require components/Plano

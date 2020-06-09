@@ -16,14 +16,19 @@ class Api::V1::AvisosController < ApplicationController
 
 	def create
 	    @aviso = Aviso.new(aviso_params)
+	    @aviso.intervalo_exibicao = @aviso.intervalo_exibicao.to_datetime
 	    if @aviso.save
 	      render json: @aviso, status: :created
 	    else
+	      puts @aviso.errors.inspect
 	      render json: @aviso.errors, status: :unprocessable_entity
 	    end	
 	end
 
 	def update
+		if params[:aviso][:intervalo_exibicao].present?
+			params[:aviso][:intervalo_exibicao] = params[:aviso][:intervalo_exibicao].to_datetime
+		end		
 		if @aviso.update(aviso_params)
 		  render json: @aviso, status: :created
 		else

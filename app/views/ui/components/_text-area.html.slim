@@ -1,0 +1,24 @@
+- if input[:label]
+	label= input[:label]
+- if input[:loader_id]
+	= render './ui/components/loader', size: 'small', id: input[:loader_id]
+- if input[:done_id]
+	img id="#{input[:done_id]}" src="https://img.icons8.com/ios/30/3498DB/checkmark.png"
+- if input[:error_id]
+	img id="#{input[:error_id]}" src="https://img.icons8.com/ios/30/E74C3C/multiply.png"
+textarea placeholder="#{input[:placeholder]}" id="#{input[:input_id]}" value="#{input[:value]}" maxlength="400"
+
+css:
+	textarea{
+		border: none;
+		background: transparent !important;
+		width: 80%;
+		padding: 0 2%;
+		border-bottom: 1px solid #f2f2f2 !important;
+		border-radius: 10px;
+	}
+	label{
+		width: 20%;
+		padding: 0 2%;
+		font-size: 1em;
+	}	

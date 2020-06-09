@@ -27,7 +27,11 @@ class Aviso {
         $("#aviso-editar-fixado-check").hide();
         $("#aviso-editar-fixado-error").hide();
         // .  .  .  .  .  .  .  .  .  .  .  .
+        $("#aviso-conteudo").autogrow();
+        $("#aviso-editar-conteudo").autogrow();
+        // .  .  .  .  .  .  .  .  .  .  .  .
         Inputmask({"mask": "99/99/9999"}).mask($("#aviso-editar-exibicao"));
+        Inputmask({"mask": "99/99/9999"}).mask($("#aviso-exibicao"));
 	}
     loadAvisos(page){
         let request = new Request()
@@ -278,6 +282,37 @@ class Aviso {
         // .  .  .  .  .  .  .  .  .  .  .  .
         let response = request.delete(url, successCallback, errorCallback, headers)
         return response
+    }
+    salvarNovoAviso(dados){
+        let request = new Request();
+        let url = apiBaseUrl + "/avisos"
+        let data = {"aviso": {
+            "nome": dados.nome,
+            "conteudo": dados.conteudo,
+            "intervalo_exibicao": dados.intervalo_exibicao,
+            "fixado": dados.fixado,
+            "gym_id": this.gym_id
+        }}
+        let headers = {}
+        let callClearFields = () => {this.clearFields()}
+        // .  .  .  .  .  .  .  .  .  .  .  .
+        let successCallback = function(data){
+            callClearFields()
+            helper.notificacao("Aviso Adicionado",data.nome+" foi adicionado ao mural");
+        }
+        // .  .  .  .  .  .  .  .  .  .  .  .
+        let errorCallback = function(jqXHR, textStatus, msg){ 
+            helper.notificacao("Erro ao Adicionar","Não foi possivel adicionar o aviso");
+        }
+        // .  .  .  .  .  .  .  .  .  .  .  .
+        let response = request.post(data, url, successCallback, errorCallback, headers)
+        return response
+    }
+    clearFields(){
+        $("#aviso-nome").val("")
+        $("#aviso-conteudo").val("")
+        $("#aviso-exibicao").val("")
+        $("#aviso-fixado").prop("checked", false)
     }
     toggleWrappers(event, whatToShow){
         event.preventDefault();

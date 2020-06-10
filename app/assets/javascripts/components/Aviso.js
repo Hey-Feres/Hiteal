@@ -2,6 +2,7 @@ class Aviso {
 	constructor(gym_id) {
 		this.gym_id = gym_id;
 	}
+    // Item 1 ______________________________________________________
 	componentLoaded(){
         $(".sidebar").addClass("animated fadeInDownBig")
         $(".content").addClass("animated fadeInUpBig")
@@ -33,6 +34,7 @@ class Aviso {
         Inputmask({"mask": "99/99/9999"}).mask($("#aviso-editar-exibicao"));
         Inputmask({"mask": "99/99/9999"}).mask($("#aviso-exibicao"));
 	}
+    // Item 2 ______________________________________________________
     loadAvisos(page){
         let request = new Request()
         let url = apiBaseUrl + "/todos_avisos/"+this.gym_id+"/"+page
@@ -67,6 +69,7 @@ class Aviso {
         let response = request.get(url,successCallback,errorCallback)
         return response
     }
+    // Item 3 ______________________________________________________
     searchAvisos(params,page){
         let request = new Request()
         let url = apiBaseUrl + "/search_avisos"
@@ -107,6 +110,7 @@ class Aviso {
         let response = request.post(data,url,successCallback,errorCallback)
         return response
     }
+    // Item 4 ______________________________________________________
     showEditorBox(id){
         let request = new Request()
         let url = apiBaseUrl + "/avisos/" + id
@@ -134,6 +138,7 @@ class Aviso {
             $("#wrapperEditAviso").removeClass("animated slideInRight")
         }, 750)
     }
+    // Item 5 ______________________________________________________
     hideEditorBox(){
         $("#wrapperEditAviso").addClass("animated slideOutRight")
         $("#wrapperEditAviso").css("animation-duration", "0.7s")
@@ -145,6 +150,7 @@ class Aviso {
             $("#aviso-editar-exibicao").attr("placeholder", "Exibir até");
         }, 750)
     }
+    // Item 6 ______________________________________________________
     mudarFixado(novo_estado_fixado){
         if (novo_estado_fixado == true) {
             $("#aviso-editar-exibicao").val('');
@@ -180,6 +186,7 @@ class Aviso {
         let response = request.put(data, url, successCallback, errorCallback, headers)
         return response
     }
+    // Item 6 ______________________________________________________
     mudarNome(novo_nome){
         $("#aviso-editar-nome-loader").show();
         // .  .  .  .  .  .  .  .  .  .  .  .
@@ -206,6 +213,7 @@ class Aviso {
         let response = request.put(data, url, successCallback, errorCallback, headers)
         return response
     }
+    // Item 6 ______________________________________________________
     mudarConteudo(novo_conteudo){
         $("#aviso-editar-conteudo-loader").show();
         // .  .  .  .  .  .  .  .  .  .  .  .
@@ -232,6 +240,7 @@ class Aviso {
         let response = request.put(data, url, successCallback, errorCallback, headers)
         return response
     }
+    // Item 6 ______________________________________________________
     mudarIntervaloExibicao(novo_intervalo){
         $("#aviso-editar-exibicao-loader").show();
         // .  .  .  .  .  .  .  .  .  .  .  .
@@ -258,6 +267,7 @@ class Aviso {
         let response = request.put(data, url, successCallback, errorCallback, headers)
         return response
     }
+    // Item 7 ______________________________________________________
     deleteAviso(id){
         let request = new Request();
         let url = apiBaseUrl + "/avisos/" + id
@@ -283,6 +293,7 @@ class Aviso {
         let response = request.delete(url, successCallback, errorCallback, headers)
         return response
     }
+    // Item 8 ______________________________________________________
     salvarNovoAviso(dados){
         let request = new Request();
         let url = apiBaseUrl + "/avisos"
@@ -308,6 +319,7 @@ class Aviso {
         let response = request.post(data, url, successCallback, errorCallback, headers)
         return response
     }
+    // Item 9 ______________________________________________________
     switchNovoAvisoFixado(novo_aviso_fixado){
         if (novo_aviso_fixado == true) {
             $("#aviso-exibicao").val('');
@@ -318,15 +330,72 @@ class Aviso {
             $("#aviso-exibicao").attr("placeholder", "Exibir até");
         }        
     }
+    // Item 10 _____________________________________________________
     clearFields(){
         $("#aviso-nome").val("")
         $("#aviso-conteudo").val("")
         $("#aviso-exibicao").val("")
         $("#aviso-fixado").prop("checked", false)
     }
+    // Item 11 _____________________________________________________
     toggleWrappers(event, whatToShow){
         event.preventDefault();
         $(whatToShow).show(300);
         $(".box").not(whatToShow).hide(300);
     }    
 }
+
+// Documentacao
+// Item 1 ________________________________________________________________________________
+//     - Metodo componentLoaded() é chamado quando a pagina é carregada.
+//     - Ele inicializa os estados dos componentes e atribui propriedades e masks.
+//     - Propriedade autogrow faz com que o campo aumente conforme o user digita.
+// Item 2 ________________________________________________________________________________
+//     - Metodo loadAvisos() é chamado quando a pagina é carregada.
+//     - Carrega os avisos de forma dinamica, sendo 20 avisos por page.
+//     - Page é declarada como 0 quando a pagina carrega e é incrementada +1 quando o 
+//     - botao carregar mais avisos é clicado.
+//     - No callback de sucesso rodamos um loop q é executado com relacao ao numero de 
+//     - registros retornados. Dentro do loop renderizamos as rows da table
+// Item 3 ________________________________________________________________________________
+//    - Metodo searchAvisos() é chamado quando o usuario digita algo no input search.
+//    - Recebe como parametros a page e o params, que é o valor digitado.
+//    - Dentro do loop renderizamos as rows na tabela, baseado nos resultados retornados
+// Item 4 ________________________________________________________________________________
+//    - Metodo showEditorBox() recebe o id do aviso como parametro.
+//    - No callback de sucesso atribuimos os valores de cada input.
+//    - Se o aviso for fixado o input com data de exibicao é desativado.
+//    - No final da funcao, apos carregar todos os dados, executamos a animacao de entrada
+//    da pagina.
+// Item 5 ________________________________________________________________________________
+//    - Metodo hideEditorBox() executa a animacao de saida da pagina.
+//    - Tambem desfaz as alteracoes realizadas no showEditorBox()
+// Item 6 ________________________________________________________________________________
+//    - Metodo mudarSomething() é chamado sempre que houver alteração no input referente.
+//    - Ele recebe o valor digitiado no input como parametro.
+//    - Faz o handle de toda as etapas da requisicao ao backend.
+//    - Exibe o icone de load enquanto carrega a requisicao.
+//    - Exibe o icone de sucesso(check) quando a requisicao é bem sucedida.
+//    - Exibe o icone de erro quando a requisicao retorna erros.
+// Item 7 ________________________________________________________________________________
+//    - Metodo deleteAviso() recebe o id do aviso como parametro.
+//    - Performa uma request do tipo delete a API.
+//    - Executa animacoes de saida do elemento quando a requisicao é bem sucedida.
+//    - Exibe notificao com msg de sucesso quando a requisicao é bem sucedida.
+//    - Exibe notificao com msg de erro quando a requisicao retorna erros.
+// Item 8 ________________________________________________________________________________
+//    - Metodo salvarNovoAviso() recebe os dados digitados nos inputs de adicionar aviso
+//    - Performa uma reuqest post a API.
+//    - Exibe notificao com msg de sucesso quando a requisicao é bem sucedida.
+//    - Chama a funcao clear fields quando a requisicao é bem sucedida.
+//    - Exibe notificao com msg de erro quando a requisicao retorna erros.
+// Item 9 ________________________________________________________________________________
+//    - Metodo switchNovoAvisoFixado() recebe o estado do switch (true ou false).
+//    - Se o estado for true o input com data de exibicao é desativado.
+// Item 10 _______________________________________________________________________________
+//    - Metodo clearFields() limpa os todos os campos do form adicionar aviso.
+// Item 11 _______________________________________________________________________________
+//    - Metodo toggleWrappers recebe o click event e o id da div que deve ser exibido, de
+//    acordo com o que foi clicado na sidebar.
+//    - Todo os outros dividers sao ocultados.
+//    - Metodo preventDefault evita bugs relacionados ao evento de click do usuario.

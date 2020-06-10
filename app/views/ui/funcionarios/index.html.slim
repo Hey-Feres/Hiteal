@@ -7,7 +7,7 @@
 	// Div Todos os Avisos  .  .  .  .  .  .  .  .  .  .  .
 	.box#wrapperTodos
 		.divider-header.d-flex.justify-content-between
-			h3 Avisos
+			h3 Funcionários
 			= render './ui/components/text-field', input: @inputs_attributes[:search]
 
 		.divider-content
@@ -56,6 +56,33 @@
 
 			center.mt-5
 				= render './ui/components/button', value: "Apagar Funcionário", style: "outline-red", id: "delete-funcionario-button", type:"button"
+	// Div Adicionar Funcionarios  .  .  .  .  .  .  .  .  .  .  .
+	.box#wrapperAdicionar
+		.divider-header.d-flex.justify-content-between
+			h3 Adicionar
+		.divider-content
+			form style="width: auto !important"
+				.d-flex.justify-content-start
+					= render './ui/components/text-field', input: @inputs_attributes[:novo][:nome]
+				br
+				.d-flex.justify-content-start
+					= render './ui/components/text-field', input: @inputs_attributes[:novo][:email]
+				br
+				.d-flex.justify-content-start
+					= render './ui/components/text-field', input: @inputs_attributes[:novo][:cpf]
+				br
+				.d-flex.justify-content-start
+					= render './ui/components/text-field', input: @inputs_attributes[:novo][:nascimento]
+				br
+				.d-flex.justify-content-start
+					= render './ui/components/text-field', input: @inputs_attributes[:novo][:remuneracao]
+				br
+				= render './ui/components/select-box', input: @inputs_attributes[:novo][:sexo]
+				br
+				= render './ui/components/select-box', input: @inputs_attributes[:novo][:funcao]
+			center.mt-5
+				= render './ui/components/button', value: "Salvar Funcionário", style: "default", id: "salvar-funcionario-button", type:"button"
+				= render './ui/components/button', value: "Limpar Campos", style: "red", id: "clear-fields", type:"button"
 
 javascript:
 	$(document).ready(function(){
@@ -65,6 +92,12 @@ javascript:
 		let totalPages = parseFloat("#{@numero_paginas}")
 		funcionario.componentLoaded()
 		funcionario.loadFuncionarios(tablePage)
+		$("#gerenciar-toggler").click(function(event) {
+			funcionario.toggleWrappers(event, "#wrapperTodos")
+		})
+		$("#adicionar-toggler").click(function(event) {
+			funcionario.toggleWrappers(event, "#wrapperAdicionar")
+		})		
 		$("#button-load-more-funcionarios").click(function(event){
 			event.preventDefault();
 			if (tablePage >= totalPages) { $("#button-load-more-funcionarios").hide() }
@@ -109,7 +142,22 @@ javascript:
 			if (confirmed) {
 			    funcionario.deleteFuncionario($("#funcionario-editar-id").val());
 			}
-		})		
+		})
+		// Input com acao submit novo aluno
+		$("#salvar-funcionario-button").click(function(){
+			let dados = {
+				nome: $("#funcionario-novo-nome").val(),
+				email: $("#funcionario-novo-email").val(),
+				nascimento: $("#funcionario-novo-nascimento").val(),
+				sexo: $("#funcionario-novo-sexo").val(),
+				cpf: $("#funcionario-novo-cpf").val(),
+				funcao: $("#funcionario-novo-funcao").val(),
+				remuneracao: $("#funcionario-novo-remuneracao").val(),
+				gym_id: "#{current_user.gym.id}"
+			}
+			console.log(dados)
+			funcionario.salvarNovoFuncionario(dados)
+		})
 	  	$(document).on('click', '.button-open-editor-box', function (e) {
 	  		let id = $(this).attr('id');
 	  		funcionario.showEditorBox(id);

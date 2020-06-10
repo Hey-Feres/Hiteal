@@ -51,7 +51,7 @@ class Helper {
 	    return true;
 	}
 	notificacao(title,content){
-		let notificacao = "<div class='notificacao'> " + 
+		let notificacao = "<div class='notificacao animated slideInRight'> " + 
 						"<div class='notificacao-header'> " + 
 							"<p class='notificacao-title' /> " +
 						"</div>" + 
@@ -63,7 +63,7 @@ class Helper {
 		$(".notificacao-title").html(title)
 		$(".notificacao-content").html(content)
         setTimeout(function(){ 
-            $(".notificacao").addClass("animated fadeOutRight")
+            $(".notificacao").addClass("animated slideOutRight")
             setTimeout(function(){ 
 				$(".notificacao").remove();
             }, 750);

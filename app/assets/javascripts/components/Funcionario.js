@@ -45,6 +45,8 @@ class Funcionario {
         $("#funcionario-editar-funcao-check").hide()
         $("#funcionario-editar-funcao-error").hide()
         // .  .  .  .  .  .  .  .  .  .  .  .
+        Inputmask({"mask": "999.999.999-99"}).mask($("#funcionario-novo-cpf"));
+        Inputmask({"mask": "99/99/9999"}).mask($("#funcionario-novo-nascimento"));        
         Inputmask({"mask": "999.999.999-99"}).mask($("#funcionario-editar-cpf"));
         Inputmask({"mask": "99/99/9999"}).mask($("#funcionario-editar-nascimento"));
 	}
@@ -347,6 +349,39 @@ class Funcionario {
         // .  .  .  .  .  .  .  .  .  .  .  .
         let response = request.delete(url, successCallback, errorCallback, headers)
         return response
+    }
+    salvarNovoFuncionario(dados){
+        let request = new Request();
+        let url = apiBaseUrl + "/funcionarios"
+        let data = {"funcionario": {
+            "nome": dados.nome,
+            "email": dados.email,
+            "nascimento": dados.nascimento,
+            "sexo": dados.sexo,
+            "cpf": dados.cpf,
+            "funcao": dados.funcao,
+            "remuneracao": dados.remuneracao,
+            "gym_id": dados.gym_id
+        }}
+        let headers = {}
+        //let callClearFields = () => {this.clearFields()}
+        // .  .  .  .  .  .  .  .  .  .  .  .
+        let successCallback = function(data){
+            //callClearFields()
+            helper.notificacao("Funcionário Adicionado",data.nome+" foi adicionado a sua Gym");
+        }
+        // .  .  .  .  .  .  .  .  .  .  .  .
+        let errorCallback = function(jqXHR, textStatus, msg){ 
+            helper.notificacao("Erro ao Adicionar","Não foi possivel adicionar o funcionário");
+        }
+        // .  .  .  .  .  .  .  .  .  .  .  .
+        let response = request.post(data, url, successCallback, errorCallback, headers)
+        return response
+    }
+    toggleWrappers(event, whatToShow){
+        event.preventDefault();
+        $(whatToShow).show(300);
+        $(".box").not(whatToShow).hide(300);
     }
 }
 

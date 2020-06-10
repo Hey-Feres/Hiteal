@@ -99,6 +99,55 @@ class Ui::FuncionariosController < ApplicationController
 					},
 				},
 				novo: {
+					nome: {
+						label: "Nome",
+						placeholder: "Nome",
+						input_id: "funcionario-novo-nome",
+						value: ""
+					},
+					email: {
+						label: "Email",
+						placeholder: "Email",
+						input_id: "funcionario-novo-email", 
+						value: ""
+					},
+					cpf: {
+						label: "CPF",
+						placeholder: "CPF",
+						input_id: "funcionario-novo-cpf",
+						value: ""
+					},
+					nascimento: {
+						label: "Nascimento",
+						placeholder: "Nascimento",
+						input_id: "funcionario-novo-nascimento",
+						value: ""
+					},
+					sexo: {
+						label: "Sexo",
+						select_id: "funcionario-novo-sexo",
+						options: [
+							{ title: "Masculino", value: "masculino" },
+							{ title: "Feminino", value: "feminino" }
+						]
+					},
+					remuneracao: {
+						label: "Remuneração",
+						placeholder: "Remuneração",
+						input_id: "funcionario-editar-remuneracao",
+						value: ""
+					},
+					funcao: {
+						label: "Função",
+						select_id: "funcionario-editar-funcao",
+						options: [
+							{ title: "Professor", value: "professor" },
+							{ title: "Secretário", value: "secretario" },
+							{ title: "Contador", value: "contador" },
+							{ title: "Nutricionista", value: "nutricionista" },
+							{ title: "Gerente", value: "gerente" }
+						]
+					},					
 				}
 			}
 		end

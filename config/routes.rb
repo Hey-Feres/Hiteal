@@ -14,6 +14,7 @@ Rails.application.routes.draw do
     	resources :avisos, except: [:edit,:new]
       resources :planos, except: [:edit,:new]
       resources :alunos, except: [:edit,:new]
+      resources :funcionarios, except: [:edit,:new]
 
       post '/gyms/upload', to: "gyms#upload"
       get '/gyms/:id/imagens', to: "gyms#imagens"
@@ -21,9 +22,12 @@ Rails.application.routes.draw do
 
       get '/todos_alunos/:gym_id/:page', to: "alunos#index"
       get '/todos_avisos/:gym_id/:page', to: "avisos#index"
+      get '/todos_funcionarios/:gym_id/:page', to: "funcionarios#index"
 
       post '/search_alunos', to: "alunos#search"
       post '/search_avisos', to: "avisos#search"
+      post '/search_avisos', to: "avisos#search"
+      post '/search_funcionarios', to: "funcionarios#search"
       
       get '/planos_chart_data', to: "planos#chart_data"
     end
@@ -35,5 +39,6 @@ Rails.application.routes.draw do
     resources :planos, only: :index
     resources :alunos, only: :index
     resources :avisos, only: :index
+    resources :funcionarios, only: :index
   end
 end

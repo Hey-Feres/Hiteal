@@ -16,5 +16,5 @@ class Aviso < ApplicationRecord
       .where(gym_id: gym_id)
       .limit(20)
     avisos
-  end  
+  end
 end

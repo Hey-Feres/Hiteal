@@ -125,7 +125,7 @@ class Aluno {
             }).prop('selected', true);
             $('[name=aluno-editar-plano] option').filter(function() {
                 return ($(this).text() == data.plano.nome)
-            }).prop('selected', true);            
+            }).prop('selected', true);          
             // Formatando Data Nascimento
             let MyDate = new Date(data.nascimento.split("T")[0]);
             MyDate.setDate(MyDate.getDate() + 20);

@@ -21,3 +21,16 @@ end
 		Aviso.create!( gym_id: 1, nome: Faker::Lorem.word, conteudo: Faker::Lorem.paragraphs(number: 1, supplemental: true), fixado: fixado, views: rand(10..100), intervalo_exibicao: DateTime.now + rand(10..60).day )
 	end
 end
+
+def render_cpf
+	a = Array.new
+	11.times do |i|
+		a << rand(0..9)
+	end
+	a.join
+end
+
+50.times do |i|
+	Funcionario.create!( gym_id: 1, nome: Faker::Name.unique.name, email: "funcionario_#{i}@teste.com", nascimento: DateTime.now - rand(6025..15000).day, sexo: ['feminino','masculino'].shuffle!.last, cpf: render_cpf, remuneracao: rand(900..3000), funcao: ["professor", "secretario", "contador", "nutricionista", "gerente"].shuffle!.last )
+end
+

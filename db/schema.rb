@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_09_140700) do
+ActiveRecord::Schema.define(version: 2020_06_10_175807) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -59,6 +59,20 @@ ActiveRecord::Schema.define(version: 2020_06_09_140700) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "views"
     t.index ["gym_id"], name: "index_avisos_on_gym_id"
+  end
+
+  create_table "funcionarios", force: :cascade do |t|
+    t.integer "gym_id", null: false
+    t.string "nome"
+    t.string "email"
+    t.string "sexo", default: "feminino"
+    t.datetime "nascimento"
+    t.string "cpf"
+    t.decimal "remuneracao"
+    t.string "funcao"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["gym_id"], name: "index_funcionarios_on_gym_id"
   end
 
   create_table "gyms", force: :cascade do |t|
@@ -112,6 +126,7 @@ ActiveRecord::Schema.define(version: 2020_06_09_140700) do
   add_foreign_key "alunos", "planos"
   add_foreign_key "aulas", "gyms"
   add_foreign_key "avisos", "gyms"
+  add_foreign_key "funcionarios", "gyms"
   add_foreign_key "planos", "gyms"
   add_foreign_key "users", "gyms"
 end

@@ -93,25 +93,6 @@ javascript:
 				aviso.loadAvisos(tablePage)	
 			}
 		})
-		// Search Input
-		let typingTimer;
-		$("#search").on('keyup', function () {
-			// Start the countdown
-		  	clearTimeout(typingTimer);
-		  	typingTimer = setTimeout(doneTyping, 1000);
-		});
-		$("#search").on('keydown', function () {
-		  	// Clear the countdown 
-		  	clearTimeout(typingTimer);
-		});
-		function doneTyping () {
-		  if ($("#search").val()!='') {
-		  	aviso.searchAvisos($("#search").val(),0)
-		  }else{
-		  	tablePage = 0
-		  	aviso.loadAvisos(tablePage)
-		  }
-	  	}
 		// Input com editar nome
 		$("#aviso-editar-nome").change(function() {
 			response = aviso.mudarNome($("#aviso-editar-nome").val())
@@ -158,6 +139,25 @@ javascript:
 	  		aviso.hideEditorBox();
 	  		e.preventDefault();
 	  	})
+		// Search Input
+		let typingTimer;
+		$("#search").on('keyup', function () {
+			// Start the countdown
+		  	clearTimeout(typingTimer);
+		  	typingTimer = setTimeout(doneTyping, 1000);
+		});
+		$("#search").on('keydown', function () {
+		  	// Clear the countdown 
+		  	clearTimeout(typingTimer);
+		});
+		function doneTyping () {
+		  if ($("#search").val()!='') {
+		  	aviso.searchAvisos($("#search").val(),0)
+		  }else{
+		  	tablePage = 0
+		  	aviso.loadAvisos(tablePage)
+		  }
+	  	}	  	
 	})
 
 css:

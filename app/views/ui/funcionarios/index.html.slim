@@ -1,0 +1,154 @@
+- provide :head_tags do
+	meta name='turbolinks-visit-control' content='reload'
+
+= render './ui/components/sidebar', dados: @sidebar_items
+
+.content
+	// Div Todos os Avisos  .  .  .  .  .  .  .  .  .  .  .
+	.box#wrapperTodos
+		.divider-header.d-flex.justify-content-between
+			h3 Avisos
+			= render './ui/components/text-field', input: @inputs_attributes[:search]
+
+		.divider-content
+			table.table.table-striped#funcionarios-table
+				thead
+					tr
+						th.text-center Nome
+						th.text-center Email
+						th.text-center Função
+						th.text-center Remuneração
+						th
+				tbody#funcionarios-table-body
+				// Tabela é povoada em Funcionario.js, funcao loadFuncionarios
+			= render './ui/components/button', type: 'button', style: "blue", value: "Carregar Mais Funcionários", id: 'button-load-more-funcionarios'
+			.d-flex.justify-content-center
+				= render './ui/components/loader', size: 'small', id: 'loader-more-funcionarios'
+	// Div Editar Aviso  .  .  .  .  .  .  .  .  .  .  .
+	.box#wrapperEditFuncionario
+		.divider-header.d-flex.justify-content-between
+			h3 Editar Funcionário
+			h3.button-close-editor-box
+				img src="https://img.icons8.com/ios-glyphs/25/007AFF/chevron-right.png"
+		.divider-content
+			form style="width: auto !important"
+				.d-flex.justify-content-start
+					= render './ui/components/text-field', input: @inputs_attributes[:editar][:id]
+				br
+				.d-flex.justify-content-start
+					= render './ui/components/text-field', input: @inputs_attributes[:editar][:nome]
+				br
+				.d-flex.justify-content-start
+					= render './ui/components/text-field', input: @inputs_attributes[:editar][:email]
+				br
+				.d-flex.justify-content-start
+					= render './ui/components/text-field', input: @inputs_attributes[:editar][:cpf]
+				br
+				.d-flex.justify-content-start
+					= render './ui/components/text-field', input: @inputs_attributes[:editar][:nascimento]
+				br
+				.d-flex.justify-content-start
+					= render './ui/components/text-field', input: @inputs_attributes[:editar][:remuneracao]
+				br
+				= render './ui/components/select-box', input: @inputs_attributes[:editar][:sexo]
+				br
+				= render './ui/components/select-box', input: @inputs_attributes[:editar][:funcao]
+
+			center.mt-5
+				= render './ui/components/button', value: "Apagar Funcionário", style: "outline-red", id: "delete-funcionario-button", type:"button"
+
+javascript:
+	$(document).ready(function(){
+		let funcionario = new Funcionario("#{current_user.gym.id}")
+		let tablePage = 0
+		// A paginacao da API retorna 20 registros a cada pagina
+		let totalPages = parseFloat("#{@numero_paginas}")
+		funcionario.componentLoaded()
+		funcionario.loadFuncionarios(tablePage)
+		$("#button-load-more-funcionarios").click(function(event){
+			event.preventDefault();
+			if (tablePage >= totalPages) { $("#button-load-more-funcionarios").hide() }
+			tablePage += 1
+			if ($("#search").val()!='') {
+				funcionario.searchFuncionarios($("#search").val(),tablePage)
+			}else{
+				funcionario.loadFuncionarios(tablePage)	
+			}
+		})
+		// Input com editar nome
+		$("#funcionario-editar-nome").change(function() {
+			response = funcionario.mudarNome($("#funcionario-editar-nome").val())
+		})
+		// Input com editar email
+		$("#funcionario-editar-email").change(function() {
+			response = funcionario.mudarEmail($("#funcionario-editar-email").val())
+		})
+		// Input com editar cpf
+		$("#funcionario-editar-cpf").change(function() {
+			response = funcionario.mudarCpf($("#funcionario-editar-cpf").val())
+		})
+		// Input com editar nascimento
+		$("#funcionario-editar-nascimento").change(function() {
+			response = funcionario.mudarNascimento($("#funcionario-editar-nascimento").val())
+		})
+		// Input com editar remuneracao
+		$("#funcionario-editar-remuneracao").change(function() {
+			response = funcionario.mudarRemuneracao($("#funcionario-editar-remuneracao").val())
+		})
+		// Input com editar sexo
+		$("#funcionario-editar-sexo").change(function() {
+			response = funcionario.mudarSexo($("#funcionario-editar-sexo").val())
+		})
+		// Input com editar funcao
+		$("#funcionario-editar-funcao").change(function() {
+			response = funcionario.mudarFuncao($("#funcionario-editar-funcao").val())
+		})
+		// Botao com acao de delete
+		$("#delete-funcionario-button").click(function(){
+			var confirmed = confirm("Você tem certeza?");
+			if (confirmed) {
+			    funcionario.deleteFuncionario($("#funcionario-editar-id").val());
+			}
+		})		
+	  	$(document).on('click', '.button-open-editor-box', function (e) {
+	  		let id = $(this).attr('id');
+	  		funcionario.showEditorBox(id);
+	  		e.preventDefault();
+	  	})
+	  	$(document).on('click', '.button-close-editor-box', function (e) {
+	  		funcionario.hideEditorBox();
+	  		e.preventDefault();
+	  	})
+		// Search Input
+		let typingTimer;
+		$("#search").on('keyup', function () {
+			// Start the countdown
+		  	clearTimeout(typingTimer);
+		  	typingTimer = setTimeout(doneTyping, 1000);
+		});
+		$("#search").on('keydown', function () {
+		  	// Clear the countdown 
+		  	clearTimeout(typingTimer);
+		});
+		function doneTyping () {
+		  if ($("#search").val()!='') {
+		  	funcionario.searchFuncionarios($("#search").val(),0)
+		  }else{
+		  	tablePage = 0
+		  	funcionario.loadFuncionarios(tablePage)
+		  }
+	  	}
+	})
+
+css:
+	#wrapperEditFuncionario{
+		height: 100%;
+		background: rgba(255, 255, 255,0.4);
+		backdrop-filter: blur(var(--blur));
+		-webkit-backdrop-filter: blur(var(--blur));
+		-o-backdrop-filter: blur(var(--blur));
+		-moz-backdrop-filter: blur(var(--blur));
+		-ms-backdrop-filter: blur(var(--blur));
+		z-index: 99999;
+		border: 1px solid #ccc;
+	}

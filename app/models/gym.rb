@@ -8,7 +8,8 @@ class Gym < ApplicationRecord
 	has_many :avisos, dependent: :destroy
 	has_many :planos, dependent: :destroy
 	has_many :alunos, dependent: :destroy
-
+	has_many :funcionarios, dependent: :destroy
+	
 	has_one_attached :logo
 	has_many_attached :imagens
 	

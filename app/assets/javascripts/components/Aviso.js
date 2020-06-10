@@ -308,6 +308,16 @@ class Aviso {
         let response = request.post(data, url, successCallback, errorCallback, headers)
         return response
     }
+    switchNovoAvisoFixado(novo_aviso_fixado){
+        if (novo_aviso_fixado == true) {
+            $("#aviso-exibicao").val('');
+            $("#aviso-exibicao").prop('disabled', true);
+            $("#aviso-exibicao").attr("placeholder", "Aviso fixado");
+        }else{
+            $("#aviso-exibicao").prop('disabled', false);
+            $("#aviso-exibicao").attr("placeholder", "Exibir até");
+        }        
+    }
     clearFields(){
         $("#aviso-nome").val("")
         $("#aviso-conteudo").val("")

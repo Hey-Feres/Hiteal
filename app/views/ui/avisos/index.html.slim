@@ -141,8 +141,13 @@ javascript:
 			}
 			aviso.salvarNovoAviso(dados)
 		})
+		$("#aviso-fixado").change(function() {
+			aviso.switchNovoAvisoFixado($("#aviso-fixado").prop("checked"))
+		})		
 		$("#clear-fields").click(function(){
 			aviso.clearFields();
+            $("#aviso-exibicao").prop('disabled', false);
+            $("#aviso-exibicao").attr("placeholder", "Exibir até");			
 		})
 	  	$(document).on('click', '.button-open-editor-box', function (e) {
 	  		let id = $(this).attr('id');

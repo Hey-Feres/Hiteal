@@ -23,12 +23,13 @@ Rails.application.routes.draw do
       get '/todos_alunos/:gym_id/:page', to: "alunos#index"
       get '/todos_avisos/:gym_id/:page', to: "avisos#index"
       get '/todos_funcionarios/:gym_id/:page', to: "funcionarios#index"
+      get '/all/aulas/:gym_id/:page', to: "aulas#index"
 
       post '/search_alunos', to: "alunos#search"
       post '/search_avisos', to: "avisos#search"
-      post '/search_avisos', to: "avisos#search"
       post '/search_funcionarios', to: "funcionarios#search"
-      
+      post '/search/aulas', to: "aulas#search"
+
       get '/planos_chart_data', to: "planos#chart_data"
     end
   end
@@ -40,5 +41,6 @@ Rails.application.routes.draw do
     resources :alunos, only: :index
     resources :avisos, only: :index
     resources :funcionarios, only: :index
+    resources :aulas, only: :index
   end
 end

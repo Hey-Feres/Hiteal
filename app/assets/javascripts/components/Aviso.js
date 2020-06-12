@@ -342,7 +342,7 @@ class Aviso {
         event.preventDefault();
         $(whatToShow).show(300);
         $(".box").not(whatToShow).hide(300);
-    }    
+    }
 }
 
 // Documentacao

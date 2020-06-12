@@ -11,7 +11,7 @@ class Ui::AulasController < ApplicationController
 				img:"https://img.icons8.com/ios/50/FFFFFF/barbell.png",
 				title: "Aulas",
 				list_items: [
-					{ title: "Gerenciar", id: "gerenciar-toggler", url: "#", first_item: true, last_item: false },
+					{ title: "Gerenciar", id: "todos-toggler", url: "#", first_item: true, last_item: false },
 					{ title: "Adicionar", id: "adicionar-toggler", url: "#", first_item: false, last_item: true },
 				]
 			}
@@ -29,7 +29,7 @@ class Ui::AulasController < ApplicationController
 					id: {
 						label: "ID",
 						input_id: "aula-editar-id",
-						disabled: true						
+						disabled: true
 					},
 					nome: {
 						label: "Nome",
@@ -49,6 +49,15 @@ class Ui::AulasController < ApplicationController
 						input_id: "aula-editar-descricao",
 						value: ""
 					},
+					professor: {
+						label: "Professor",
+						placeholder: "Professor",
+						loader_id: "aula-editar-professor-loader",
+						done_id: "aula-editar-professor-check",
+						error_id: "aula-editar-professor-error",						
+						select_id: "aula-editar-professor",
+						options: Funcionario.where(gym_id: current_user.gym.id).where(funcao: "professor").map{|f| {title: f.nome, value: f.id} }
+					},
 					repete: {
 						label: "Repete",
 						placeholder: "Repete",
@@ -58,8 +67,8 @@ class Ui::AulasController < ApplicationController
 						input_id: "aula-editar-repete",
 					},
 					intervalo_repeticao: {
-						label: "Repetição",
-						placeholder: "Repetição",
+						label: "Intervalo (Dias)",
+						placeholder: "Intervalo Repetição (Dias)",
 						loader_id: "aula-editar-intervalo-repeticao-loader",
 						done_id: "aula-editar-intervalo-repeticao-check",
 						error_id: "aula-editar-intervalo-repeticao-error",
@@ -76,14 +85,23 @@ class Ui::AulasController < ApplicationController
 						value: ""
 					},
 					duracao: {
-						label: "Duração",
-						placeholder: "Duração",
+						label: "Duração (Horas)",
+						placeholder: "Duração (Horas)",
 						loader_id: "aula-editar-duracao-loader",
 						done_id: "aula-editar-duracao-check",
 						error_id: "aula-editar-duracao-error",
 						input_id: "aula-editar-duracao",
 						value: ""
-					}					
+					},
+					horario: {
+						label: "Horário",
+						placeholder: "Horário",
+						loader_id: "aula-editar-horario-loader",
+						done_id: "aula-editar-horario-check",
+						error_id: "aula-editar-horario-error",
+						input_id: "aula-editar-horario",
+						value: ""
+					}
 				},
 				novo: {
 					nome: {
@@ -91,6 +109,12 @@ class Ui::AulasController < ApplicationController
 						placeholder: "Nome",
 						input_id: "aula-nova-nome",
 						value: ""
+					},
+					professor: {
+						label: "Professor",
+						placeholder: "Professor",
+						select_id: "aula-nova-professor",
+						options: Funcionario.where(gym_id: current_user.gym.id).where(funcao: "professor").map{|f| {title: f.nome, value: f.id} }
 					},
 					descricao: {
 						label: "Descrição",
@@ -105,8 +129,8 @@ class Ui::AulasController < ApplicationController
 						value: ""
 					},
 					intervalo_repeticao: {
-						label: "Intervalo Repetição",
-						placeholder: "Intervalo  Repetição",
+						label: "Intervalo (Dias)",
+						placeholder: "Intervalo  Repetição (Dias)",
 						input_id: "aula-nova-intervalo-repeticao",
 						value: ""
 					},
@@ -117,9 +141,15 @@ class Ui::AulasController < ApplicationController
 						value: ""
 					},
 					duracao: {
-						label: "Duração",
-						placeholder: "Duração",
+						label: "Duração (Horas)",
+						placeholder: "Duração (Horas)",
 						input_id: "aula-nova-duracao",
+						value: ""
+					},
+					horario: {
+						label: "Horário",
+						placeholder: "Horário",
+						input_id: "aula-nova-horario",
 						value: ""
 					}
 				}

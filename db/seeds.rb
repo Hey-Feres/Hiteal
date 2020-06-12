@@ -34,3 +34,18 @@ end
 	Funcionario.create!( gym_id: 1, nome: Faker::Name.unique.name, email: "funcionario_#{i}@teste.com", nascimento: DateTime.now - rand(6025..15000).day, sexo: ['feminino','masculino'].shuffle!.last, cpf: render_cpf, remuneracao: rand(900..3000), funcao: ["professor", "secretario", "contador", "nutricionista", "gerente"].shuffle!.last )
 end
 
+50.times do |i|
+	repete = [true, false].shuffle!.last
+	Aula.create!( 
+		gym_id: 1,
+		nome: "Aula #{i}",
+		descricao: "Aula #{i}",
+		repete: repete,
+		intervalo_repeticao: repete ? 7 : nil,
+		data_inicio: DateTime.now + rand(1..10).day,
+		duracao: 1,
+		professor_id: Funcionario.where(funcao: "professor").shuffle.last.id,
+		horario: Time.now + rand(1..5).hour
+
+	)
+end

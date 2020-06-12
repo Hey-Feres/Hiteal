@@ -89,5 +89,10 @@ class Helper {
 	}
 	capitalize(string) {
   		return string.charAt(0).toUpperCase() + string.slice(1);
-	}	
+	}
+	formatTime(strTime){
+		let t = strTime.split("T")[1].split(":")
+		t = t[0]+":"+t[1]
+		return t
+	}
 }

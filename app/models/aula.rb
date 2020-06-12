@@ -8,15 +8,16 @@ class Aula < ApplicationRecord
 
 	def self.paginate page, gym_id
 	  start = page.to_i * 10
-	  aulas = Aula.where('aulas.id > ?', start).where(gym_id: gym_id).limit(20)
+	  aulas = Aula.joins(:funcionario).select("funcionarios.nome as professor_nome, aulas.*").where('aulas.id > ?', start).where(gym_id: gym_id).limit(20)
 	  aulas
 	end
 	def self.search param, page, gym_id
-	  start = page.to_i * 10
-	  aulas = Aula.where('aulas.id > ?', start)
-	    .where('aulas.nome LIKE ?', "%#{param}%")
-	    .where(gym_id: gym_id)
-	    .limit(20)
-	  aulas
+	    start = page.to_i * 10
+	    aulas = Aula.joins(:funcionario).select("funcionarios.nome as professor_nome, aulas.*")
+		  .where('aulas.id > ?', start)
+	      .where('aulas.nome LIKE ?', "%#{param}%")
+	      .where(gym_id: gym_id)
+	      .limit(20)
+	    aulas
 	end
 end

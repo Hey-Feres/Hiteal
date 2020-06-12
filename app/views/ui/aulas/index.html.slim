@@ -15,17 +15,81 @@
 				thead
 					tr
 						th.text-center Nome
-						th.text-center Email
-						th.text-center Função
-						th.text-center Remuneração
+						th.text-center Professor
+						th.text-center Duração
+						th.text-center Dia
+						th.text-center Horário
+						th.text-center Repete
 						th
 				tbody#aulas-table-body
 				// Tabela é povoada em Aula.js, funcao loadAulas
 			= render './ui/components/button', type: 'button', style: "blue", value: "Carregar Mais Aulas", id: 'button-load-more-aulas'
 			.d-flex.justify-content-center
 				= render './ui/components/loader', size: 'small', id: 'loader-more-aulas'
-
-
+	// Div Editar Aviso  .  .  .  .  .  .  .  .  .  .  .
+	.box#wrapperEditAula
+		.divider-header.d-flex.justify-content-between
+			h3 Editar Aula
+			h3.button-close-editor-box
+				img src="https://img.icons8.com/ios-glyphs/25/007AFF/chevron-right.png"
+		.divider-content
+			form style="width: auto !important"
+				.d-flex.justify-content-start
+					= render './ui/components/text-field', input: @inputs_attributes[:editar][:id]
+				br
+				.d-flex.justify-content-start
+					= render './ui/components/text-field', input: @inputs_attributes[:editar][:nome]
+				br
+				.d-flex.justify-content-start
+					= render './ui/components/text-area', input: @inputs_attributes[:editar][:descricao]
+				br
+				= render './ui/components/select-box', input: @inputs_attributes[:editar][:professor]
+				br
+				.d-flex.justify-content-start
+					= render './ui/components/text-field', input: @inputs_attributes[:editar][:data_inicio]
+				br
+				.d-flex.justify-content-start
+					=render './ui/components/text-field', input: @inputs_attributes[:editar][:horario]
+				br
+				.d-flex.justify-content-start
+					= render './ui/components/text-field', input: @inputs_attributes[:editar][:duracao]
+				br				
+				= render './ui/components/switch', input: @inputs_attributes[:editar][:repete]
+				br
+				.d-flex.justify-content-start#intervalo-repeticao
+					= render './ui/components/text-field', input: @inputs_attributes[:editar][:intervalo_repeticao]
+			center.mt-5
+				= render './ui/components/button', value: "Apagar Aula", style: "outline-red", id: "delete-aula-button", type:"button"
+	// Div Adicionar Aula  .  .  .  .  .  .  .  .  .  .  .
+	.box#wrapperAdicionar
+		.divider-header.d-flex.justify-content-between
+			h3 Adicionar Aula
+		.divider-content
+			form style="width: auto !important"
+				.d-flex.justify-content-start
+					=render './ui/components/text-field', input: @inputs_attributes[:novo][:nome]
+				br
+				.d-flex.justify-content-start
+					=render './ui/components/text-area', input: @inputs_attributes[:novo][:descricao]
+				br
+				= render './ui/components/select-box', input: @inputs_attributes[:novo][:professor]
+				br
+				.d-flex.justify-content-start
+					=render './ui/components/text-field', input: @inputs_attributes[:novo][:data_inicio]
+				br
+				.d-flex.justify-content-start
+					=render './ui/components/text-field', input: @inputs_attributes[:novo][:horario]
+				br
+				.d-flex.justify-content-start
+					=render './ui/components/text-field', input: @inputs_attributes[:novo][:duracao]
+				br
+				=render './ui/components/switch', input: @inputs_attributes[:novo][:repete]
+				br
+				.d-flex.justify-content-start
+					=render './ui/components/text-field', input: @inputs_attributes[:novo][:intervalo_repeticao]
+			center.mt-5
+				= render './ui/components/button', value: "Salvar Aula", style: "default", id: "salvar-aula-button", type:"button"
+				= render './ui/components/button', value: "Limpar", style: "red", id: "clear-fields", type:"button"
 javascript:
 	$(document).ready(function(){
 		let aula = new Aula("#{current_user.gym.id}")
@@ -33,4 +97,115 @@ javascript:
 		// A paginacao da API retorna 20 registros a cada pagina
 		let totalPages = parseFloat("#{@numero_paginas}")
 		aula.componentLoaded()
+		aula.loadAulas(tablePage)
+		$("#todos-toggler").click(function(event) {
+			aula.toggleWrappers(event, "#wrapperTodos")
+		})
+		$("#adicionar-toggler").click(function(event) {
+			aula.toggleWrappers(event, "#wrapperAdicionar")
+		})		
+		$("#button-load-more-aulas").click(function(event){
+			event.preventDefault();
+			if (tablePage >= totalPages) { $("#button-load-more-aulas").hide() }
+			tablePage += 1
+			if ($("#search").val()!='') {
+				aula.searchAulas($("#search").val(),tablePage)
+			}else{
+				aula.loadAulas(tablePage)	
+			}
+		})		
+		if (tablePage >= totalPages) { $("#button-load-more-aulas").hide() }
+	  	$(document).on('click', '.button-open-editor-box', function (e) {
+	  		let id = $(this).attr('id');
+	  		aula.showEditorBox(id);
+	  		e.preventDefault();
+	  	})
+	  	$(document).on('click', '.button-close-editor-box', function (e) {
+	  		aula.hideEditorBox();
+	  		e.preventDefault();
+	  	})
+		$("#aula-editar-nome").change(function(){
+			response = aula.mudarNome($("#aula-editar-nome").val())	
+		})
+		$("#aula-editar-descricao").change(function(){
+			response = aula.mudarDescricao($("#aula-editar-descricao").val())
+		})
+		$("#aula-editar-repete").change(function(){
+			response = aula.mudarRepete($("#aula-editar-repete").is(":checked"))
+		})
+		$("#aula-editar-intervalo-repeticao").change(function(){
+			response = aula.mudarIntervaloRepeticao($("#aula-editar-intervalo-repeticao").val())
+		})
+		$("#aula-editar-inicio").change(function(){
+			response = aula.mudarDataInicio($("#aula-editar-inicio").val())
+		})
+		$("#aula-editar-duracao").change(function(){
+			response = aula.mudarDuracao($("#aula-editar-duracao").val())
+		})
+		$("#delete-aula-button").click(function(){
+			var confirmed = confirm("Você tem certeza?");
+			if (confirmed) {
+			    aula.deleteAula($("#aula-editar-id").val());
+			}
+		})
+		$("#aula-editar-professor").change(function(){
+			response = aula.mudarProfessor($("#aula-editar-professor").val())
+		})
+		$("#aula-editar-horario").change(function(){
+			response = aula.mudarHorario($("#aula-editar-horario").val())
+		})
+		// Input com acao submit novo aluno
+		$("#salvar-aula-button").click(function(){
+			let dados = {
+				nome: $("#aula-nova-nome").val(),
+				descricao: $("#aula-nova-descricao").val(),
+				repete: $("#aula-nova-repete").is(":checked"),
+				intervalo_repeticao: $("#aula-nova-intervalo-repeticao").val(),
+				inicio: $("#aula-nova-inicio").val(),
+				duracao: $("#aula-nova-duracao").val(),
+				horario: $("#aula-nova-horario").val(),
+				professor_id: $("#aula-nova-professor").val()
+			}
+			aula.salvarNovaAula(dados)
+		})
+		/*$("#aviso-fixado").change(function() {
+			aviso.switchNovoAvisoFixado($("#aviso-fixado").prop("checked"))
+		})*/	
+		/*$("#clear-fields").click(function(){
+			aviso.clearFields();
+            $("#aviso-exibicao").prop('disabled', false);
+            $("#aviso-exibicao").attr("placeholder", "Exibir até");			
+		})*/		
+		// Search Input
+		let typingTimer;
+		$("#search").on('keyup', function () {
+			// Start the countdown
+		  	clearTimeout(typingTimer);
+		  	typingTimer = setTimeout(doneTyping, 1000);
+		});
+		$("#search").on('keydown', function () {
+		  	// Clear the countdown 
+		  	clearTimeout(typingTimer);
+		});
+		function doneTyping () {
+		  if ($("#search").val()!='') {
+		  	aula.searchAulas($("#search").val(),0)
+		  }else{
+		  	tablePage = 0
+		  	aula.loadAulas(tablePage)
+		  }
+	  	}
 	})
+
+css:
+	#wrapperEditAula{
+		height: 100%;
+		background: rgba(255, 255, 255,0.4);
+		backdrop-filter: blur(var(--blur));
+		-webkit-backdrop-filter: blur(var(--blur));
+		-o-backdrop-filter: blur(var(--blur));
+		-moz-backdrop-filter: blur(var(--blur));
+		-ms-backdrop-filter: blur(var(--blur));
+		z-index: 99999;
+		border: 1px solid #ccc;
+	}

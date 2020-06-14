@@ -1,12 +1,12 @@
 class Api::V1::AulasController < ApplicationController
-	before_action :set_aula, except: [:create, :index, :search]
+	before_action :set_aula, only: [ :show, :update, :destroy ]
 	def index
 		@aulas = Aula.paginate(params[:page],params[:gym_id])
 		render json: @aulas			
 	end
 
 	def show
-		render json: @aula, include: { funcionario: {only: :nome} }
+		render json: @aula, include: { funcionario: {only: :nome}, alunos: { only: :nome }, aula_presencas: {only: :created_at} }
 	end
 
 	def create
@@ -16,7 +16,6 @@ class Api::V1::AulasController < ApplicationController
 	    if @aula.save
 	      render json: @aula, status: :created
 	    else
-	      puts @aula.errors.inspect
 	      render json: @aula.errors, status: :unprocessable_entity
 	    end	
 	end
@@ -44,6 +43,25 @@ class Api::V1::AulasController < ApplicationController
 		@aulas = Aula.search(params[:aula][:search],params[:aula][:page],params[:aula][:gym_id])
 		render json: @aulas
 	end
+	
+	def proximas
+		@aulas = Aula.proximas(current_user.gym_id, params[:search_month], params[:search_year])
+		render json: @aulas
+	end
+
+	def confirmar_presenca
+		@presenca = AulaPresenca.salvar_presenca(params[:aula][:aluno_id],params[:aula][:aula_id])
+		if @presenca.save
+			render json: @presenca, status: :created
+		else
+			render json: @presenca.errors, status: :unprocessable_entity
+		end
+	end
+	
+	def cancelar_presenca
+		@presenca = AulaPresenca.find(params[:aula_presenca_id]).destroy
+		render json: @presenca
+	end
 
 	private
 	    def set_aula
@@ -51,6 +69,6 @@ class Api::V1::AulasController < ApplicationController
 	    end
 
 	    def aula_params
-	      params.require(:aula).permit(:gym_id, :nome, :descricao, :repete, :intervalo_repeticao, :data_inicio ,:duracao, :horario, :professor_id, :search, :page)
+	      params.require(:aula).permit(:gym_id, :nome, :descricao, :repete, :intervalo_repeticao, :data_inicio ,:duracao, :horario, :professor_id, :search, :page, :search_month, :search_year, :aula_presenca_id, :aluno_id, :aula_id)
 	    end
 end

@@ -3,6 +3,8 @@ class Aluno < ApplicationRecord
 
   belongs_to :gym
   belongs_to :plano
+  
+  has_many :aula_presencas
 
   validates_presence_of :nome
   validates_presence_of :email

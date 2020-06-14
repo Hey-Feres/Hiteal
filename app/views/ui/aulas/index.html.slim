@@ -26,11 +26,11 @@
 			= render './ui/components/button', type: 'button', style: "blue", value: "Carregar Mais Aulas", id: 'button-load-more-aulas'
 			.d-flex.justify-content-center
 				= render './ui/components/loader', size: 'small', id: 'loader-more-aulas'
-	// Div Editar Aviso  .  .  .  .  .  .  .  .  .  .  .
+	// Div Editar Aula  .  .  .  .  .  .  .  .  .  .  .
 	.box#wrapperEditAula
 		.divider-header.d-flex.justify-content-between
 			h3 Editar Aula
-			h3.button-close-editor-box
+			h3.button-close-editor-box.pointer
 				img src="https://img.icons8.com/ios-glyphs/25/007AFF/chevron-right.png"
 		.divider-content
 			form style="width: auto !important"
@@ -60,6 +60,36 @@
 					= render './ui/components/text-field', input: @inputs_attributes[:editar][:intervalo_repeticao]
 			center.mt-5
 				= render './ui/components/button', value: "Apagar Aula", style: "outline-red", id: "delete-aula-button", type:"button"
+	// Div Proximas Aulas  .  .  .  .  .  .  .  .  .  .  .
+	.box#wrapperProximas
+		.divider-header.d-flex.justify-content-between
+			h3 Próximas
+			h3.button-select-data-proximas-aulas.pointer
+				img src="https://img.icons8.com/ios-filled/25/007AFF/ellipsis.png"
+		.divider-content
+			h4.thin.mb-4#displayed-month Esse mês
+			.row#row-proximas-aulas
+	// Div Detalhe Aulas  .  .  .  .  .  .  .  .  .  .  .
+	.box#wrapperDetalhesAula
+		.divider-header.d-flex.justify-content-between
+			h3#aula_nome
+			h3.button-close-detalhe-aula.pointer.text-danger.thin x
+			/img src="https://img.icons8.com/ios-filled/25/007AFF/times.png"
+		.divider-content
+			.d-flex.justify-content-between
+				.aula-detalhes-left-side
+					p.aula-data
+					p.aula-professor
+					p.aula-vagas-disponiveis
+					.buttons.mt-20
+						= render './ui/components/button', value: "Adiar Aula", style: "default", id: "adiar-aula-button", type:"button"
+						.mt-1
+						= render './ui/components/button', value: "Cancelar Aula", style: "red", id: "cancelar-aula-button", type:"button"
+						.mt-1
+							p.obs Os alunos são notificados a respeito de adiamentos ou cancelamentos.
+				.aula-detalhes-right-side
+					p Alunos que confirmaram
+					.lista-alunos-confirmaram
 	// Div Adicionar Aula  .  .  .  .  .  .  .  .  .  .  .
 	.box#wrapperAdicionar
 		.divider-header.d-flex.justify-content-between
@@ -103,7 +133,10 @@ javascript:
 		})
 		$("#adicionar-toggler").click(function(event) {
 			aula.toggleWrappers(event, "#wrapperAdicionar")
-		})		
+		})
+		$("#proximas-toggler").click(function(event) {
+			aula.toggleWrappers(event, "#wrapperProximas")	
+		})
 		$("#button-load-more-aulas").click(function(event){
 			event.preventDefault();
 			if (tablePage >= totalPages) { $("#button-load-more-aulas").hide() }
@@ -124,6 +157,16 @@ javascript:
 	  		aula.hideEditorBox();
 	  		e.preventDefault();
 	  	})
+	  	$(document).on('click', '.aula-box', function (e) {
+	  		let id = $(this).attr('id');
+	  		aula.showAulaDetalhes(id);
+	  		e.preventDefault();
+	  	})
+	  	$(document).on('click', '.button-close-detalhe-aula', function (e) {
+	  		aula.hideAulaDetalhes();
+	  		e.preventDefault();
+	  	})
+	  	
 		$("#aula-editar-nome").change(function(){
 			response = aula.mudarNome($("#aula-editar-nome").val())	
 		})
@@ -198,7 +241,7 @@ javascript:
 	})
 
 css:
-	#wrapperEditAula{
+	#wrapperEditAula, #wrapperDetalhesAula{
 		height: 100%;
 		background: rgba(255, 255, 255,0.4);
 		backdrop-filter: blur(var(--blur));
@@ -208,4 +251,54 @@ css:
 		-ms-backdrop-filter: blur(var(--blur));
 		z-index: 99999;
 		border: 1px solid #ccc;
+	}
+	.aula-box{
+		width: 180px;
+		height: 180px;
+		box-shadow: 1px 2px 10px 1px var(--gray5);
+		border-radius: 15px;
+		padding: 5% 6%;
+	}
+	.aula-box:hover{
+		box-shadow: 0px 0px 0px 0px transparent;
+		border: 1px solid var(--gray5);
+	}
+	.aula-box .aula-titulo {
+		font-weight: 400; 
+		font-size: 1.5em; 
+		color: #333; 
+		margin: 0;
+	}
+	.aula-box .aula-dia {
+		font-size: 1.2em; 
+		margin: 0;
+	}
+	.aula-detalhes-left-side{
+		padding: 3%;
+		position: absolute;
+		height: 90%;
+		bottom: 0;
+		left: 0;		
+		width: 35%;
+		border-right: 1px solid rgba(0,0,0,0.1);
+	}
+	.aula-detalhes-left-side p{
+		font-size: 1.2em;
+		font-weight: 200;
+	}
+	.aula-detalhes-left-side button {
+		width: 100% !important;
+		padding: 2% 0 !important;
+	}
+	.aula-detalhes-right-side{
+		padding: 3%;
+		position: absolute;
+		height: 90%;
+		bottom: 0;
+		right: 0;
+		width: 65%;
+	}
+	.aula-detalhes-right-side p{
+		font-size: 1.2em;
+		font-weight: 200;
 	}

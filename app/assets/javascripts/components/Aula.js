@@ -4,6 +4,7 @@ class Aula {
 	}
     // Item 1 ______________________________________________________
 	componentLoaded(){
+		this.loadProximas(6,2020)
         $(".sidebar").addClass("animated fadeInDownBig")
         $(".content").addClass("animated fadeInUpBig")
         // .  .  .  .  .  .  .  .  .  .  .  .
@@ -69,7 +70,7 @@ class Aula {
 		                        	"<td class='text-center'>"+helper.formatDate(data[i].data_inicio)+"</td>" +
 		                        	"<td class='text-center'>"+helper.formatTime(data[i].horario)+"</td>" +
 		                        	"<td class='text-center'><img src='https://img.icons8.com/ios/30/34C759/checkmark.png'/></td>" +
-		                        	"<td class='text-center text-primary button-open-editor-box' id='" + data[i].id + "' > Editar </td>" +
+		                        	"<td class='text-center text-primary button-open-editor-box pointer' id='" + data[i].id + "' > Editar </td>" +
 		                    	"</tr>"
 	            }else{
 	            	row = 	"<tr class='data-row' id='row-aulas-"+data[i].id+"'>" + 
@@ -79,7 +80,7 @@ class Aula {
 	                        	"<td class='text-center'>"+helper.formatDate(data[i].data_inicio)+"</td>" +
 	                        	"<td class='text-center'>"+helper.formatTime(data[i].horario)+"</td>" +
 	                        	"<td class='text-center'><img src='https://img.icons8.com/ios/30/CCCCCC/checkmark.png'/></td>" +
-	                        	"<td class='text-center text-primary button-open-editor-box' id='" + data[i].id + "' > Editar </td>" +
+	                        	"<td class='text-center text-primary button-open-editor-box pointer' id='" + data[i].id + "' > Editar </td>" +
 	                    	"</tr>"
 	            }
                 $("#aulas-table-body").append(row)
@@ -109,7 +110,7 @@ class Aula {
 		                        	"<td class='text-center'>"+helper.formatDate(data[i].data_inicio)+"</td>" +
 		                        	"<td class='text-center'>"+helper.formatTime(data[i].horario)+"</td>" +
 		                        	"<td class='text-center'><img src='https://img.icons8.com/ios/30/34C759/checkmark.png'/></td>" +
-		                        	"<td class='text-center text-primary button-open-editor-box' id='" + data[i].id + "' > Editar </td>" +
+		                        	"<td class='text-center text-primary button-open-editor-box pointer' id='" + data[i].id + "' > Editar </td>" +
 		                    	"</tr>"
 	            }else{
 	            	row = 	"<tr class='data-row' id='row-aulas-"+data[i].id+"'>" + 
@@ -119,7 +120,7 @@ class Aula {
 	                        	"<td class='text-center'>"+helper.formatDate(data[i].data_inicio)+"</td>" +
 	                        	"<td class='text-center'>"+helper.formatTime(data[i].horario)+"</td>" +
 	                        	"<td class='text-center'><img src='https://img.icons8.com/ios/30/CCCCCC/checkmark.png'/></td>" +
-	                        	"<td class='text-center text-primary button-open-editor-box' id='" + data[i].id + "' > Editar </td>" +
+	                        	"<td class='text-center text-primary button-open-editor-box pointer' id='" + data[i].id + "' > Editar </td>" +
 	                    	"</tr>"
 	            }
                 $("#aulas-table-body").append(row)
@@ -135,6 +136,67 @@ class Aula {
         }
         let response = request.post(data,url,successCallback,errorCallback)
         return response
+    }
+    loadProximas(mes,ano){
+        let request = new Request()
+        let url = apiBaseUrl + "/proximas/aulas"
+        let data = { "aula": {"search_month": mes,"search_year": ano} }
+        let successCallback = data => {
+        	console.log(data)
+			for (var i = 0; i < data.length; i++) {
+				let col = 	'<div class="col-3 mb-3">' + 
+								'<div class="aula-box pointer" id="' + data[i].id + '">' +
+									'<p class="aula-titulo">' + data[i].nome + '</p>' +
+									'<div class="mt-3">' +
+										'<p class="aula-dia thin">' + data[i].inicio + ', ' + data[i].horario_inicio + '</p>' +
+										'<p class="text-primary thin"> ' + data[i].vagas + ' vagas </p>'
+									'</div>' +
+							'</div>'
+				$("#row-proximas-aulas").append(col)
+			}
+        }
+        let errorCallback = (jqXHR, textStatus, msg) => {
+            console.log(jqXHR)
+            console.log(textStatus)
+            console.log(msg)
+        }
+        request.post(data,url,successCallback,errorCallback)
+    }
+    showAulaDetalhes(id){
+    	let request = new Request()
+    	let url = apiBaseUrl + "/aulas/" + id
+    	let successCallback = data => {
+    		console.log(data)
+    		$("#aula_nome").text(data.nome)
+    		$(".aula-data").text(helper.formatDate(data.data_inicio, false) + ", " + helper.formatTime(data.data_inicio) )
+    		$(".aula-professor").text("Com "+data.funcionario.nome)
+    		$(".aula-vagas-disponiveis").text(data.vagas+" vagas disponiveis")
+    		for (var i = data.alunos.length - 1; i >= 0; i--) {
+    			let row = 	"<div class='d-flex justify-content-between aluno-confirmado'>" +
+    							"<p class='aluno-nome'>" + data.alunos[i].nome + "</p>" +
+    							"<p class='aluno-confirmado-hora'>" + helper.formatDate(data.aula_presencas[i].created_at, false) + ", " + helper.formatTime(data.aula_presencas[i].created_at) + "</p>" +
+    						"</div>"
+    			$(".lista-alunos-confirmaram").append(row)
+    		}
+	        $("#wrapperDetalhesAula").addClass("animated zoomIn")
+	        $("#wrapperDetalhesAula").css("animation-duration", "0.7s")
+	        $("#wrapperDetalhesAula").show()
+	        setTimeout(function(){
+	            $("#wrapperDetalhesAula").removeClass("animated zoomIn")
+	        }, 750)
+    	}
+    	let errorCallback = (jqXHR, textStatus, msg) => {
+    		console.log(msg)
+    	}
+    	request.get(url,successCallback,errorCallback)
+    }
+    hideAulaDetalhes(){
+	        $("#wrapperDetalhesAula").addClass("animated zoomOut")
+	        $("#wrapperDetalhesAula").css("animation-duration", "0.7s")
+	        setTimeout(function(){
+	        	$("#wrapperDetalhesAula").hide()
+	            $("#wrapperDetalhesAula").removeClass("animated zoomOut")
+	        }, 750)
     }
     // Item 4 ______________________________________________________
     showEditorBox(id){

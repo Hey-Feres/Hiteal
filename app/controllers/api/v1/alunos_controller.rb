@@ -42,6 +42,11 @@ class Api::V1::AlunosController < ApplicationController
 		render json: @alunos
 	end
 
+	def aulas
+		@aulas = @aluno.aula_presencas
+		render json: @aulas, include: :aula
+	end
+
 	private
 	    def set_aluno
 	      @aluno = Aluno.find(params[:id]) 

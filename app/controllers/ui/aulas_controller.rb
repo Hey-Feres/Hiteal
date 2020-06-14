@@ -12,6 +12,7 @@ class Ui::AulasController < ApplicationController
 				title: "Aulas",
 				list_items: [
 					{ title: "Gerenciar", id: "todos-toggler", url: "#", first_item: true, last_item: false },
+					{ title: "Próximas", id: "proximas-toggler", url: "#", first_item: false, last_item: false },
 					{ title: "Adicionar", id: "adicionar-toggler", url: "#", first_item: false, last_item: true },
 				]
 			}

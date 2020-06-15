@@ -49,6 +49,9 @@
 					= render './ui/components/text-field', input: @inputs_attributes[:editar][:data_inicio]
 				br
 				.d-flex.justify-content-start
+					=render './ui/components/text-field', input: @inputs_attributes[:editar][:vagas]
+				br				
+				.d-flex.justify-content-start
 					=render './ui/components/text-field', input: @inputs_attributes[:editar][:horario]
 				br
 				.d-flex.justify-content-start
@@ -60,12 +63,12 @@
 					= render './ui/components/text-field', input: @inputs_attributes[:editar][:intervalo_repeticao]
 			center.mt-5
 				= render './ui/components/button', value: "Apagar Aula", style: "outline-red", id: "delete-aula-button", type:"button"
+				br
+				p.obs Os alunos são notificados a respeito de cancelamento.	
 	// Div Proximas Aulas  .  .  .  .  .  .  .  .  .  .  .
 	.box#wrapperProximas
 		.divider-header.d-flex.justify-content-between
 			h3 Próximas
-			h3.button-select-data-proximas-aulas.pointer
-				img src="https://img.icons8.com/ios-filled/25/007AFF/ellipsis.png"
 		.divider-content
 			h4.thin.mb-4#displayed-month Esse mês
 			.row#row-proximas-aulas
@@ -73,20 +76,14 @@
 	.box#wrapperDetalhesAula
 		.divider-header.d-flex.justify-content-between
 			h3#aula_nome
-			h3.button-close-detalhe-aula.pointer.text-danger.thin x
-			/img src="https://img.icons8.com/ios-filled/25/007AFF/times.png"
+			h3.button-close-detalhe-aula.pointer
+				img src="https://img.icons8.com/ios/25/FF3B30/cancel.png"
 		.divider-content
 			.d-flex.justify-content-between
 				.aula-detalhes-left-side
 					p.aula-data
 					p.aula-professor
 					p.aula-vagas-disponiveis
-					.buttons.mt-20
-						= render './ui/components/button', value: "Adiar Aula", style: "default", id: "adiar-aula-button", type:"button"
-						.mt-1
-						= render './ui/components/button', value: "Cancelar Aula", style: "red", id: "cancelar-aula-button", type:"button"
-						.mt-1
-							p.obs Os alunos são notificados a respeito de adiamentos ou cancelamentos.
 				.aula-detalhes-right-side
 					p Alunos que confirmaram
 					.lista-alunos-confirmaram
@@ -106,6 +103,9 @@
 				br
 				.d-flex.justify-content-start
 					=render './ui/components/text-field', input: @inputs_attributes[:novo][:data_inicio]
+				br
+				.d-flex.justify-content-start
+					=render './ui/components/text-field', input: @inputs_attributes[:novo][:vagas]
 				br
 				.d-flex.justify-content-start
 					=render './ui/components/text-field', input: @inputs_attributes[:novo][:horario]
@@ -166,7 +166,6 @@ javascript:
 	  		aula.hideAulaDetalhes();
 	  		e.preventDefault();
 	  	})
-	  	
 		$("#aula-editar-nome").change(function(){
 			response = aula.mudarNome($("#aula-editar-nome").val())	
 		})
@@ -184,6 +183,9 @@ javascript:
 		})
 		$("#aula-editar-duracao").change(function(){
 			response = aula.mudarDuracao($("#aula-editar-duracao").val())
+		})
+		$("#aula-editar-vagas").change(function(){
+			response = aula.mudarVagas($("#aula-editar-vagas").val())	
 		})
 		$("#delete-aula-button").click(function(){
 			var confirmed = confirm("Você tem certeza?");
@@ -207,7 +209,8 @@ javascript:
 				inicio: $("#aula-nova-inicio").val(),
 				duracao: $("#aula-nova-duracao").val(),
 				horario: $("#aula-nova-horario").val(),
-				professor_id: $("#aula-nova-professor").val()
+				professor_id: $("#aula-nova-professor").val(),
+				vagas: $("#aula-nova-vaga").val()
 			}
 			aula.salvarNovaAula(dados)
 		})
@@ -218,7 +221,7 @@ javascript:
 			aviso.clearFields();
             $("#aviso-exibicao").prop('disabled', false);
             $("#aviso-exibicao").attr("placeholder", "Exibir até");			
-		})*/		
+		})*/
 		// Search Input
 		let typingTimer;
 		$("#search").on('keyup', function () {
@@ -272,6 +275,27 @@ css:
 	.aula-box .aula-dia {
 		font-size: 1.2em; 
 		margin: 0;
+	}
+	.proximas-aulas-filter-box{
+		width: 30%;
+		position: fixed;
+		background: rgba(255,255,255, 0.6);
+		z-index: 999999;
+		border-radius: 10px;
+		height: 250px;
+		right: 3%;
+		top: 8%;
+		box-shadow: 1px 2px 10px 1px #ccc;
+		backdrop-filter: blur(10px);
+		-webkit-backdrop-filter: blur(10px);
+		-o-backdrop-filter: blur(10px);
+		-moz-backdrop-filter: blur(10px);
+		-ms-backdrop-filter: blur(10px);
+		padding: 2%;
+	}
+	.proximas-aulas-filter-box button{
+		width: 100% !important;
+		padding: 2% 0;
 	}
 	.aula-detalhes-left-side{
 		padding: 3%;

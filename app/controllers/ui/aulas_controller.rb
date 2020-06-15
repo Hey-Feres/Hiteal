@@ -59,6 +59,15 @@ class Ui::AulasController < ApplicationController
 						select_id: "aula-editar-professor",
 						options: Funcionario.where(gym_id: current_user.gym.id).where(funcao: "professor").map{|f| {title: f.nome, value: f.id} }
 					},
+					vagas: {
+						label: "Vagas",
+						placeholder: "Vagas",
+						loader_id: "aula-editar-vagas-loader",
+						done_id: "aula-editar-vagas-check",
+						error_id: "aula-editar-vagas-error",
+						input_id: "aula-editar-vagas",
+						value: ""
+					},
 					repete: {
 						label: "Repete",
 						placeholder: "Repete",
@@ -123,6 +132,12 @@ class Ui::AulasController < ApplicationController
 						input_id: "aula-nova-descricao",
 						value: ""
 					},
+					vagas: {
+						label: "Vagas",
+						placeholder: "Vagas",
+						input_id: "aula-editar-vagas",
+						value: ""
+					},					
 					repete: {
 						label: "Repete",
 						placeholder: "",

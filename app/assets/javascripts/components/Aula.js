@@ -9,6 +9,7 @@ class Aula {
         $(".content").addClass("animated fadeInUpBig")
         // .  .  .  .  .  .  .  .  .  .  .  .
         $(".box").not("#wrapperTodos").hide()
+        $(".proximas-aulas-filter-box").hide()
         // .  .  .  .  .  .  .  .  .  .  .  .
         $("#loader-more-aulas").hide()
         $("#search-loader").hide()        
@@ -43,7 +44,11 @@ class Aula {
         // .  .  .  .  .  .  .  .  .  .  .  .
 		$("#aula-editar-professor-loader").hide()
 		$("#aula-editar-professor-check").hide()
-		$("#aula-editar-professor-error").hide()		
+		$("#aula-editar-professor-error").hide()
+		// .  .  .  .  .  .  .  .  .  .  .  .
+		$("#aula-editar-vagas-loader").hide()
+		$("#aula-editar-vagas-check").hide()
+		$("#aula-editar-vagas-error").hide()		
         // .  .  .  .  .  .  .  .  .  .  .  .
         $("#aula-editar-descricao").autogrow();
         // .  .  .  .  .  .  .  .  .  .  .  .
@@ -168,9 +173,10 @@ class Aula {
     	let successCallback = data => {
     		console.log(data)
     		$("#aula_nome").text(data.nome)
-    		$(".aula-data").text(helper.formatDate(data.data_inicio, false) + ", " + helper.formatTime(data.data_inicio) )
+    		$(".aula-data").text(helper.formatDate(data.data_inicio, false) + ", " + helper.formatTime(data.horario) )
     		$(".aula-professor").text("Com "+data.funcionario.nome)
     		$(".aula-vagas-disponiveis").text(data.vagas+" vagas disponiveis")
+    		$(".aula-id").text("ID:"+data.id)
     		for (var i = data.alunos.length - 1; i >= 0; i--) {
     			let row = 	"<div class='d-flex justify-content-between aluno-confirmado'>" +
     							"<p class='aluno-nome'>" + data.alunos[i].nome + "</p>" +
@@ -190,6 +196,12 @@ class Aula {
     	}
     	request.get(url,successCallback,errorCallback)
     }
+    cancelarAula(id){
+
+    }
+    adiarAula(id){
+
+    }    
     hideAulaDetalhes(){
 	        $("#wrapperDetalhesAula").addClass("animated zoomOut")
 	        $("#wrapperDetalhesAula").css("animation-duration", "0.7s")
@@ -206,6 +218,7 @@ class Aula {
         	console.log(data)
             $("#aula-editar-nome").val(data.nome)
             $("#aula-editar-id").val(data.id)
+            $("#aula-editar-vagas").val(data.vagas)
 			$("#aula-editar-descricao").val(data.descricao)
 			$("#aula-editar-inicio").val(helper.formatDate(data.data_inicio,true))
 			$("#aula-editar-duracao").val(data.duracao)
@@ -293,6 +306,32 @@ class Aula {
             $("#aula-editar-descricao-error").show(200);
             $("#aula-editar-descricao-loader").hide();
             setTimeout(function(){ $("#aula-editar-descricao-error").hide(200); }, 2000);
+        }
+        // .  .  .  .  .  .  .  .  .  .  .  .
+        let response = request.put(data, url, successCallback, errorCallback, headers)
+        return response
+    }
+    mudarVagas(nova_vagas){
+       $("#aula-editar-vagas-loader").show();
+        // .  .  .  .  .  .  .  .  .  .  .  .
+        let aula_id = $("#aula-editar-id").val()
+        let request = new Request();
+        let data = { "aula": {"vagas": nova_vagas} }
+        let url = apiBaseUrl + "/aulas/" + aula_id
+        let headers = {}
+        // .  .  .  .  .  .  .  .  .  .  .  .
+        let successCallback = function(data){
+            console.log(data);
+            $("#aula-editar-vagas-check").show(200);
+            $("#aula-editar-vagas-loader").hide();
+            setTimeout(function(){ $("#aula-editar-vagas-check").hide(200); }, 2000);
+        }
+        // .  .  .  .  .  .  .  .  .  .  .  .
+        let errorCallback = function(jqXHR, textStatus, msg){ 
+            console.log(msg);
+            $("#aula-editar-vagas-error").show(200);
+            $("#aula-editar-vagas-loader").hide();
+            setTimeout(function(){ $("#aula-editar-vagas-error").hide(200); }, 2000);
         }
         // .  .  .  .  .  .  .  .  .  .  .  .
         let response = request.put(data, url, successCallback, errorCallback, headers)
@@ -500,6 +539,7 @@ class Aula {
 			"duracao": dados.duracao,
 			"horario": dados.horario,
             "professor_id": dados.professor_id,
+            "vagas": dados.vagas,
             "gym_id": this.gym_id
         }}
         let headers = {}

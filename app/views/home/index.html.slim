@@ -1,24 +1,59 @@
-.whiteBg8.blurredBg.w-25.p-2
-	h1 Home#index
-	p Find me in app/views/home/index.html.slim
-.whiteBg8.blurredBg.w-25.p-2
-	= link_to "Gym", ui_gyms_path
-.whiteBg8.blurredBg.w-25.p-2
-	= link_to "Users", ui_users_path
-.whiteBg8.blurredBg.w-25.p-2
-	= link_to "Planos", ui_planos_path
-.whiteBg8.blurredBg.w-25.p-2
-	= link_to "Alunos", ui_alunos_path
-.whiteBg8.blurredBg.w-25.p-2
-	= link_to "Avisos", ui_avisos_path
-.whiteBg8.blurredBg.w-25.p-2
-	= link_to "Funcionários", ui_funcionarios_path
-.whiteBg8.blurredBg.w-25.p-2
-	= link_to "Aulas", ui_aulas_path
-.whiteBg8.blurredBg.w-25.p-2
-	= link_to "Sair", destroy_user_session_path, method: :delete
+.home-sidebar.blurredBg
+	.home-sidebar-header
+		.d-flex.justify-content-start
+			div
+				h5.data.thin Segunda Feira, 15 de Julho
+				h2.saudacao.sidebar-title.thin Bom Dia
+	.home-sidebar-content
+		.home-sidebar-list-wrapper
+			- @home_sidebar.each do |item|
+	    		= link_to item[:path] do
+	    			.home-sidebar-item
+	    				.d-flex.justify-content-start
+	    					h5.mr-2
+	    						img src="#{item[:img]}"
+							h5.ml-2.thin= item[:titulo]
+    .home-sidebar-footer
+    	.d-flex.justify-content-center
+			h6.thin.sair-button= link_to "Sair", destroy_user_session_path, method: :delete
 
-css:
-	.whiteBg8{
-		background: rgba(255,255,255,0.8)
-	}	
+.content
+	.d-flex.justify-content-between
+		.home-wrapper-left.pt-2 style="border: 1px solid transparent"
+			.d-flex.justify-content-center
+				.news-box
+					.news-box-header
+						h4 News
+    	.home-wrapper-right.pt-2 style="border: 1px solid transparent"
+			.d-flex.justify-content-start
+				.home-box.mr-2.ml-2
+					.home-box-header
+						h4 App Updates
+					.home-box-body
+						p Vote em atualizações
+						p.button Acessar
+				.home-box.ml-2.mr-2
+					.home-box-header
+						h4 Suporte
+					.home-box-body
+						p Contato conosco
+						p.button Contato
+				.home-box.ml-2
+					.home-box-header
+						h4 Store
+					.home-box-body
+						p Extensões incriveis
+						p.button Ver Extensões
+			.d-flex.justify-content-start.mt-3
+				.home-box.mr-2.ml-2
+					.home-box-header
+						h4 Dados do App
+					.home-box-body
+						p Dados de uso dos seus alunos
+						p.button Ver Dados
+javascript:
+	$(document).ready(function(){
+		
+	})
+
+

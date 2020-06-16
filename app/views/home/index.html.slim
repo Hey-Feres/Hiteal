@@ -8,7 +8,7 @@
 		.home-sidebar-list-wrapper
 			- @home_sidebar.each do |item|
 	    		= link_to item[:path] do
-	    			.home-sidebar-item
+	    			.home-sidebar-item id="#{item[:id]}"
 	    				.d-flex.justify-content-start
 	    					h5.mr-2
 	    						img src="#{item[:img]}"
@@ -19,11 +19,13 @@
 
 .content
 	.d-flex.justify-content-between
-		.home-wrapper-left.pt-2 style="border: 1px solid transparent"
+		.home-wrapper-left.pt-2
 			.d-flex.justify-content-center
 				.news-box
 					.news-box-header
 						h4 News
+					.news-box-body
+					
     	.home-wrapper-right.pt-2 style="border: 1px solid transparent"
 			.d-flex.justify-content-start
 				.home-box.mr-2.ml-2
@@ -51,9 +53,35 @@
 					.home-box-body
 						p Dados de uso dos seus alunos
 						p.button Ver Dados
+css:
+	.content{
+		background: transparent;
+	}
 javascript:
 	$(document).ready(function(){
-		
+		getNews()
 	})
-
-
+	//"/news"
+	function getNews(){
+        let request = new Request()
+        let url = "http://localhost:3000/news"
+        let successCallback = data => {
+            for (var i = data.length - 1; i >= 0; i--) {
+            	let row = 	"<div class='news-row'>" + 
+            					"<div>" +
+            						"<p class='news-title'>"+data[i].title.substring(50,length)+"... </p>" +
+            					"</div>" +
+            					"<p>"+data[i].content.substring(150,length)+"...</p>" +
+            					"<center>" + 
+            						"<a target='blank' href='"+data[i].url+"' class='button-ver-mais'> Ver Mais </a>" +
+            					"</center>" + 
+            				"</div>"
+            	$(".news-box-body").append(row)
+            }
+            console.log(data[0])
+        }
+        let errorCallback = (jqXHR, textStatus, msg) => { 
+            console.log(msg)
+        }
+        let response = request.get(url,successCallback,errorCallback)
+	}

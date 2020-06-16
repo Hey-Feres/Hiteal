@@ -36,6 +36,7 @@ gem "devise"
 # Provides the generator settings required for Rails to use Slim.
 gem 'slim-rails'
 gem 'faker'
+gem 'news-api'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

@@ -11,15 +11,15 @@
 			- dados[:list_items].each do |item|
 				- if item[:first_item]
 					.sidebar-item.first-item id="#{item[:id]}"
-						/h5= link_to item[:title], item[:url]
 						h5= item[:title]
 				- elsif item[:last_item]
 					.sidebar-item.last-item id="#{item[:id]}"
-						/h5= link_to item[:title], item[:url]
+						h5= item[:title]
+				- elsif item[:first_item] && item[:last_item]
+					.sidebar-item.first-item.last-item id="#{item[:id]}"
 						h5= item[:title]
 				- else
 					.sidebar-item id="#{item[:id]}"
-						/h5= link_to item[:title], item[:url]
 						h5= item[:title]
     .sidebar-footer
     	.d-flex.justify-content-start

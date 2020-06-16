@@ -17,7 +17,7 @@ Rails.application.routes.draw do
       resources :planos, except: [:edit,:new]
       resources :alunos, except: [:edit,:new]
       resources :funcionarios, except: [:edit,:new]
-
+      resources :preferencias, except: [:edit,:new,:create]
       # Upload Routes
       post '/gyms/upload', to: "gyms#upload"
       get '/gyms/:id/imagens', to: "gyms#imagens"
@@ -27,6 +27,7 @@ Rails.application.routes.draw do
       get '/todos_avisos/:gym_id/:page', to: "avisos#index"
       get '/todos_funcionarios/:gym_id/:page', to: "funcionarios#index"
       get '/all/aulas/:gym_id/:page', to: "aulas#index"
+      get '/all/wallpapers', to: "preferencias#wallpapers"
       # Proximas Routes
       post '/proximas/aulas', to: "aulas#proximas"
       # Search Routes
@@ -34,6 +35,7 @@ Rails.application.routes.draw do
       post '/search_avisos', to: "avisos#search"
       post '/search_funcionarios', to: "funcionarios#search"
       post '/search/aulas', to: "aulas#search"
+      post '/search/wallpapers', to: "preferencias#search_wallpapers"
       # Chart Routes
       get '/planos_chart_data', to: "planos#chart_data"
       # Alunos App Routes
@@ -51,5 +53,6 @@ Rails.application.routes.draw do
     resources :avisos, only: :index
     resources :funcionarios, only: :index
     resources :aulas, only: :index
+    resources :preferencias, only: :index
   end
 end

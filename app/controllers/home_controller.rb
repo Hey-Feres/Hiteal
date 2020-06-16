@@ -8,8 +8,8 @@ class HomeController < ApplicationController
 
   	def news
   		url = URI('http://newsapi.org/v2/top-headlines?country=br&category=health&apiKey=dbd8a962d3004ce993c040c8a3f23ff6')
-		@news = JSON.parse(Net::HTTP.get_response(url).body)["articles"]
-		render json: @news
+		  @news = JSON.parse(Net::HTTP.get_response(url).body)["articles"]
+		  render json: @news
   	end
 
   	private
@@ -22,7 +22,7 @@ class HomeController < ApplicationController
   				{path: ui_avisos_path, img: "https://img.icons8.com/ios/25/555555/sheet-of-paper.png", titulo: "Avisos"},
   				{path: ui_funcionarios_path, img: "https://img.icons8.com/ios/25/555555/conference.png", titulo: "Funcionários"},
   				{path: ui_aulas_path, img: "https://img.icons8.com/ios/25/555555/yoga.png", titulo: "Aulas"},
-  				{path: "#", img: "https://img.icons8.com/ios/25/555555/settings.png", titulo: "Prefêrencias"},
+  				{path: ui_preferencias_path, img: "https://img.icons8.com/ios/25/555555/settings.png", titulo: "Prefêrencias"},
   			]
   		end
 end

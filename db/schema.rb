@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_14_221828) do
+ActiveRecord::Schema.define(version: 2020_06_16_035303) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -113,6 +113,14 @@ ActiveRecord::Schema.define(version: 2020_06_14_221828) do
     t.index ["gym_id"], name: "index_planos_on_gym_id"
   end
 
+  create_table "preferencia", force: :cascade do |t|
+    t.string "wallpaper"
+    t.integer "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_preferencia_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -143,5 +151,6 @@ ActiveRecord::Schema.define(version: 2020_06_14_221828) do
   add_foreign_key "avisos", "gyms"
   add_foreign_key "funcionarios", "gyms"
   add_foreign_key "planos", "gyms"
+  add_foreign_key "preferencia", "users"
   add_foreign_key "users", "gyms"
 end

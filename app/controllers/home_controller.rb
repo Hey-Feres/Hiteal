@@ -8,9 +8,7 @@ class HomeController < ApplicationController
 
   	def news
   		url = URI('http://newsapi.org/v2/top-headlines?country=br&category=health&apiKey=dbd8a962d3004ce993c040c8a3f23ff6')
-		result = Net::HTTP.get_response(url)
-		result = JSON.parse(result.body)
-		@news = result["articles"]
+		@news = JSON.parse(Net::HTTP.get_response(url).body)["articles"]
 		render json: @news
   	end
 

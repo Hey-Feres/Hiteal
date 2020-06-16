@@ -130,12 +130,21 @@
 .news-box-header{
 	height: 55px;
 	padding: 5% 5% 0 5%;
+	width: 300px;
+	position: absolute;
+	background: rgba(255, 255, 255, 0.2);
+	backdrop-filter: blur(20px);
+	-webkit-backdrop-filter: blur(20px);
+	-o-backdrop-filter: blur(20px);
+	-moz-backdrop-filter: blur(20px);
+	-ms-backdrop-filter: blur(20px);
 }
 .news-box-header h4{
 	font-weight: 300;
 	color: #555;
 }
 .news-box-body{
+	margin-top: 65px;
 	height: 445px;
 }
 .news-row{
@@ -169,5 +178,8 @@
 @-moz-document url-prefix() {
 	.sidebar{
 		background: rgba(255,255,255,.9);
+	}
+	.news-box-header{
+		background: rgba(255,255,255,.9);	
 	}
 }

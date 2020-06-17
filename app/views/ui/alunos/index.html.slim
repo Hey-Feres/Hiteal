@@ -16,7 +16,8 @@
 					tr
 						th.text-center Nome
 						th.text-center Plano
-						th 
+						th
+						th
 				tbody#alunos-table-body
 				// Tabela é povoada em Aluno.js, funcao loadAlunos
 			= render './ui/components/button', type: 'button', style: "blue", value: "Carregar Mais Alunos", id: 'button-load-more-alunos'
@@ -46,6 +47,14 @@
 					= render './ui/components/text-field', input: @inputs_attributes[:aluno_editar_id]
 			center.mt-5
 				= render './ui/components/button', value: "Apagar Aluno", style: "outline-red", id: "delete-aluno-button", type:"button"
+	// Fichas
+	.box#wrapperFichas
+		.divider-header.d-flex.justify-content-between
+			h3.title
+			h3.button-close-editor-box
+				img src="https://img.icons8.com/ios-glyphs/25/007AFF/chevron-right.png"
+		.divider-content
+			
 	// Div Adicionar Alunos  .  .  .  .  .  .  .  .  .  .  .
 	.box#wrapperAdicionar
 		.divider-header.d-flex.justify-content-between
@@ -159,9 +168,15 @@ javascript:
 	  		aluno.hideEditorBox();
 	  		e.preventDefault();
 	  	})
+	  	// ________________________________________________________________________
+	  	$(document).on('click', '.button-open-fichas', function (e) {
+	  		let id = $(this).attr('id');
+	  		aluno.showFichasBox(id)
+	  		e.preventDefault();
+	  	})	  	
 	})
 css:
-	#wrapperEditAluno{
+	#wrapperEditAluno,#wrapperFichas{
 		height: 100%;
 		background: rgba(255, 255, 255,0.4);
 		backdrop-filter: blur(var(--blur));

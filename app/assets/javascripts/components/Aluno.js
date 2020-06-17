@@ -69,6 +69,7 @@ class Aluno {
                 let row = "<tr class='data-row' id='row-aluno-"+data[i].id+"'>" + 
                             "<td class='text-center' id='aluno-nome-" + data[i].id + "'> " + data[i].nome + " </td>" +
                             "<td class='text-center'>"+data[i].plano_nome+"</td>" +
+                            "<td class='text-center text-primary button-open-fichas' id='"+data[i].id+"'> Fichas </td>" +
                             "<td class='text-center text-primary button-open-editor-box' id='" + data[i].id + "' > Editar </td>" +
                           "</tr>"
                 $("#alunos-table-body").append(row)
@@ -341,6 +342,27 @@ class Aluno {
         $("#novo-aluno-sexo").val("")
         $("#novo-aluno-plano").val("")
     }
+    showFichasBox(id){
+        let request = new Request()
+        let url = apiBaseUrl + "/all/fichas/" + id
+        let successCallback = data => {          
+            console.log(data)
+            //////// PAREI AQUI ////////
+            $(".title").html("Fichas de ") + data[0].aluno.nome
+        }
+        let errorCallback = (jqXHR, textStatus, msg) => {
+            console.log(x)
+            console.log(y)
+            console.log(z)
+        }
+        request.get(url,successCallback,errorCallback)
+        $("#wrapperFichas").addClass("animated slideInRight")
+        $("#wrapperFichas").css("animation-duration", "0.7s")
+        $("#wrapperFichas").show()
+        setTimeout(function(){
+            $("#wrapperFichas").removeClass("animated slideInRight")
+        },750)
+    }    
     toggleWrappers(event, whatToShow){
         event.preventDefault();
         $(whatToShow).show(300);

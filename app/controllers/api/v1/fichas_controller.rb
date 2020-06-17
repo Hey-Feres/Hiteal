@@ -3,7 +3,7 @@ class Api::V1::FichasController < ApplicationController
 	before_action :set_fichas, only: [:show]
 
 	def show
-		render json: @fichas #, include: { plano: {only: :nome} }
+		render json: @fichas, include: :aluno
 	end
 
 	def create
@@ -26,7 +26,7 @@ class Api::V1::FichasController < ApplicationController
 	    end
 
 	    def set_fichas
-	      @fichas = Ficha.where(params[:aluno_id])
+	      @fichas = Ficha.where(aluno_id: params[:aluno_id])
 	    end
 
 	    def ficha_params

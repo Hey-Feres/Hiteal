@@ -28,7 +28,7 @@ Rails.application.routes.draw do
       get '/todos_avisos/:gym_id/:page', to: "avisos#index"
       get '/todos_funcionarios/:gym_id/:page', to: "funcionarios#index"
       get '/all/aulas/:gym_id/:page', to: "aulas#index"
-      get '/all/wallpapers', to: "preferencias#wallpapers"
+      get '/all/fichas/:aluno_id', to: "fichas#show"
       # Proximas Routes
       post '/proximas/aulas', to: "aulas#proximas"
       # Search Routes
@@ -36,7 +36,6 @@ Rails.application.routes.draw do
       post '/search_avisos', to: "avisos#search"
       post '/search_funcionarios', to: "funcionarios#search"
       post '/search/aulas', to: "aulas#search"
-      post '/search/wallpapers', to: "preferencias#search_wallpapers"
       # Chart Routes
       get '/planos_chart_data', to: "planos#chart_data"
       # Alunos App Routes

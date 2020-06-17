@@ -18,6 +18,7 @@ Rails.application.routes.draw do
       resources :alunos, except: [:edit,:new]
       resources :funcionarios, except: [:edit,:new]
       resources :preferencias, except: [:edit,:new,:create]
+      resources :fichas, only: [:show,:create,:destroy]
       # Upload Routes
       post '/gyms/upload', to: "gyms#upload"
       get '/gyms/:id/imagens', to: "gyms#imagens"

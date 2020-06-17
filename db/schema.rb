@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_16_035303) do
+ActiveRecord::Schema.define(version: 2020_06_17_034429) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -72,6 +72,25 @@ ActiveRecord::Schema.define(version: 2020_06_16_035303) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "views"
     t.index ["gym_id"], name: "index_avisos_on_gym_id"
+  end
+
+  create_table "exercicios", force: :cascade do |t|
+    t.string "grupo"
+    t.string "nome"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "fichas", force: :cascade do |t|
+    t.integer "exercicio_id", null: false
+    t.integer "aluno_id", null: false
+    t.integer "repeticoes"
+    t.integer "series"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "dia"
+    t.index ["aluno_id"], name: "index_fichas_on_aluno_id"
+    t.index ["exercicio_id"], name: "index_fichas_on_exercicio_id"
   end
 
   create_table "funcionarios", force: :cascade do |t|
@@ -149,6 +168,8 @@ ActiveRecord::Schema.define(version: 2020_06_16_035303) do
   add_foreign_key "aula_presencas", "aulas"
   add_foreign_key "aulas", "gyms"
   add_foreign_key "avisos", "gyms"
+  add_foreign_key "fichas", "alunos"
+  add_foreign_key "fichas", "exercicios"
   add_foreign_key "funcionarios", "gyms"
   add_foreign_key "planos", "gyms"
   add_foreign_key "preferencia", "users"

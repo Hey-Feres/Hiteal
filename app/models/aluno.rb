@@ -5,6 +5,7 @@ class Aluno < ApplicationRecord
   belongs_to :plano
   
   has_many :aula_presencas
+  has_many :fichas
 
   validates_presence_of :nome
   validates_presence_of :email

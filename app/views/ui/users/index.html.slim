@@ -5,7 +5,7 @@
 
 .content
 	// Div com Dados do Current User  .  .  .  .  .  .  .  .  .  .  .
-	.divider.box#wrapperDados
+	.box#wrapperDados
 		.divider-header.d-flex.justify-content-between
 			h3 Seus Dados
 			- if @user.admin?
@@ -13,21 +13,24 @@
 		.divider-content
 			form
 				.d-flex.justify-content-start
-					= render './ui/components/text-field', input: @inputs_attributes[:user_nome]
+					= render './ui/components/text-field', input: @inputs_attributes[:edit][:nome]
 				br
 				.d-flex.justify-content-start
-					= render './ui/components/text-field', input: @inputs_attributes[:user_email]
+					= render './ui/components/text-field', input: @inputs_attributes[:edit][:email]
+				/br
+				/.d-flex.justify-content-start
+					= render './ui/components/text-field', input: @inputs_attributes[:edit][:senha]
+				br				
+				.d-flex.justify-content-start
+					= render './ui/components/text-field', input: @inputs_attributes[:edit][:member_since]
 				br
 				.d-flex.justify-content-start
-					= render './ui/components/text-field', input: @inputs_attributes[:user_since]
+					= render './ui/components/text-field', input: @inputs_attributes[:edit][:gym_id]
 				br
 				.d-flex.justify-content-start
-					= render './ui/components/text-field', input: @inputs_attributes[:user_gym_id]
-				br
-				.d-flex.justify-content-start
-					= render './ui/components/text-field', input: @inputs_attributes[:user_id]
+					= render './ui/components/text-field', input: @inputs_attributes[:edit][:id]
 	// Div com Tablea de Users  .  .  .  .  .  .  .  .  .  .  .
-	.divider.box#wrapperGerenciar
+	.box#wrapperGerenciar
 		- if !@user.admin?
 			.box.d-flex.flex-column.justify-content-center
 				div
@@ -42,30 +45,41 @@
 					thead
 						tr
 							th.text-center Nome
-							th.text-center Último Acesso
+							th.text-center Membro desde
 							th 
 					tbody#users-table
 					// Tabela é povoada em User.js, funcao loadUsers, linha 158-177
-	#wrapperEditarUser
-		.d-flex.justify-content-between
-			h5 Editar Usuário
-			h5= render './ui/components/icon', color: "FF3B30", size: 20, style: "ios", name: "trash", id: "delete-user"
-		#form-editar.mt-3
-			label Nome
-			input type="text" placeholder="Nome" id="edit-nome-field"
-			label Email
-			input type="email" placeholder="Email" id="edit-email-field"
-			label Senha
-			input type="password" placeholder="Alterar Senha" id="edit-senha-field"
-			label ID
-			input type="text" placeholder="ID" id="edit-id-field" disabled=""
-			= render './ui/components/switch', label: "Admin", id: "switch-admin-status"
-			.mt-4
-			= render './ui/components/button', value: "Salvar", style: "default", id: "submit-editor-form", type:"button"
-			div.button-close-editor-box
-				= render './ui/components/button', value: "Cancelar", style: "red", id: "", type:"button"
+	.box#wrapperEditUser
+		.divider-header.d-flex.justify-content-between
+			h3 Editar Usuário
+			h3.button-close-editor-box
+				img src="https://img.icons8.com/ios-glyphs/25/007AFF/chevron-right.png"
+		.divider-content
+			form style="width: auto !important"
+			form
+				.d-flex.justify-content-start
+					= render './ui/components/text-field', input: @inputs_attributes[:edit_other_users][:nome]
+				br
+				.d-flex.justify-content-start
+					= render './ui/components/text-field', input: @inputs_attributes[:edit_other_users][:email]
+				/br
+				/.d-flex.justify-content-start
+					= render './ui/components/text-field', input: @inputs_attributes[:edit_other_users][:senha]
+				br				
+				.d-flex.justify-content-start
+					= render './ui/components/text-field', input: @inputs_attributes[:edit_other_users][:member_since]
+				br
+				.d-flex.justify-content-start
+					= render './ui/components/text-field', input: @inputs_attributes[:edit_other_users][:gym_id]
+				br
+				.d-flex.justify-content-start
+					= render './ui/components/text-field', input: @inputs_attributes[:edit_other_users][:id]
+				br
+				= render './ui/components/switch', input: @inputs_attributes[:edit_other_users][:admin]
+			center.mt-5
+				= render './ui/components/button', value: "Apagar Usuário", style: "outline-red", id: "delete-user-button", type:"button"
 	// Div Adicionar User  .  .  .  .  .  .  .  .  .  .  .
-	.divider.box#wrapperAdicionar
+	.box#wrapperAdicionar
 		- if !@user.admin?
 			.box.d-flex.flex-column.justify-content-center
 				div
@@ -77,39 +91,22 @@
 				h3 Adicionar User
 			.divider-content
 				form
-					.d-flex.justify-content-start
+					/.d-flex.justify-content-start
 						= render './ui/components/text-field', input: @inputs_attributes[:new_user_nome]
-					br
-					.d-flex.justify-content-start
-						= render './ui/components/text-field', input: @inputs_attributes[:new_user_email]
-					br
-					.d-flex.justify-content-start
-						= render './ui/components/text-field', input: @inputs_attributes[:new_user_senha]
-					br
-					/.d-flex.justify-content-between.w-100
-					= render './ui/components/switch', label: "Admin", id: "new-user-switch-admin-status"
-					br
-					.d-flex.justify-content-center.mt-5
-						.w-50
-							= render './ui/components/button', value: "Salvar", style: "default", id: "submit-new-user-form", type:"button"	
-							= render './ui/components/button', value: "Limpar", style: "red", id: "", type:"button", id: "clear-new-user-fields"
-css:
-	#wrapperEditarUser{
-		position: fixed;
-		background: rgba(255,255,255,0.7);
-		border: 1px solid var(--gray5);
-		border-radius: 10px;
-		width: 25%;
-		height: 40%;
-		top: 10% !important;
-		right: 4%;
-		backdrop-filter: blur(40px);
-		-webkit-backdrop-filter: blur(40px);
-		-o-backdrop-filter: blur(40px);
-		-moz-backdrop-filter: blur(40px);
-		-ms-backdrop-filter: blur(40px);
-		padding: 1%;
-	}
+						br
+						.d-flex.justify-content-start
+							= render './ui/components/text-field', input: @inputs_attributes[:new_user_email]
+						br
+						.d-flex.justify-content-start
+							= render './ui/components/text-field', input: @inputs_attributes[:new_user_senha]
+						br
+						/.d-flex.justify-content-between.w-100
+						/= render './ui/components/switch', label: "Admin", id: "new-user-switch-admin-status"
+						br
+						.d-flex.justify-content-center.mt-5
+							.w-50
+								= render './ui/components/button', value: "Salvar", style: "default", id: "submit-new-user-form", type:"button"	
+								= render './ui/components/button', value: "Limpar", style: "red", id: "", type:"button", id: "clear-new-user-fields"
 javascript:
 	$(document).ready(function(){
 		let user = new User("#{current_user.id}","#{current_user.nome}","#{current_user.email}","#{current_user.gym_id}")
@@ -135,36 +132,43 @@ javascript:
 			user.toggleWrappers(event, "#wrapperAdicionar")
 		})
 		// Input com nome
-		$("#user-nome").change(function() {
-			response = user.mudarNome($("#user-nome").val())
+		$("#user-edit-nome").change(function() {
+			response = user.mudarNome($("#user-edit-nome").val())
 			console.log(response)
 		})
 		// Input com email
-		$("#user-email").change(function() {
-			response = user.mudarEmail($("#user-email").val())
+		$("#user-edit-email").change(function() {
+			response = user.mudarEmail($("#user-edit-email").val())
 			console.log(response)
 		})
-		$("#submit-editor-form").click(function(){
-			let nome = $("#edit-nome-field").val()
-			let email = $("#edit-email-field").val()
-			let senha = $("#edit-senha-field").val()
-			let id = $("#edit-id-field").val()
-			let admin = $('#switch-admin-status').is(":checked")
-			user.editUser(id,nome,email,senha,admin)
+		// Input com other nome
+		$("#user-edit-other-nome").change(function() {
+			response = user.mudarNomeOther($("#user-edit-other-nome").val(), $("#user-edit-other-id").val())
+			console.log(response)
+		})		
+		// Input com other email
+		$("#user-edit-other-email").change(function() {
+			response = user.mudarEmailOther($("#user-edit-other-email").val(), $("#user-edit-other-id").val())
+			console.log(response)
 		})
-		$("#delete-user").click(function(){
-			let id = $("#edit-id-field").val()
+		// Input com other admin status
+		$("#user-edit-other-admin").change(function() {
+			response = user.mudarAdminStatusOther($("#user-edit-other-admin").is(":checked"), $("#user-edit-other-id").val())
+			console.log(response)
+		})		
+		$("#delete-user-button").click(function(){
+			let id = $("#user-edit-other-id").val()
 			user.removeUser(id)
 		})
 		$(document).on('click', '.button-open-editor-box', function (e) {
 		    let id = $(this).attr('id')
 		    user.showEditorForm(id)
-			if (id == user.id) {$("#delete-user").hide()}
+			if (id == user.id) { $("#delete-user-button").hide() }
 		    e.preventDefault();
 		});
 		$(document).on('click', '.button-close-editor-box', function (e) {
 		    user.hideEditorForm()
-		    $("#delete-user").show()
+		    $("#delete-user-button").show()
 		    e.preventDefault();
 		});
 		$("#submit-new-user-form").click(function(){
@@ -182,3 +186,15 @@ javascript:
 		})
 	});
 
+css:
+	#wrapperEditUser{
+		height: 100%;
+		background: rgba(255, 255, 255,0.4);
+		backdrop-filter: blur(var(--blur));
+		-webkit-backdrop-filter: blur(var(--blur));
+		-o-backdrop-filter: blur(var(--blur));
+		-moz-backdrop-filter: blur(var(--blur));
+		-ms-backdrop-filter: blur(var(--blur));
+		z-index: 99999;
+		border: 1px solid #ccc;
+	}

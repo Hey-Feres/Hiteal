@@ -11,31 +11,39 @@ class User {
         $(".content").addClass("animated fadeInUpBig")
         $("#wrapperEditarUser").hide();
         // .  .  .  .  .  .  .  .  .  .  .  .
-        $(".divider").not("#wrapperDados").hide();
+        $(".box").not("#wrapperDados").hide();
         // .  .  .  .  .  .  .  .  .  .  .  .
-        $("#user-nome-loader").hide();
-        $("#user-nome-check").hide();
-        $("#user-nome-error").hide();
+        $("#user-edit-nome-loader").hide()
+        $("#user-edit-nome-check").hide()
+        $("#user-edit-nome-error").hide()    
         // .  .  .  .  .  .  .  .  .  .  .  .
-        $("#user-email-loader").hide();
-        $("#user-email-check").hide();
-        $("#user-email-error").hide();
+        $("#user-edit-email-loader").hide()
+        $("#user-edit-email-check").hide()
+        $("#user-edit-email-error").hide()
         // .  .  .  .  .  .  .  .  .  .  .  .
-        $("#new-user-nome-loader").hide();
-        $("#new-user-nome-check").hide();
-        $("#new-user-nome-error").hide();
+        $("#user-edit-senha-loader").hide()
+        $("#user-edit-senha-check").hide()
+        $("#user-edit-senha-error").hide()
         // .  .  .  .  .  .  .  .  .  .  .  .
-        $("#new-user-email-loader").hide();
-        $("#new-user-email-check").hide();
-        $("#new-user-email-error").hide();
+        $("#user-edit-other-nome-loader").hide()
+        $("#user-edit-other-nome-check").hide()
+        $("#user-edit-other-nome-error").hide()    
         // .  .  .  .  .  .  .  .  .  .  .  .
-        $("#new-user-senha-loader").hide();
-        $("#new-user-senha-check").hide();
-        $("#new-user-senha-error").hide();
+        $("#user-edit-other-email-loader").hide()
+        $("#user-edit-other-email-check").hide()
+        $("#user-edit-other-email-error").hide()
+        // .  .  .  .  .  .  .  .  .  .  .  .
+        $("#user-edit-other-senha-loader").hide()
+        $("#user-edit-other-senha-check").hide()
+        $("#user-edit-other-senha-error").hide()
+        // .  .  .  .  .  .  .  .  .  .  .  .
+        $("#user-edit-other-admin-loader").hide()
+        $("#user-edit-other-admin-check").hide()
+        $("#user-edit-other-admin-error").hide()
     }
     // Item 2 ______________________________________________________
     mudarNome(novo_nome){
-        $("#user-nome-loader").show();
+        $("#user-edit-nome-loader").show();
         // .  .  .  .  .  .  .  .  .  .  .  .
         let request = new Request();
         let data = { "user": {"nome": novo_nome} }
@@ -44,16 +52,16 @@ class User {
         // .  .  .  .  .  .  .  .  .  .  .  .
         let successCallback = function(data){
             console.log(data);
-            $("#user-nome-check").show(200);
-            $("#user-nome-loader").hide();
-            setTimeout(function(){ $("#user-nome-check").hide(200); }, 2000);
+            $("#user-edit-nome-check").show(200);
+            $("#user-edit-nome-loader").hide();
+            setTimeout(function(){ $("#user-edit-nome-check").hide(200); }, 2000);
         }
         // .  .  .  .  .  .  .  .  .  .  .  .
         let errorCallback = function(jqXHR, textStatus, msg){ 
             console.log(msg);
-            $("#user-nome-error").show(200);
-            $("#user-nome-loader").hide();
-            setTimeout(function(){ $("#user-nome-error").hide(200); }, 2000);
+            $("#user-edit-nome-error").show(200);
+            $("#user-edit-nome-loader").hide();
+            setTimeout(function(){ $("#user-edit-nome-error").hide(200); }, 2000);
         }
         // .  .  .  .  .  .  .  .  .  .  .  .
         let response = request.put(data,url,successCallback,errorCallback,headers)
@@ -61,7 +69,7 @@ class User {
     }    
     // Item 2 ______________________________________________________
     mudarEmail(novo_email){
-        $("#user-email-loader").show();
+        $("#user-edit-email-loader").show();
         // .  .  .  .  .  .  .  .  .  .  .  .
         let request = new Request();
         let data = { "user": {"email": novo_email} }
@@ -70,74 +78,110 @@ class User {
         // .  .  .  .  .  .  .  .  .  .  .  .
         let successCallback = function(data){
             console.log(data);
-            $("#user-email-check").show(200);
-            $("#user-email-loader").hide();
-            setTimeout(function(){ $("#user-email-check").hide(200); }, 2000);
+            $("#user-edit-email-check").show(200);
+            $("#user-edit-email-loader").hide();
+            setTimeout(function(){ $("#user-edit-email-check").hide(200); }, 2000);
         }
         // .  .  .  .  .  .  .  .  .  .  .  .
         let errorCallback = function(jqXHR, textStatus, msg){ 
             console.log(msg);
-            $("#user-email-error").show(200);
-            $("#user-email-loader").hide();
-            setTimeout(function(){ $("#user-email-error").hide(200); }, 2000);
+            $("#user-edit-email-error").show(200);
+            $("#user-edit-email-loader").hide();
+            setTimeout(function(){ $("#user-edit-email-error").hide(200); }, 2000);
         }
         // .  .  .  .  .  .  .  .  .  .  .  .
         let response = request.put(data,url,successCallback,errorCallback,headers)
         return response
     }
-    // Item 3 ______________________________________________________
-    editUser(id,nome,email,senha,admin){
-        let request = new Request()
-        let data = {"user":
-            {
-                "nome": nome, 
-                "email": email, 
-                "admin": admin, 
-                "password": senha
-            }
-        }
-        // 3.1  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .
-        if (helper.empty(data["user"]["password"])) {delete data["user"]["password"]}
+    // Item 2 ______________________________________________________
+    mudarEmailOther(novo_email, id){
+        $("#user-edit-other-email-loader").show();
+        // .  .  .  .  .  .  .  .  .  .  .  .
+        let request = new Request();
+        let data = { "user": {"email": novo_email} }
         let url = apiBaseUrl + "/users/" + id
-        let successCallback = data => {
-            $("#user-nome-"+data.id).html(data.nome)
-            $("#wrapperEditarUser").addClass("animated zoomOutUp")
-            $("#wrapperEditarUser").css("animation-duration", "0.7s")
-            // Espera terminar a animacao de saida do $("#wrapperEditarUser")
-            setTimeout(function(){
-                $("#wrapperEditarUser").removeClass("animated zoomOutUp")
-                $("#wrapperEditarUser").hide();
-                helper.notificacao("Alterações Salvas","Usuário editado com sucesso");
-            }, 750)
+        let headers = {}
+        // .  .  .  .  .  .  .  .  .  .  .  .
+        let successCallback = function(data){
+            console.log(data);
+            $("#user-edit-other-email-check").show(200);
+            $("#user-edit-other-email-loader").hide();
+            setTimeout(function(){ $("#user-edit-other-email-check").hide(200); }, 2000);
         }
-        let errorCallback = (jqXHR, textStatus, msg) => {
-            helper.notificacao("Erro ao Salvar","Não foi possível salvar as alterações")
+        // .  .  .  .  .  .  .  .  .  .  .  .
+        let errorCallback = function(jqXHR, textStatus, msg){ 
+            console.log(msg);
+            $("#user-edit-other-email-error").show(200);
+            $("#user-edit-other-email-loader").hide();
+            setTimeout(function(){ $("#user-edit-other-email-error").hide(200); }, 2000);
         }
-        let response = request.put(data,url,successCallback,errorCallback,{})
+        // .  .  .  .  .  .  .  .  .  .  .  .
+        let response = request.put(data,url,successCallback,errorCallback,headers)
+        return response
+    }
+    // Item 2 ______________________________________________________
+    mudarNomeOther(novo_nome, id){
+        $("#user-edit-other-nome-loader").show();
+        // .  .  .  .  .  .  .  .  .  .  .  .
+        let request = new Request();
+        let data = { "user": {"nome": novo_nome} }
+        let url = apiBaseUrl + "/users/" + id
+        let headers = {}
+        // .  .  .  .  .  .  .  .  .  .  .  .
+        let successCallback = function(data){
+            console.log(data);
+            $("#user-edit-other-nome-check").show(200);
+            $("#user-edit-other-nome-loader").hide();
+            setTimeout(function(){ $("#user-edit-other-nome-check").hide(200); }, 2000);
+        }
+        // .  .  .  .  .  .  .  .  .  .  .  .
+        let errorCallback = function(jqXHR, textStatus, msg){ 
+            console.log(msg);
+            $("#user-edit-other-nome-error").show(200);
+            $("#user-edit-other-nome-loader").hide();
+            setTimeout(function(){ $("#user-edit-other-nome-error").hide(200); }, 2000);
+        }
+        // .  .  .  .  .  .  .  .  .  .  .  .
+        let response = request.put(data,url,successCallback,errorCallback,headers)
+        return response
+    }
+    mudarAdminStatusOther(novo_status, id){
+        $("#user-edit-other-admin-loader").show();
+        // .  .  .  .  .  .  .  .  .  .  .  .
+        let request = new Request();
+        let data = { "user": {"admin": novo_status} }
+        let url = apiBaseUrl + "/users/" + id
+        let headers = {}
+        // .  .  .  .  .  .  .  .  .  .  .  .
+        let successCallback = function(data){
+            console.log(data);
+            $("#user-edit-other-admin-check").show(200);
+            $("#user-edit-other-admin-loader").hide();
+            setTimeout(function(){ $("#user-edit-other-admin-check").hide(200); }, 2000);
+        }
+        // .  .  .  .  .  .  .  .  .  .  .  .
+        let errorCallback = function(jqXHR, textStatus, msg){ 
+            console.log(msg);
+            $("#user-edit-other-admin-error").show(200);
+            $("#user-edit-other-admin-loader").hide();
+            setTimeout(function(){ $("#user-edit-other-admin-error").hide(200); }, 2000);
+        }
+        // .  .  .  .  .  .  .  .  .  .  .  .
+        let response = request.put(data,url,successCallback,errorCallback,headers)
         return response
     }
     // Item 4 ______________________________________________________
-    hideEditorForm(){
-        $("#wrapperEditarUser").addClass("animated zoomOutUp")
-        $("#wrapperEditarUser").css("animation-duration", "0.7s")
-        // Importante pois ao abrir o form relativo ao usuario atual, todos os checkboxes ficam disabled
-        $('#switch-admin-status').attr("disabled", false)
-        setTimeout(function(){
-            $("#wrapperEditarUser").hide()
-            $("#wrapperEditarUser").removeClass("animated zoomOutUp")
-        },750)        
-    }
-    // Item 5 ______________________________________________________
     showEditorForm(id){
         let request = new Request()
         let url = apiBaseUrl + "/users/" + id
         let successCallback = data => {
-            $("#edit-nome-field").val(data.nome)
-            $("#edit-email-field").val(data.email)
-            $("#edit-id-field").val(data.id)
-            if (data.admin == true) { $('#switch-admin-status').prop("checked", true) }
-            // O Current User nao pode abrir mao do status de admin 
-            if (data.id == this.id) { $('#switch-admin-status').attr("disabled", true); }
+            console.log(data)
+            $("#user-edit-other-nome").val(data.nome)
+            $("#user-edit-other-email").val(data.email)
+            $("#user-edit-other-id").val(data.id)
+            $("#user-edit-other-since").val(helper.formatDate(data.created_at, true))
+            if (data.admin) { $('#user-edit-other-admin').prop('checked', true) }
+            if (id == this.id) { $('#user-edit-other-admin').prop('disabled', true) }
         }
         let errorCallback = (jqXHR, textStatus, msg) => {
             console.log(x)
@@ -145,26 +189,35 @@ class User {
             console.log(z)
         }
         request.get(url,successCallback,errorCallback)
-        $("#wrapperEditarUser").addClass("animated zoomInDown")
-        $("#wrapperEditarUser").css("animation-duration", "0.7s")
-        $("#wrapperEditarUser").show()
+        $("#wrapperEditUser").addClass("animated slideInRight")
+        $("#wrapperEditUser").css("animation-duration", "0.7s")
+        $("#wrapperEditUser").show()
         setTimeout(function(){
-            $("#wrapperEditarUser").removeClass("animated zoomInDown")
-        },750)
+            $("#wrapperEditUser").removeClass("animated slideInRight")
+        }, 750)
+    }
+    // Item 5 ______________________________________________________
+    hideEditorForm(){
+        $("#wrapperEditUser").addClass("animated slideOutRight")
+        $("#wrapperEditUser").css("animation-duration", "0.7s")
+        setTimeout(function(){
+            $("#wrapperEditUser").hide()
+            $("#wrapperEditUser").removeClass("animated slideOutRight")
+            $('#user-edit-other-admin').prop('checked', false)
+            if (id == this.id) { $('#user-edit-other-admin').prop('disabled', false) }
+        }, 750)        
     }
     // Item 6 ______________________________________________________
     removeUser(id){
         let request = new Request()
         let url = apiBaseUrl + "/users/" + id
         let successCallback = data => {
-            $("#wrapperEditarUser").addClass("animated rollOut")
-            // Espera terminar a animacao de saida do $("#wrapperEditarUser")
+            $("#wrapperEditUser").addClass("animated rollOut")
             setTimeout(function(){
-                $("#wrapperEditarUser").hide()
-                $("#wrapperEditarUser").removeClass("animated rollOut")
+                $("#wrapperEditUser").hide()
+                $("#wrapperEditUser").removeClass("animated rollOut")
                 helper.notificacao("Usuário Excluido","Usuário removido da base de dados");
                 $("#row-user-"+data.id).addClass("animated slideOutRight")
-                // Espera terminar a animacao de saida da row com user deletado
                 setTimeout(function(){$("#row-user-"+data.id).remove();},750)
             }, 750)
         }
@@ -214,13 +267,12 @@ class User {
     // Item 8 ______________________________________________________
     loadUsers(page){
         let request = new Request()
-        let url = apiBaseUrl + "/users/" + this.id + "/" + page
+        let url = apiBaseUrl + "/all/users/" + this.gym_id + "/" + page
         let successCallback = data => {  
-            let time = 0
             for (var i = data.length - 1; i >= 0; i--) {
                 let row = "<tr class='data-row' id='row-user-"+data[i].id+"'>" + 
                             "<td class='text-center' id='user-nome-" + data[i].id + "'> " + data[i].nome + " </td>" +
-                            "<td class='text-center'> " + data[i].last_sign_in_at + " </td>" +
+                            "<td class='text-center'> " + helper.formatDate(data[i].created_at, true) + " </td>" +
                             "<td class='text-center text-primary button-open-editor-box' id='" + data[i].id + "' > Editar </td>" +
                           "</tr>"
                 $("#users-table").append(row)
@@ -236,7 +288,7 @@ class User {
     toggleWrappers(event, whatToShow){
         event.preventDefault();
         $(whatToShow).show(300);
-        $(".divider").not(whatToShow).hide(300);
+        $(".box").not(whatToShow).hide(300);
     }
     // Item 10 ______________________________________________________
 	getLocation() {
@@ -267,10 +319,10 @@ class User {
 //     - Item 3.1 : se password for uma string vazia, ele e removido. Isso e fundamental 
 //     pq o campo password nao pode chegar vazio ao back end.
 // Item 4 ________________________________________________________________________________
-//     - Metodo hideEditorForm() fecha o formulario modal, executando a animacao de saida
-// Item 5 ________________________________________________________________________________
 //     - Metodo showEditorForm() exibe o formulario modal
 //     - Executa request get para preencher os inputs do formulario
+// Item 5 ________________________________________________________________________________
+//     - Metodo hideEditorForm() fecha o formulario modal, executando a animacao de saida
 // Item 6 ________________________________________________________________________________
 //     - Metodo removeUser() executa request delete
 //     - Executa animacao de saida do form modal e remove a row com o usuario deletado

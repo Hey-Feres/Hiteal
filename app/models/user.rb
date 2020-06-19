@@ -16,7 +16,22 @@ class User < ApplicationRecord
   def self.current
     Thread.current[:current_user]
   end
+
+  def self.paginate page, gym_id
+    start = page.to_i * 10
+    users = User.where('users.id > ?', start).where(gym_id: gym_id).limit(20)
+    users
+  end
   
+  def self.search param, page, gym_id
+    start = page.to_i * 10
+    users = User.where('users.id > ?', start)
+      .where('users.nome LIKE ?', "%#{param}%")
+      .where(gym_id: gym_id)
+      .limit(20)
+    users
+  end
+
   private
     def create_preferencia
       Preferencia.create(wallpaper: "Default", user_id: self.id)

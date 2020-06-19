@@ -26,6 +26,7 @@ Rails.application.routes.draw do
       # All Routes
       get '/todos_alunos/:gym_id/:page', to: "alunos#index"
       get '/todos_avisos/:gym_id/:page', to: "avisos#index"
+      get '/all/users/:gym_id/:page', to: "users#index"
       get '/todos_funcionarios/:gym_id/:page', to: "funcionarios#index"
       get '/all/aulas/:gym_id/:page', to: "aulas#index"
       get '/all/fichas/:aluno_id', to: "fichas#show"

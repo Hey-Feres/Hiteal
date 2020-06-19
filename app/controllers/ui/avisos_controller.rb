@@ -10,7 +10,7 @@ class Ui::AvisosController < ApplicationController
 		# Item 2
 		def sidebar_items
 			@sidebar_items = {
-				img:"https://img.icons8.com/ios/50/FFFFFF/barbell.png",
+				img:"https://img.icons8.com/ios/25/555555/sheet-of-paper.png",
 				title: "Avisos",
 				list_items: [
 					{ title: "Todos", id: "todos-toggler", url: "#", first_item: true, last_item: false },

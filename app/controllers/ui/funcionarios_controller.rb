@@ -7,7 +7,7 @@ class Ui::FuncionariosController < ApplicationController
 	private
 		def sidebar_items
 			@sidebar_items = {
-				img:"https://img.icons8.com/ios/50/FFFFFF/barbell.png",
+				img:"https://img.icons8.com/ios/50/555555/conference.png",
 				title: "Funcionários",
 				list_items: [
 					{ title: "Gerenciar", id: "gerenciar-toggler", url: "#", first_item: true, last_item: false },

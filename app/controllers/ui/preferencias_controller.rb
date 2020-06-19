@@ -4,7 +4,7 @@ class Ui::PreferenciasController < ApplicationController
 		@gym = current_user.gym
 		# Item 2
 		@sidebar_items = {
-			img:"",
+			img:"https://img.icons8.com/ios/50/555555/settings.png",
 			title: "Preferencias",
 			list_items: [
 				{ title: "Wallpaper", id: "wallpaper-toggler", url: "#", first_item: true, last_item: true },

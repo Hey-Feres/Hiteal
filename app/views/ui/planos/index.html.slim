@@ -5,7 +5,7 @@
 
 .content
 	// Div com Tabela com todos os planos  .  .  .  .  .  .  .  .  .  .  .
-	.divider.box#wrapperTodos
+	.box#wrapperTodos
 		.divider-header.d-flex.justify-content-between
 			h3 Gerenciar
 		.divider-content
@@ -24,26 +24,30 @@
 							td.text-center id="plano-#{plano.id}-valor"= "R$ #{number_with_precision(plano.valor, precision: 2)}"
 							td.text-center id="plano-#{plano.id}-periodo"= plano.periodo
 							td.text-center id="plano-#{plano.id}-assinantes"= plano.alunos.count
-							td.text-center.text-primary.show-editor-box id="#{plano.id}" Editar
-	#wrapperEditarPlano
-		.d-flex.justify-content-between
-			h5 Editar Plano
-			h5= render './ui/components/icon', color: "FF3B30", size: 20, style: "ios", name: "trash", id: "delete-plano"
-		#form-editar.mt-3
-			label Nome
-			input type="text" placeholder="Nome" id="edit-nome-field"
-			label Valor
-			input type="text" placeholder="" id="edit-valor-field"
-			label Meses
-			input type="text" placeholder="Periodo" id="edit-periodo-field"
-			label ID
-			input type="text" placeholder="ID" id="edit-id-field" disabled=""
-			.mt-5
-			= render './ui/components/button', value: "Salvar", style: "default", id: "submit-editor-form", type:"button"
-			div.hide-editor-box
-				= render './ui/components/button', value: "Cancelar", style: "red", id: "", type:"button"	
+							td.text-center.text-primary.show-editor-box.pointer id="#{plano.id}" Editar
+	.box#wrapperEditarPlano
+		.divider-header.d-flex.justify-content-between
+			h3 Editar Plano
+			h3.button-close-editor-box.pointer
+				img src="https://img.icons8.com/ios-glyphs/25/007AFF/chevron-right.png"
+		.divider-content
+			form style="width: auto !important"
+				.d-flex.justify-content-start
+					= render './ui/components/text-field', input: @inputs_attributes[:edit][:nome]
+				br
+				.d-flex.justify-content-start
+					= render './ui/components/text-field', input: @inputs_attributes[:edit][:valor]
+				br
+				.d-flex.justify-content-start
+					= render './ui/components/text-field', input: @inputs_attributes[:edit][:periodo]
+				br
+				.d-flex.justify-content-start
+					= render './ui/components/text-field', input: @inputs_attributes[:edit][:id]					
+				br
+			center.mt-5
+				= render './ui/components/button', value: "Apagar Plano", style: "outline-red", id: "delete-plano-button", type:"button"
 	// Div com Tabela com todos os planos  .  .  .  .  .  .  .  .  .  .  .
-	.divider.box#wrapperAdesao
+	.box#wrapperAdesao
 		.divider-header.d-flex.justify-content-between
 			h3 Adesão
 		.divider-content
@@ -57,7 +61,7 @@
 			.row#dataBoxes
 
 	// Div com Tabela com todos os planos  .  .  .  .  .  .  .  .  .  .  .
-	.divider.box#wrapperAdicionar
+	.box#wrapperAdicionar
 		- if !current_user.admin?
 			.box.d-flex.flex-column.justify-content-center
 				div
@@ -70,34 +74,78 @@
 			.divider-content
 				form
 					.d-flex.justify-content-start
-						= render './ui/components/text-field', input: @inputs_attributes[:new_plano_nome]
+						= render './ui/components/text-field', input: @inputs_attributes[:novo][:nome]
 					br
 					.d-flex.justify-content-start
-						= render './ui/components/text-field', input: @inputs_attributes[:new_plano_valor]
+						= render './ui/components/text-field', input: @inputs_attributes[:novo][:valor]
 					br
 					.d-flex.justify-content-start
-						= render './ui/components/text-field', input: @inputs_attributes[:new_plano_periodo]
+						= render './ui/components/text-field', input: @inputs_attributes[:novo][:periodo]
 					br
 					.d-flex.justify-content-center.mt-5
-						.w-50
-							= render './ui/components/button', value: "Salvar", style: "default", id: "submit-new-plano-form", type:"button"	
-							= render './ui/components/button', value: "Limpar", style: "red", id: "", type:"button", id: "clear-new-plano-fields"
+						.w-100
+							= render './ui/components/button', value: "Salvar", style: "default", id: "submit-novo-plano-form", type:"button"	
+							= render './ui/components/button', value: "Limpar", style: "red", id: "", type:"button", id: "clear-novo-plano-fields"
+
+javascript:
+	$(document).ready(function(){
+		let plano = new Plano("#{current_user.id}","#{current_user.gym.id}")
+		// when page load charts are not loaded
+		let chartsLoaded = false
+		plano.componentLoaded();
+		$("#todos-toggler").click(function(event) {
+			plano.toggleWrappers(event, "#wrapperTodos")
+		})
+		$("#adesao-toggler").click(function(event) {
+			plano.toggleWrappers(event, "#wrapperAdesao")
+			// Only load the charts if them not been loaded
+			if (!chartsLoaded) {
+				plano.loadAdesaoPage()
+				chartsLoaded = true
+			}
+		})
+		$("#adicionar-toggler").click(function(event) {
+			plano.toggleWrappers(event, "#wrapperAdicionar")
+		})
+		$("#delete-plano-button").click(function(){
+			let id = $("#plano-edit-id").val()
+			plano.removePlano(id)
+		})
+		$(document).on('click', '.show-editor-box', function (e) {
+		    let id = $(this).attr('id')
+		    plano.showEditorForm(id)
+		    e.preventDefault();
+		});
+		$(document).on('click', '.button-close-editor-box', function (e) {
+		    plano.hideEditorForm()
+		    e.preventDefault();
+		});
+		$("#submit-novo-plano-form").click(function(){
+			let dados =	{ 
+				nome: $("#plano-novo-nome").val(),
+				valor: $("#plano-novo-valor").val(),
+				periodo: $("#plano-novo-periodo").val()
+			}
+			plano.createPlano(dados)
+		})
+		$("#clear-novo-plano-fields").click(function(){
+			$("#plano-novo-nome").val("")
+			$("#plano-novo-valor").val("")
+			$("#plano-novo-periodo").val("")
+		})		
+	})
+
 css:
 	#wrapperEditarPlano{
-		position: fixed;
-		background: rgba(255,255,255,0.7);
-		border: 1px solid var(--gray5);
-		border-radius: 10px;
-		width: 25%;
-		height: 40%;
-		top: 10% !important;
-		right: 4%;
-		backdrop-filter: blur(40px);
-		-webkit-backdrop-filter: blur(40px);
-		-o-backdrop-filter: blur(40px);
-		-moz-backdrop-filter: blur(40px);
-		-ms-backdrop-filter: blur(40px);
-		padding: 1%;
+		height: 100%;
+		background: rgba(255, 255, 255,0.4);
+		backdrop-filter: blur(var(--blur));
+		-webkit-backdrop-filter: blur(var(--blur));
+		-o-backdrop-filter: blur(var(--blur));
+		-moz-backdrop-filter: blur(var(--blur));
+		-ms-backdrop-filter: blur(var(--blur));
+		z-index: 99999;
+		border: 1px solid #ccc;
 	}
 	.data-box-title{
 		border-bottom: 1px solid var(--gray5);
@@ -126,56 +174,3 @@ css:
 		font-weight: 300;
 		height: 40px;
 	}
-javascript:
-	$(document).ready(function(){
-		let plano = new Plano("#{current_user.id}","#{current_user.gym.id}")
-		// when page load charts are not loaded
-		let chartsLoaded = false
-		plano.componentLoaded();
-		$("#todos-toggler").click(function(event) {
-			plano.toggleWrappers(event, "#wrapperTodos")
-		})
-		$("#adesao-toggler").click(function(event) {
-			plano.toggleWrappers(event, "#wrapperAdesao")
-			// Only load the charts if them not been loaded
-			if (!chartsLoaded) {
-				plano.loadAdesaoPage()
-				chartsLoaded = true
-			}
-		})
-		$("#adicionar-toggler").click(function(event) {
-			plano.toggleWrappers(event, "#wrapperAdicionar")
-		})
-		$("#submit-editor-form").click(function(){
-			let nome = $("#edit-nome-field").val()
-			let valor = $("#edit-valor-field").val()
-			let periodo = $("#edit-periodo-field").val()
-			let id = $("#edit-id-field").val()
-			plano.editPlano(id,nome,valor,periodo)
-		})
-		$("#delete-plano").click(function(){
-			let id = $("#edit-id-field").val()
-			plano.removePlano(id)
-		})
-		$(document).on('click', '.show-editor-box', function (e) {
-		    let id = $(this).attr('id')
-		    plano.showEditorForm(id)
-		    e.preventDefault();
-		});
-		$(document).on('click', '.hide-editor-box', function (e) {
-		    plano.hideEditorForm()
-		    e.preventDefault();
-		});
-		$("#submit-new-plano-form").click(function(){
-			let nome = $("#plano-nome").val()
-			let valor = $("#plano-valor").val()
-			let periodo = $("#plano-periodo").val()
-			plano.createPlano(nome,valor,periodo)
-		})
-		$("#clear-new-plano-fields").click(function(){
-			$("#plano-nome").val("")
-			$("#plano-valor").val("")
-			$("#plano-periodo").val("")
-		})		
-	})
-

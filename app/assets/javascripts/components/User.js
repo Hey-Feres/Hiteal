@@ -205,7 +205,7 @@ class User {
             $("#wrapperEditUser").removeClass("animated slideOutRight")
             $('#user-edit-other-admin').prop('checked', false)
             if (id == this.id) { $('#user-edit-other-admin').prop('disabled', false) }
-        }, 750)        
+        }, 750)   
     }
     // Item 6 ______________________________________________________
     removeUser(id){

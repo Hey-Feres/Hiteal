@@ -3,47 +3,83 @@ class Ui::PlanosController < ApplicationController
 		# Item 1
 		@gym = current_user.gym
 		@planos = @gym.planos
-		# Item 2
-		@sidebar_items = {
-			img:"",
-			title: "Planos",
-			list_items: [
-				{ title: "Todos os Planos", id: "todos-toggler", url: "#", first_item: true, last_item: false },
-				{ title: "Adesão", id: "adesao-toggler", url: "#", first_item: false, last_item: false },
-				{ title: "Adicionar Plano", id: "adicionar-toggler", url: "#", first_item: false, last_item: true },
-			]
-		}
-		# Item 3
-		@inputs_attributes = {
-			new_plano_nome: {
-				label: "Nome", 
-				loader_id: "plano-nome-loader", 
-				done_id: "plano-nome-check", 
-				error_id: "plano-nome-error", 
-				placeholder: "Nome do plano", 
-				input_id: "plano-nome", 
-				value: ''
-			},
-			new_plano_valor: {
-				label: "Valor", 
-				loader_id: "plano-valor-loader", 
-				done_id: "plano-valor-check", 
-				error_id: "plano-valor-error", 
-				placeholder: "Valor do plano", 
-				input_id: "plano-valor", 
-				value: ''			
-			},
-			new_plano_periodo: {
-				label: "Periodo (Meses)",
-				loader_id: "plano-periodo-loader", 
-				done_id: "plano-periodo-check", 
-				error_id: "plano-periodo-error",				
-				placeholder: "Periodo",
-				input_id: "plano-periodo", 
-				value: ''
-			}
-		}		
+		inputs_attributes
+		sidebar
 	end
+	private
+		def sidebar
+			# Item 2
+			@sidebar_items = {
+				img:"https://img.icons8.com/ios/50/555555/square.png",
+				title: "Planos",
+				list_items: [
+					{ title: "Todos os Planos", id: "todos-toggler", url: "#", first_item: true, last_item: false },
+					{ title: "Adesão", id: "adesao-toggler", url: "#", first_item: false, last_item: false },
+					{ title: "Adicionar Plano", id: "adicionar-toggler", url: "#", first_item: false, last_item: true },
+				]
+			}
+		end
+
+		def inputs_attributes
+			# Item 3
+			@inputs_attributes = {
+				edit: {
+					nome: {
+						label: "Nome", 
+						loader_id: "plano-edit-nome-loader", 
+						done_id: "plano-edit-nome-check", 
+						error_id: "plano-edit-nome-error", 
+						placeholder: "Nome do plano", 
+						input_id: "plano-edit-nome", 
+						value: ''
+					},
+					valor: {
+						label: "Valor",
+						loader_id: "plano-edit-valor-loader",
+						done_id: "plano-edit-valor-check",
+						error_id: "plano-edit-valor-error", 
+						placeholder: "R$",
+						input_id: "plano-edit-valor",
+						value: ''
+					},
+					periodo: {
+						label: "Periodo", 
+						loader_id: "plano-edit-periodo-loader", 
+						done_id: "plano-edit-periodo-check", 
+						error_id: "plano-edit-periodo-error", 
+						placeholder: "Periodo", 
+						input_id: "plano-edit-periodo", 
+						value: ''
+					},
+					id: {
+						label: "ID", 
+						input_id: "plano-edit-id",
+						disabled: true,
+						value: ''
+					}
+				},
+				novo: {
+					nome: {
+						label: "Nome",
+						placeholder: "Nome do plano",
+						input_id: "plano-novo-nome",
+						value: ''
+					},
+					valor: {
+						label: "Valor",
+						placeholder: "R$",
+						input_id: "plano-novo-valor",
+						value: ''
+					},
+					periodo: {
+						label: "Periodo",
+						placeholder: "Periodo",
+						input_id: "plano-novo-periodo",
+						value: ''
+					},
+				}
+			}
+		end
 end
 
 # Documentacao

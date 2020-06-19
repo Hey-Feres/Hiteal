@@ -1,6 +1,6 @@
 class HomeController < ApplicationController
-	require 'news-api'
-	require 'net/http'
+	 require 'news-api'
+	 require 'net/http'
 
   	def index
   		home_sidebar

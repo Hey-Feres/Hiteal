@@ -6,37 +6,31 @@ class Plano {
     componentLoaded(){
         $(".sidebar").addClass("animated fadeInDownBig")
         $(".content").addClass("animated fadeInUpBig")
-        $("#plano-valor").numericOnly()
-        $("#plano-periodo").numericOnly()
-        $("#edit-valor-field").numericOnly()
-        $("#edit-periodo-field").numericOnly()
         // .  .  .  .  .  .  .  .  .  .  .  .
-		$("#wrapperAdesao").hide()
-		$("#wrapperAdicionar").hide()
-		// .  .  .  .  .  .  .  .  .  .  .  .
-		$("#wrapperEditarPlano").hide();
+        $(".box").not("#wrapperTodos").hide();
         // .  .  .  .  .  .  .  .  .  .  .  .
-        $("#plano-nome-loader").hide();
-        $("#plano-nome-check").hide();
-        $("#plano-nome-error").hide();
+        $("#plano-edit-nome-loader").hide()
+        $("#plano-edit-nome-check").hide()
+        $("#plano-edit-nome-error").hide()
         // .  .  .  .  .  .  .  .  .  .  .  .
-        $("#plano-valor-loader").hide();
-        $("#plano-valor-check").hide();
-        $("#plano-valor-error").hide();
+        $("#plano-edit-valor-loader").hide()
+        $("#plano-edit-valor-check").hide()
+        $("#plano-edit-valor-error").hide()
         // .  .  .  .  .  .  .  .  .  .  .  .
-        $("#plano-periodo-loader").hide();
-        $("#plano-periodo-check").hide();
-        $("#plano-periodo-error").hide();
+        $("#plano-edit-periodo-loader").hide()
+        $("#plano-edit-periodo-check").hide()
+        $("#plano-edit-periodo-error").hide()
     }
     showEditorForm(id){
         let request = new Request()
         let url = apiBaseUrl + "/planos/" + id
-        if ($("#plano-"+id+"-assinantes").html() != 0) { $('#delete-plano').hide() }
+        if ($("#plano-"+id+"-assinantes").html() != 0) { $('#delete-plano-button').hide() }
         let successCallback = data => {
-            $("#edit-nome-field").val(data.nome)
-            $("#edit-valor-field").val(data.valor)
-            $("#edit-periodo-field").val(data.periodo)
-            $("#edit-id-field").val(data.id)
+            console.log(data)
+            $("#plano-edit-nome").val(data.nome)
+            $("#plano-edit-valor").val(data.valor)
+            $("#plano-edit-periodo").val(data.periodo)
+            $("#plano-edit-id").val(data.id)
         }
         let errorCallback = (jqXHR, textStatus, msg) => {
             console.log(x)
@@ -44,49 +38,21 @@ class Plano {
             console.log(z)
         }
         request.get(url,successCallback,errorCallback)
-        $("#wrapperEditarPlano").addClass("animated zoomInDown")
+        $("#wrapperEditarPlano").addClass("animated slideInRight")
         $("#wrapperEditarPlano").css("animation-duration", "0.7s")
         $("#wrapperEditarPlano").show()
         setTimeout(function(){
-            $("#wrapperEditarPlano").removeClass("animated zoomInDown")
-        },750)
+            $("#wrapperEditarPlano").removeClass("animated slideInRight")
+        }, 750)
     }
     hideEditorForm(){
-    	$("#wrapperEditarPlano").addClass("animated zoomOutUp")
-    	setTimeout(function(){
-			$("#wrapperEditarPlano").removeClass("animated zoomOutUp")
-            $("#wrapperEditarPlano").hide();
-            $('#delete-plano').show()
-    	},750)
-    }
-    editPlano(id,nome,valor,periodo){
-        let request = new Request()
-        let data = {"plano":
-            {
-                "nome": nome, 
-                "valor": valor,
-                "periodo": periodo
-            }
-        }
-        let url = apiBaseUrl + "/planos/" + id
-        let successCallback = data => {
-            $("#plano-"+data.id+"-nome").html(data.nome)
-            $("#plano-"+data.id+"-periodo").html(data.periodo)
-            $("#plano-"+data.id+"-valor").html("R$ "+data.valor)
-            $("#wrapperEditarPlano").addClass("animated zoomOutUp")
-            $("#wrapperEditarPlano").css("animation-duration", "0.7s")
-            // Espera terminar a animacao de saida do $("#wrapperEditarPlano")
-            setTimeout(function(){
-                $("#wrapperEditarPlano").removeClass("animated zoomOutUp")
-                $("#wrapperEditarPlano").hide();
-                helper.notificacao("Alterações Salvas","Plano editado com sucesso");
-            }, 750)
-        }
-        let errorCallback = (jqXHR, textStatus, msg) => {
-            helper.notificacao("Erro ao Salvar","Não foi possível salvar as alterações")
-        }
-        let response = request.put(data,url,successCallback,errorCallback,{})
-        return response
+        $("#wrapperEditarPlano").addClass("animated slideOutRight")
+        $("#wrapperEditarPlano").css("animation-duration", "0.7s")
+        setTimeout(function(){
+            $("#wrapperEditarPlano").hide()
+            $("#wrapperEditarPlano").removeClass("animated slideOutRight")
+            $('#delete-plano-button').show()
+        }, 750)
     }
     removePlano(id){
         let request = new Request()
@@ -224,15 +190,12 @@ class Plano {
 		})
 
     }
-    createPlano(nome,valor,periodo){
+    createPlano(dados){
         let request = new Request()
-        console.log("*****")
-        console.log(this.gym_id)
-        let data = {"plano":
-            {
-                "nome": nome, 
-                "valor": valor,
-                "periodo": periodo,
+        let data = {"plano": {
+                "nome": dados.nome, 
+                "valor": dados.valor,
+                "periodo": dados.periodo,
                 "gym_id": this.gym_id
             }
         }
@@ -264,6 +227,6 @@ class Plano {
     toggleWrappers(event, whatToShow){
         event.preventDefault();
         $(whatToShow).show(300);
-        $(".divider").not(whatToShow).hide(300);
+        $(".box").not(whatToShow).hide(300);
     }
 }

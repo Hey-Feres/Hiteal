@@ -8,7 +8,7 @@ class Ui::AulasController < ApplicationController
 	private
 		def sidebar_items
 			@sidebar_items = {
-				img:"https://img.icons8.com/ios/50/FFFFFF/barbell.png",
+				img:"https://img.icons8.com/ios/50/555555/yoga.png",
 				title: "Aulas",
 				list_items: [
 					{ title: "Gerenciar", id: "todos-toggler", url: "#", first_item: true, last_item: false },

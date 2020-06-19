@@ -228,14 +228,13 @@ class User {
         return response
     }
     // Item 7 ______________________________________________________
-    createUser(nome,email,senha,admin){
+    createUser(dados){
         let request = new Request()
-        let data = {"user":
-            {
-                "nome": nome, 
-                "email": email, 
-                "admin": admin, 
-                "password": senha,
+        let data = {"user": {
+                "nome": dados.nome,
+                "email": dados.email, 
+                "admin": dados.admin, 
+                "password": dados.senha,
                 "gym_id": this.gym_id
             }
         }
@@ -251,10 +250,10 @@ class User {
                       "</tr>"
             $("#users-table").append(row)
             // Limpa os campos
-            $("#new-user-nome").val("")
-            $("#new-user-email").val("")
-            $("#new-user-senha").val("")
-            $("#new-user-switch-admin-status").prop("checked", false);
+            $("#novo-user-nome").val("")
+            $("#novo-user-email").val("")
+            $("#novo-user-senha").val("")
+            $("#novo-user-admin-status").prop("checked", false);
             // Exibe a notificacao
             helper.notificacao("Usuário Adicionado","Usuário adicionado à base de dados");
         }

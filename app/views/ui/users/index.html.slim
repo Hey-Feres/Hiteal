@@ -91,22 +91,22 @@
 				h3 Adicionar User
 			.divider-content
 				form
-					/.d-flex.justify-content-start
-						= render './ui/components/text-field', input: @inputs_attributes[:new_user_nome]
-						br
-						.d-flex.justify-content-start
-							= render './ui/components/text-field', input: @inputs_attributes[:new_user_email]
-						br
-						.d-flex.justify-content-start
-							= render './ui/components/text-field', input: @inputs_attributes[:new_user_senha]
-						br
-						/.d-flex.justify-content-between.w-100
-						/= render './ui/components/switch', label: "Admin", id: "new-user-switch-admin-status"
-						br
-						.d-flex.justify-content-center.mt-5
-							.w-50
-								= render './ui/components/button', value: "Salvar", style: "default", id: "submit-new-user-form", type:"button"	
-								= render './ui/components/button', value: "Limpar", style: "red", id: "", type:"button", id: "clear-new-user-fields"
+					.d-flex.justify-content-start
+						= render './ui/components/text-field', input: @inputs_attributes[:novo][:nome]
+					br
+					.d-flex.justify-content-start
+						= render './ui/components/text-field', input: @inputs_attributes[:novo][:email]
+					br
+					.d-flex.justify-content-start
+						= render './ui/components/text-field', input: @inputs_attributes[:novo][:senha]
+					br
+					= render './ui/components/switch', input: @inputs_attributes[:novo][:admin]
+					br
+					.d-flex.justify-content-center.mt-5
+						.w-100
+							= render './ui/components/button', value: "Salvar", style: "default", id: "submit-new-user-form", type:"button"	
+							= render './ui/components/button', value: "Limpar", style: "red", id: "", type:"button", id: "clear-new-user-fields"
+
 javascript:
 	$(document).ready(function(){
 		let user = new User("#{current_user.id}","#{current_user.nome}","#{current_user.email}","#{current_user.gym_id}")
@@ -172,17 +172,19 @@ javascript:
 		    e.preventDefault();
 		});
 		$("#submit-new-user-form").click(function(){
-			let nome = $("#new-user-nome").val()
-			let email = $("#new-user-email").val()
-			let senha = $("#new-user-senha").val()
-			let admin = $('#switch-admin-status').is(":checked")
-			user.createUser(nome,email,senha,admin)
+			let dados = {
+				nome: $("#novo-user-nome").val(),
+				email: $("#novo-user-email").val(),
+				senha: $("#novo-user-senha").val(),
+				admin: $('#novo-user-admin-status').is(":checked")
+			}
+			user.createUser(dados)
 		})
 		$("#clear-new-user-fields").click(function(){
-			$("#new-user-nome").val("")
-			$("#new-user-email").val("")
-			$("#new-user-senha").val("")
-			$("#new-user-switch-admin-status").prop("checked", false);
+			$("#novo-user-nome").val("")
+			$("#novo-user-email").val("")
+			$("#novo-user-senha").val("")
+			$("#novo-user-admin-status").prop("checked", false);
 		})
 	});
 

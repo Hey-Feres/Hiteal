@@ -11,7 +11,7 @@ class Ui::UsersController < ApplicationController
 	private
 		def sidebar
 			@sidebar_items = {
-				img:"https://img.icons8.com/ios-filled/40/555555/conference-background-selected.png",
+				img:"https://img.icons8.com/ios-filled/50/555555/conference-background-selected.png",
 				title: "Usuário",
 				list_items: [
 					{ title: "Seus Dados", id: "dados-toggler", url: "#", first_item: true, last_item: false },

@@ -51,10 +51,32 @@
 	.box#wrapperFichas
 		.divider-header.d-flex.justify-content-between
 			h3.title
-			h3.button-close-editor-box
+			h3.button-close-editor-box.pointer
 				img src="https://img.icons8.com/ios-glyphs/25/007AFF/chevron-right.png"
 		.divider-content
-			
+			.d-flex.justify-content-between
+				.fichas-left-side
+					= render './ui/components/select-box', input: @inputs_attributes[:fichas][:dia]
+					br
+					= render './ui/components/select-box', input: @inputs_attributes[:fichas][:exercicio]
+					br
+					.d-flex.justify-content-start
+						= render './ui/components/text-field', input: @inputs_attributes[:fichas][:repeticoes]
+					br
+					.d-flex.justify-content-start
+						= render './ui/components/text-field', input: @inputs_attributes[:fichas][:series]
+					br
+						.w-100
+							= render './ui/components/button', value: "Adicionar", style: "default", id: "adicionar-exercicio-button", type:"button"
+				.fichas-right-side
+					table.table.table-striped
+						thead
+							tr
+								td.text-center Exercicio
+								td.text-center Series
+								td.text-center Repeticoes
+								td
+						tbody#lista-table
 	// Div Adicionar Alunos  .  .  .  .  .  .  .  .  .  .  .
 	.box#wrapperAdicionar
 		.divider-header.d-flex.justify-content-between
@@ -81,6 +103,7 @@ javascript:
 	$(document).ready(function(){
 		let aluno = new Aluno("#{current_user.gym.id}","#{@total_alunos}")
 		let tablePage = 0
+		let firstLoad = true
 		aluno.componentLoaded();
 		aluno.loadAlunos(tablePage)
 		$("#gerenciar-toggler").click(function(event) {
@@ -171,7 +194,8 @@ javascript:
 	  	// ________________________________________________________________________
 	  	$(document).on('click', '.button-open-fichas', function (e) {
 	  		let id = $(this).attr('id');
-	  		aluno.showFichasBox(id)
+	  		aluno.showFichasBox(id,firstLoad)
+	  		firstLoad = false
 	  		e.preventDefault();
 	  	})	  	
 	})
@@ -186,4 +210,29 @@ css:
 		-ms-backdrop-filter: blur(var(--blur));
 		z-index: 99999;
 		border: 1px solid #ccc;
+	}
+	.fichas-left-side{
+		padding: 3%;
+		position: absolute;
+		height: 90%;
+		bottom: 0;
+		left: 0;
+		width: 60%;
+		border-right: 1px solid rgba(0,0,0,0.1);
+	}
+	.fichas-left-side p{
+		font-size: 1.2em;
+		font-weight: 200;
+	}
+	.fichas-right-side{
+		padding: 3%;
+		position: absolute;
+		height: 90%;
+		bottom: 0;
+		right: 0;
+		width: 40%;
+	}
+	.fichas-right-side p{
+		font-size: 1.2em;
+		font-weight: 200;
 	}

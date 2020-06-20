@@ -69,8 +69,8 @@ class Aluno {
                 let row = "<tr class='data-row' id='row-aluno-"+data[i].id+"'>" + 
                             "<td class='text-center' id='aluno-nome-" + data[i].id + "'> " + data[i].nome + " </td>" +
                             "<td class='text-center'>"+data[i].plano_nome+"</td>" +
-                            "<td class='text-center text-primary button-open-fichas' id='"+data[i].id+"'> Fichas </td>" +
-                            "<td class='text-center text-primary button-open-editor-box' id='" + data[i].id + "' > Editar </td>" +
+                            "<td class='text-center text-primary button-open-fichas pointer' id='"+data[i].id+"'> Fichas </td>" +
+                            "<td class='text-center text-primary button-open-editor-box pointer' id='" + data[i].id + "' > Editar </td>" +
                           "</tr>"
                 $("#alunos-table-body").append(row)
             }
@@ -98,8 +98,8 @@ class Aluno {
                 let row = "<tr class='data-row' id='row-aluno-"+data[i].id+"'>" + 
                             "<td class='text-center' id='aluno-nome-" + data[i].id + "'> " + data[i].nome + " </td>" +
                             "<td class='text-center'>"+data[i].plano_nome+"</td>" +
-                            "<td class='text-center text-primary button-open-fichas' id='"+data[i].id+"'> Fichas </td>" +
-                            "<td class='text-center text-primary button-open-editor-box' id='" + data[i].id + "' > Editar </td>" +
+                            "<td class='text-center text-primary button-open-fichas pointer' id='"+data[i].id+"'> Fichas </td>" +
+                            "<td class='text-center text-primary button-open-editor-box pointer' id='" + data[i].id + "' > Editar </td>" +
                           "</tr>"
                 $("#alunos-table-body").append(row)
             }
@@ -343,20 +343,36 @@ class Aluno {
         $("#novo-aluno-sexo").val("")
         $("#novo-aluno-plano").val("")
     }
-    showFichasBox(id){
+    showFichasBox(id, firstLoad){
         let request = new Request()
-        let url = apiBaseUrl + "/all/fichas/" + id
-        let successCallback = data => {          
+        let url, data
+        let successCallback = data => {
             console.log(data)
-            //////// PAREI AQUI ////////
-            $(".title").html("Fichas de ") + data[0].aluno.nome
+            $(".title").text("Fichas de " + data[0].aluno_nome)
+            for (var i = 0; i < data.length; i++) {
+                let row = "<tr class='data-row' id='row-ficha-"+data[i].id+"'>" + 
+                            "<td class='text-center'> " + data[i].exercicio_nome + " </td>" +
+                            "<td class='text-center'> " + data[i].series + " </td>" +
+                            "<td class='text-center'> " + data[i].repeticoes + " </td>" +
+                            "<td class='text-center button-delete-ficha pointer' id='" + data[i].id + "' > <img src='https://img.icons8.com/ios/20/ff3b30/delete-sign.png'/> </td>" +
+                          "</tr>"
+                $("#lista-table").append(row)
+            }           
         }
         let errorCallback = (jqXHR, textStatus, msg) => {
             console.log(x)
             console.log(y)
             console.log(z)
+        }     
+        if (firstLoad) {
+            $("#fichas-dia").val("segunda")
+            url = apiBaseUrl + "/search/fichas"
+            data = { "ficha": { "aluno_id": 2, "dia": "segunda" } }
+            request.post(data, url, successCallback, errorCallback)
+        }else{
+            url = apiBaseUrl + "/all/fichas/" + id
+            request.get(url, successCallback, errorCallback)
         }
-        request.get(url,successCallback,errorCallback)
         $("#wrapperFichas").addClass("animated slideInRight")
         $("#wrapperFichas").css("animation-duration", "0.7s")
         $("#wrapperFichas").show()

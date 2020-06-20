@@ -1,9 +1,9 @@
 class Api::V1::FichasController < ApplicationController
-	before_action :set_ficha, except: [:create,:show]
+	before_action :set_ficha, except: [:create,:show,:search]
 	before_action :set_fichas, only: [:show]
 
 	def show
-		render json: @fichas, include: :aluno
+		render json: @fichas, include: [:aluno, :exercicio]
 	end
 
 	def create
@@ -18,6 +18,11 @@ class Api::V1::FichasController < ApplicationController
 	def destroy
 	    @ficha.destroy
 	    render json: @ficha, head: :no_content
+	end
+
+	def search
+		@ficha = Ficha.search(params[:ficha][:dia],params[:ficha][:aluno_id])
+		render json: @ficha
 	end
 
 	private

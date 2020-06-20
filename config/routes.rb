@@ -37,6 +37,7 @@ Rails.application.routes.draw do
       post '/search_avisos', to: "avisos#search"
       post '/search_funcionarios', to: "funcionarios#search"
       post '/search/aulas', to: "aulas#search"
+      post '/search/fichas', to: "fichas#search"
       # Chart Routes
       get '/planos_chart_data', to: "planos#chart_data"
       # Alunos App Routes

@@ -9,7 +9,7 @@ class Api::V1::FichasController < ApplicationController
 	def create
 	    @ficha = Ficha.new(ficha_params)
 	    if @ficha.save
-	      render json: @ficha, status: :created
+	      render json: @ficha, include: :exercicio, status: :created
 	    else
 	      render json: @ficha.errors, status: :unprocessable_entity
 	    end

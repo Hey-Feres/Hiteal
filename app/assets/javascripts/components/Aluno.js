@@ -343,12 +343,16 @@ class Aluno {
         $("#novo-aluno-sexo").val("")
         $("#novo-aluno-plano").val("")
     }
-    showFichasBox(id, firstLoad){
+    showFichasBox(id){
+        $("#fichas-dia").val("segunda")
+        // . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
         let request = new Request()
-        let url, data
+        let data = { "ficha": { "aluno_id": 2, "dia": "segunda" } }
+        let url = apiBaseUrl + "/search/fichas"
         let successCallback = data => {
             console.log(data)
             $(".title").text("Fichas de " + data[0].aluno_nome)
+            $(".fichas-dia").text("Ficha de Segunda Feira")
             for (var i = 0; i < data.length; i++) {
                 let row = "<tr class='data-row' id='row-ficha-"+data[i].id+"'>" + 
                             "<td class='text-center'> " + data[i].exercicio_nome + " </td>" +
@@ -357,29 +361,100 @@ class Aluno {
                             "<td class='text-center button-delete-ficha pointer' id='" + data[i].id + "' > <img src='https://img.icons8.com/ios/20/ff3b30/delete-sign.png'/> </td>" +
                           "</tr>"
                 $("#lista-table").append(row)
-            }           
+            }
         }
         let errorCallback = (jqXHR, textStatus, msg) => {
             console.log(x)
             console.log(y)
             console.log(z)
-        }     
-        if (firstLoad) {
-            $("#fichas-dia").val("segunda")
-            url = apiBaseUrl + "/search/fichas"
-            data = { "ficha": { "aluno_id": 2, "dia": "segunda" } }
-            request.post(data, url, successCallback, errorCallback)
-        }else{
-            url = apiBaseUrl + "/all/fichas/" + id
-            request.get(url, successCallback, errorCallback)
         }
+        request.post(data, url, successCallback, errorCallback)
+        // . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
         $("#wrapperFichas").addClass("animated slideInRight")
         $("#wrapperFichas").css("animation-duration", "0.7s")
         $("#wrapperFichas").show()
         setTimeout(function(){
             $("#wrapperFichas").removeClass("animated slideInRight")
         },750)
-    }    
+    }
+    buscaFichasDoDia(dia){
+        let request = new Request()
+        let data = { "ficha": { "aluno_id": 2, "dia": dia } }
+        let url = apiBaseUrl + "/search/fichas"
+        let successCallback = data => {
+            let label = ""
+            switch(dia) {
+                case "segunda":
+                    label = "Segunda Feira"
+                break;
+                case "terca":
+                    label = "Terça Feira"
+                break;
+                case "quarta":
+                    label = "Quarta Feira"
+                break;
+                case "quinta":
+                    label = "Quinta Feira"
+                break;
+                case "sexta":
+                    label = "Sexta Feira"
+                break;
+                case "sabado":
+                    label = "Sabado"
+                break;
+                case "domingo":
+                    label = "Domingo"
+                break;
+                default:
+                    false
+            }            
+            $("#lista-table").html("")
+            $(".fichas-dia").text("Ficha de " + label)
+            for (var i = 0; i < data.length; i++) {
+                let row = "<tr class='data-row' id='row-ficha-"+data[i].id+"'>" + 
+                            "<td class='text-center'> " + data[i].exercicio_nome + " </td>" +
+                            "<td class='text-center'> " + data[i].series + " </td>" +
+                            "<td class='text-center'> " + data[i].repeticoes + " </td>" +
+                            "<td class='text-center button-delete-ficha pointer' id='" + data[i].id + "' > <img src='https://img.icons8.com/ios/20/ff3b30/delete-sign.png'/> </td>" +
+                          "</tr>"
+                $("#lista-table").append(row)
+            }
+        }
+        let errorCallback = (jqXHR, textStatus, msg) => {
+            console.log(x)
+            console.log(y)
+            console.log(z)
+        }
+        request.post(data, url, successCallback, errorCallback)
+    }
+    adicionarFicha(dados){
+        let request = new Request()
+        let data = { "ficha": { 
+                "aluno_id": 2, 
+                "dia": dados.dia, 
+                "exercicio_id": dados.exercicio, 
+                "series": dados.series, 
+                "repeticoes": dados.repeticoes
+            } 
+        }
+        let url = apiBaseUrl + "/fichas"
+        let successCallback = data => {
+            console.log(data)
+            let row =   "<tr class='data-row' id='row-ficha-"+data.id+"'>" + 
+                            "<td class='text-center'> " + data.exercicio.nome + " </td>" +
+                            "<td class='text-center'> " + data.series + " </td>" +
+                            "<td class='text-center'> " + data.repeticoes + " </td>" +
+                            "<td class='text-center button-delete-ficha pointer' id='" + data.id + "' > <img src='https://img.icons8.com/ios/20/ff3b30/delete-sign.png'/> </td>" +
+                        "</tr>"
+            $("#lista-table").append(row)
+        }
+        let errorCallback = (jqXHR, textStatus, msg) => {
+            console.log(x)
+            console.log(y)
+            console.log(z)
+        }
+        request.post(data, url, successCallback, errorCallback)
+    }
     toggleWrappers(event, whatToShow){
         event.preventDefault();
         $(whatToShow).show(300);

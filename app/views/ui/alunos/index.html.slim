@@ -48,35 +48,7 @@
 			center.mt-5
 				= render './ui/components/button', value: "Apagar Aluno", style: "outline-red", id: "delete-aluno-button", type:"button"
 	// Fichas
-	.box#wrapperFichas
-		.divider-header.d-flex.justify-content-between
-			h3.title
-			h3.button-close-editor-box.pointer
-				img src="https://img.icons8.com/ios-glyphs/25/007AFF/chevron-right.png"
-		.divider-content
-			.d-flex.justify-content-between
-				.fichas-left-side
-					= render './ui/components/select-box', input: @inputs_attributes[:fichas][:dia]
-					br
-					= render './ui/components/select-box', input: @inputs_attributes[:fichas][:exercicio]
-					br
-					.d-flex.justify-content-start
-						= render './ui/components/text-field', input: @inputs_attributes[:fichas][:repeticoes]
-					br
-					.d-flex.justify-content-start
-						= render './ui/components/text-field', input: @inputs_attributes[:fichas][:series]
-					br
-						.w-100
-							= render './ui/components/button', value: "Adicionar", style: "default", id: "adicionar-exercicio-button", type:"button"
-				.fichas-right-side
-					table.table.table-striped
-						thead
-							tr
-								td.text-center Exercicio
-								td.text-center Series
-								td.text-center Repeticoes
-								td
-						tbody#lista-table
+	= render 'fichas'
 	// Div Adicionar Alunos  .  .  .  .  .  .  .  .  .  .  .
 	.box#wrapperAdicionar
 		.divider-header.d-flex.justify-content-between
@@ -103,7 +75,6 @@ javascript:
 	$(document).ready(function(){
 		let aluno = new Aluno("#{current_user.gym.id}","#{@total_alunos}")
 		let tablePage = 0
-		let firstLoad = true
 		aluno.componentLoaded();
 		aluno.loadAlunos(tablePage)
 		$("#gerenciar-toggler").click(function(event) {
@@ -191,13 +162,24 @@ javascript:
 	  		aluno.hideEditorBox();
 	  		e.preventDefault();
 	  	})
-	  	// ________________________________________________________________________
+	  	// Fichas .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .
 	  	$(document).on('click', '.button-open-fichas', function (e) {
 	  		let id = $(this).attr('id');
-	  		aluno.showFichasBox(id,firstLoad)
-	  		firstLoad = false
+	  		aluno.showFichasBox(id)
 	  		e.preventDefault();
-	  	})	  	
+	  	})
+	  	$("#fichas-dia").change(function(){
+	  		aluno.buscaFichasDoDia($("#fichas-dia").val())
+	  	})
+	  	$("#adicionar-exercicio-button").click(function(){
+			let dados = { 
+				repeticoes: $("#fichas-repeticoes").val(),
+				exercicio: $("#fichas-exercicio").val(),
+				series:  $("#fichas-series").val(),
+				dia: $("#fichas-dia").val()
+			}
+			aluno.adicionarFicha(dados)
+	  	})
 	})
 css:
 	#wrapperEditAluno,#wrapperFichas{

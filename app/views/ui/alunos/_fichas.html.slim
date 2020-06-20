@@ -1,0 +1,31 @@
+.box#wrapperFichas
+	.divider-header.d-flex.justify-content-between
+		h3.title
+		h3.button-close-editor-box.pointer
+			img src="https://img.icons8.com/ios-glyphs/25/007AFF/chevron-right.png"
+	.divider-content
+		.d-flex.justify-content-between
+			.fichas-left-side
+				= render './ui/components/select-box', input: @inputs_attributes[:fichas][:dia]
+				br
+				= render './ui/components/select-box', input: @inputs_attributes[:fichas][:exercicio]
+				br
+				.d-flex.justify-content-start
+					= render './ui/components/text-field', input: @inputs_attributes[:fichas][:repeticoes]
+				br
+				.d-flex.justify-content-start
+					= render './ui/components/text-field', input: @inputs_attributes[:fichas][:series]
+				br
+					.w-100
+						= render './ui/components/button', value: "Adicionar", style: "default", id: "adicionar-exercicio-button", type:"button"
+			.fichas-right-side
+				h4.thin.fichas-dia
+				table.table.table-striped
+					thead
+						tr
+							td.text-center Exercicio
+							td.text-center Series
+							td.text-center Repeticoes
+							td
+					tbody#lista-table
+					

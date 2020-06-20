@@ -105,7 +105,7 @@ class Plano {
     		arrLegendas.push(dados[i].nome)
     		arrDados.push(dados[i].assinaturas)
     		html.push("<div class='data-box-title col-lg-12 col-md-12 col-sm-12'>  <p>" + dados[i].nome + "</p> </div>")
-    		html.push("<div class='data-box col-lg-3 col-md-3 col-sm-12'> <h3>" + dados[i].assinaturas_porcentagem + " %</h3> <p>" + dados[i].assinaturas + " alunos assinam</p> </div>")
+    		html.push("<div class='data-box col-lg-3 col-md-3 col-sm-12'> <h3>" + dados[i].assinaturas_porcentagem.toFixed(2) + " %</h3> <p>" + dados[i].assinaturas + " alunos assinam</p> </div>")
     		html.push("<div class='data-box col-lg-3 col-md-3 col-sm-12'> <img src='https://img.icons8.com/ios/50/007AFF/male.png'/> <p>" + dados[i].assinaturas_por_sexo.masculino + " assinantes são homens</p> </div>")
     		html.push("<div class='data-box col-lg-3 col-md-3 col-sm-12'> <img src='https://img.icons8.com/ios/50/FF2D55/female.png'/> <p>" + dados[i].assinaturas_por_sexo.feminino + " assinantes são mulheres</p> </div>")
     	}

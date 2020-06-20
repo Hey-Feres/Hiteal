@@ -98,6 +98,7 @@ class Aluno {
                 let row = "<tr class='data-row' id='row-aluno-"+data[i].id+"'>" + 
                             "<td class='text-center' id='aluno-nome-" + data[i].id + "'> " + data[i].nome + " </td>" +
                             "<td class='text-center'>"+data[i].plano_nome+"</td>" +
+                            "<td class='text-center text-primary button-open-fichas' id='"+data[i].id+"'> Fichas </td>" +
                             "<td class='text-center text-primary button-open-editor-box' id='" + data[i].id + "' > Editar </td>" +
                           "</tr>"
                 $("#alunos-table-body").append(row)

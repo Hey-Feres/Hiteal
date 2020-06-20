@@ -134,12 +134,12 @@ class Ui::FuncionariosController < ApplicationController
 					remuneracao: {
 						label: "Remuneração",
 						placeholder: "Remuneração",
-						input_id: "funcionario-editar-remuneracao",
+						input_id: "funcionario-novo-remuneracao",
 						value: ""
 					},
 					funcao: {
 						label: "Função",
-						select_id: "funcionario-editar-funcao",
+						select_id: "funcionario-novo-funcao",
 						options: [
 							{ title: "Professor", value: "professor" },
 							{ title: "Secretário", value: "secretario" },

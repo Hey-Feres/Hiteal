@@ -3,9 +3,9 @@ class Aluno < ApplicationRecord
 
   belongs_to :gym
   belongs_to :plano
-  
-  has_many :aula_presencas
-  has_many :fichas
+
+  has_many :aula_presencas, dependent: :destroy
+  has_many :fichas, dependent: :destroy
 
   validates_presence_of :nome
   validates_presence_of :email

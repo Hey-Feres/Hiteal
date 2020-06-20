@@ -336,9 +336,9 @@ class Funcionario {
                 $("#wrapperEditFuncionario").hide()
                 $("#wrapperEditFuncionario").removeClass("animated rollOut")
                 helper.notificacao("Funcionário Removido","Funcionário excluido com sucesso");
-                $("#row-funcionario-"+data.id).addClass("animated slideOutRight")
+                $("#row-funcionarios-"+data.id).addClass("animated slideOutRight")
                 // Espera terminar a animacao de saida da row com user deletado
-                setTimeout(function(){$("#row-funcionario-"+data.id).remove()}, 750)
+                setTimeout(function(){$("#row-funcionarios-"+data.id).remove()}, 750)
             }, 800);
         }
         // .  .  .  .  .  .  .  .  .  .  .  .

@@ -1,8 +1,8 @@
 class Aula < ApplicationRecord
-  	belongs_to :gym, dependent: :destroy
+  	belongs_to :gym
 	belongs_to :funcionario, foreign_key: 'professor_id'
 
-	has_many :aula_presencas
+	has_many :aula_presencas, dependent: :destroy
 	has_many :alunos, through: :aula_presencas
 
   	validates_presence_of :nome

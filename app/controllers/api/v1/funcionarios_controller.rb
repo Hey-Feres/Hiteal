@@ -16,6 +16,8 @@ class Api::V1::FuncionariosController < ApplicationController
 	    if @funcionario.save
 	      render json: @funcionario, status: :created
 	    else
+	      puts "****************************************"	
+	      puts @funcionario.errors.inspect
 	      render json: @funcionario.errors, status: :unprocessable_entity
 	    end
 	end

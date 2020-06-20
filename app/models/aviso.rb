@@ -3,7 +3,7 @@ class Aviso < ApplicationRecord
 
   validates_presence_of :nome
   validates_presence_of :conteudo
-  
+    
   def self.paginate page, gym_id
     start = page.to_i * 10
     avisos = Aviso.where('avisos.id > ?', start).where(gym_id: gym_id).limit(20)

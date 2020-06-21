@@ -1,0 +1,29 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  aluno: one
+  user: one
+  historico_clinico: MyText
+  historico_familiar: MyText
+  limitacoes: MyText
+  pressao_arterial: 1.5
+  frequencia_cardiaca: 1.5
+  massa_corporal: 1.5
+  estatura: 1.5
+  relacao_cintura_quadril: 1.5
+  indice_massa_corporal: 1.5
+  observacoes: MyText
+
+two:
+  aluno: two
+  user: two
+  historico_clinico: MyText
+  historico_familiar: MyText
+  limitacoes: MyText
+  pressao_arterial: 1.5
+  frequencia_cardiaca: 1.5
+  massa_corporal: 1.5
+  estatura: 1.5
+  relacao_cintura_quadril: 1.5
+  indice_massa_corporal: 1.5
+  observacoes: MyText

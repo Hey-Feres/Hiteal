@@ -19,6 +19,7 @@ Rails.application.routes.draw do
       resources :funcionarios, except: [:edit,:new]
       resources :preferencias, except: [:edit,:new,:create]
       resources :fichas, only: [:show,:create,:destroy]
+      resources :avaliacoes_fisicas, except: [:index, :edit,:new,:update]
       # Upload Routes
       post '/gyms/upload', to: "gyms#upload"
       get '/gyms/:id/imagens', to: "gyms#imagens"
@@ -30,6 +31,7 @@ Rails.application.routes.draw do
       get '/todos_funcionarios/:gym_id/:page', to: "funcionarios#index"
       get '/all/aulas/:gym_id/:page', to: "aulas#index"
       get '/all/fichas/:aluno_id', to: "fichas#show"
+      get '/all/avaliacoes_fisicas/:aluno_id/:page', to: "avaliacoes_fisicas#index"
       # Proximas Routes
       post '/proximas/aulas', to: "aulas#proximas"
       # Search Routes
@@ -40,10 +42,12 @@ Rails.application.routes.draw do
       post '/search/fichas', to: "fichas#search"
       # Chart Routes
       get '/planos_chart_data', to: "planos#chart_data"
+      # Recentes Routes
+      get '/recentes/avaliacoes_fisicas/:aluno_id', to: "avaliacoes_fisicas#recentes"
       # Alunos App Routes
       get 'minhas_aulas/:id', to: "alunos#aulas"
       post 'presenca/aula', to: "aulas#confirmar_presenca"
-      delete 'presenca/aula/:aula_presenca_id', to: "aulas#cancelar_presenca"      
+      delete 'presenca/aula/:aula_presenca_id', to: "aulas#cancelar_presenca"
     end
   end
 

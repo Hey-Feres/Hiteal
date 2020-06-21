@@ -22,7 +22,8 @@ class HomeController < ApplicationController
   				{path: ui_avisos_path, img: "https://img.icons8.com/ios/25/555555/sheet-of-paper.png", titulo: "Avisos"},
   				{path: ui_funcionarios_path, img: "https://img.icons8.com/ios/25/555555/conference.png", titulo: "Funcionários"},
   				{path: ui_aulas_path, img: "https://img.icons8.com/ios/25/555555/yoga.png", titulo: "Aulas"},
-  				{path: ui_preferencias_path, img: "https://img.icons8.com/ios/25/555555/settings.png", titulo: "Prefêrencias"},
+          {path: "#", img: "https://img.icons8.com/ios/25/555555/like.png", titulo: "Avaliação Física"},
+        	{path: ui_preferencias_path, img: "https://img.icons8.com/ios/25/555555/settings.png", titulo: "Prefêrencias"},
   			]
   		end
 end

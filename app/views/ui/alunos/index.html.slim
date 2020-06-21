@@ -168,6 +168,10 @@ javascript:
 	  		aluno.showFichasBox(id)
 	  		e.preventDefault();
 	  	})
+	  	$(document).on('click', '.button-close-fichas-box', function (e) {
+	  		aluno.hideFichasBox();
+	  		e.preventDefault();
+	  	})
 	  	$("#fichas-dia").change(function(){
 	  		aluno.buscaFichasDoDia($("#fichas-dia").val())
 	  	})
@@ -179,6 +183,11 @@ javascript:
 				dia: $("#fichas-dia").val()
 			}
 			aluno.adicionarFicha(dados)
+	  	})
+	  	$(document).on('click', '.button-delete-ficha', function (e) {
+	  		let id = $(this).attr('id')
+	  		aluno.deleteFicha(id)
+	  		e.preventDefault()
 	  	})
 	})
 css:

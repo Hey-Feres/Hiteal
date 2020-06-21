@@ -326,11 +326,11 @@ class Aluno {
         // .  .  .  .  .  .  .  .  .  .  .  .
         let successCallback = function(data){
             callClearFields()
-            helper.notificacao("Aluno Adicionado",data.nome+" foi adicionado a sua Gym");
+            helper.notificacao("Aluno Adicionado",data.nome+" foi adicionado a sua Gym")
         }
         // .  .  .  .  .  .  .  .  .  .  .  .
-        let errorCallback = function(jqXHR, textStatus, msg){ 
-            helper.notificacao("Erro ao Adicionar","Não foi possivel adicionar o aluno");
+        let errorCallback = function(jqXHR, textStatus, msg){
+            helper.notificacao("Erro ao Adicionar","Não foi possivel adicionar o aluno")
         }
         // .  .  .  .  .  .  .  .  .  .  .  .
         let response = request.post(data, url, successCallback, errorCallback, headers)
@@ -345,12 +345,12 @@ class Aluno {
     }
     showFichasBox(id){
         $("#fichas-dia").val("segunda")
+        $(".aluno-id").text(id)
         // . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
         let request = new Request()
-        let data = { "ficha": { "aluno_id": 2, "dia": "segunda" } }
+        let data = { "ficha": { "aluno_id": id, "dia": "segunda" } }
         let url = apiBaseUrl + "/search/fichas"
         let successCallback = data => {
-            console.log(data)
             $(".title").text("Fichas de " + data[0].aluno_nome)
             $(".fichas-dia").text("Ficha de Segunda Feira")
             for (var i = 0; i < data.length; i++) {
@@ -377,9 +377,18 @@ class Aluno {
             $("#wrapperFichas").removeClass("animated slideInRight")
         },750)
     }
+    hideFichasBox(){
+        $("#wrapperFichas").addClass("animated slideOutRight")
+        $("#wrapperFichas").css("animation-duration", "0.7s")
+        setTimeout(function(){
+            $("#wrapperFichas").hide()
+            $("#wrapperFichas").removeClass("animated slideOutRight")
+        },750)
+    }
     buscaFichasDoDia(dia){
+        let id = $(".aluno-id").text()
         let request = new Request()
-        let data = { "ficha": { "aluno_id": 2, "dia": dia } }
+        let data = { "ficha": { "aluno_id": id, "dia": dia } }
         let url = apiBaseUrl + "/search/fichas"
         let successCallback = data => {
             let label = ""
@@ -428,14 +437,15 @@ class Aluno {
         request.post(data, url, successCallback, errorCallback)
     }
     adicionarFicha(dados){
+        let id = $(".aluno-id").text()
         let request = new Request()
         let data = { "ficha": { 
-                "aluno_id": 2, 
+                "aluno_id": id, 
                 "dia": dados.dia, 
                 "exercicio_id": dados.exercicio, 
                 "series": dados.series, 
                 "repeticoes": dados.repeticoes
-            } 
+            }
         }
         let url = apiBaseUrl + "/fichas"
         let successCallback = data => {
@@ -454,6 +464,18 @@ class Aluno {
             console.log(z)
         }
         request.post(data, url, successCallback, errorCallback)
+    }
+    deleteFicha(id){
+        let request = new Request()
+        let url = apiBaseUrl + "/fichas/" + id
+        let successCallback = data => {
+            $("#row-ficha-"+id).addClass("animated slideOutRight")
+            setTimeout(function(){$("#row-ficha-"+id).remove()}, 750)
+        }
+        let errorCallback = (jqXHR, textStatus, msg) => {
+            console.log(x); console.log(y); console.log(z);
+        }
+        request.delete(url, successCallback, errorCallback)
     }
     toggleWrappers(event, whatToShow){
         event.preventDefault();

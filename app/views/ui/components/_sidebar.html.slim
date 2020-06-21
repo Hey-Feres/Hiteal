@@ -1,26 +1,27 @@
 .sidebar.blurredBg
 	.sidebar-header
 		.d-flex.justify-content-start
-			/img src="#{dados[:img]}"
 			.img-wrapper
 				img#logo src="#{dados[:img]}"
-				/= image_tag("Bubbles_2.png", id: "logo")
 			h4.sidebar-title= dados[:title]
 	.sidebar-content
+		- if dados[:sidebar_with_search]
+			= render './ui/components/text-field', input: dados[:search_input]
 		.sidebar-list-wrapper
-			- dados[:list_items].each do |item|
-				- if item[:first_item]
-					.sidebar-item.first-item id="#{item[:id]}"
-						h5= item[:title]
-				- elsif item[:last_item]
-					.sidebar-item.last-item id="#{item[:id]}"
-						h5= item[:title]
-				- elsif item[:first_item] && item[:last_item]
-					.sidebar-item.first-item.last-item id="#{item[:id]}"
-						h5= item[:title]
-				- else
-					.sidebar-item id="#{item[:id]}"
-						h5= item[:title]
+			- if dados[:list_items].present?
+				- dados[:list_items].each do |item|
+					- if item[:first_item]
+						.sidebar-item.first-item id="#{item[:id]}"
+							h5= item[:title]
+					- elsif item[:last_item]
+						.sidebar-item.last-item id="#{item[:id]}"
+							h5= item[:title]
+					- elsif item[:first_item] && item[:last_item]
+						.sidebar-item.first-item.last-item id="#{item[:id]}"
+							h5= item[:title]
+					- else
+						.sidebar-item id="#{item[:id]}"
+							h5= item[:title]
     .sidebar-footer
     	.d-flex.justify-content-start
     		= link_to root_path do

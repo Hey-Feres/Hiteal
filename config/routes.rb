@@ -60,5 +60,6 @@ Rails.application.routes.draw do
     resources :funcionarios, only: :index
     resources :aulas, only: :index
     resources :preferencias, only: :index
+    resources :avaliacoes_fisicas, only: :index
   end
 end

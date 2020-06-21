@@ -1,0 +1,27 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  avaliacao_fisica: one
+  subscapular: 1.5
+  triciptal: 1.5
+  peitoral: 1.5
+  axilar_media: 1.5
+  supra_iliaca: 1.5
+  abdominal: 1.5
+  coxa: 1.5
+  gordura_atual: 1.5
+  peso_gordo: 1.5
+  peso_magro: 1.5
+
+two:
+  avaliacao_fisica: two
+  subscapular: 1.5
+  triciptal: 1.5
+  peitoral: 1.5
+  axilar_media: 1.5
+  supra_iliaca: 1.5
+  abdominal: 1.5
+  coxa: 1.5
+  gordura_atual: 1.5
+  peso_gordo: 1.5
+  peso_magro: 1.5

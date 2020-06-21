@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_21_093850) do
+ActiveRecord::Schema.define(version: 2020_06_21_111224) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -60,6 +60,42 @@ ActiveRecord::Schema.define(version: 2020_06_21_093850) do
     t.integer "vagas", default: 0
     t.string "status", default: "ativa"
     t.index ["gym_id"], name: "index_aulas_on_gym_id"
+  end
+
+  create_table "avaliacao_fisica_ccdcs", force: :cascade do |t|
+    t.integer "avaliacao_fisica_id", null: false
+    t.float "subscapular"
+    t.float "triciptal"
+    t.float "peitoral"
+    t.float "axilar_media"
+    t.float "supra_iliaca"
+    t.float "abdominal"
+    t.float "coxa"
+    t.float "gordura_atual"
+    t.float "peso_gordo"
+    t.float "peso_magro"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["avaliacao_fisica_id"], name: "index_avaliacao_fisica_ccdcs_on_avaliacao_fisica_id"
+  end
+
+  create_table "avaliacao_fisica_perimetros", force: :cascade do |t|
+    t.integer "avaliacao_fisica_id", null: false
+    t.float "torax"
+    t.float "cintura"
+    t.float "abdomen"
+    t.float "quadril"
+    t.float "antebraco_esquerdo"
+    t.float "antebraco_direito"
+    t.float "braco_esquerdo"
+    t.float "braco_direito"
+    t.float "coxa_esquerda"
+    t.float "coxa_direita"
+    t.float "panturrilha_esquerda"
+    t.float "panturrilha_direita"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["avaliacao_fisica_id"], name: "index_avaliacao_fisica_perimetros_on_avaliacao_fisica_id"
   end
 
   create_table "avaliacao_fisicas", force: :cascade do |t|
@@ -186,6 +222,8 @@ ActiveRecord::Schema.define(version: 2020_06_21_093850) do
   add_foreign_key "aula_presencas", "alunos"
   add_foreign_key "aula_presencas", "aulas"
   add_foreign_key "aulas", "gyms"
+  add_foreign_key "avaliacao_fisica_ccdcs", "avaliacao_fisicas"
+  add_foreign_key "avaliacao_fisica_perimetros", "avaliacao_fisicas"
   add_foreign_key "avaliacao_fisicas", "alunos"
   add_foreign_key "avaliacao_fisicas", "users"
   add_foreign_key "avisos", "gyms"

@@ -1,0 +1,31 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  avaliacao_fisica: one
+  torax: 1.5
+  cintura: 1.5
+  abdomen: 1.5
+  quadril: 1.5
+  antebraco_esquerdo: 1.5
+  antebraco_direito: 1.5
+  braco_esquerdo: 1.5
+  braco_direito: 1.5
+  coxa_esquerda: 1.5
+  coxa_direita: 1.5
+  panturrilha_esquerda: 1.5
+  panturrilha_direita: 1.5
+
+two:
+  avaliacao_fisica: two
+  torax: 1.5
+  cintura: 1.5
+  abdomen: 1.5
+  quadril: 1.5
+  antebraco_esquerdo: 1.5
+  antebraco_direito: 1.5
+  braco_esquerdo: 1.5
+  braco_direito: 1.5
+  coxa_esquerda: 1.5
+  coxa_direita: 1.5
+  panturrilha_esquerda: 1.5
+  panturrilha_direita: 1.5

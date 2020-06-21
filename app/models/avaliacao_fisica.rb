@@ -2,6 +2,12 @@ class AvaliacaoFisica < ApplicationRecord
   belongs_to :aluno
   belongs_to :user
 
+  has_one :avaliacao_fisica_perimetro
+  has_one :avaliacao_fisica_ccdc
+
+  accepts_nested_attributes_for :avaliacao_fisica_perimetro
+  accepts_nested_attributes_for :avaliacao_fisica_ccdc
+  
   def self.paginate page, aluno_id
     start = page.to_i * 10
     avaliacoes = AvaliacaoFisica.joins(:aluno).select("alunos.nome as aluno_nome, alunos.id as aluno_id, avaliacao_fisicas.*")

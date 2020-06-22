@@ -32,6 +32,60 @@ class AvaliacaoFisica {
         let response = request.post(data,url,successCallback,errorCallback)
         return response
 	}
+	salvarAvaliacao(dados){
+        let request = new Request()
+        let url = apiBaseUrl + "/avaliacoes_fisicas"
+		let data = {
+			"avaliacao_fisica": {
+			    "aluno_id": 510,
+			    "user_id": 1,
+			    "historico_clinico": dados.historico_clinico,
+			    "historico_familiar": dados.historico_familiar,
+			    "limitacoes": dados.limitacoes,
+			    "pressao_arterial": dados.pressao_arterial,
+			    "frequencia_cardiaca": dados.frequencia_cardiaca,
+			    "massa_corporal": dados.massa_corporal,
+			    "estatura": dados.estatura,
+			    "relacao_cintura_quadril": dados.relacao_cintura_quadril,
+			    "indice_massa_corporal": dados.indice_massa_corporal,
+			    "observacoes": dados.observacoes,
+			    "avaliacao_fisica_perimetro_attributes": {
+					"torax": dados.torax,
+					"cintura": dados.cintura,
+					"abdomen": dados.abdomen,
+					"quadril": dados.quadril,
+					"antebraco_esquerdo": dados.antebraco_esquerdo,
+					"antebraco_direito": dados.antebraco_direito,
+					"braco_esquerdo": dados.braco_esquerdo,
+					"braco_direito": dados.braco_direito,
+					"coxa_esquerda": dados.coxa_esquerda,
+					"coxa_direita": dados.coxa_direita,
+					"panturrilha_esquerda": dados.panturrilha_esquerda,
+					"panturrilha_direita": dados.panturrilha_direita
+			    },
+		    	"avaliacao_fisica_ccdc_attributes": {
+		    		"subscapular": dados.subscapular,
+		    		"triciptal": dados.triciptal,
+		    		"peitoral": dados.peitoral,
+		    		"axilar_media": dados.axilar_media,
+		    		"supra_iliaca": dados.supra_iliaca,
+		    		"abdominal": dados.abdominal,
+		    		"coxa": dados.coxa,
+		    		"gordura_atual": dados.gordura_atual,
+		    		"peso_gordo": dados.peso_gordo,
+		    		"peso_magro": dados.peso_magro
+		    	}
+			}
+		}
+		let successCallback = data => {
+			console.log(data)
+		}
+        let errorCallback = (jqXHR, textStatus, msg) => { 
+        	console.log(msg)
+        }
+        let response = request.post(data,url,successCallback,errorCallback)
+        return response
+	}
 	calcularIndiceDeMassaCorporal(altura, peso){
 		if ($("#massa").val() != "" && $("#estatura").val() != "") {
 			let imc = (peso/((altura/100)*(altura/100))).toFixed(2)
@@ -84,3 +138,9 @@ class AvaliacaoFisica {
 		}
 	}
 }
+
+
+
+
+
+

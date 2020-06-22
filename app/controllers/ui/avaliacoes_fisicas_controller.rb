@@ -126,49 +126,49 @@ class Ui::AvaliacoesFisicasController < ApplicationController
 				    antebraco_esquerdo: {
 						label: "Antebraço Esquerdo",
 						placeholder: "Antebraço Esquerdo",
-						input_id: "antebraco_esquerdo",
+						input_id: "antebraco-esquerdo",
 						value: ""
     				},
 				    antebraco_direito: {
 						label: "Antebraço Direito",
 						placeholder: "Antebraço Direito",
-						input_id: "antebraco_direito",
+						input_id: "antebraco-direito",
 						value: ""
     				},
 				    braco_esquerdo: {
 						label: "Braço Esquerdo",
 						placeholder: "Braço Esquerdo",
-						input_id: "braco_esquerdo",
+						input_id: "braco-esquerdo",
 						value: ""
     				},
 				    braco_direito: {
 						label: "Braço Direito",
 						placeholder: "Braço Direito",
-						input_id: "braco_direito",
+						input_id: "braco-direito",
 						value: ""
     				},
 				    coxa_esquerda: {
 						label: "Coxa Esquerda",
 						placeholder: "Coxa Esquerda",
-						input_id: "coxa_esquerda",
+						input_id: "coxa-esquerda",
 						value: ""
     				},
 				    coxa_direita: {
 						label: "Coxa Direita",
 						placeholder: "Coxa Direita",
-						input_id: "coxa_direita",
+						input_id: "coxa-direita",
 						value: ""
     				},
 				    panturrilha_esquerda: {
 						label: "Panturrilha Esquerda",
 						placeholder: "Panturrilha Esquerda",
-						input_id: "panturrilha_esquerda",
+						input_id: "panturrilha-esquerda",
 						value: ""
     				},
 				    panturrilha_direita: {
 						label: "Panturrilha Direita",
 						placeholder: "Panturrilha Direita",
-						input_id: "panturrilha_direita",
+						input_id: "panturrilha-direita",
 						value: ""
     				}
 				},
@@ -194,13 +194,13 @@ class Ui::AvaliacoesFisicasController < ApplicationController
     				axilar_media: {
 						label: "Axilar Média",
 						placeholder: "Axilar Média",
-						input_id: "axilar_media",
+						input_id: "axilar-media",
 						value: ""
     				},
     				supra_iliaca: {
 						label: "Supra Ilíaca",
 						placeholder: "Supra Ilíaca",
-						input_id: "supra_iliaca",
+						input_id: "supra-iliaca",
 						value: ""
     				},
     				abdominal: {
@@ -218,19 +218,19 @@ class Ui::AvaliacoesFisicasController < ApplicationController
     				gordura_atual: {
 						label: "Gordura Atual",
 						placeholder: "Gordura Atual",
-						input_id: "gordura_atual",
+						input_id: "gordura-atual",
 						value: ""
     				},
     				peso_gordo: {
 						label: "Peso Gordo",
 						placeholder: "Peso Gordo",
-						input_id: "peso_gordo",
+						input_id: "peso-gordo",
 						value: ""
     				},
     				peso_magro: {
 						label: "Peso Magro",
 						placeholder: "Peso Magro",
-						input_id: "peso_magro",
+						input_id: "peso-magro",
 						value: ""
     				}		
 				}		

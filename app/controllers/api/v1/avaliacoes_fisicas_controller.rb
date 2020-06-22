@@ -12,9 +12,10 @@ class Api::V1::AvaliacoesFisicasController < ApplicationController
 	def create
 	    @avaliacao = AvaliacaoFisica.new(avaliacao_params)
 	    if @avaliacao.save
-	      render json: @avaliacao, status: :created
+	      	render json: @avaliacao, status: :created
 	    else
-	      render json: @avaliacao.errors, status: :unprocessable_entity
+	    	puts @avaliacao.errors.inspect
+	      	render json: @avaliacao.errors, status: :unprocessable_entity
 	    end	
 	end
 

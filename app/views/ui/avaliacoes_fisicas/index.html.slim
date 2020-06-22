@@ -165,9 +165,44 @@ javascript:
         $("#quadril").change(function(){
             avaliacao.calcularRelacaoCinturaQuadril($("#cintura").val(), $("#quadril").val())
         })
+        $("#salvar-button").click(function(){
+            let dados = {
+                historico_clinico: $("#historico-clinico").val(),
+                historico_familiar:$("#historico-familiar").val(),
+                limitacoes: $("#limitacoes").val(),
+                pressao: $("#pressao").val(),
+                frequencia: $("#frequencia").val(),
+                massa: $("#massa").val(),
+                estatura: $("#estatura").val(),
+                relacao: $("#relacao").val(),
+                indice: $("#indice").val(),
+                observacoes: $("#observacoes").val(),
+                torax: $("#torax").val(),
+                cintura: $("#cintura").val(),
+                abdomen: $("#abdomen").val(),
+                quadril: $("#quadril").val(),
+                antebraco_esquerdo:$("#antebraco-esquerdo").val(),
+                antebraco_direito:$("#antebraco-direito").val(),
+                braco_esquerdo: $("#braco-esquerdo").val(),
+                braco_direito: $("#braco-direito").val(),
+                coxa_esquerda: $("#coxa-esquerda").val(),
+                coxa_direita: $("#coxa-direita").val(),
+                panturrilha_esquerda: $("#panturrilha-esquerda").val(),
+                panturrilha_direita:$("#panturrilha-direita").val(),
+                subscapular: $("#subscapular").val(),
+                triciptal: $("#triciptal").val(),
+                peitoral: $("#peitoral").val(),
+                axilar_media:$("#axilar-media").val(),
+                supra_iliaca:$("#supra-iliaca").val(),
+                abdominal: $("#abdominal").val(),
+                coxa: $("#coxa").val(),
+                gordura_atual: $("#gordura-atual").val(),
+                peso_gordo: $("#peso-gordo").val(),
+                peso_magro: $("#peso-magro").val(),
+            }
+            avaliacao.salvarAvaliacao(dados)
+        })
     })
-
-
 
 
 css:

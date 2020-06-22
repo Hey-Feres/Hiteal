@@ -4,15 +4,65 @@
 = render './ui/components/sidebar', dados: @sidebar_items
 
 .content
+    .box#boxInfo
+        img src="https://img.icons8.com/ios/100/999999/hand-holding-heart.png"
+        p.info Avaliações do Aluno Aparecem Aqui
+    
+    .box#alunoAvaliacoesFisicas
+
+javascript:
+    $(document).ready(function(){
+        let avaliacao = new AvaliacaoFisica("#{current_user.gym_id}")
+        
+        $("#alunoAvaliacoesFisicas").hide()
+    
+        $("#search-aluno").change(function(){
+            avaliacao.searchAlunos( $("#search-aluno").val(), 0 )
+        })
+
+        $(document).on('click', '.sidebar-item', function (e) {
+            let id = $(this).attr('id');
+            alert(id)
+            e.preventDefault();
+        })
+    })
 
 
 
 
 css:
+    h5{
+        line-height: 50px;
+    }
+    #boxInfo{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .info{
+        color: #999999;
+        font-size: 1em;
+        font-weight: 400;
+    }
 	#search-aluno{
 		background: rgba(255,255,255,0.5) !important;
 		width: 95%;
 		margin: 2% 2.5%;
 		border: none !important;
 		padding: 2%;
+	}
+	.sidebar-list-wrapper{
+		border: none !important;
+		margin-top: 5%;
+	}
+    .sidebar-item{
+        height: 50px;
+    }
+	#loader{
+		height: 50px;
+		line-height: 50px;
+		margin: 0;
+		text-align: center;
+		width: 100%;
 	}

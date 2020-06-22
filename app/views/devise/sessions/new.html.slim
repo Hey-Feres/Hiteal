@@ -10,7 +10,7 @@
           = f.password_field :password, autocomplete: "current-password", class: "", id: "password-field", placeholder: "Senha"
       .wrap3
         = f.submit "Acessar", id: "login-submit"
-        br
+        .mt-2
         = link_to "Cadastrar", new_registration_path(resource_name)
 
 
@@ -95,6 +95,7 @@ css:
     border-bottom: 1px solid rgba(217,217,217,0.4) !important;
     color: white;
     font-weight: 300;
+    border-radius: 0;
   }
   input[type="submit"]{
     border: none;
@@ -117,5 +118,4 @@ css:
     color: rgba(255,255,255,0.8);
     font-weight: 200;
   }
-
   

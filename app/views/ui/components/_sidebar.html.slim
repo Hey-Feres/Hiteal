@@ -44,6 +44,7 @@ css:
 		-moz-backdrop-filter: blur(var(--blur));
 		-ms-backdrop-filter: blur(var(--blur));
 		padding-top: 70px; /* 70 px é a altura do header */
+		overflow: scroll;
 	}
 	.sidebar-footer{
 		position: absolute;
@@ -51,6 +52,13 @@ css:
 		width: 100%;
 		height: 40px;
 		padding: 5px;
+        position: fixed;
+        background: rgba(255,255,255,0);
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
+        -o-backdrop-filter: blur(5px);
+        -moz-backdrop-filter: blur(5px);
+        -ms-backdrop-filter: blur(5px);		
 	}
 	h5{
 		font-weight: 300;

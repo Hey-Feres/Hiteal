@@ -9,17 +9,141 @@
         p.info Avaliações do Aluno Aparecem Aqui
     
     .box#alunoAvaliacoesFisicas
+        .divider-header.d-flex.justify-content-between
+            h3.thin Bruno Feres Villela
+            h3
+                img src="https://img.icons8.com/ios/30/007AFF/plus-math.png"
+        .divider-content
+    .box#novaAvaliacaoFisica
+        .divider-header.d-flex.justify-content-between
+            h4.aluno-nome Bruno Feres Villela
+            h4.aluno-idade 19 anos
+        .divider-content
+            form style="width: auto !important"
+                .title-divisor
+                    h5.thin Geral
+                .d-flex.justify-content-start
+                    = render './ui/components/text-field', input: @inputs_attributes[:geral][:aluno_id]
+                br
+                .d-flex.justify-content-start
+                    = render './ui/components/text-field', input: @inputs_attributes[:geral][:user_id]
+                br
+                .d-flex.justify-content-start
+                    = render './ui/components/text-field', input: @inputs_attributes[:geral][:historico_clinico]
+                br    
+                .d-flex.justify-content-start
+                    = render './ui/components/text-field', input: @inputs_attributes[:geral][:historico_familiar]
+                br    
+                .d-flex.justify-content-start
+                    = render './ui/components/text-field', input: @inputs_attributes[:geral][:limitacoes]
+                br    
+                .d-flex.justify-content-start
+                    = render './ui/components/text-field', input: @inputs_attributes[:geral][:pressao_arterial]
+                br    
+                .d-flex.justify-content-start
+                    = render './ui/components/text-field', input: @inputs_attributes[:geral][:frequencia_cardiaca]
+                br    
+                .d-flex.justify-content-start
+                    = render './ui/components/text-field', input: @inputs_attributes[:geral][:massa]
+                br    
+                .d-flex.justify-content-start
+                    = render './ui/components/text-field', input: @inputs_attributes[:geral][:estatura]
+                br    
+                .d-flex.justify-content-start
+                    = render './ui/components/text-field', input: @inputs_attributes[:geral][:relacao_cintura_quadril]
+                br    
+                .d-flex.justify-content-start
+                    = render './ui/components/text-field', input: @inputs_attributes[:geral][:indice_massa_corporal]
+                br    
+                .d-flex.justify-content-start
+                    = render './ui/components/text-field', input: @inputs_attributes[:geral][:observacoes]
+                br
+                .title-divisor
+                    h5.thin Perímetros
+                .d-flex.justify-content-start
+                    = render './ui/components/text-field', input: @inputs_attributes[:perimetros][:torax]
+                br
+                .d-flex.justify-content-start
+                    = render './ui/components/text-field', input: @inputs_attributes[:perimetros][:cintura]
+                br
+                .d-flex.justify-content-start
+                    = render './ui/components/text-field', input: @inputs_attributes[:perimetros][:abdomen]
+                br
+                .d-flex.justify-content-start
+                    = render './ui/components/text-field', input: @inputs_attributes[:perimetros][:quadril]
+                br
+                .d-flex.justify-content-start
+                    = render './ui/components/text-field', input: @inputs_attributes[:perimetros][:antebraco_esquerdo]
+                br
+                .d-flex.justify-content-start
+                    = render './ui/components/text-field', input: @inputs_attributes[:perimetros][:antebraco_direito]
+                br
+                .d-flex.justify-content-start
+                    = render './ui/components/text-field', input: @inputs_attributes[:perimetros][:braco_esquerdo]
+                br
+                .d-flex.justify-content-start
+                    = render './ui/components/text-field', input: @inputs_attributes[:perimetros][:braco_direito]
+                br
+                .d-flex.justify-content-start
+                    = render './ui/components/text-field', input: @inputs_attributes[:perimetros][:coxa_esquerda]
+                br
+                .d-flex.justify-content-start
+                    = render './ui/components/text-field', input: @inputs_attributes[:perimetros][:coxa_direita]
+                br
+                .d-flex.justify-content-start
+                    = render './ui/components/text-field', input: @inputs_attributes[:perimetros][:panturrilha_esquerda]
+                br
+                .d-flex.justify-content-start
+                    = render './ui/components/text-field', input: @inputs_attributes[:perimetros][:panturrilha_direita]
+                br
+                .title-divisor
+                    h5.thin Composição Corporal por Dobras Cutâneas
+                .d-flex.justify-content-start
+                    = render './ui/components/text-field', input: @inputs_attributes[:ccdc][:subscapular]
+                br
+                .d-flex.justify-content-start
+                    = render './ui/components/text-field', input: @inputs_attributes[:ccdc][:triciptal]
+                br
+                .d-flex.justify-content-start
+                    = render './ui/components/text-field', input: @inputs_attributes[:ccdc][:peitoral]
+                br
+                .d-flex.justify-content-start
+                    = render './ui/components/text-field', input: @inputs_attributes[:ccdc][:axilar_media]
+                br
+                .d-flex.justify-content-start
+                    = render './ui/components/text-field', input: @inputs_attributes[:ccdc][:supra_iliaca]
+                br
+                .d-flex.justify-content-start
+                    = render './ui/components/text-field', input: @inputs_attributes[:ccdc][:abdominal]
+                br
+                .d-flex.justify-content-start
+                    = render './ui/components/text-field', input: @inputs_attributes[:ccdc][:coxa]
+                br
+                .d-flex.justify-content-start
+                    = render './ui/components/text-field', input: @inputs_attributes[:ccdc][:gordura_atual]
+                br
+                .d-flex.justify-content-start
+                    = render './ui/components/text-field', input: @inputs_attributes[:ccdc][:peso_gordo]
+                br
+                .d-flex.justify-content-start
+                    = render './ui/components/text-field', input: @inputs_attributes[:ccdc][:peso_magro]
+                br
 
 javascript:
     $(document).ready(function(){
         let avaliacao = new AvaliacaoFisica("#{current_user.gym_id}")
         
+        $("#boxInfo").hide()
         $("#alunoAvaliacoesFisicas").hide()
+        //$("#novaAvaliacaoFisica").hide()
     
         $("#search-aluno").change(function(){
-            avaliacao.searchAlunos( $("#search-aluno").val(), 0 )
+            if ($("#search-aluno").val()=="") {
+                $(".sidebar-list-wrapper").html("");
+            }else{
+                avaliacao.searchAlunos( $("#search-aluno").val(), 0 )    
+            }
         })
-
         $(document).on('click', '.sidebar-item', function (e) {
             let id = $(this).attr('id');
             alert(id)
@@ -31,8 +155,9 @@ javascript:
 
 
 css:
-    h5{
-        line-height: 50px;
+    .title-divisor
+    .sidebar{
+        overflow: scroll;
     }
     #boxInfo{
         display: flex;
@@ -59,6 +184,9 @@ css:
     .sidebar-item{
         height: 50px;
     }
+    .sidebar-item h5{
+        line-height: 50px;
+    }    
 	#loader{
 		height: 50px;
 		line-height: 50px;
@@ -66,3 +194,10 @@ css:
 		text-align: center;
 		width: 100%;
 	}
+    .title-divisor{
+        border-bottom: 1px solid #f2f2f2;
+        margin-bottom: 3%;
+    }
+    .title-divisor h5{
+        margin: 0;
+    }

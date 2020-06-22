@@ -50,9 +50,6 @@
                     = render './ui/components/text-field', input: @inputs_attributes[:geral][:estatura]
                 br    
                 .d-flex.justify-content-start
-                    = render './ui/components/text-field', input: @inputs_attributes[:geral][:relacao_cintura_quadril]
-                br    
-                .d-flex.justify-content-start
                     = render './ui/components/text-field', input: @inputs_attributes[:geral][:indice_massa_corporal]
                 br    
                 .d-flex.justify-content-start
@@ -64,13 +61,16 @@
                     = render './ui/components/text-field', input: @inputs_attributes[:perimetros][:torax]
                 br
                 .d-flex.justify-content-start
-                    = render './ui/components/text-field', input: @inputs_attributes[:perimetros][:cintura]
-                br
-                .d-flex.justify-content-start
                     = render './ui/components/text-field', input: @inputs_attributes[:perimetros][:abdomen]
                 br
                 .d-flex.justify-content-start
+                    = render './ui/components/text-field', input: @inputs_attributes[:perimetros][:cintura]
+                br
+                .d-flex.justify-content-start
                     = render './ui/components/text-field', input: @inputs_attributes[:perimetros][:quadril]
+                br    
+                .d-flex.justify-content-start
+                    = render './ui/components/text-field', input: @inputs_attributes[:geral][:relacao_cintura_quadril]
                 br
                 .d-flex.justify-content-start
                     = render './ui/components/text-field', input: @inputs_attributes[:perimetros][:antebraco_esquerdo]
@@ -128,15 +128,19 @@
                 .d-flex.justify-content-start
                     = render './ui/components/text-field', input: @inputs_attributes[:ccdc][:peso_magro]
                 br
+                center.mt-5
+                    = render './ui/components/button', value: "Salvar Avaliação", style: "default", id: "salvar-button", type:"button"
+                    = render './ui/components/button', value: "Limpar Campos", style: "red", id: "clear-fields", type:"button"
 
 javascript:
     $(document).ready(function(){
         let avaliacao = new AvaliacaoFisica("#{current_user.gym_id}")
+        avaliacao.componentLoaded()
         
         $("#boxInfo").hide()
         $("#alunoAvaliacoesFisicas").hide()
         //$("#novaAvaliacaoFisica").hide()
-    
+        
         $("#search-aluno").change(function(){
             if ($("#search-aluno").val()=="") {
                 $(".sidebar-list-wrapper").html("");
@@ -148,6 +152,18 @@ javascript:
             let id = $(this).attr('id');
             alert(id)
             e.preventDefault();
+        })
+        $("#massa").change(function(){
+            avaliacao.calcularIndiceDeMassaCorporal($("#estatura").val(), $("#massa").val())
+        })
+        $("#estatura").change(function(){
+            avaliacao.calcularIndiceDeMassaCorporal($("#estatura").val(), $("#massa").val())
+        })
+        $("#cintura").change(function(){
+            avaliacao.calcularRelacaoCinturaQuadril($("#cintura").val(), $("#quadril").val())
+        })
+        $("#quadril").change(function(){
+            avaliacao.calcularRelacaoCinturaQuadril($("#cintura").val(), $("#quadril").val())
         })
     })
 

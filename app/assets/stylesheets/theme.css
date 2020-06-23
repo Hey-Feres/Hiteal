@@ -17,6 +17,9 @@
   --gray5: rgb(229,229,234);
   --gray6: rgb(242,242,247);
 }
+.hidden{
+  position: absolute;
+}
 .divider{
   padding: 1 2%;
 }

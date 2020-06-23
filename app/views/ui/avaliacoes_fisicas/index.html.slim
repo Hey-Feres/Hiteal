@@ -11,13 +11,17 @@
     .box#alunoAvaliacoesFisicas
         .divider-header.d-flex.justify-content-between
             h3.thin.aluno-nome
-            h3
+            h3.hidden.aluno-id
+            h3.hidden.aluno-idade
+            h3#buttonShowFormNovaAvaliacaoFisica
                 img src="https://img.icons8.com/ios/30/007AFF/plus-math.png"
         .divider-content
     .box#novaAvaliacaoFisica
         .divider-header.d-flex.justify-content-between
-            h4.aluno-nome Bruno Feres Villela
-            h4.aluno-idade 19 anos
+            h4.nova-avaliacao-aluno-nome
+            /h4.nova-avaliacao-aluno-idade
+            h4.button-close-nova-ficha-box
+                img src="https://img.icons8.com/ios-glyphs/25/007AFF/chevron-right.png"            
         .divider-content
             form style="width: auto !important"
                 .title-divisor
@@ -144,6 +148,10 @@ javascript:
                 avaliacao.searchAlunos( $("#search-aluno").val(), 0 )    
             }
         })
+        $("#buttonShowFormNovaAvaliacaoFisica").click(function(){
+            let dados = {id: $(".aluno-id").text(), nome: $(".aluno-nome").text(), idade: $(".aluno-idade").text()}
+            avaliacao.showFormNovaAvaliacaoFisica(dados)
+        })
         $(document).on('click', '.sidebar-item', function (e) {
             let id = $(this).attr('id');
             avaliacao.showAlunoAvaliacoesFisicas(id)
@@ -202,7 +210,17 @@ javascript:
 
 
 css:
-    .title-divisor
+    #novaAvaliacaoFisica{
+        height: 100%;
+        background: rgba(255, 255, 255,0.4);
+        backdrop-filter: blur(var(--blur));
+        -webkit-backdrop-filter: blur(var(--blur));
+        -o-backdrop-filter: blur(var(--blur));
+        -moz-backdrop-filter: blur(var(--blur));
+        -ms-backdrop-filter: blur(var(--blur));
+        z-index: 99999;
+        border: 1px solid #ccc;
+    }
     .sidebar{
         overflow: scroll;
     }

@@ -84,7 +84,6 @@ class Helper {
 		}else{
 			formatedDate = ('0' + MyDate.getDate()).slice(-2) + '/' + ('0' + (MyDate.getMonth()+1)).slice(-2)
 		}
-		
 		return formatedDate
 	}
 	capitalize(string) {
@@ -94,5 +93,11 @@ class Helper {
 		let t = strTime.split("T")[1].split(":")
 		t = t[0]+":"+t[1]
 		return t
+	}
+	calculateAge(dateString) {
+	  let formatedDate = this.formatDate(dateString, true)
+	  formatedDate = formatedDate.split("/")[2] + "/" + formatedDate.split("/")[1] + "/" + formatedDate.split("/")[0]
+	  var birthday = +new Date(formatedDate);
+	  return ~~((Date.now() - birthday) / (31557600000));
 	}
 }

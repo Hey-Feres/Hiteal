@@ -38,6 +38,8 @@ class AvaliacaoFisica {
         let url = apiBaseUrl + "/alunos/"+id
 		let successCallback = data => {
 			$(".aluno-nome").text(data.nome)
+			$(".aluno-id").text(data.id)
+			$(".aluno-idade").text(helper.calculateAge(data.nascimento))
 			$("#alunoAvaliacoesFisicas").show()
 			$("#boxInfo").hide()
 		}
@@ -46,6 +48,16 @@ class AvaliacaoFisica {
 		}
         let response = request.get(url,successCallback,errorCallback)
         return response
+	}
+	showFormNovaAvaliacaoFisica(dados){
+		$(".nova-avaliacao-aluno-nome").text(dados.nome)
+		$(".nova-avaliacao-aluno-idade").text(dados.idade + " anos")
+        $("#novaAvaliacaoFisica").addClass("animated slideInRight")
+        $("#novaAvaliacaoFisica").css("animation-duration", "0.7s")
+        $("#novaAvaliacaoFisica").show()
+        setTimeout(function(){
+            $("#novaAvaliacaoFisica").removeClass("animated slideInRight")
+        }, 750)
 	}
 	salvarAvaliacao(dados){
         let request = new Request()

@@ -4,7 +4,8 @@ class AvaliacaoFisica {
 		this.sexo = null;
 	}
 	componentLoaded(){
-		this.sexo = "masculino"
+		//this.sexo = "masculino"
+		$(".box").not("#boxInfo").hide()
 	}
 	searchAlunos(params, page){
         $(".sidebar-list-wrapper").append("<p id='loader'>Loading ...</p>")
@@ -30,6 +31,20 @@ class AvaliacaoFisica {
         	$(".sidebar-list-wrapper").html(msg)
         }
         let response = request.post(data,url,successCallback,errorCallback)
+        return response
+	}
+	showAlunoAvaliacoesFisicas(id){
+        let request = new Request()
+        let url = apiBaseUrl + "/alunos/"+id
+		let successCallback = data => {
+			$(".aluno-nome").text(data.nome)
+			$("#alunoAvaliacoesFisicas").show()
+			$("#boxInfo").hide()
+		}
+		let errorCallback = (jqXHR, textStatus, msg) => { 
+			console.log(msg)
+		}
+        let response = request.get(url,successCallback,errorCallback)
         return response
 	}
 	salvarAvaliacao(dados){

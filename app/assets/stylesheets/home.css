@@ -22,7 +22,6 @@
 	-o-backdrop-filter: blur(20px);
 	-moz-backdrop-filter: blur(20px);
 	-ms-backdrop-filter: blur(20px);
-	padding-top: 70px; /* 70 px é a altura do header */
 }
 .home-sidebar-footer{
 	position: absolute;

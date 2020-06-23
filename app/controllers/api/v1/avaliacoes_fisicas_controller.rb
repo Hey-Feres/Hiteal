@@ -31,23 +31,23 @@ class Api::V1::AvaliacoesFisicasController < ApplicationController
 
 	private
 	    def set_avaliacao
-	      @avaliacao = AvaliacaoFisica.find(params[:id]) 
+	    	@avaliacao = AvaliacaoFisica.find(params[:id]) 
 	    end
 
 	    def avaliacao_params
-	      params.require(:avaliacao_fisica).permit(
-	      	:aluno_id, :user_id, :historico_clinico, :historico_familiar, 
-	      	:limitacoes, :pressao_arterial, :frequencia_cardiaca, :massa_corporal, 
-	      	:estatura, :relacao_cintura_quadril, :indice_massa_corporal, :observacoes,
-	      	avaliacao_fisica_perimetro_attributes: [ :torax, :cintura, :abdomen, :quadril, 
-	      		:antebraco_esquerdo, :antebraco_direito, :braco_esquerdo, :braco_direito, 
-	      		:coxa_esquerda, :coxa_direita, :panturrilha_esquerda, :panturrilha_direita
-	      	],
-	      	avaliacao_fisica_ccdc_attributes: [
-				:subscapular, :triciptal, :peitoral, :axilar_media, :supra_iliaca, 
-				:abdominal, :coxa, :gordura_atual, :peso_gordo, :peso_magro
-	      	]
-	      )
+	      	params.require(:avaliacao_fisica).permit(
+		      	:aluno_id, :user_id, :historico_clinico, :historico_familiar, 
+		      	:limitacoes, :pressao_arterial, :frequencia_cardiaca, :massa_corporal, 
+		      	:estatura, :relacao_cintura_quadril, :indice_massa_corporal, :observacoes,
+		      	avaliacao_fisica_perimetro_attributes: [ :torax, :cintura, :abdomen, :quadril, 
+		      		:antebraco_esquerdo, :antebraco_direito, :braco_esquerdo, :braco_direito, 
+		      		:coxa_esquerda, :coxa_direita, :panturrilha_esquerda, :panturrilha_direita
+		      	],
+		      	avaliacao_fisica_ccdc_attributes: [
+					:subscapular, :triciptal, :peitoral, :axilar_media, :supra_iliaca, 
+					:abdominal, :coxa, :gordura_atual, :peso_gordo, :peso_magro
+		      	]
+	      	)
 	    end
 end
 

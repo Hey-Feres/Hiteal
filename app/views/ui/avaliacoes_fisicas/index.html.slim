@@ -12,15 +12,13 @@
         .divider-header.d-flex.justify-content-between
             h3.thin.aluno-nome
             h3.hidden.aluno-id
-            h3.hidden.aluno-idade
-            h3#buttonShowFormNovaAvaliacaoFisica
+            h3#buttonShowFormNovaAvaliacaoFisica.pointer
                 img src="https://img.icons8.com/ios/30/007AFF/plus-math.png"
-        .divider-content
+        .divider-content#alunoAvaliacoesFisicasContent
     .box#novaAvaliacaoFisica
         .divider-header.d-flex.justify-content-between
             h4.nova-avaliacao-aluno-nome
-            /h4.nova-avaliacao-aluno-idade
-            h4.button-close-nova-ficha-box
+            h4.button-close-nova-ficha-box.pointer
                 img src="https://img.icons8.com/ios-glyphs/25/007AFF/chevron-right.png"            
         .divider-content
             form style="width: auto !important"
@@ -152,6 +150,9 @@ javascript:
             let dados = {id: $(".aluno-id").text(), nome: $(".aluno-nome").text(), idade: $(".aluno-idade").text()}
             avaliacao.showFormNovaAvaliacaoFisica(dados)
         })
+        $(".button-close-nova-ficha-box").click(function(){
+            avaliacao.closeFormNovaAvaliacaoFisica()
+        })
         $(document).on('click', '.sidebar-item', function (e) {
             let id = $(this).attr('id');
             avaliacao.showAlunoAvaliacoesFisicas(id)
@@ -265,4 +266,37 @@ css:
     }
     .title-divisor h5{
         margin: 0;
+    }
+    /*------------------------------------*/
+    .avaliacao-recente-box{
+        width: 25%;
+        height: 400px;
+        box-shadow: 0px 0px 7px 2px rgba(0,0,0,0.1);
+        border-radius: 20px;
+        overflow: hidden;
+    }
+    .avaliacao-recente-box .organizerA{
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        height: 80px;
+        padding: 0 5%;
+        background: white;
+    }
+    .avaliacao-recente-box .organizerB{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: 270px;
+        padding: 0 5%;
+        background: white;
+    }
+    .avaliacao-recente-box .organizerC{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 50px;
+        padding: 0;
+        background: white;
     }

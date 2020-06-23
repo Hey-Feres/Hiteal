@@ -18,7 +18,6 @@ class AvaliacaoFisica {
                 let row =   "<div class='pointer sidebar-item' id='"+ data[i].id +"'>" +
                                 "<div class='d-flex justify-content-between w-100'>" +
                                     "<h5>" + data[i].nome + "</h5>" +
-                                    
                                     "<h5> <img src='https://img.icons8.com/ios-glyphs/15/007AFF/chevron-right.png' /> </h5>" +
                                 "</div>"
                 			"</div>"
@@ -35,13 +34,55 @@ class AvaliacaoFisica {
 	}
 	showAlunoAvaliacoesFisicas(id){
         let request = new Request()
-        let url = apiBaseUrl + "/alunos/"+id
+        let url = apiBaseUrl + "/recentes/avaliacoes_fisicas/" + id
 		let successCallback = data => {
-			$(".aluno-nome").text(data.nome)
-			$(".aluno-id").text(data.id)
-			$(".aluno-idade").text(helper.calculateAge(data.nascimento))
+			$(".aluno-nome").text(data[0].nome)
+			$(".aluno-id").text(data[0].id)
+			for (var i = data.length - 1; i >= 0; i--) {
+				let recentes = 	"<div class='avaliacao-recente-box'>" +
+									"<div class='organizerA'>" +
+										"<h2 class='thin'> "+ helper.formatDateWithMonthName(data[i].created_at) +" </h2>" +
+									"</div>" +
+									"<div class='organizerB'>" +
+										"<div class='w-100 d-flex justify-content-between'>" +
+											"<div class='d-flex justify-content-start'>" +
+												"<p class='mr-2'> <img src='https://img.icons8.com/ios/20/35C759/weight-light.png'/> </p>" +
+												"<p class='thin'> Peso </p>" +
+											"</div>" +
+											"<p class='thin'>" + data[i].massa_corporal + " kg</p>" +
+										"</div>" +
+
+										"<div class='w-100 d-flex justify-content-between'>" +
+											"<div class='d-flex justify-content-start'>" +
+												"<p class='mr-2'> <img src='https://img.icons8.com/ios/20/FFCC0A/standing-man.png'/> </p>" +
+												"<p class='thin'> Altura </p>" +
+											"</div>" +
+											"<p class='thin'>" + data[i].estatura + " cm</p>" +
+										"</div>" +
+										"<div class='w-100 d-flex justify-content-between'>" +
+											"<div class='d-flex justify-content-start'>" +
+												"<p class='mr-2'> <img src='https://img.icons8.com/ios/20/5856D6/torso.png'/> </p>" +
+												"<p class='thin'> IMC</p>" +
+											"</div>" +
+											"<p class='thin'>" + data[i].indice_massa_corporal + "</p>" +
+										"</div>" +
+										"<div class='w-100 d-flex justify-content-between'>" +
+											"<div class='d-flex justify-content-start'>" +
+												"<p class='mr-2'> <img src='https://img.icons8.com/ios/20/FF2D55/tape-measure-sewing.png'/> </p>" +
+												"<p class='thin'> RCQ </p>" +
+											"</div>" +
+											"<p class='thin'>" + data[i].relacao_cintura_quadril + "</p>" +
+										"</div>" +
+									"</div>" +
+									"<div class='organizerC'>" +
+										"<p class='thin text-primary' id='"+ data[i].id +"'> Detalhes </p>" +
+									"</div>" +
+								"</div>"
+				$("#alunoAvaliacoesFisicasContent").append(recentes)
+			}
 			$("#alunoAvaliacoesFisicas").show()
 			$("#boxInfo").hide()
+			console.log(data)
 		}
 		let errorCallback = (jqXHR, textStatus, msg) => { 
 			console.log(msg)
@@ -51,12 +92,19 @@ class AvaliacaoFisica {
 	}
 	showFormNovaAvaliacaoFisica(dados){
 		$(".nova-avaliacao-aluno-nome").text(dados.nome)
-		$(".nova-avaliacao-aluno-idade").text(dados.idade + " anos")
         $("#novaAvaliacaoFisica").addClass("animated slideInRight")
         $("#novaAvaliacaoFisica").css("animation-duration", "0.7s")
         $("#novaAvaliacaoFisica").show()
         setTimeout(function(){
             $("#novaAvaliacaoFisica").removeClass("animated slideInRight")
+        }, 750)
+	}
+	closeFormNovaAvaliacaoFisica(){
+        $("#novaAvaliacaoFisica").addClass("animated slideOutRight")
+        $("#novaAvaliacaoFisica").css("animation-duration", "0.7s")
+        setTimeout(function(){
+        	$("#novaAvaliacaoFisica").hide()
+            $("#novaAvaliacaoFisica").removeClass("animated slideOutRight")
         }, 750)
 	}
 	salvarAvaliacao(dados){
@@ -105,10 +153,17 @@ class AvaliacaoFisica {
 			}
 		}
 		let successCallback = data => {
-			console.log(data)
+	        $("#novaAvaliacaoFisica").addClass("animated slideOutRight")
+	        $("#novaAvaliacaoFisica").css("animation-duration", "0.7s")
+	        setTimeout(function(){
+	        	$("#novaAvaliacaoFisica").hide()
+	            $("#novaAvaliacaoFisica").removeClass("animated slideOutRight")
+	        }, 750)
+			$("input").val("")
+			helper.notificacao("Avaliação Adicionada","A avaliação foi salva no banco de dados.");
 		}
         let errorCallback = (jqXHR, textStatus, msg) => { 
-        	console.log(msg)
+        	helper.notificacao("Erro ao Salvar","Não foi possível salvar os dados.");	
         }
         let response = request.post(data,url,successCallback,errorCallback)
         return response

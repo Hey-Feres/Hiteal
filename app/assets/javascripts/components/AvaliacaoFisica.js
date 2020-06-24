@@ -36,10 +36,11 @@ class AvaliacaoFisica {
         let request = new Request()
         let url = apiBaseUrl + "/recentes/avaliacoes_fisicas/" + id
 		let successCallback = data => {
-			$(".aluno-nome").text(data[0].nome)
-			$(".aluno-id").text(data[0].id)
+			$(".aluno-nome").text(data[0].aluno_nome)
+			$(".aluno-id").text(data[0].aluno_id)
+			$("#alunoAvaliacoesFisicasContent").append("<h4 class='mb-2'>Recentes</h4>")
 			for (var i = data.length - 1; i >= 0; i--) {
-				let recentes = 	"<div class='avaliacao-recente-box'>" +
+				let recentes =  "<div class='avaliacao-recente-box' id='avaliacao-recente-"+data[i].id+"'>" +
 									"<div class='organizerA'>" +
 										"<h2 class='thin'> "+ helper.formatDateWithMonthName(data[i].created_at) +" </h2>" +
 									"</div>" +
@@ -75,10 +76,36 @@ class AvaliacaoFisica {
 										"</div>" +
 									"</div>" +
 									"<div class='organizerC'>" +
-										"<p class='thin text-primary' id='"+ data[i].id +"'> Detalhes </p>" +
+										"<p class='thin text-primary pointer' id='"+ data[i].id +"'> Detalhes </p>" +
 									"</div>" +
 								"</div>"
 				$("#alunoAvaliacoesFisicasContent").append(recentes)
+			}
+			$("#alunoAvaliacoesFisicasContent").append("<h4 class='mt-5 mb-2'>Todas</h4>")
+			$("#alunoAvaliacoesFisicasContent").append(
+				"<table class='table table-striped'>" + 
+					"<thead>" +
+						"<tr>" +
+							"<th class='text-center'> Data </th>" +
+							"<th class='text-center'> Peso </th>" +
+							"<th class='text-center'> IMC </th>" +
+							"<th class='text-center'> RCQ </th>" +
+							"<th class=''> </th>" +
+						"</tr>" +
+					"</thead>" +
+					"<tbody id='avaliacoes-fisicas-table-body'>" +
+					"</tbody>" +
+				"</table>"
+			)
+			for (var i = data.length - 1; i >= 0; i--) {
+				let row = 	"<tr id='row-avaliacao-"+data[i].id+"'>" +
+								"<td class='text-center'>"+helper.formatDate(data[i].created_at, true)+" </td>" +
+								"<td class='text-center'>"+data[i].massa_corporal+" Kg</td>" +
+								"<td class='text-center'>"+data[i].indice_massa_corporal+"</td>" +
+								"<td class='text-center'>"+data[i].relacao_cintura_quadril+"</td>" +
+								"<td class='text-center pointer excluir-avaliacao-button' id='"+data[i].id+"'> <img src='https://img.icons8.com/ios/25/FF3B30/trash.png'/> </td>" +
+							"</tr>"
+				$("#avaliacoes-fisicas-table-body").append(row)
 			}
 			$("#alunoAvaliacoesFisicas").show()
 			$("#boxInfo").hide()
@@ -88,6 +115,26 @@ class AvaliacaoFisica {
 			console.log(msg)
 		}
         let response = request.get(url,successCallback,errorCallback)
+        return response
+	}
+	apagarAvaliacao(id){
+        let request = new Request();
+        let url = apiBaseUrl + "/avaliacoes_fisicas/" + id
+        let headers = {}
+        // .  .  .  .  .  .  .  .  .  .  .  .
+        let successCallback = function(data){
+			helper.notificacao("Avaliação Removida","Avaliação excluida com sucesso");
+			$("#row-avaliacao-"+data.id).addClass("animated slideOutRight")
+			$("#avaliacao-recente-"+data.id).addClass("animated rollOut")
+			setTimeout(function(){$("#row-avaliacao-"+data.id).remove()}, 750)
+			setTimeout(function(){$("#avaliacao-recente-"+data.id).remove()}, 750)
+        }
+        // .  .  .  .  .  .  .  .  .  .  .  .
+        let errorCallback = function(jqXHR, textStatus, msg){ 
+            helper.notificacao("Erro ao Excluir","Não foi possivel excluir a avaliação");
+        }
+        // .  .  .  .  .  .  .  .  .  .  .  .
+        let response = request.delete(url, successCallback, errorCallback, headers)
         return response
 	}
 	showFormNovaAvaliacaoFisica(dados){

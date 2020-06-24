@@ -96,24 +96,32 @@ class Helper {
 	}
 	formatDateWithMonthName(date){
 		let MyDate = new Date(date.split("T")[0]);
-		MyDate.setDate(MyDate.getDate() + 20);
-		let month = ""
-		switch(MyDate.getMonth()+1){
-			case 1: month = "Janeiro"; break;
-			case 2: month = "Fevereiro"; break;
-			case 3: month = "Março"; break;
-			case 4: month = "Abril"; break;
-			case 5: month = "Maio"; break;
-			case 6: month = "Junho"; break;
-			case 7: month = "Julho"; break;
-			case 8: month = "Agosto"; break;
-			case 9: month = "Setembro"; break;
-			case 10: month = "Outubro"; break;
-			case 11: month = "Novembro"; break;
-			case 12: month = "Dezembro"; break;
-			default: false; break;
+		let CurrentDate = new Date()
+		let FormatedCurrentDate = CurrentDate.getDate() + "/" + parseFloat(CurrentDate.getMonth() + 1) + "/" + CurrentDate.getFullYear()
+		let FormatedMyDate = MyDate.getDate() + "/" + parseFloat(MyDate.getMonth() + 1) + "/" + MyDate.getFullYear()
+		let DateToReturn
+		if (FormatedCurrentDate == FormatedMyDate) {
+			DateToReturn = "Hoje"
+		} else {
+			MyDate.setDate(MyDate.getDate() + 20);
+			let month = ""
+			switch(MyDate.getMonth()){
+				case 1: month = "Janeiro"; break;
+				case 2: month = "Fevereiro"; break;
+				case 3: month = "Março"; break;
+				case 4: month = "Abril"; break;
+				case 5: month = "Maio"; break;
+				case 6: month = "Junho"; break;
+				case 7: month = "Julho"; break;
+				case 8: month = "Agosto"; break;
+				case 9: month = "Setembro"; break;
+				case 10: month = "Outubro"; break;
+				case 11: month = "Novembro"; break;
+				case 12: month = "Dezembro"; break;
+				default: false; break;
+			}
+			DateToReturn = ('0' + MyDate.getDate()).slice(-2) + " de " + month
 		}
-		let formatedDate = ('0' + MyDate.getDate()).slice(-2) + " de " + month
-		return formatedDate
+		return DateToReturn
 	}
 }

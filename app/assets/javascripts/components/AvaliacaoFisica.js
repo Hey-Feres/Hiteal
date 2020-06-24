@@ -81,6 +81,20 @@ class AvaliacaoFisica {
 								"</div>"
 				$("#alunoAvaliacoesFisicasContent").append(recentes)
 			}
+			$("#alunoAvaliacoesFisicas").show()
+			$("#boxInfo").hide()
+			console.log(data)
+		}
+		let errorCallback = (jqXHR, textStatus, msg) => { 
+			console.log(msg)
+		}
+        let response = request.get(url,successCallback,errorCallback)
+        return response
+	}
+	loadAvaliacoesFisicasLista(aluno_id){
+        let request = new Request()
+        let url = apiBaseUrl + "/all/avaliacoes_fisicas/" + aluno_id + "/" + 0
+		let successCallback = data => {
 			$("#alunoAvaliacoesFisicasContent").append("<h4 class='mt-5 mb-2'>Todas</h4>")
 			$("#alunoAvaliacoesFisicasContent").append(
 				"<table class='table table-striped'>" + 
@@ -107,9 +121,6 @@ class AvaliacaoFisica {
 							"</tr>"
 				$("#avaliacoes-fisicas-table-body").append(row)
 			}
-			$("#alunoAvaliacoesFisicas").show()
-			$("#boxInfo").hide()
-			console.log(data)
 		}
 		let errorCallback = (jqXHR, textStatus, msg) => { 
 			console.log(msg)

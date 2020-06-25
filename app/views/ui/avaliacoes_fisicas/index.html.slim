@@ -153,8 +153,9 @@ javascript:
             avaliacao.closeFormNovaAvaliacaoFisica()
         })
         $(document).on('click', '.sidebar-item', function (e) {
-            let id = $(this).attr('id');
-            avaliacao.showAlunoAvaliacoesFisicas(id)
+            let id = $(this).attr('id').split("/")[0]
+            let nome = $(this).attr('id').split("/")[1]
+            avaliacao.showAlunoAvaliacoesFisicas(id,nome)
             e.preventDefault();
         })
         $(document).on('click', '.excluir-avaliacao-button', function (e) {

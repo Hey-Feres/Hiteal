@@ -16,7 +16,8 @@ class AvaliacaoFisica {
         let successCallback = data => {
         	$(".sidebar-list-wrapper").html("");
             for (var i = 0; i < data.length; i++) {
-                let row =   "<div class='pointer sidebar-item' id='"+ data[i].id +"'>" +
+            	let id = data[i].id + "/" + data[i].nome
+                let row =   "<div class='pointer sidebar-item' id='"+ id +"'>" +
                                 "<div class='d-flex justify-content-between w-100'>" +
                                     "<h5>" + data[i].nome + "</h5>" +
                                     "<h5> <img src='https://img.icons8.com/ios-glyphs/15/007AFF/chevron-right.png' /> </h5>" +
@@ -33,73 +34,53 @@ class AvaliacaoFisica {
         let response = request.post(data,url,successCallback,errorCallback)
         return response
 	}
-	showAlunoAvaliacoesFisicas(id){
+	showAlunoAvaliacoesFisicas(id, nome){
+        $(".aluno-nome").text(nome)
+        $(".aluno-id").text(id)
+		$("#alunoAvaliacoesFisicas").show()
+		$("#boxInfo").hide()
+		this.loadAvaliacoesFisicasRecentes(id)
+	}
+	loadAvaliacoesFisicasRecentes(aluno_id){
         let request = new Request()
-        let url = apiBaseUrl + "/recentes/avaliacoes_fisicas/" + id
-		let loadAvaliacoesFisicasLista = id => {
-			this.loadAvaliacoesFisicasLista(id)
-		}
+        let url = apiBaseUrl + "/recentes/avaliacoes_fisicas/" + aluno_id
+		// Funcao para chamar no callback
+		let loadAvaliacoesFisicasTable = id => { this.loadAvaliacoesFisicasTable(id) }
+		let renderCardAvaliacaoRecente = dados => {this.renderCardAvaliacaoRecente(dados)}
+		// Callback
 		let successCallback = data => {
-			if (data.length <= 0) {
-				helper.notificacao("Erro","Não conseguimos carregar os dados");
-				loadAvaliacoesFisicasLista(id)
-			}else{
-				$(".aluno-nome").text(data[0].aluno_nome)
-				$(".aluno-id").text(data[0].aluno_id)
+			$("#alunoAvaliacoesFisicasContent").html("")
+			if (data.length > 0) {
 				$("#alunoAvaliacoesFisicasContent").html("")
 				$("#recentes-row").html("")
-				$("#alunoAvaliacoesFisicasContent").append(
-					"<h4 class='mb-2'>Recentes</h4>" +
-					"<div class='row' id='recentes-row'>"+
-
-					"</div>"
-				)
+				$("#alunoAvaliacoesFisicasContent").append("<h4 class='mb-2'>Recentes</h4>")
+				$("#alunoAvaliacoesFisicasContent").append("<div class='row' id='recentes-row'> </div>")
 				for (var i = data.length - 1; i >= 0; i--) {
-					let recentes =  "<div class='col-3 mr-2 ml-2 avaliacao-recente-box' id='avaliacao-recente-"+data[i].id+"'>" +
-										"<div class='organizerA'>" +
-											"<h2 class='thin'> "+ helper.formatDateWithMonthName(data[i].created_at) +" </h2>" +
-										"</div>" +
-										"<div class='organizerB'>" +
-											"<div class='w-100 d-flex justify-content-between'>" +
-												"<div class='d-flex justify-content-start'>" +
-													"<p class='mr-2'> <img src='https://img.icons8.com/ios/20/35C759/weight-light.png'/> </p>" +
-													"<p class='thin'> Peso </p>" +
-												"</div>" +
-												"<p class='thin'>" + data[i].massa_corporal + " kg</p>" +
-											"</div>" +
-
-											"<div class='w-100 d-flex justify-content-between'>" +
-												"<div class='d-flex justify-content-start'>" +
-													"<p class='mr-2'> <img src='https://img.icons8.com/ios/20/FFCC0A/standing-man.png'/> </p>" +
-													"<p class='thin'> Altura </p>" +
-												"</div>" +
-												"<p class='thin'>" + data[i].estatura + " cm</p>" +
-											"</div>" +
-											"<div class='w-100 d-flex justify-content-between'>" +
-												"<div class='d-flex justify-content-start'>" +
-													"<p class='mr-2'> <img src='https://img.icons8.com/ios/20/5856D6/torso.png'/> </p>" +
-													"<p class='thin'> IMC</p>" +
-												"</div>" +
-												"<p class='thin'>" + data[i].indice_massa_corporal + "</p>" +
-											"</div>" +
-											"<div class='w-100 d-flex justify-content-between'>" +
-												"<div class='d-flex justify-content-start'>" +
-													"<p class='mr-2'> <img src='https://img.icons8.com/ios/20/FF2D55/tape-measure-sewing.png'/> </p>" +
-													"<p class='thin'> RCQ </p>" +
-												"</div>" +
-												"<p class='thin'>" + data[i].relacao_cintura_quadril + "</p>" +
-											"</div>" +
-										"</div>" +
-										"<div class='organizerC'>" +
-											"<p class='thin text-primary pointer' id='"+ data[i].id +"'> Detalhes </p>" +
-										"</div>" +
-									"</div>"
+					let recentes = renderCardAvaliacaoRecente(data[i])
 					$("#recentes-row").append(recentes)
 				}
-				loadAvaliacoesFisicasLista(id)
-				$("#alunoAvaliacoesFisicas").show()
-				$("#boxInfo").hide()
-				console.log(data)
+			}
+			loadAvaliacoesFisicasTable(aluno_id)
+		}
+		let errorCallback = (jqXHR, textStatus, msg) => { 
+			console.log(msg)
+		}
+        let response = request.get(url,successCallback,errorCallback)
+        return response
+	}
+	loadAvaliacoesFisicasTable(aluno_id){
+        let request = new Request()
+        let url = apiBaseUrl + "/all/avaliacoes_fisicas/" + aluno_id + "/" + 0
+		let renderAvaliacaoFisicaTableStructure = () => {this.renderAvaliacaoFisicaTableStructure()}
+		let renderAvaliacaoFisicaTableRow = data => {this.renderAvaliacaoFisicaTableRow(data)}
+		let successCallback = data => {
+			if (data.length > 0) {
+				$("#alunoAvaliacoesFisicasContent").append( "<h4 class='mt-5 mb-2'>Todas</h4>" )
+				$("#alunoAvaliacoesFisicasContent").append( renderAvaliacaoFisicaTableStructure() )
+				for (var i = data.length - 1; i >= 0; i--) {
+					let row = renderAvaliacaoFisicaTableRow(data[i])
+					$("#avaliacoes-fisicas-table-body").append(row)
+				}
 			}
 		}
 		let errorCallback = (jqXHR, textStatus, msg) => { 
@@ -108,42 +89,75 @@ class AvaliacaoFisica {
         let response = request.get(url,successCallback,errorCallback)
         return response
 	}
-	loadAvaliacoesFisicasLista(aluno_id){
-        let request = new Request()
-        let url = apiBaseUrl + "/all/avaliacoes_fisicas/" + aluno_id + "/" + 0
-		let successCallback = data => {
-			$("#alunoAvaliacoesFisicasContent").append("<h4 class='mt-5 mb-2'>Todas</h4>")
-			$("#alunoAvaliacoesFisicasContent").append(
-				"<table class='table table-striped'>" + 
-					"<thead>" +
-						"<tr>" +
-							"<th class='text-center'> Data </th>" +
-							"<th class='text-center'> Peso </th>" +
-							"<th class='text-center'> IMC </th>" +
-							"<th class='text-center'> RCQ </th>" +
-							"<th class=''> </th>" +
-						"</tr>" +
-					"</thead>" +
-					"<tbody id='avaliacoes-fisicas-table-body'>" +
-					"</tbody>" +
-				"</table>"
-			)
-			for (var i = data.length - 1; i >= 0; i--) {
-				let row = 	"<tr id='row-avaliacao-"+data[i].id+"'>" +
-								"<td class='text-center'>"+helper.formatDate(data[i].created_at, true)+" </td>" +
-								"<td class='text-center'>"+data[i].massa_corporal+" Kg</td>" +
-								"<td class='text-center'>"+data[i].indice_massa_corporal+"</td>" +
-								"<td class='text-center'>"+data[i].relacao_cintura_quadril+"</td>" +
-								"<td class='text-center pointer excluir-avaliacao-button' id='"+data[i].id+"'> <img src='https://img.icons8.com/ios/25/FF3B30/trash.png'/> </td>" +
-							"</tr>"
-				$("#avaliacoes-fisicas-table-body").append(row)
-			}
-		}
-		let errorCallback = (jqXHR, textStatus, msg) => { 
-			console.log(msg)
-		}
-        let response = request.get(url,successCallback,errorCallback)
-        return response
+	renderCardAvaliacaoRecente(dados){
+		let html = 	"<div class='col-3 mr-2 ml-2 avaliacao-recente-box' id='avaliacao-recente-"+dados.id+"'>" +
+							// Organizer A .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .
+							"<div class='organizerA'>" +
+								"<h2 class='thin'> "+ helper.formatDateWithMonthName(dados.created_at) +" </h2>" +
+							"</div>" +
+							// Organizer B .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .
+							"<div class='organizerB'>" +
+								"<div class='w-100 d-flex justify-content-between'>" +
+									"<div class='d-flex justify-content-start'>" +
+										"<p class='mr-2'> <img src='https://img.icons8.com/ios/20/35C759/weight-light.png'/> </p>" +
+										"<p class='thin'> Peso </p>" +
+									"</div>" +
+									"<p class='thin'>" + dados.massa_corporal + " kg</p>" +
+								"</div>" +
+							"<div class='w-100 d-flex justify-content-between'>" +
+								"<div class='d-flex justify-content-start'>" +
+									"<p class='mr-2'> <img src='https://img.icons8.com/ios/20/FFCC0A/standing-man.png'/> </p>" +
+									"<p class='thin'> Altura </p>" +
+								"</div>" +
+								"<p class='thin'>" + dados.estatura + " cm</p>" +
+							"</div>" +
+							"<div class='w-100 d-flex justify-content-between'>" +
+								"<div class='d-flex justify-content-start'>" +
+									"<p class='mr-2'> <img src='https://img.icons8.com/ios/20/5856D6/torso.png'/> </p>" +
+									"<p class='thin'> IMC</p>" +
+								"</div>" +
+								"<p class='thin'>" + dados.indice_massa_corporal + "</p>" +
+							"</div>" +
+							"<div class='w-100 d-flex justify-content-between'>" +
+								"<div class='d-flex justify-content-start'>" +
+									"<p class='mr-2'> <img src='https://img.icons8.com/ios/20/FF2D55/tape-measure-sewing.png'/> </p>" +
+									"<p class='thin'> RCQ </p>" +
+								"</div>" +
+								"<p class='thin'>" + dados.relacao_cintura_quadril + "</p>" +
+							"</div>" +
+						"</div>" +
+						// Organizer C .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .
+						"<div class='organizerC'>" +
+							"<p class='thin text-primary pointer' id='"+ dados.id +"'> Detalhes </p>" +
+						"</div>" +
+					"</div>"
+        return html
+	}
+	renderAvaliacaoFisicaTableStructure(){
+		let html = 	"<table class='table table-striped'>" + 
+						"<thead>" +
+							"<tr>" +
+								"<th class='text-center'> Data </th>" +
+								"<th class='text-center'> Peso </th>" +
+								"<th class='text-center'> IMC </th>" +
+								"<th class='text-center'> RCQ </th>" +
+								"<th class=''> </th>" +
+							"</tr>" +
+						"</thead>" +
+						"<tbody id='avaliacoes-fisicas-table-body'>" +
+						"</tbody>" +
+					"</table>"
+		return html
+	}
+	renderAvaliacaoFisicaTableRow(data){
+		let html =   "<tr id='row-avaliacao-"+data.id+"'>" +
+						"<td class='text-center'>"+helper.formatDate(data.created_at, true)+" </td>" +
+						"<td class='text-center'>"+data.massa_corporal+" Kg</td>" +
+						"<td class='text-center'>"+data.indice_massa_corporal+"</td>" +
+						"<td class='text-center'>"+data.relacao_cintura_quadril+"</td>" +
+						"<td class='text-center pointer excluir-avaliacao-button' id='"+data.id+"'> <img src='https://img.icons8.com/ios/25/FF3B30/trash.png'/> </td>" +
+					"</tr>"
+		return html
 	}
 	apagarAvaliacao(id){
         let request = new Request();

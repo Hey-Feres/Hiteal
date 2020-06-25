@@ -46,7 +46,8 @@ class Ui::PreferenciasController < ApplicationController
 			{id: "wallpaper_26", author: "Carl Barcelo", src: "https://images.unsplash.com/photo-1575052814086-f385e2e2ad1b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80"},
 			{id: "wallpaper_27", author: "Zen Bear Yoga", src: "https://images.unsplash.com/photo-1573384666979-2b1e160d2d08?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1620&q=80"},
 			{id: "wallpaper_28", author: "Fezbot2000", src: "https://images.unsplash.com/photo-1463704131914-97e5aaa0e339?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80"},
-
+			{id: "wallpaper_29", author: "Massimiliano Morosinotto", src: "https://images.unsplash.com/photo-1592330169142-b488cfd72b2b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1489&q=80"},
+			{id: "wallpaper_30", author: "Wengang Zhai", src: "https://images.unsplash.com/photo-1592880475728-31c2b5b617ef?ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80"},
 		]
 	end
 end

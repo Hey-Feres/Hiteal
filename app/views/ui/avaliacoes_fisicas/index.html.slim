@@ -155,7 +155,6 @@ javascript:
         $(document).on('click', '.sidebar-item', function (e) {
             let id = $(this).attr('id');
             avaliacao.showAlunoAvaliacoesFisicas(id)
-            avaliacao.loadAvaliacoesFisicasLista(id)
             e.preventDefault();
         })
         $(document).on('click', '.excluir-avaliacao-button', function (e) {

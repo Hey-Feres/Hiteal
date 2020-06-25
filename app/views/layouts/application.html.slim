@@ -17,10 +17,10 @@ html
     - if notice
         .notice-box.blurredBg
             p.notice= notice
-    #notificacao-wrapper        
+    #notificacao-wrapper
 css:
     .main-wrapper{
-        padding-top: 50px; /* 70 px é a altura do header */
+        padding-top: 50px;
         position: absolute;
         height: 100%;
         width: 100%;
@@ -29,7 +29,7 @@ css:
     }
     .notice-box{
         position: fixed;
-        top: 70px; /*Altura do header e de 70px, adicionamos uma distancia de 20 px abaixo do header*/
+        top: 70px;
         right: 1%;
         background: rgba(255, 255, 255,0.7);
         border-radius: 15px;
@@ -50,7 +50,7 @@ css:
         }        
     }
 
-- if current_user.preferencia.wallpaper != "Default"
+- if current_user.present? && current_user.preferencia.wallpaper != "Default"
     css:
         body{
             background-image: url("#{current_user.preferencia.wallpaper}");

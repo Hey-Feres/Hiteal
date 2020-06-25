@@ -35,12 +35,20 @@ class AvaliacaoFisica {
 	showAlunoAvaliacoesFisicas(id){
         let request = new Request()
         let url = apiBaseUrl + "/recentes/avaliacoes_fisicas/" + id
+		let loadAvaliacoesFisicasLista = id => {
+			this.loadAvaliacoesFisicasLista(id)
+		}
 		let successCallback = data => {
 			$(".aluno-nome").text(data[0].aluno_nome)
 			$(".aluno-id").text(data[0].aluno_id)
-			$("#alunoAvaliacoesFisicasContent").append("<h4 class='mb-2'>Recentes</h4>")
+			$("#alunoAvaliacoesFisicasContent").append(
+				"<h4 class='mb-2'>Recentes</h4>" +
+				"<div class='row' id='recentes-row'>"+
+
+				"</div>"
+			)
 			for (var i = data.length - 1; i >= 0; i--) {
-				let recentes =  "<div class='avaliacao-recente-box' id='avaliacao-recente-"+data[i].id+"'>" +
+				let recentes =  "<div class='col-3 mr-2 ml-2 avaliacao-recente-box' id='avaliacao-recente-"+data[i].id+"'>" +
 									"<div class='organizerA'>" +
 										"<h2 class='thin'> "+ helper.formatDateWithMonthName(data[i].created_at) +" </h2>" +
 									"</div>" +
@@ -79,8 +87,9 @@ class AvaliacaoFisica {
 										"<p class='thin text-primary pointer' id='"+ data[i].id +"'> Detalhes </p>" +
 									"</div>" +
 								"</div>"
-				$("#alunoAvaliacoesFisicasContent").append(recentes)
+				$("#recentes-row").append(recentes)
 			}
+			loadAvaliacoesFisicasLista(id)
 			$("#alunoAvaliacoesFisicas").show()
 			$("#boxInfo").hide()
 			console.log(data)

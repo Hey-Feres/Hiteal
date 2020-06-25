@@ -15,11 +15,23 @@
 				- @wallpapers.each do |wallpaper|
 					.col-4.mb-1
 						img.pointer.wallpaper src="#{wallpaper[:src]}" style="width: 300px; height: 170px; border-radius: 10px"
-						/p.author.thin.mt-1= "By #{wallpaper[:author]}"
+
 javascript:
 	$(document).ready(function(){
-		let preferencia = new Preferencia("#{current_user.id}")
-		preferencia.componentLoaded()
+		$(".wallpaper").click(function(e){
+		  	let src = $(this).attr('src')
+	        let request = new Request()
+	        let url = apiBaseUrl + "/preferencias/1"
+	        let data = {"preferencia": {"wallpaper": src }}
+	        let successCallback = data => {
+	        	$("body").css("background-image", "url("+data.wallpaper+")")
+	        }
+	        let errorCallback = (jqXHR, textStatus, msg) => { 
+	            console.log(msg)
+	        }
+	        let response = request.put(data,url,successCallback,errorCallback)
+	  		e.preventDefault()
+		})
 	})
 
 

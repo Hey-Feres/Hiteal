@@ -50,9 +50,19 @@ css:
         }        
     }
 
+- if current_user.preferencia.wallpaper != "Default"
+    css:
+        body{
+            background-image: url("#{current_user.preferencia.wallpaper}");
+            -moz-background-size: cover;
+            -webkit-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+        }
+        
 javascript:
     $(document).ready(function(){
-        setTimeout(function(){ 
+        setTimeout(function(){
             $(".notice-box").addClass("animated fadeOutRight")
             setTimeout(function(){ 
                 $(".notice-box").removeClass()

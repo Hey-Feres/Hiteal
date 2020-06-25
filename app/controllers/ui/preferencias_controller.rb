@@ -42,6 +42,11 @@ class Ui::PreferenciasController < ApplicationController
 			{id: "wallpaper_22", author: "Alex Beaz", src: "https://images.unsplash.com/photo-1586813670779-e2c91288272d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80"},
 			{id: "wallpaper_23", author: "Alex Beaz", src: "https://images.unsplash.com/photo-1586813331420-07464ae3de65?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80"},
 			{id: "wallpaper_24", author: "Alex Beaz", src: "https://images.unsplash.com/photo-1587327931388-4765a8cb89c7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80"},
+			{id: "wallpaper_25", author: "Ron Whitaker", src: "https://images.unsplash.com/photo-1517241034903-9a4c3ab12f00?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80"},
+			{id: "wallpaper_26", author: "Carl Barcelo", src: "https://images.unsplash.com/photo-1575052814086-f385e2e2ad1b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80"},
+			{id: "wallpaper_27", author: "Zen Bear Yoga", src: "https://images.unsplash.com/photo-1573384666979-2b1e160d2d08?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1620&q=80"},
+			{id: "wallpaper_28", author: "Fezbot2000", src: "https://images.unsplash.com/photo-1463704131914-97e5aaa0e339?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80"},
+
 		]
 	end
 end

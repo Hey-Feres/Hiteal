@@ -40,30 +40,35 @@
 					.home-box-body
 						p Contato conosco
 						p.button Contato
-				/.home-box.ml-2
-					.home-box-header
-						h4 Store
-					.home-box-body
-						p Extensões incriveis
-						p.button Ver Extensões
-			/.d-flex.justify-content-start.mt-3
-				.home-box.mr-2.ml-2
-					.home-box-header
-						h4 Dados do App
-					.home-box-body
-						p Dados de uso dos seus alunos
-						p.button Ver Dados
+	
+	.box#AppUpdates
+		.divider-header.d-flex.justify-content-between
+			h3 Atualizações do App
+			
+
+		.divider-content
+			
 css:
 	.content{
 		background: transparent;
 		border-left: none;
+	}
+	#AppUpdates{
+		height: 100%;
+		background: rgba(255, 255, 255, 0.8);
+		backdrop-filter: blur(15px);
+		-webkit-backdrop-filter: blur(15px);
+		-o-backdrop-filter: blur(15px);
+		-moz-backdrop-filter: blur(15px);
+		-ms-backdrop-filter: blur(15px);
+		z-index: 99999;
+		border: 1px solid #ccc;
 	}
 
 javascript:
 	$(document).ready(function(){
 		getNews()
 	})
-	//"/news"
 	function getNews(){
         let request = new Request()
         let url = "http://localhost:3000/news"

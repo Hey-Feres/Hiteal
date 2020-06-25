@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_21_111224) do
+ActiveRecord::Schema.define(version: 2020_06_25_184915) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -35,6 +35,17 @@ ActiveRecord::Schema.define(version: 2020_06_21_111224) do
 
 # Could not dump table "alunos" because of following StandardError
 #   Unknown type 'enum' for column 'sexo'
+
+  create_table "app_sugestao_updates", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "votos", default: 0
+    t.boolean "feito", default: false
+    t.string "titulo"
+    t.text "descricao"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_app_sugestao_updates_on_user_id"
+  end
 
   create_table "aula_presencas", force: :cascade do |t|
     t.integer "aluno_id", null: false
@@ -219,6 +230,7 @@ ActiveRecord::Schema.define(version: 2020_06_21_111224) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "alunos", "gyms"
   add_foreign_key "alunos", "planos"
+  add_foreign_key "app_sugestao_updates", "users"
   add_foreign_key "aula_presencas", "alunos"
   add_foreign_key "aula_presencas", "aulas"
   add_foreign_key "aulas", "gyms"

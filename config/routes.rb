@@ -20,6 +20,7 @@ Rails.application.routes.draw do
       resources :preferencias, except: [:edit,:new,:create]
       resources :fichas, only: [:show,:create,:destroy]
       resources :avaliacoes_fisicas, except: [:index, :edit,:new,:update]
+      resources :app_sugestoes_updates, except: [:edit,:new]
       # Upload Routes
       post '/gyms/upload', to: "gyms#upload"
       get '/gyms/:id/imagens', to: "gyms#imagens"
@@ -32,6 +33,9 @@ Rails.application.routes.draw do
       get '/all/aulas/:gym_id/:page', to: "aulas#index"
       get '/all/fichas/:aluno_id', to: "fichas#show"
       get '/all/avaliacoes_fisicas/:aluno_id/:page', to: "avaliacoes_fisicas#index"
+      get '/all/app_sugestoes_updates/:page', to: "app_sugestoes_updates#index"
+      # Destaques Routes
+      get '/destaques/app_sugestoes_updates', to: "app_sugestoes_updates#destaques"
       # Proximas Routes
       post '/proximas/aulas', to: "aulas#proximas"
       # Search Routes

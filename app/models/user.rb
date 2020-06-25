@@ -2,6 +2,10 @@ class User < ApplicationRecord
 	devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable, :trackable
 
 	belongs_to :gym, optional: true
+  
+  alias_attribute :app_sugestoes_updates, :app_sugestao_updates
+
+  has_many :app_sugestao_updates, dependent: :destroy
 
 	has_one_attached :foto
 

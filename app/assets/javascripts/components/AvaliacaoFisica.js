@@ -294,8 +294,6 @@ class AvaliacaoFisica {
 					$("#relacao-cintura-quadril").css("color", "rgb(255,59,48)")
 				}
 			}
-
-
 		}
 	}
 }

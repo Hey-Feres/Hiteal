@@ -4,7 +4,8 @@ class AvaliacaoFisica {
 		this.sexo = null;
 	}
 	componentLoaded(){
-		//this.sexo = "masculino"
+        $(".sidebar").addClass("animated fadeInDownBig")
+        $(".content").addClass("animated fadeInUpBig")
 		$(".box").not("#boxInfo").hide()
 	}
 	searchAlunos(params, page){
@@ -39,60 +40,67 @@ class AvaliacaoFisica {
 			this.loadAvaliacoesFisicasLista(id)
 		}
 		let successCallback = data => {
-			$(".aluno-nome").text(data[0].aluno_nome)
-			$(".aluno-id").text(data[0].aluno_id)
-			$("#alunoAvaliacoesFisicasContent").append(
-				"<h4 class='mb-2'>Recentes</h4>" +
-				"<div class='row' id='recentes-row'>"+
+			if (data.length <= 0) {
+				helper.notificacao("Erro","Não conseguimos carregar os dados");
+				loadAvaliacoesFisicasLista(id)
+			}else{
+				$(".aluno-nome").text(data[0].aluno_nome)
+				$(".aluno-id").text(data[0].aluno_id)
+				$("#alunoAvaliacoesFisicasContent").html("")
+				$("#recentes-row").html("")
+				$("#alunoAvaliacoesFisicasContent").append(
+					"<h4 class='mb-2'>Recentes</h4>" +
+					"<div class='row' id='recentes-row'>"+
 
-				"</div>"
-			)
-			for (var i = data.length - 1; i >= 0; i--) {
-				let recentes =  "<div class='col-3 mr-2 ml-2 avaliacao-recente-box' id='avaliacao-recente-"+data[i].id+"'>" +
-									"<div class='organizerA'>" +
-										"<h2 class='thin'> "+ helper.formatDateWithMonthName(data[i].created_at) +" </h2>" +
-									"</div>" +
-									"<div class='organizerB'>" +
-										"<div class='w-100 d-flex justify-content-between'>" +
-											"<div class='d-flex justify-content-start'>" +
-												"<p class='mr-2'> <img src='https://img.icons8.com/ios/20/35C759/weight-light.png'/> </p>" +
-												"<p class='thin'> Peso </p>" +
-											"</div>" +
-											"<p class='thin'>" + data[i].massa_corporal + " kg</p>" +
+					"</div>"
+				)
+				for (var i = data.length - 1; i >= 0; i--) {
+					let recentes =  "<div class='col-3 mr-2 ml-2 avaliacao-recente-box' id='avaliacao-recente-"+data[i].id+"'>" +
+										"<div class='organizerA'>" +
+											"<h2 class='thin'> "+ helper.formatDateWithMonthName(data[i].created_at) +" </h2>" +
 										"</div>" +
+										"<div class='organizerB'>" +
+											"<div class='w-100 d-flex justify-content-between'>" +
+												"<div class='d-flex justify-content-start'>" +
+													"<p class='mr-2'> <img src='https://img.icons8.com/ios/20/35C759/weight-light.png'/> </p>" +
+													"<p class='thin'> Peso </p>" +
+												"</div>" +
+												"<p class='thin'>" + data[i].massa_corporal + " kg</p>" +
+											"</div>" +
 
-										"<div class='w-100 d-flex justify-content-between'>" +
-											"<div class='d-flex justify-content-start'>" +
-												"<p class='mr-2'> <img src='https://img.icons8.com/ios/20/FFCC0A/standing-man.png'/> </p>" +
-												"<p class='thin'> Altura </p>" +
+											"<div class='w-100 d-flex justify-content-between'>" +
+												"<div class='d-flex justify-content-start'>" +
+													"<p class='mr-2'> <img src='https://img.icons8.com/ios/20/FFCC0A/standing-man.png'/> </p>" +
+													"<p class='thin'> Altura </p>" +
+												"</div>" +
+												"<p class='thin'>" + data[i].estatura + " cm</p>" +
 											"</div>" +
-											"<p class='thin'>" + data[i].estatura + " cm</p>" +
-										"</div>" +
-										"<div class='w-100 d-flex justify-content-between'>" +
-											"<div class='d-flex justify-content-start'>" +
-												"<p class='mr-2'> <img src='https://img.icons8.com/ios/20/5856D6/torso.png'/> </p>" +
-												"<p class='thin'> IMC</p>" +
+											"<div class='w-100 d-flex justify-content-between'>" +
+												"<div class='d-flex justify-content-start'>" +
+													"<p class='mr-2'> <img src='https://img.icons8.com/ios/20/5856D6/torso.png'/> </p>" +
+													"<p class='thin'> IMC</p>" +
+												"</div>" +
+												"<p class='thin'>" + data[i].indice_massa_corporal + "</p>" +
 											"</div>" +
-											"<p class='thin'>" + data[i].indice_massa_corporal + "</p>" +
-										"</div>" +
-										"<div class='w-100 d-flex justify-content-between'>" +
-											"<div class='d-flex justify-content-start'>" +
-												"<p class='mr-2'> <img src='https://img.icons8.com/ios/20/FF2D55/tape-measure-sewing.png'/> </p>" +
-												"<p class='thin'> RCQ </p>" +
+											"<div class='w-100 d-flex justify-content-between'>" +
+												"<div class='d-flex justify-content-start'>" +
+													"<p class='mr-2'> <img src='https://img.icons8.com/ios/20/FF2D55/tape-measure-sewing.png'/> </p>" +
+													"<p class='thin'> RCQ </p>" +
+												"</div>" +
+												"<p class='thin'>" + data[i].relacao_cintura_quadril + "</p>" +
 											"</div>" +
-											"<p class='thin'>" + data[i].relacao_cintura_quadril + "</p>" +
 										"</div>" +
-									"</div>" +
-									"<div class='organizerC'>" +
-										"<p class='thin text-primary pointer' id='"+ data[i].id +"'> Detalhes </p>" +
-									"</div>" +
-								"</div>"
-				$("#recentes-row").append(recentes)
+										"<div class='organizerC'>" +
+											"<p class='thin text-primary pointer' id='"+ data[i].id +"'> Detalhes </p>" +
+										"</div>" +
+									"</div>"
+					$("#recentes-row").append(recentes)
+				}
+				loadAvaliacoesFisicasLista(id)
+				$("#alunoAvaliacoesFisicas").show()
+				$("#boxInfo").hide()
+				console.log(data)
 			}
-			loadAvaliacoesFisicasLista(id)
-			$("#alunoAvaliacoesFisicas").show()
-			$("#boxInfo").hide()
-			console.log(data)
 		}
 		let errorCallback = (jqXHR, textStatus, msg) => { 
 			console.log(msg)
@@ -184,12 +192,12 @@ class AvaliacaoFisica {
 			    "historico_clinico": dados.historico_clinico,
 			    "historico_familiar": dados.historico_familiar,
 			    "limitacoes": dados.limitacoes,
-			    "pressao_arterial": dados.pressao_arterial,
-			    "frequencia_cardiaca": dados.frequencia_cardiaca,
-			    "massa_corporal": dados.massa_corporal,
+			    "pressao_arterial": dados.pressao_arterial, //
+			    "frequencia_cardiaca": dados.frequencia_cardiaca, //
+			    "massa_corporal": dados.massa, //
 			    "estatura": dados.estatura,
-			    "relacao_cintura_quadril": dados.relacao_cintura_quadril,
-			    "indice_massa_corporal": dados.indice_massa_corporal,
+			    "relacao_cintura_quadril": dados.relacao_cintura_quadril, //
+			    "indice_massa_corporal": dados.indice_massa_corporal, //
 			    "observacoes": dados.observacoes,
 			    "avaliacao_fisica_perimetro_attributes": {
 					"torax": dados.torax,

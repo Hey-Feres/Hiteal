@@ -10,6 +10,8 @@ class Api::V1::AvaliacoesFisicasController < ApplicationController
 	end
 
 	def create
+		puts "***************************"
+		puts params
 	    @avaliacao = AvaliacaoFisica.new(avaliacao_params)
 	    if @avaliacao.save
 	      	render json: @avaliacao, status: :created

@@ -9,6 +9,7 @@ class Ui::AvaliacoesFisicasController < ApplicationController
 	private
 		def sidebar
 			@sidebar_items = {
+				beta: true,
 				img:"https://img.icons8.com/ios/50/555555/like.png",
 				title: "Avaliações Físicas",
 				sidebar_with_search: true,

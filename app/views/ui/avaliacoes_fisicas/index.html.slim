@@ -179,12 +179,12 @@ javascript:
                 historico_clinico: $("#historico-clinico").val(),
                 historico_familiar:$("#historico-familiar").val(),
                 limitacoes: $("#limitacoes").val(),
-                pressao: $("#pressao").val(),
-                frequencia: $("#frequencia").val(),
+                pressao_arterial: $("#pressao-arterial").val(),
+                frequencia_cardiaca: $("#frequencia-cardiaca").val(),
                 massa: $("#massa").val(),
                 estatura: $("#estatura").val(),
-                relacao: $("#relacao").val(),
-                indice: $("#indice").val(),
+                relacao_cintura_quadril: $("#relacao-cintura-quadril").val(),
+                indice_massa_corporal: $("#indice-massa-corporal").val(),
                 observacoes: $("#observacoes").val(),
                 torax: $("#torax").val(),
                 cintura: $("#cintura").val(),
@@ -209,6 +209,7 @@ javascript:
                 peso_gordo: $("#peso-gordo").val(),
                 peso_magro: $("#peso-magro").val(),
             }
+            console.log(dados)
             avaliacao.salvarAvaliacao(dados)
         })
     })

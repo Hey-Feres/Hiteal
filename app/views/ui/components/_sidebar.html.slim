@@ -1,5 +1,8 @@
 .sidebar.blurredBg
 	.sidebar-header
+		- if dados[:beta].present? && dados[:beta] == true
+			.d-flex.justify-content-center.badgeBeta
+				h5 Beta
 		.d-flex.justify-content-start
 			.img-wrapper
 				img#logo src="#{dados[:img]}"
@@ -148,6 +151,15 @@ css:
 		cursor: pointer;
 		width: 63px;
 		height: 63px;		
+	}
+	.badgeBeta{
+		background: var(--pink);
+		width: 100%;
+		margin: 2% 0;
+		padding: 2.5px 0;
+		color: white;
+		font-family: sans-serif;
+		border-radius: 5px;
 	}
 	@-moz-document url-prefix() {
 		.sidebar{

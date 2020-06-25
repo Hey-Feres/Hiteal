@@ -14,7 +14,7 @@ class Api::V1::AvaliacoesFisicasController < ApplicationController
 		puts params
 	    @avaliacao = AvaliacaoFisica.new(avaliacao_params)
 	    if @avaliacao.save
-	      	render json: @avaliacao, status: :created
+	      	render json: @avaliacao, include: :aluno, status: :created
 	    else
 	    	puts @avaliacao.errors.inspect
 	      	render json: @avaliacao.errors, status: :unprocessable_entity

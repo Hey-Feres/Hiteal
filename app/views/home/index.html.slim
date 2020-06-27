@@ -44,14 +44,84 @@
 	.box#AppUpdates
 		.divider-header.d-flex.justify-content-between
 			h3 Atualizações do App
-			
+			h3.button-close-sugestoes-box
+				img src="https://img.icons8.com/ios-glyphs/25/007AFF/chevron-right.png"
 
 		.divider-content
-			
+			h3.thin.mb-2 Destaques
+			.row#row-destaques
+
+			h3.thin.mb-2 Todas
+			.row#row-sugestoes
+
 css:
 	.content{
 		background: transparent;
 		border-left: none;
+	}
+	.button-user-votou-destaque{
+		color: white;
+		border: none;
+		background: transparent;
+	}
+	.button-user-votou{
+		color: var(--blue);
+		border: none;
+		background: transparent;
+	}
+	.votar-destaque{
+		background: rgba(255, 255, 255, 0.1) !important;
+	}
+	.votar-destaque:hover{
+		background: rgba(255, 255, 255, 0) !important;;
+		border: 3px solid rgba(255, 255, 255, 0.1) !important;
+		box-shadow: 0px 0px 5px 5px transparent !important;
+	}
+	.button-votar{
+		background: var(--blue);
+		color: white;
+		border-radius: 15px;
+		border: none;
+		width: 80%;
+		margin: 0 10%;
+		height: 40px;
+	}
+	.button-votar:hover{
+		box-shadow: 0px 0px 5px 5px lightblue;
+	}
+	.destaque{
+		background: linear-gradient(180deg, #d53369 0%, #daae51 100%) !important;
+		color: white !important;
+	}
+	.sugestao{
+		background: white;
+		border-radius: 15px;
+		box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.1);
+		height: 350px;
+		width: 100%;
+		margin: 0 1%;
+		overflow: hidden;
+	}
+	.sugestao .organizer-A{
+		padding: 0 5%;
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-end;
+		height: 50px;
+	}
+	.sugestao .organizer-B{
+		height: 200px;
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-start;
+		padding: 2% 5%;
+	}
+	.sugestao .organizer-C{
+		height: 100px;
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-end;
+		padding: 6% 5%;
 	}
 	#AppUpdates{
 		height: 100%;
@@ -67,28 +137,29 @@ css:
 
 javascript:
 	$(document).ready(function(){
-		getNews()
+		let home = new Home("#{current_user.id}")
+		let page = 0
+		home.componentLoaded()
+		home.loadDestaquesSugestoesUpdates()
+		home.loadSugestoesUpdates(page)
+	  	$(document).on('click', '.votar-destaque', function (e) {
+	  		let id = $(this).attr('id').split("/")[0]
+	  		let numero_votos = $(this).attr('id').split("/")[1];
+        	$(this).removeClass()
+        	$(this).addClass("button-user-votou-destaque")
+        	$(this).html('Você Votou')
+	  		home.registrarVoto(id, numero_votos)
+	  		e.preventDefault()
+	  	})
+	  	$(document).on('click', '.votar', function (e) {
+	  		let id = $(this).attr('id').split("/")[0]
+	  		let numero_votos = $(this).attr('id').split("/")[1];
+        	$(this).removeClass()
+        	$(this).addClass("button-user-votou")
+        	$(this).html('Você Votou')
+	  		home.registrarVoto(id, numero_votos)
+	  		e.preventDefault()
+	  	})
 	})
-	function getNews(){
-        let request = new Request()
-        let url = "http://localhost:3000/news"
-        let successCallback = data => {
-            for (var i = data.length - 1; i >= 0; i--) {
-            	let row = 	"<div class='news-row'>" + 
-            					"<div>" +
-            						"<p class='news-title'>"+data[i].title.substring(50,length)+"... </p>" +
-            					"</div>" +
-            					"<p>"+data[i].content.substring(150,length)+"...</p>" +
-            					"<center>" + 
-            						"<a target='blank' href='"+data[i].url+"' class='button-ver-mais'> Ver Mais </a>" +
-            					"</center>" + 
-            				"</div>"
-            	$(".news-box-body").append(row)
-            }
-            console.log(data[0])
-        }
-        let errorCallback = (jqXHR, textStatus, msg) => { 
-            console.log(msg)
-        }
-        let response = request.get(url,successCallback,errorCallback)
-	}
+
+

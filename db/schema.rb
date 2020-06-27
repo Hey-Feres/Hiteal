@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_25_184915) do
+ActiveRecord::Schema.define(version: 2020_06_26_202205) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -206,6 +206,15 @@ ActiveRecord::Schema.define(version: 2020_06_25_184915) do
     t.index ["user_id"], name: "index_preferencia_on_user_id"
   end
 
+  create_table "user_sugestao_votos", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "app_sugestao_update_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["app_sugestao_update_id"], name: "index_user_sugestao_votos_on_app_sugestao_update_id"
+    t.index ["user_id"], name: "index_user_sugestao_votos_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -244,5 +253,7 @@ ActiveRecord::Schema.define(version: 2020_06_25_184915) do
   add_foreign_key "funcionarios", "gyms"
   add_foreign_key "planos", "gyms"
   add_foreign_key "preferencia", "users"
+  add_foreign_key "user_sugestao_votos", "app_sugestao_updates"
+  add_foreign_key "user_sugestao_votos", "users"
   add_foreign_key "users", "gyms"
 end

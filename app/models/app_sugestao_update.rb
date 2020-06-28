@@ -12,7 +12,7 @@ class AppSugestaoUpdate < ApplicationRecord
 	end
 	def self.paginate page
     	start = page.to_i * 10
-    	sugestoes = AppSugestaoUpdate.joins(:user_sugestao_voto).select("user_sugestao_votos.user_id as user_votou_id").where('id > ?', start).limit(20)
+    	sugestoes = AppSugestaoUpdate.where('id > ?', start).limit(20)
     	sugestoes
 	end	
 end

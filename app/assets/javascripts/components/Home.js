@@ -58,21 +58,42 @@ class Home {
         let request = new Request()
         let url = apiBaseUrl + "/all/app_sugestoes_updates/"+page
 		let successCallback = data => {
+			console.log(data)
+			let ids_votaram = new Array
+			for (var i = data.length - 1; i >= 0; i--) {
+				data[i].users_votaram.map( (value, index) => { ids_votaram.push(parseInt(value.id)) } )
+			}
 			for (var i = 0; i < data.length; i++) {
 				let html
-				let html = 	"<div class='col-3 mb-3'>" +
-								"<div class='sugestao'>" +
-									"<div class='organizer-A'>" +
-										"<h4>"+data[i].titulo+"</h4>" +
-									"</div>" +
-									"<div class='organizer-B'>" +
-										"<p class='thin'>"+data[i].descricao+"</p>" +
-									"</div>" +
-									"<div class='organizer-C'>" +
-										"<button id='"+ data[i].id + "/" + data[i].votos + "' class='votar button-votar'>Votar</button>"
-									"</div>"									
+				if (ids_votaram.includes(parseInt(this.user_id))) {
+					html = 	"<div class='col-3 mb-3'>" +
+									"<div class='sugestao'>" +
+										"<div class='organizer-A'>" +
+											"<h4>"+data[i].titulo+"</h4>" +
+										"</div>" +
+										"<div class='organizer-B'>" +
+											"<p class='thin'>"+data[i].descricao+"</p>" +
+										"</div>" +
+										"<div class='organizer-C'>" +
+											"<button id='"+ data[i].id + "/" + data[i].votos + "' disabled='disabled' class='button-user-votou'>Você Votou</button>"
+										"</div>"									
+									"</div>"
 								"</div>"
-							"</div>"
+				} else{
+					html = 	"<div class='col-3 mb-3'>" +
+									"<div class='sugestao'>" +
+										"<div class='organizer-A'>" +
+											"<h4>"+data[i].titulo+"</h4>" +
+										"</div>" +
+										"<div class='organizer-B'>" +
+											"<p class='thin'>"+data[i].descricao+"</p>" +
+										"</div>" +
+										"<div class='organizer-C'>" +
+											"<button id='"+ data[i].id + "/" + data[i].votos + "' class='votar button-votar'>Votar</button>"
+										"</div>"									
+									"</div>"
+								"</div>"
+				}				
 				$("#row-sugestoes").append(html)
 			}
 		}

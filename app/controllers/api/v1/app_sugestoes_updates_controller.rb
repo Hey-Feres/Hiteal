@@ -3,7 +3,7 @@ class Api::V1::AppSugestoesUpdatesController < ApplicationController
 
 	def index
 		@sugestoes = AppSugestaoUpdate.paginate(params[:page])
-		render json: @sugestoes
+		render json: @sugestoes, include: { users_votaram: {only: :id} }
 	end
 
 	def show

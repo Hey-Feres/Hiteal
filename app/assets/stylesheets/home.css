@@ -182,3 +182,175 @@
 		background: rgba(255,255,255,.9);	
 	}
 }
+/*  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  */
+/* Sugestao Updates ________________ */
+.button-user-votou-destaque{
+	color: white;
+	border: none;
+	background: transparent;
+}
+.button-user-votou{
+	color: var(--blue);
+	border: none;
+	background: transparent;
+}
+.votar-destaque{
+	background: rgba(255, 255, 255, 0.1) !important;
+}
+.votar-destaque:hover{
+	background: rgba(255, 255, 255, 0) !important;;
+	border: 3px solid rgba(255, 255, 255, 0.1) !important;
+	box-shadow: 0px 0px 5px 5px transparent !important;
+}
+.button-votar{
+	background: var(--blue);
+	color: white;
+	border-radius: 15px;
+	border: none;
+	width: 80%;
+	margin: 0 10%;
+	height: 40px;
+}
+.button-votar:hover{
+	box-shadow: 0px 0px 5px 5px lightblue;
+}
+.destaque{
+	background: linear-gradient(180deg, #d53369 0%, #daae51 100%) !important;
+	color: white !important;
+}
+.sugestao{
+	background: white;
+	border-radius: 15px;
+	box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.1);
+	height: 350px;
+	width: 100%;
+	margin: 0 1%;
+	overflow: hidden;
+}
+.sugestao .organizer-A{
+	padding: 0 5%;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	height: 50px;
+}
+.sugestao .organizer-B{
+	height: 200px;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	padding: 2% 5%;
+}
+.sugestao .organizer-C{
+	height: 100px;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	padding: 6% 5%;
+}
+#AppUpdates{
+	height: 100%;
+	background: rgba(255, 255, 255, 0.8);
+	backdrop-filter: blur(15px);
+	-webkit-backdrop-filter: blur(15px);
+	-o-backdrop-filter: blur(15px);
+	-moz-backdrop-filter: blur(15px);
+	-ms-backdrop-filter: blur(15px);
+	z-index: 99999;
+	border: 1px solid #ccc;
+}
+/*  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  */
+/* Suporte ________________ */
+#Suporte{
+	height: 100%;
+	background: rgba(255, 255, 255, 0.8);
+	backdrop-filter: blur(15px);
+	-webkit-backdrop-filter: blur(15px);
+	-o-backdrop-filter: blur(15px);
+	-moz-backdrop-filter: blur(15px);
+	-ms-backdrop-filter: blur(15px);
+	z-index: 99999;
+	border: 1px solid #ccc;
+}
+
+#Suporte .left{
+	position: fixed;
+	height: 90%;
+	width: 80%;
+	bottom: 0;
+	left: 0;
+	border-right: 1px solid #d8d8d8;
+}
+
+#Suporte .right{
+	position: fixed;
+	height: 90%;
+	width: 20%;
+	bottom: 0;
+	right: 0;
+}
+#Suporte .left .msg-display{
+	position: fixed;
+	bottom: 0;
+	height: 90%;
+	left: 20%;
+	width: 60%;
+	overflow: scroll;
+	padding: 1% 2% 4% 2%;
+}
+#Suporte .left .msg-input{
+	position: fixed;
+	bottom: 0;
+	left: 20%;
+	width: 60%;
+	padding: 1%;
+	background: rgba(255,255,255,0.7);
+	backdrop-filter: blur(5px);
+	-webkit-backdrop-filter: blur(5px);
+	-o-backdrop-filter: blur(5px);
+	-moz-backdrop-filter: blur(5px);
+	-ms-backdrop-filter: blur(5px);	
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+#Suporte .left .msg-input input{
+	box-shadow: 0px 0px 10px 5px rgba(0,0,0,.1);
+	border-radius: 10px;
+	width: 100%;
+	padding: 0.5% 1%;
+	background: white !important;
+}
+#Suporte .left .msg-display .msg-left{
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	padding: 1%;
+	width: 100%;
+}
+#Suporte .left .msg-display .msg-right{
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+	padding: 1%;
+	width: 100%;
+}
+#Suporte .left .msg-display .msg{
+	border-radius: 10px;
+	padding: 1%;
+	width: 40%;
+	color: #333;
+	box-shadow: 0px 0px 20px 2px rgba(0,0,0,0.1)
+}
+#Suporte .left .msg-display .msg-right .msg{
+	background-color: #FFFFFF;
+	background-image: linear-gradient(30deg, #FFFFFF 0%, #F2F2F2 100%)
+}
+#Suporte .left .msg-display .msg-left .msg{
+	background-color: #FFFFFF;
+	background-image: linear-gradient(60deg, #FFFFFF 0%, #F2F2F2 100%)
+}
+
+
+
+

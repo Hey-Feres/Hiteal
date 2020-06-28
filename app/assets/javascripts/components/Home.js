@@ -3,7 +3,8 @@ class Home {
 		this.user_id = user_id
 	}
 	componentLoaded(){
-		this.getNews()
+		//this.getNews()
+		$(".box").hide()
 	}
 	loadDestaquesSugestoesUpdates(){
         let request = new Request()
@@ -138,5 +139,39 @@ class Home {
             console.log(msg)
         }
         let response = request.get(url,successCallback,errorCallback)
-	}	
+	}
+	displaySugestoesScreen(page){
+		this.loadDestaquesSugestoesUpdates()
+		this.loadSugestoesUpdates(page)
+		$("#AppUpdates").addClass("animated slideInRight")
+        $("#AppUpdates").css("animation-duration", "0.7s")
+        $("#AppUpdates").show()
+        setTimeout(function(){
+            $("#AppUpdates").removeClass("animated slideInRight")
+        }, 750)
+	}
+	closeSugestoesScreen(){
+		$("#AppUpdates").addClass("animated slideOutRight")
+        $("#AppUpdates").css("animation-duration", "0.7s")
+        setTimeout(function(){
+            $("#AppUpdates").hide()
+            $("#AppUpdates").removeClass("animated slideOutRight")
+        }, 750)
+	}
+	displaySuporteScreen(){
+		$("#Suporte").addClass("animated slideInRight")
+        $("#Suporte").css("animation-duration", "0.7s")
+        $("#Suporte").show()
+        setTimeout(function(){
+            $("#Suporte").removeClass("animated slideInRight")
+        }, 750)
+	}
+	closeSuporteScreen(){
+		$("#Suporte").addClass("animated slideOutRight")
+        $("#Suporte").css("animation-duration", "0.7s")
+        setTimeout(function(){
+            $("#Suporte").hide()
+            $("#Suporte").removeClass("animated slideOutRight")
+        }, 750)
+	}
 }

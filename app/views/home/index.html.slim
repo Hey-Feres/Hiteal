@@ -33,18 +33,42 @@
 						h4 App Updates
 					.home-box-body
 						p Vote em atualizações
-						p.button Acessar
+						p.button#displaySugestoesScreen Acessar
 				.home-box.ml-2.mr-2
 					.home-box-header
 						h4 Suporte
 					.home-box-body
 						p Contato conosco
-						p.button Contato
-	
+						p.button#displaySuporteScreen Contato
+	.box#Suporte
+		.divider-header.d-flex.justify-content-between
+			h3 Suporte
+			h3#closeSuporteScreen.pointer
+				img src="https://img.icons8.com/ios-glyphs/25/007AFF/chevron-right.png"
+		.divider-content
+			.left
+				/.msg-display
+						/.msg-left
+							.msg
+								p
+						/.msg-right
+							.msg
+								p
+				.msg-input
+					input type="text" placeholder="Sua mensagem aqui."
+			.right
+				h5.thin.ml-2.mr-2 Outros Meios
+				#buttonContactMail.d-flex.justify-content-center.pointer
+					p
+						img src="https://img.icons8.com/ios-filled/25/FFFFFF/important-mail.png"
+				#buttonContactWhatsApp.d-flex.justify-content-center.mt-3.pointer
+					p
+						img src="https://img.icons8.com/ios-filled/25/FFFFFF/whatsapp.png"
+
 	.box#AppUpdates
 		.divider-header.d-flex.justify-content-between
 			h3 Atualizações do App
-			h3.button-close-sugestoes-box
+			h3#closeSugestoesScreen.pointer
 				img src="https://img.icons8.com/ios-glyphs/25/007AFF/chevron-right.png"
 
 		.divider-content
@@ -59,89 +83,43 @@ css:
 		background: transparent;
 		border-left: none;
 	}
-	.button-user-votou-destaque{
-		color: white;
-		border: none;
-		background: transparent;
+	#buttonContactWhatsApp{
+		height: 35px;
+		background: var(--green);
+		margin: 0 5%;
+		border-radius: 5px;
+		padding: 0 20%;
 	}
-	.button-user-votou{
-		color: var(--blue);
-		border: none;
-		background: transparent;
+	#buttonContactWhatsApp p, #buttonContactMail p{
+		line-height: 35px;
 	}
-	.votar-destaque{
-		background: rgba(255, 255, 255, 0.1) !important;
-	}
-	.votar-destaque:hover{
-		background: rgba(255, 255, 255, 0) !important;;
-		border: 3px solid rgba(255, 255, 255, 0.1) !important;
-		box-shadow: 0px 0px 5px 5px transparent !important;
-	}
-	.button-votar{
+	#buttonContactMail{
+		height: 35px;
 		background: var(--blue);
-		color: white;
-		border-radius: 15px;
-		border: none;
-		width: 80%;
-		margin: 0 10%;
-		height: 40px;
+		margin: 0 5%;
+		border-radius: 5px;
+		padding: 0 20%;
 	}
-	.button-votar:hover{
-		box-shadow: 0px 0px 5px 5px lightblue;
-	}
-	.destaque{
-		background: linear-gradient(180deg, #d53369 0%, #daae51 100%) !important;
-		color: white !important;
-	}
-	.sugestao{
-		background: white;
-		border-radius: 15px;
-		box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.1);
-		height: 350px;
-		width: 100%;
-		margin: 0 1%;
-		overflow: hidden;
-	}
-	.sugestao .organizer-A{
-		padding: 0 5%;
-		display: flex;
-		flex-direction: column;
-		justify-content: flex-end;
-		height: 50px;
-	}
-	.sugestao .organizer-B{
-		height: 200px;
-		display: flex;
-		flex-direction: column;
-		justify-content: flex-start;
-		padding: 2% 5%;
-	}
-	.sugestao .organizer-C{
-		height: 100px;
-		display: flex;
-		flex-direction: column;
-		justify-content: flex-end;
-		padding: 6% 5%;
-	}
-	#AppUpdates{
-		height: 100%;
-		background: rgba(255, 255, 255, 0.8);
-		backdrop-filter: blur(15px);
-		-webkit-backdrop-filter: blur(15px);
-		-o-backdrop-filter: blur(15px);
-		-moz-backdrop-filter: blur(15px);
-		-ms-backdrop-filter: blur(15px);
-		z-index: 99999;
-		border: 1px solid #ccc;
-	}
-
 javascript:
 	$(document).ready(function(){
 		let home = new Home("#{current_user.id}")
 		let page = 0
 		home.componentLoaded()
-		home.loadDestaquesSugestoesUpdates()
-		home.loadSugestoesUpdates(page)
+	  	$("#displaySugestoesScreen").click(function(){
+	  		home.displaySugestoesScreen(page)
+	  		page ++
+	  	})
+	  	$("#closeSugestoesScreen").click(function(){
+	  		home.closeSugestoesScreen()
+	  		page = 0
+	  	})
+	  	$("#displaySuporteScreen").click(function(){
+	  		home.displaySuporteScreen()
+	  	})
+	  	$("#closeSuporteScreen").click(function(){
+	  		home.closeSuporteScreen()
+	  	})
+	  	// Votar Sugestao em Destaque
 	  	$(document).on('click', '.votar-destaque', function (e) {
 	  		let id = $(this).attr('id').split("/")[0]
 	  		let numero_votos = $(this).attr('id').split("/")[1];
@@ -151,6 +129,7 @@ javascript:
 	  		home.registrarVoto(id, numero_votos)
 	  		e.preventDefault()
 	  	})
+	  	// Votar Sugestao
 	  	$(document).on('click', '.votar', function (e) {
 	  		let id = $(this).attr('id').split("/")[0]
 	  		let numero_votos = $(this).attr('id').split("/")[1];

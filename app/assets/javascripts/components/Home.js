@@ -5,6 +5,7 @@ class Home {
 	componentLoaded(){
 		//this.getNews()
 		$(".box").hide()
+		$("#Suporte").hide()
 	}
 	loadDestaquesSugestoesUpdates(){
         let request = new Request()

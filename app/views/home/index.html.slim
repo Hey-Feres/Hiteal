@@ -40,30 +40,19 @@
 					.home-box-body
 						p Contato conosco
 						p.button#displaySuporteScreen Contato
-	.box#Suporte
-		.divider-header.d-flex.justify-content-between
-			h3 Suporte
-			h3#closeSuporteScreen.pointer
-				img src="https://img.icons8.com/ios-glyphs/25/007AFF/chevron-right.png"
-		.divider-content
-			.left
-				/.msg-display
-						/.msg-left
-							.msg
-								p
-						/.msg-right
-							.msg
-								p
-				.msg-input
-					input type="text" placeholder="Sua mensagem aqui."
-			.right
-				h5.thin.ml-2.mr-2 Outros Meios
-				#buttonContactMail.d-flex.justify-content-center.pointer
-					p
-						img src="https://img.icons8.com/ios-filled/25/FFFFFF/important-mail.png"
-				#buttonContactWhatsApp.d-flex.justify-content-center.mt-3.pointer
-					p
-						img src="https://img.icons8.com/ios-filled/25/FFFFFF/whatsapp.png"
+	#Suporte
+		.d-flex.justify-content-between.ml-3.mr-3.mb-5
+			h5.thin Outros Meios
+			h5
+				img.pointer#closeSuporteScreen src="https://img.icons8.com/ios/15/FF3B30/cancel.png"
+		#buttonContactMail.d-flex.justify-content-center.pointer
+			p
+				a href="mailto: bruno@hiteal.app" 
+					img src="https://img.icons8.com/ios-filled/25/FFFFFF/important-mail.png"
+		#buttonContactWhatsApp.d-flex.justify-content-center.mt-3.pointer
+			p
+				a target="blank" href="https://whats.link/hiteal"
+					img src="https://img.icons8.com/ios-filled/25/FFFFFF/whatsapp.png"
 
 	.box#AppUpdates
 		.divider-header.d-flex.justify-content-between

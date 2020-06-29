@@ -1,5 +1,6 @@
-class Gym {
+class Gym extends Application {
     constructor(nome, cnpj, razao_social, gym_id, cep_api_key, cep_api_secret, geocoder_api_key, new_record) {
+        super();
         this.nome = nome;
         this.cnpj = cnpj;
         this.razao_social = razao_social;
@@ -545,12 +546,6 @@ class Gym {
         const response = request.get(url, successCallback , errorCallback, headers)
         return response
     }
-    // Item 8 ______________________________________________________
-    toggleWrappers(event, whatToShow){
-        event.preventDefault();
-        $(whatToShow).show(300);
-        $(".divider").not(whatToShow).hide(300);
-    }
 
 }
 
@@ -606,8 +601,3 @@ class Gym {
 //    - Performa uma request do tipo get a API OpenCageData
 //    - Esta API retorna o cep(postcode) relativo as coordenadas inseridas, a partir disso
 //    chama o metodo mudarCep que atualiza o endereco todo 
-// Item 8 ________________________________________________________________________________
-//    - Metodo toggleWrappers recebe o click event e o id da div que deve ser exibido, de 
-//    acordo com o que foi clicado na sidebar
-//    - Todo os outros dividers sao ocultados
-//    - Metodo preventDefault evita bugs relacionados ao evento de click do usuario

@@ -9,7 +9,6 @@
 		.divider-header.d-flex.justify-content-between
 			h3 Aulas
 			= render './ui/components/text-field', input: @inputs_attributes[:search]
-
 		.divider-content
 			table.table.table-striped#aulas-table
 				thead
@@ -129,13 +128,13 @@ javascript:
 		aula.componentLoaded()
 		aula.loadAulas(tablePage)
 		$("#todos-toggler").click(function(event) {
-			aula.toggleWrappers(event, "#wrapperTodos")
+			aula.toggleWrappers($(this), event, "#wrapperTodos")
 		})
 		$("#adicionar-toggler").click(function(event) {
-			aula.toggleWrappers(event, "#wrapperAdicionar")
+			aula.toggleWrappers($(this), event, "#wrapperAdicionar")
 		})
 		$("#proximas-toggler").click(function(event) {
-			aula.toggleWrappers(event, "#wrapperProximas")	
+			aula.toggleWrappers($(this), event, "#wrapperProximas")	
 		})
 		$("#button-load-more-aulas").click(function(event){
 			event.preventDefault();

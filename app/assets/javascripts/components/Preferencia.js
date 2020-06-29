@@ -1,5 +1,6 @@
-class Preferencia {
+class Preferencia extends Application {
 	constructor(user_id) {
+        super();
 		this.user_id = user_id;
 	}
 	componentLoaded(){

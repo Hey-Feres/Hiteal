@@ -1,6 +1,7 @@
-class Aluno {
+class Aluno extends Application {
 	constructor(gym_id,total_alunos) {
-		this.gym_id = gym_id;
+		super();
+        this.gym_id = gym_id;
 		this.total_alunos = total_alunos;
 	}
 	componentLoaded(){
@@ -477,10 +478,4 @@ class Aluno {
         }
         request.delete(url, successCallback, errorCallback)
     }
-    toggleWrappers(event, whatToShow){
-        event.preventDefault();
-        $(whatToShow).show(300);
-        $(".box").not(whatToShow).hide(300);
-    }
 }
-

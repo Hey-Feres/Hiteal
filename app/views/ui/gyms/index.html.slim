@@ -73,9 +73,15 @@ javascript:
 			gym.initMap(-19.984441834617307,-43.8485310499241);				
 		}		
 		// Swicth dos estados das divs
-		$("#dados-toggler").click(function(event) 	 { 	gym.toggleWrappers(event, "#wrapperDados")	  })
-		$("#endereco-toggler").click(function(event) { 	gym.toggleWrappers(event, "#wrapperEndereco") })
-		$("#imagens-toggler").click(function(event)  { 	gym.toggleWrappers(event, "#wrapperImagens")  })
+		$("#dados-toggler").click(function(event) {
+			gym.toggleWrappers($(this), event, "#wrapperDados")
+		})
+		$("#endereco-toggler").click(function(event) {
+			gym.toggleWrappers($(this), event, "#wrapperEndereco") 
+		})
+		$("#imagens-toggler").click(function(event) {
+			gym.toggleWrappers($(this), event, "#wrapperImagens")
+		})
 		// Input com nome
 		$("#gym-nome").change(function() {
 			response = gym.mudarNome($("#gym-nome").val())

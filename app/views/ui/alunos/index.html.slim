@@ -9,7 +9,6 @@
 		.divider-header.d-flex.justify-content-between
 			h3 Gerenciar
 			= render './ui/components/text-field', input: @inputs_attributes[:search]
-				
 		.divider-content
 			table.table.table-striped#alunos-table
 				thead
@@ -78,10 +77,10 @@ javascript:
 		aluno.componentLoaded();
 		aluno.loadAlunos(tablePage)
 		$("#gerenciar-toggler").click(function(event) {
-			aluno.toggleWrappers(event, "#wrapperGerenciar")
+			aluno.toggleWrappers($(this), event, "#wrapperGerenciar")
 		})
 		$("#adicionar-toggler").click(function(event) {
-			aluno.toggleWrappers(event, "#wrapperAdicionar")
+			aluno.toggleWrappers($(this), event, "#wrapperAdicionar")
 		})
 		$("#button-load-more-alunos").click(function(event){
 			event.preventDefault();

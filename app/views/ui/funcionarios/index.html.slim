@@ -9,7 +9,6 @@
 		.divider-header.d-flex.justify-content-between
 			h3 Funcionários
 			= render './ui/components/text-field', input: @inputs_attributes[:search]
-
 		.divider-content
 			table.table.table-striped#funcionarios-table
 				thead
@@ -93,10 +92,10 @@ javascript:
 		funcionario.componentLoaded()
 		funcionario.loadFuncionarios(tablePage)
 		$("#gerenciar-toggler").click(function(event) {
-			funcionario.toggleWrappers(event, "#wrapperTodos")
+			funcionario.toggleWrappers($(this), event, "#wrapperTodos")
 		})
 		$("#adicionar-toggler").click(function(event) {
-			funcionario.toggleWrappers(event, "#wrapperAdicionar")
+			funcionario.toggleWrappers($(this), event, "#wrapperAdicionar")
 		})		
 		$("#button-load-more-funcionarios").click(function(event){
 			event.preventDefault();

@@ -94,10 +94,10 @@ javascript:
 		let chartsLoaded = false
 		plano.componentLoaded();
 		$("#todos-toggler").click(function(event) {
-			plano.toggleWrappers(event, "#wrapperTodos")
+			plano.toggleWrappers($(this), event, "#wrapperTodos")
 		})
 		$("#adesao-toggler").click(function(event) {
-			plano.toggleWrappers(event, "#wrapperAdesao")
+			plano.toggleWrappers($(this), event, "#wrapperAdesao")
 			// Only load the charts if them not been loaded
 			if (!chartsLoaded) {
 				plano.loadAdesaoPage()
@@ -105,7 +105,7 @@ javascript:
 			}
 		})
 		$("#adicionar-toggler").click(function(event) {
-			plano.toggleWrappers(event, "#wrapperAdicionar")
+			plano.toggleWrappers($(this), event, "#wrapperAdicionar")
 		})
 		$("#delete-plano-button").click(function(){
 			let id = $("#plano-edit-id").val()

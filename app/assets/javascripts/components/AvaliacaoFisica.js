@@ -1,5 +1,6 @@
-class AvaliacaoFisica {
+class AvaliacaoFisica extends Application {
 	constructor(gym_id) {
+		super();
 		this.gym_id = gym_id;
 		this.sexo = null;
 	}

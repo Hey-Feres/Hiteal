@@ -9,6 +9,7 @@
 //= require ui-libraries/inputmask
 //= require ui-libraries/Chart.min
 //= require ui-libraries/Chart.bundle.min
+//= require components/Application
 //= require components/Gym
 //= require components/User
 //= require components/Plano

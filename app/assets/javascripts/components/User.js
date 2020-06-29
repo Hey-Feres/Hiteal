@@ -1,5 +1,6 @@
-class User {
+class User extends Application {
     constructor(id, nome, email, gym_id) {
+        super();
         this.id = id;
         this.nome = nome;
         this.email = email;
@@ -282,12 +283,6 @@ class User {
         }
         let response = request.get(url,successCallback,errorCallback)
         return response
-    }
-    // Item 9 ______________________________________________________
-    toggleWrappers(event, whatToShow){
-        event.preventDefault();
-        $(whatToShow).show(300);
-        $(".box").not(whatToShow).hide(300);
     }
     // Item 10 ______________________________________________________
 	getLocation() {

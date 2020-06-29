@@ -1,5 +1,6 @@
-class Aviso {
+class Aviso extends Application {
 	constructor(gym_id) {
+        super();
 		this.gym_id = gym_id;
 	}
     // Item 1 ______________________________________________________
@@ -336,12 +337,6 @@ class Aviso {
         $("#aviso-conteudo").val("")
         $("#aviso-exibicao").val("")
         $("#aviso-fixado").prop("checked", false)
-    }
-    // Item 11 _____________________________________________________
-    toggleWrappers(event, whatToShow){
-        event.preventDefault();
-        $(whatToShow).show(300);
-        $(".box").not(whatToShow).hide(300);
     }
 }
 

@@ -1,5 +1,6 @@
-class Aula {
+class Aula extends Application {
 	constructor(gym_id) {
+        super();
 		this.gym_id = gym_id;
 	}
     // Item 1 ______________________________________________________
@@ -556,11 +557,6 @@ class Aula {
         // .  .  .  .  .  .  .  .  .  .  .  .
         let response = request.post(data, url, successCallback, errorCallback, headers)
         return response
-    }
-    toggleWrappers(event, whatToShow){
-        event.preventDefault();
-        $(whatToShow).show(300);
-        $(".box").not(whatToShow).hide(300);
     }
 }
 

@@ -1,5 +1,6 @@
-class Plano {
+class Plano extends Application {
     constructor(id, gym_id) {
+        super();
         this.id = id;
         this.gym_id = gym_id;
     }
@@ -223,10 +224,5 @@ class Plano {
         }
         let response = request.post(data,url,successCallback,errorCallback,{})
         return response
-    }    
-    toggleWrappers(event, whatToShow){
-        event.preventDefault();
-        $(whatToShow).show(300);
-        $(".box").not(whatToShow).hide(300);
     }
 }

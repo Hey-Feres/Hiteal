@@ -78,10 +78,10 @@ javascript:
 		aviso.loadAvisos(tablePage)
 		if (tablePage >= totalPages) { $("#button-load-more-avisos").hide() }
 		$("#todos-toggler").click(function(event) {
-			aviso.toggleWrappers(event, "#wrapperTodos")
+			aviso.toggleWrappers($(this), event, "#wrapperTodos")
 		})
 		$("#adicionar-toggler").click(function(event) {
-			aviso.toggleWrappers(event, "#wrapperAdicionar")
+			aviso.toggleWrappers($(this), event, "#wrapperAdicionar")
 		})
 		$("#button-load-more-avisos").click(function(event){
 			event.preventDefault();

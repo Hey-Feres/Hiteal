@@ -114,10 +114,10 @@ javascript:
 		let nextPage = 1
 		// Swicth dos estados das divs
 		$("#dados-toggler").click(function(event) {
-			user.toggleWrappers(event, "#wrapperDados")
+			user.toggleWrappers($(this), event, "#wrapperDados")
 		})
 		$("#gerenciar-toggler").click(function(event) { 
-			user.toggleWrappers(event, "#wrapperGerenciar")
+			user.toggleWrappers($(this), event, "#wrapperGerenciar")
 			console.log("Next Page: " + nextPage)
 			console.log("Current Page: " + page)
 			// Só carrega os usuarios ao clicar se estiver na pag 0
@@ -128,7 +128,7 @@ javascript:
 			}
 		})
 		$("#adicionar-toggler").click(function(event) { 
-			user.toggleWrappers(event, "#wrapperAdicionar")
+			user.toggleWrappers($(this), event, "#wrapperAdicionar")
 		})
 		// Input com nome
 		$("#user-edit-nome").change(function() {

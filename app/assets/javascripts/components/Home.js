@@ -3,7 +3,7 @@ class Home {
 		this.user_id = user_id
 	}
 	componentLoaded(){
-		//this.getNews()
+		this.getNews()
 		$(".box").hide()
 		$("#Suporte").hide()
 	}

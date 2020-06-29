@@ -13,11 +13,9 @@ html
     = render 'layouts/header'
     .main-wrapper
         = yield
-        = render "./ui/components/notificacao"
     - if notice
         .notice-box.blurredBg
             p.notice= notice
-    #notificacao-wrapper
 css:
     .main-wrapper{
         padding-top: 50px;
@@ -67,6 +65,7 @@ javascript:
             setTimeout(function(){ 
                 $(".notice-box").removeClass()
                 $(".notice-box").hide()
+                $(".notice").hide()
             }, 750);
         }, 3000);
     })

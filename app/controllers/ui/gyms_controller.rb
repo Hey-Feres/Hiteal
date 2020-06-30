@@ -1,4 +1,5 @@
 class Ui::GymsController < ApplicationController
+	before_action :check_assinatura
 
 	def index
 		# Item 1
@@ -19,6 +20,7 @@ class Ui::GymsController < ApplicationController
 				]
 			}			
 		end
+		
 		def inputs_attributes
 			# Item 3
 			@inputs_attributes = {

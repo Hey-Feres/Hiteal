@@ -1,4 +1,6 @@
 class Ui::AvisosController < ApplicationController
+	before_action :check_assinatura
+	
 	# Item 1
 	def index
 		@numero_paginas = Aviso.all.count / 20

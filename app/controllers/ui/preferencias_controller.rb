@@ -1,4 +1,6 @@
 class Ui::PreferenciasController < ApplicationController
+	before_action :check_assinatura
+	
 	def index
 		# Item 1
 		@gym = current_user.gym

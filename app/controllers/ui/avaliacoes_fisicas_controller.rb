@@ -1,8 +1,8 @@
 class Ui::AvaliacoesFisicasController < ApplicationController
+	before_action :check_assinatura
+	
 	def index
-		# Item 1
 		sidebar
-		# Item 2
 		inputs_attributes
 	end
 
@@ -16,8 +16,9 @@ class Ui::AvaliacoesFisicasController < ApplicationController
 					input_id: "search-aluno",
 					placeholder: "Busque Alunos"
 				}
-			}			
+			}
 		end
+
 		def inputs_attributes
 			@inputs_attributes = {
 				geral: {

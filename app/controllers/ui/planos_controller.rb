@@ -1,4 +1,6 @@
 class Ui::PlanosController < ApplicationController
+	before_action :check_assinatura
+
 	def index
 		# Item 1
 		@gym = current_user.gym
@@ -6,6 +8,7 @@ class Ui::PlanosController < ApplicationController
 		inputs_attributes
 		sidebar
 	end
+	
 	private
 		def sidebar
 			# Item 2

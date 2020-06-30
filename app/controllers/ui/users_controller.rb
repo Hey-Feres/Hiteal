@@ -1,4 +1,6 @@
 class Ui::UsersController < ApplicationController
+	before_action :check_assinatura
+
 	def index
 		# Item 1
 		@user = current_user
@@ -20,6 +22,7 @@ class Ui::UsersController < ApplicationController
 				]
 			}			
 		end
+		
 		def inputs_attributes
 			@inputs_attributes = {
 				edit: {

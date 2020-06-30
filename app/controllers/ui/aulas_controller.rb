@@ -1,4 +1,6 @@
 class Ui::AulasController < ApplicationController
+	before_action :check_assinatura
+	
 	def index
 		sidebar_items
 		input_attributes
@@ -17,6 +19,7 @@ class Ui::AulasController < ApplicationController
 				]
 			}
 		end
+		
 		def input_attributes
 			@inputs_attributes = {
 				search: {

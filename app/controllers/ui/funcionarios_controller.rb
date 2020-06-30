@@ -1,9 +1,12 @@
 class Ui::FuncionariosController < ApplicationController
+	before_action :check_assinatura
+
 	def index
 		sidebar_items
 		input_attributes
 		@numero_paginas = Funcionario.all.count / 20
 	end
+
 	private
 		def sidebar_items
 			@sidebar_items = {
@@ -15,6 +18,7 @@ class Ui::FuncionariosController < ApplicationController
 				]
 			}
 		end
+		
 		def input_attributes
 			@inputs_attributes = {
 				search: {

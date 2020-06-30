@@ -1,4 +1,6 @@
 class Ui::AlunosController < ApplicationController
+	before_action :check_assinatura
+	
 	def index
 		@sidebar_items = {
 			img:"https://img.icons8.com/ios/50/555555/pullups.png",
@@ -12,6 +14,7 @@ class Ui::AlunosController < ApplicationController
 		@total_alunos = Aluno.where(gym_id: current_user.gym_id).count
 		inputs_attributes
 	end
+	
 	private
 		def inputs_attributes
 			@inputs_attributes = {

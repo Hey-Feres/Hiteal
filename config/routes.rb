@@ -65,6 +65,7 @@ Rails.application.routes.draw do
     resources :aulas, only: :index
     resources :preferencias, only: :index
     resources :avaliacoes_fisicas, only: :index
-    resources :assinaturas, only: :index
+    resources :assinaturas, only: [:index]
+    get "assinatura/inativa", to: "assinaturas#inativa"
   end
 end

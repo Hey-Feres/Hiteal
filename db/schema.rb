@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_26_202205) do
+ActiveRecord::Schema.define(version: 2020_06_30_060911) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -45,6 +45,16 @@ ActiveRecord::Schema.define(version: 2020_06_26_202205) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_app_sugestao_updates_on_user_id"
+  end
+
+  create_table "assinaturas", force: :cascade do |t|
+    t.integer "gym_id", null: false
+    t.float "valor"
+    t.datetime "vencimento"
+    t.string "status", default: "ativa"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["gym_id"], name: "index_assinaturas_on_gym_id"
   end
 
   create_table "aula_presencas", force: :cascade do |t|
@@ -188,6 +198,14 @@ ActiveRecord::Schema.define(version: 2020_06_26_202205) do
     t.string "rua"
   end
 
+  create_table "periodo_testes", force: :cascade do |t|
+    t.integer "gym_id", null: false
+    t.datetime "vencimento"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["gym_id"], name: "index_periodo_testes_on_gym_id"
+  end
+
   create_table "planos", force: :cascade do |t|
     t.integer "gym_id", null: false
     t.string "nome"
@@ -240,6 +258,7 @@ ActiveRecord::Schema.define(version: 2020_06_26_202205) do
   add_foreign_key "alunos", "gyms"
   add_foreign_key "alunos", "planos"
   add_foreign_key "app_sugestao_updates", "users"
+  add_foreign_key "assinaturas", "gyms"
   add_foreign_key "aula_presencas", "alunos"
   add_foreign_key "aula_presencas", "aulas"
   add_foreign_key "aulas", "gyms"
@@ -251,6 +270,7 @@ ActiveRecord::Schema.define(version: 2020_06_26_202205) do
   add_foreign_key "fichas", "alunos"
   add_foreign_key "fichas", "exercicios"
   add_foreign_key "funcionarios", "gyms"
+  add_foreign_key "periodo_testes", "gyms"
   add_foreign_key "planos", "gyms"
   add_foreign_key "preferencia", "users"
   add_foreign_key "user_sugestao_votos", "app_sugestao_updates"

@@ -9,4 +9,8 @@ class Ui::AssinaturasController < ApplicationController
 			]
 		}
 	end
+
+	def inativa
+		
+	end
 end

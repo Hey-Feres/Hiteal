@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  gym: one
+  valor: 1.5
+  vencimento: 2020-06-30 00:04:40
+  status: MyString
+
+two:
+  gym: two
+  valor: 1.5
+  vencimento: 2020-06-30 00:04:40
+  status: MyString

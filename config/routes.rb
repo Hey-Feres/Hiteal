@@ -21,6 +21,7 @@ Rails.application.routes.draw do
       resources :fichas, only: [:show,:create,:destroy]
       resources :avaliacoes_fisicas, except: [:index, :edit,:new,:update]
       resources :app_sugestoes_updates, except: [:edit,:new]
+      resources :assinaturas, except: [:edit,:new]
       # Upload Routes
       post '/gyms/upload', to: "gyms#upload"
       get '/gyms/:id/imagens', to: "gyms#imagens"

@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
 			if current_user
 				gym = Gym.find current_user.gym.id
 				hoje = DateTime.now
-				vencimento_assinatura = gym.assinatura.vencimento
+				vencimento_assinatura = gym.assinatura.nil? ? "" : gym.assinatura.vencimento
 				vencimento_periodo_teste = gym.periodo_teste.vencimento
 				# Se o periodo de teste estiver vencido
 				if hoje > vencimento_periodo_teste

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_30_060911) do
+ActiveRecord::Schema.define(version: 2020_06_30_195855) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -198,6 +198,15 @@ ActiveRecord::Schema.define(version: 2020_06_30_060911) do
     t.string "rua"
   end
 
+  create_table "pagamentos", force: :cascade do |t|
+    t.integer "gym_id", null: false
+    t.float "valor"
+    t.string "status"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["gym_id"], name: "index_pagamentos_on_gym_id"
+  end
+
   create_table "periodo_testes", force: :cascade do |t|
     t.integer "gym_id", null: false
     t.datetime "vencimento"
@@ -270,6 +279,7 @@ ActiveRecord::Schema.define(version: 2020_06_30_060911) do
   add_foreign_key "fichas", "alunos"
   add_foreign_key "fichas", "exercicios"
   add_foreign_key "funcionarios", "gyms"
+  add_foreign_key "pagamentos", "gyms"
   add_foreign_key "periodo_testes", "gyms"
   add_foreign_key "planos", "gyms"
   add_foreign_key "preferencia", "users"

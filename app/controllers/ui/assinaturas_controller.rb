@@ -11,6 +11,22 @@ class Ui::AssinaturasController < ApplicationController
 	end
 
 	def inativa
-		
+		preference
 	end
+
+	private
+		def preference
+	    	begin
+	    		@preference_id = Pagamento.preference(current_user.email, current_user.gym.alunos.count)
+	    		puts "*************"
+	    		puts @preference_id
+			rescue => erro
+			    retries += 1
+			    if retries < 3
+			        retry
+			    else
+			        return erro
+			    end
+			end
+		end
 end

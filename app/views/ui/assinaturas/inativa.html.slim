@@ -4,7 +4,37 @@
 
 .content
 	.box
-		.divider-header.d-flex.justify-content-between
-			h3 Assinatura Inativa
-
+		.divider-header.d-flex.justify-content-center
+			div
+				h3.thin.text-center Assinatura Inativa
+				p.thin.text-center Parece que sua assinatura ou seu periodo de teste terminou. Continue conosco clicando no botão abaixo :)
 		.divider-content
+			center
+				= image_tag("illustrations/assinatura-inativa.png", alt: "", class: "illustration-assinatura-inativa")
+				form action="" method="GET"
+					script src="https://www.mercadopago.com.br/integrations/v1/web-payment-checkout.js" data-preference-id="#{@preference_id}">
+css:
+	.content{
+		width: 100% !important;
+		left: 0 !important;
+	}
+	h3 {
+	  	font-size: 60px;
+	  	color: #333;
+	}
+	p{
+		margin: 0 !important;
+	}
+	.illustration-assinatura-inativa{
+		width: 30%;
+		margin: 0 !important;
+	}
+	button{
+		background: #333 !important;
+		width: 20% !important;
+		margin: 3% 0 !important;
+		padding: 0.3% 0 !important;
+	}
+	button:hover{
+		background-position: right center !important
+	}

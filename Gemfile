@@ -37,6 +37,7 @@ gem "devise"
 gem 'slim-rails'
 gem 'faker'
 gem 'news-api'
+gem 'mercadopago-sdk'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

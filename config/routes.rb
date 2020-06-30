@@ -65,5 +65,6 @@ Rails.application.routes.draw do
     resources :aulas, only: :index
     resources :preferencias, only: :index
     resources :avaliacoes_fisicas, only: :index
+    resources :assinaturas, only: :index
   end
 end

@@ -17,6 +17,16 @@ class Api::V1::AssinaturasController < ApplicationController
 		  render json: @assinatura.errors, status: :unprocessable_entity
 		end
 	end
+	
+	def pagamento_sucesso
+		puts "Pagamento Sucesso ***************************************************************************************************************************************"
+		redirect_to ui_assinaturas_path
+	end
+    
+    def pagamento_erro
+    	puts "Pagamento Erro ***************************************************************************************************************************************"
+    	redirect_to ui_assinaturas_path
+    end
 
 	private
 	    def set_assinatura

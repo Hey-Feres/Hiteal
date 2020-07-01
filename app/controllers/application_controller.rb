@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
 			if hoje > vencimento_periodo_teste
 				# Se a assinatura estiver vencida
 				if hoje > vencimento_assinatura
-					redirect_to ui_assinatura_inativa_url
+					redirect_to ui_assinaturas_inativa_url
 				end
 			end
 		end

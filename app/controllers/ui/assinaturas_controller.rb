@@ -1,6 +1,7 @@
 class Ui::AssinaturasController < ApplicationController
 	before_action :check_assinatura
-	
+	before_action :set_preference
+
 	def index
 		@sidebar_items = {
 			img:"https://img.icons8.com/ios/50/555555/pullups.png",
@@ -13,13 +14,12 @@ class Ui::AssinaturasController < ApplicationController
 	end
 
 	def inativa
-		preference
 	end
 
 	private
-		def preference
+		def set_preference
 	    	begin
-	    		@preference_id = Pagamento.preference(current_user.email, current_user.gym.alunos.count)
+	    		@preference_id = Pagamento.preference(current_user.email, current_user.gym.alunos.count, root_url)
 			rescue => erro
 			    retries += 1
 			    if retries < 3
@@ -30,3 +30,4 @@ class Ui::AssinaturasController < ApplicationController
 			end
 		end
 end
+

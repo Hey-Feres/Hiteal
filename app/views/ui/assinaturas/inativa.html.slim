@@ -1,6 +1,5 @@
 - provide :head_tags do
 	meta name='turbolinks-visit-control' content='reload'
-	script src="https://secure.mlstatic.com/sdk/javascript/v1/mercadopago.js"
 
 .content
 	.box
@@ -11,8 +10,8 @@
 		.divider-content
 			center
 				= image_tag("illustrations/assinatura-inativa.png", alt: "", class: "illustration-assinatura-inativa")
-				form action="" method="GET"
-					script src="https://www.mercadopago.com.br/integrations/v1/web-payment-checkout.js" data-preference-id="#{@preference_id}">
+				form action="#{root_url}" method="GET"
+					script src="https://www.mercadopago.com.br/integrations/v1/web-payment-checkout.js" data-preference-id="#{@preference_id}"
 css:
 	.content{
 		width: 100% !important;

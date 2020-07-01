@@ -50,6 +50,9 @@ Rails.application.routes.draw do
       get '/planos_chart_data', to: "planos#chart_data"
       # Recentes Routes
       get '/recentes/avaliacoes_fisicas/:aluno_id', to: "avaliacoes_fisicas#recentes"
+      # Assinaturas
+      get "assinaturas/pagamento_sucesso", to: "assinaturas#pagamento_sucesso"
+      get "assinaturas/pagamento_erro", to: "assinaturas#pagamento_erro"      
       # Alunos App Routes
       get 'minhas_aulas/:id', to: "alunos#aulas"
       post 'presenca/aula', to: "aulas#confirmar_presenca"
@@ -68,6 +71,6 @@ Rails.application.routes.draw do
     resources :preferencias, only: :index
     resources :avaliacoes_fisicas, only: :index
     resources :assinaturas, only: [:index]
-    get "assinatura/inativa", to: "assinaturas#inativa"
+    get "assinaturas/inativa", to: "assinaturas#inativa"
   end
 end

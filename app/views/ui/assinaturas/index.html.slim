@@ -1,6 +1,6 @@
 - provide :head_tags do
 	meta name='turbolinks-visit-control' content='reload'
-	script src="https://secure.mlstatic.com/sdk/javascript/v1/mercadopago.js"
+	/script src="https://secure.mlstatic.com/sdk/javascript/v1/mercadopago.js"
 	
 = render './ui/components/sidebar', dados: @sidebar_items
 
@@ -10,3 +10,7 @@
 			h3 Assinaturas
 
 		.divider-content
+			form action="" method="GET"
+				script src="https://www.mercadopago.com.br/integrations/v1/web-payment-checkout.js" data-preference-id="#{@preference_id}"
+
+/  Parameters: {"preference_id"=>"213337266-749feb8f-046b-4752-8a36-e55ad85701dc", "external_reference"=>"", "back_url"=>"", "payment_id"=>"27529167", "payment_status"=>"approved", "payment_status_detail"=>"accredited", "merchant_order_id"=>"1556803357", "processing_mode"=>"aggregator", "merchant_account_id"=>""}

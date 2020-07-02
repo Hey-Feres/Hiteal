@@ -24,7 +24,7 @@ class Gym < ApplicationRecord
 		User.find(self.created_by.id).update(gym_id: self.id)
 	end
 
-	def self.iniciarPeriodoTeste
+	def iniciarPeriodoTeste
 		if Gym.all.count <= 6
 			PeriodoTeste.create!(vencimento: DateTime.now + 1.year, gym_id: self.id)
 		else

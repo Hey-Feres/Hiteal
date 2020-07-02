@@ -1,0 +1,33 @@
+.box-signup
+    = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+        h1.thin.text-center.mt-10 Junte-se
+        = render "devise/shared/error_messages", resource: resource
+        center
+            .mt-10
+            = f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "Email"
+            .mt-7
+            = f.password_field :password, autocomplete: "new-password", placeholder: "Senha"
+            .mt-7
+            = f.password_field :password_confirmation, autocomplete: "new-password", placeholder: "Confirme sua Senha"
+        .actions.mt-10
+            center
+                = f.submit "Cadastrar"
+        .mt-5.mb-10
+            = render "devise/shared/links"
+
+css:
+    .box-signup {
+        position: fixed;
+        background: white;
+        width: 25%;
+        height: auto;
+        border-radius: 5%;
+        margin: 10% 37.5%;
+    }
+    input[type="submit"]{
+        border: none;
+        background: var(--blue);
+        color: white;
+        padding: 2% 10%;
+        border-radius: 8px;
+    }

@@ -42,6 +42,13 @@
 					.home-box-body
 						p Contato conosco
 						p.button#displaySuporteScreen Contato
+				// Home Box  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .
+				.home-box.ml-2.mr-2
+					.home-box-header
+						h4 Período de Teste
+					.home-box-body
+						p= "Restam #{((PeriodoTeste.last.vencimento - DateTime.now) / 86400).to_i} dias de teste" 
+						p.button#displaySuporteScreen Contato						
 	// Suporte Bar  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .
 	#Suporte
 		.d-flex.justify-content-between.ml-3.mr-1.mb-5
@@ -66,7 +73,6 @@
 		.divider-content
 			h3.thin.mb-2 Destaques
 			.row#row-destaques
-
 			h3.thin.mb-2 Todas
 			.row#row-sugestoes
 

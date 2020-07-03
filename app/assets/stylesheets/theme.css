@@ -224,3 +224,14 @@ label{
   text-align: center;
   color: var(--gray2);
 }
+.bg-blue{background-color:var(--blue)}.bg-dark{background-color:var(--dark)}.bg-green{background-color:var(--green)}
+.bg-indigo{background-color:var(--indigo)}.bg-orange{background-color:var(--orange)}.bg-pink{background-color:var(--pink)}
+.bg-purple{background-color:var(--purple)}.bg-red{background-color:var(--red)}.bg-dark{background-color:var(--dark)}
+.bg-teal{background-color:var(--teal)}.bg-yellow{background-color:var(--yellow)}.bg-gray{background-color:var(--gray)}
+.bg-gray2{background-color:var(--gray2)}.bg-gray3{background-color:var(--gray3)}.bg-gray4{background-color:var(--gray4)}
+.bg-gray5{background-color:var(--gray5)}.bg-gray6{background-color:var(--gray6)}
+.text-blue{color:var(--blue)}.text-dark{color:var(--dark)}.text-green{color:var(--green)}.text-indigo{color:var(--indigo)}
+.text-orange{color:var(--orange)}.text-pink{color:var(--pink)}.text-purple{color:var(--purple)}.text-red{color:var(--red)}
+.text-dark{color:var(--dark)}.text-teal{color:var(--teal)}.text-yellow{color:var(--yellow)}.text-gray{color:var(--gray)}
+.text-gray2{color:var(--gray2)}.text-gray3{color:var(--gray3)}.text-gray4{color:var(--gray4)}.text-gray5{color:var(--gray5)}
+.text-gray6{color:var(--gray6)}

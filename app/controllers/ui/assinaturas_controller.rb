@@ -1,5 +1,5 @@
 class Ui::AssinaturasController < ApplicationController
-	before_action :check_assinatura
+	before_action :check_assinatura, only: :index
 	before_action :set_preference
 
 	def index

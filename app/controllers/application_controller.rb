@@ -8,16 +8,14 @@ class ApplicationController < ActionController::Base
 
 	private
 		def check_assinatura
-			if current_user.gym.present?
+			assinatura_vencida_redirect = false
+			if current_user.gym.present? # Se o user tiver vinculado a uma academia
 				gym = Gym.find(current_user.gym.id)
-				hoje = DateTime.now
-				vencimento_assinatura = gym.assinatura.nil? ? "" : gym.assinatura.vencimento
-				vencimento_periodo_teste = gym.periodo_teste.vencimento
-				# Se o periodo de teste estiver vencido
-				if hoje > vencimento_periodo_teste
-					# Se a assinatura estiver vencida
-					if hoje > vencimento_assinatura
-						redirect_to ui_assinaturas_inativa_url
+				if DateTime.now > gym.periodo_teste.vencimento # Se o periodo de teste estiver vencido
+					if gym.assinatura.nil? # Se a gym nao tiver assinatura
+						redirect_to ui_assinaturas_inativa_path and return
+					elsif DateTime.now > gym.assinatura.vencimento # Se a assinatura estiver vencida
+						redirect_to ui_assinaturas_inativa_path and return
 					end
 				end
 			end

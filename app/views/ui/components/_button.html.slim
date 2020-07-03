@@ -2,67 +2,39 @@
 	button type="#{type}" id="#{id}" class="#{style}"= value
 
 css:
-	.default{
-		width: 25%;
-		background: var(--blue);
+	button{
 		border: none;
+		width: 20%;
+		margin: 3% 0;
+		border-radius: 7px;
 		color: white;
-		border-radius: 10px;
-		padding: .8% 0;
+		height: 40px;
 	}
-	.default:hover{
-		opacity: 95%;
-	}
-	.default-red{
-		width: 25%;
-		background: var(--red);
-		border: none;
-		color: white;
-		border-radius: 10px;
-		padding: .8% 0;
-	}
-	.default-red:hover{
-		opacity: 95%;
-	}
-	.blue{
-		width: auto;
-		background: transparent;
-		border: none;
-		color: var(--blue);
-		padding: .8% 0;
-	}
-	.blue:hover{ 
-		color: var(--dark-blue) 
-	}	
-	.red{
-		width: auto;
-		background: transparent;
-		border: none;
-		color: var(--red);
-		padding: .8% 0;
-	}
-	.red:hover{ 
-		color: var(--dark-red) 
-	}	
+	.default{ background: var(--blue) }
+	.default:hover{ opacity: 95% }
+	
+	.default-red{ background: var(--red) }
+	.default-red:hover{ opacity: 95% }
+	
+	.blue{color: var(--blue) }
+	.blue:hover{ color: var(--dark-blue) }
+	
+	.red{ color: var(--red) }
+	.red:hover{ color: var(--dark-red) }
+	
 	.outline-blue{
-		width: 25%;
 		background: transparent;
 		border: 1px solid var(--blue);
 		color: var(--blue);
-		padding: .8% 0;
-		border-radius: 10px;
 	}
 	.outline-blue:hover{
 		background: var(--blue);
 		color: white;
 	}
 	.outline-red{
-		width: 25%;
 		background: transparent;
 		border: 1px solid var(--red);
 		color: var(--red);
-		padding: .8% 0;
-		border-radius: 10px;
 	}
 	.outline-red:hover{
 		background: var(--red);

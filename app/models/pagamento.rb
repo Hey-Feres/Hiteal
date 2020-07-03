@@ -15,10 +15,6 @@ class Pagamento < ApplicationRecord
 		   	"items": [{ "title": "Assinatura Hiteal", "unit_price": valor, "quantity": 1 }],
 			"payer": { "email": user_email },
 			"payment_methods": { "excluded_payment_types": [ { "id": "ticket" } ] },
-			"back_urls": {
-            	"success": "assinatura/pagamento_sucesso",
-            	"failure": "assinatura/pagamento_erro",
-			},
 			"binary_mode": true
 		}
 		# Criando a cobrança na API do Mercado Pago

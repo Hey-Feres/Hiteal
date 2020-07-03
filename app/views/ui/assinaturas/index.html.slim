@@ -9,8 +9,16 @@
 			h3 Sua Assinatura
 
 		.divider-content
-			form action="" method="GET"
-				script src="https://www.mercadopago.com.br/integrations/v1/web-payment-checkout.js" data-preference-id="#{@preference_id}"
+			- if DateTime.now < current_user.gym.periodo_teste.vencimento
+				p.obs Free Trial
+			- elsif DateTime.now < current_user.gym.assinatura.vencimento
+				p.obs= "Assinatura vence dia #{current_user.gym.assinatura.vencimento.strftime("%d")}"
+			- else
+				form action="" method="GET"
+					- if current_user.gym.alunos.count > 0
+						script src="https://www.mercadopago.com.br/integrations/v1/web-payment-checkout.js" data-preference-id="#{@preference_id}" data-header-color="#333333"data-elements-color="#333333"
+					- else
+						.mt-15
+							p.obs Você ainda não cadastrou alunos. 
+							p.obs A assinatura é cobrada por numero de alunos. 
 
-
-/  Parameters: {"preference_id"=>"213337266-749feb8f-046b-4752-8a36-e55ad85701dc", "external_reference"=>"", "back_url"=>"", "payment_id"=>"27529167", "payment_status"=>"approved", "payment_status_detail"=>"accredited", "merchant_order_id"=>"1556803357", "processing_mode"=>"aggregator", "merchant_account_id"=>""}

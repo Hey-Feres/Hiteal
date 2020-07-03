@@ -16,8 +16,8 @@ class Pagamento < ApplicationRecord
 			"payer": { "email": user_email },
 			"payment_methods": { "excluded_payment_types": [ { "id": "ticket" } ] },
 			"back_urls": {
-            	"success": "#{root}assinatura/pagamento_sucesso",
-            	"failure": "#{root}assinatura/pagamento_erro",
+            	"success": "assinatura/pagamento_sucesso",
+            	"failure": "assinatura/pagamento_erro",
 			},
 			"binary_mode": true
 		}

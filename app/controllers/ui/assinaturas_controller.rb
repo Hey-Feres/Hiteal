@@ -16,18 +16,15 @@ class Ui::AssinaturasController < ApplicationController
 	def inativa
 	end
 
+	def whatToDisplay
+		if DateTime.now < current_user.gym.periodo_teste.vencimento # Ve se o periodo de teste ta ativo
+			#.html_content
+		end
+	end
+
 	private
 		def set_preference
-	    	begin
-	    		@preference_id = Pagamento.preference(current_user.email, current_user.gym.alunos.count, root_url)
-			rescue => erro
-			    retries += 1
-			    if retries < 3
-			        retry
-			    else
-			        return erro
-			    end
-			end
+	    	@preference_id = Pagamento.preference(current_user.email, current_user.gym.alunos.count, root_url)
 		end
 end
 

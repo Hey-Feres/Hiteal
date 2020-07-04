@@ -22,4 +22,8 @@ class Pagamento < ApplicationRecord
 		preference_id = preference["response"]["id"]
 		return preference_id
 	end
+
+	def self.registrar dados
+		Pagamento.create!(gym_id: dados[:gym_id], status: dados[:status], valor: dados[:valor], mp_pagamento_id: dados[:mp_pagamento_id], mp_order_id: dados[:mp_order_id])
+	end
 end

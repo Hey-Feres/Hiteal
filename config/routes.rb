@@ -52,6 +52,8 @@ Rails.application.routes.draw do
       get 'minhas_aulas/:id', to: "alunos#aulas"
       post 'presenca/aula', to: "aulas#confirmar_presenca"
       delete 'presenca/aula/:aula_presenca_id', to: "aulas#cancelar_presenca"
+      # 
+      post 'app/alunos/auth', to: "alunos#auth"
     end
   end
 

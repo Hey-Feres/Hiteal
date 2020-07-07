@@ -1,5 +1,5 @@
 class Api::V1::AlunosController < ApplicationController
-	before_action :set_aluno, except: [:create, :index, :search]
+	before_action :set_aluno, only: [ :show, :update, :destroy, :aulas ]
 
 	def index
 		@alunos = Aluno.paginate(params[:page],params[:gym_id])

@@ -5,6 +5,7 @@ class Aluno < ApplicationRecord
   belongs_to :plano
   
   alias_attribute :avaliacoes_fisicas, :avaliacao_fisicas
+  alias_attribute :token, :access_token
 
   has_many :aula_presencas, dependent: :destroy
   has_many :fichas, dependent: :destroy
@@ -36,4 +37,22 @@ private
   def gerarAcessToken
   	self.access_token = random_string = SecureRandom.hex
   end
+
+  def self.auth dados
+    result = { autorizado: true, msg: "Auth Ok" }
+    aluno = Aluno.where(dados[:email]).last
+    if aluno.nil?
+      result = { autorizado: false, msg: "Aluno não encontrado" }
+      return result
+    elsif aluno.senha.nil?
+      result = { autorizado: false, msg: "Conta pendente. Ative-a em seu email" }
+      return result
+    elsif aluno.senha != dados[:senha]
+      result = { autorizado: false, msg: "Senha Incorreta" }
+      return result
+    else
+      return result
+    end
+  end
+
 end

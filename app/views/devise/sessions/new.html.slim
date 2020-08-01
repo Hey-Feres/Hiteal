@@ -1,8 +1,8 @@
 = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
   .body-wrap.d-flex.justify-content-center
-    .box.blurredBg
+    .box
       .wrap1
-        h2.text-white.text-center Log in
+        h2.text-center Log in
       .wrap2
         .field
           = f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "Email"
@@ -40,7 +40,7 @@ css:
   .box{
     width: 25%;
     border-radius: 20px;
-    background: rgba(255,255,255,0.2);
+    background: rgba(255,255,255,1);
     height: 430px;
   }
   .wrap1{
@@ -72,19 +72,19 @@ css:
   }*/
   a{
     border: none;
-    background: rgba(217,217,217,0.1) !important;
+    background: #ccc !important;
     width: 90%;
     margin: 0 5% 0 5%;
     padding: 2% 0;
     border-radius: 10px;
-    color: #fff;
+    color: #777;
     font-weight: 300;
     text-align: center;
   }
   a:hover{
     background: rgba(217,217,217,0.2) !important;
     text-decoration: none;
-    color: white;
+    color: #777;
   }
   input[type="email"],input[type="password"]{
     border: none;
@@ -92,14 +92,12 @@ css:
     width: 90%;
     margin: 0 5% 10% 5%;
     padding: 2% 0 1% 0;
-    border-bottom: 1px solid rgba(217,217,217,0.4) !important;
-    color: white;
+    border-bottom: 1px solid #ccc !important;
     font-weight: 300;
     border-radius: 0;
   }
   input[type="submit"]{
     border: none;
-    /*background: rgba(217,217,217,0.1) !important;*/
     background: var(--blue);
     width: 90%;
     margin: 0 5% 0 5%;
@@ -109,13 +107,12 @@ css:
     font-weight: 300;
   }
   input[type="submit"]:hover{
-    box-shadow: 1px 2px 10px 1px rgba(0,0,0,0.1);
+    opacity: 90%
   }
   input[type="email"]:focus, input[type="password"]:focus{
     background: rgba(217,217,217,0.1) !important;
   }
   ::placeholder{
-    color: rgba(255,255,255,0.8);
     font-weight: 200;
   }
   

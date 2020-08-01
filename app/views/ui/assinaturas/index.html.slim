@@ -9,9 +9,9 @@
 			h3 Sua Assinatura
 
 		.divider-content
-			- if DateTime.now < current_user.gym.periodo_teste.vencimento
+			- if DateTime.now > current_user.gym.periodo_teste.vencimento
 				p.obs Free Trial
-			- elsif DateTime.now < current_user.gym.assinatura.vencimento
+			- elsif DateTime.now > current_user.gym.assinatura.vencimento
 				p.obs= "Assinatura vence dia #{current_user.gym.assinatura.vencimento.strftime("%d")}"
 			- else
 				form action="" method="GET"
